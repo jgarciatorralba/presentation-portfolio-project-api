@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:alpine
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - 6432:5432
+    networks:
+      - app
+
+  php:
+    build:
+      context: ./php
+      args:
+        TIMEZONE: ${TIMEZONE}
+    volumes:
+      - ../:/var/www/portfolio-api:cached
+      - app_var:/var/www/portfolio-api/var
+      - app_vendor:/var/www/portfolio-api/vendor
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - app
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - ../:/var/www/portfolio-api:cached
+      - app_var:/var/www/portfolio-api/var
+      - app_vendor:/var/www/portfolio-api/vendor
+    environment:
+      NGINX_BACKEND_DOMAIN: ${NGINX_BACKEND_DOMAIN}
+      NGINX_PUBLIC_FOLDER_PATH: ${NGINX_PUBLIC_FOLDER_PATH}
+    ports:
+      - 8000:80
+    networks:
+      - app
+
+volumes:
+  app_var:
+  app_vendor:
+  pgdata:
+
+networks:
+  app:
