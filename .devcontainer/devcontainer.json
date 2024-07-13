@@ -1,0 +1,21 @@
+{
+  "name": "Portfolio Project - API",
+  "dockerComposeFile": ["../.docker/docker-compose.yml"],
+  "service": "php",
+  "workspaceFolder": "/var/www/portfolio-api",
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "junstyle.php-cs-fixer",
+        "editorconfig.editorconfig",
+        "swordev.phpstan",
+        "obliviousharmony.vscode-php-codesniffer"
+      ]
+    }
+  }
+}
