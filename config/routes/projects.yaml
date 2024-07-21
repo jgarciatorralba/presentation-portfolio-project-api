@@ -1,0 +1,4 @@
+projects_get:
+  path: /projects
+  controller: App\UI\Controller\Projects\GetProjectsController
+  methods: GET
