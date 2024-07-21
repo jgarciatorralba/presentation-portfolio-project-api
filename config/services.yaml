@@ -9,3 +9,24 @@ services:
     resource: '../src/'
     exclude:
       - '../src/Kernel.php'
+
+  App\UI\Controller\:
+    resource: "../src/UI/Controller/"
+    tags: ["controller.service_arguments"]
+
+  App\UI\Subscriber\ApiExceptionListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.exception }
+
+  _instanceof:
+    App\Shared\Domain\Bus\Query\QueryHandler:
+      tags: [{ name: messenger.message_handler, bus: query.bus }]
+
+    App\Shared\Domain\Bus\Command\CommandHandler:
+      tags: [{ name: messenger.message_handler, bus: command.bus }]
+
+    App\Shared\Domain\Bus\Event\EventSubscriber:
+      tags: [messenger.message_handler]
+
+  App\Shared\Domain\Bus\Event\EventBus:
+    class: App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus

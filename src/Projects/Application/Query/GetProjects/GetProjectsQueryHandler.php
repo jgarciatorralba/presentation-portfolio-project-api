@@ -6,7 +6,7 @@ namespace App\Projects\Application\Query\GetProjects;
 
 use App\Shared\Domain\Bus\Query\QueryHandler;
 
-final class GetTranslationsQueryHandler implements QueryHandler
+final class GetProjectsQueryHandler implements QueryHandler
 {
     public function __construct()
     {
@@ -14,7 +14,9 @@ final class GetTranslationsQueryHandler implements QueryHandler
 
     public function __invoke(GetProjectsQuery $query): GetProjectsResponse
     {
-        $projects = ['test' => 'Hello World!'];
+        $projects = [
+            ['test' => 'Hello World!']
+        ];
 
         return new GetProjectsResponse([
             'projects' => $projects,
