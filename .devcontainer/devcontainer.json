@@ -21,7 +21,8 @@
         "junstyle.php-cs-fixer",
         "editorconfig.editorconfig",
         "swordev.phpstan",
-        "obliviousharmony.vscode-php-codesniffer"
+        "obliviousharmony.vscode-php-codesniffer",
+        "ecodes.vscode-phpmd"
       ]
     }
   }
