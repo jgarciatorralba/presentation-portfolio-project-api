@@ -1,0 +1,42 @@
+<doctrine-mapping
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+>
+    <entity
+        name="App\Projects\Domain\Project"
+        table="projects"
+    >
+        <id name="id" type="uuid" column="id" />
+        <field name="githubId" type="bigint" column="github_id" unique="true" />
+        <field name="name" type="string" column="name" length="255" />
+        <field name="description" type="text" column="description" nullable="true">
+            <options>
+                <option name="default">null</option>
+            </options>
+        </field>
+        <field name="repoUrl" type="text" column="repo_url" />
+        <field name="homepage" type="text" column="homepage" nullable="true">
+            <options>
+                <option name="default">null</option>
+            </options>
+        </field>
+        <field name="topics" type="simple_array" column="topics" nullable="true">
+            <options>
+                <option name="default">null</option>
+            </options>
+        </field>
+        <field name="archived" type="boolean" column="archived">
+            <options>
+                <option name="default">false</option>
+            </options>
+        </field>
+        <field name="lastPushed" type="datetime_immutable" column="last_pushed" />
+        <field name="createdAt" type="datetime_immutable" column="created_at" />
+        <field name="updatedAt" type="datetime_immutable" column="updated_at" />
+        <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true">
+            <options>
+                <option name="default">null</option>
+            </options>
+        </field>
+    </entity>
+</doctrine-mapping>

@@ -11,8 +11,10 @@ doctrine:
         server_version: "%env(resolve:DATABASE_SERVER_VERSION)%"
         charset: "%env(resolve:DATABASE_CHARSET)%"
         driver: "%env(resolve:DATABASE_DRIVER)%"
-        profiling_collect_backtrace: '%kernel.debug%'
+        profiling_collect_backtrace: "%kernel.debug%"
         use_savepoints: true
+    types:
+      uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
 
   orm:
     auto_generate_proxy_classes: true
@@ -22,19 +24,25 @@ doctrine:
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     auto_mapping: true
     mappings:
+      Projects:
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Projects/Infrastructure/Persistence/Doctrine/mappings"
+        prefix: 'App\Projects\Domain'
+        alias: App\Projects\Domain
+        type: xml
     controller_resolver:
       auto_mapping: false
 
 when@test:
   doctrine:
     dbal:
-      dbname_suffix: '_test%env(default::TEST_TOKEN)%'
+      dbname_suffix: "_test"
 
 when@prod:
   doctrine:
     orm:
       auto_generate_proxy_classes: false
-      proxy_dir: '%kernel.build_dir%/doctrine/orm/Proxies'
+      proxy_dir: "%kernel.build_dir%/doctrine/orm/Proxies"
       query_cache_driver:
         type: pool
         pool: doctrine.system_cache_pool
