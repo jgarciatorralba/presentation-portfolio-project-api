@@ -24,3 +24,7 @@ phpstan.neon
 /.phpcs-cache
 /phpcs.xml
 ###< squizlabs/php_codesniffer ###
+
+###> phpmd/phpmd ###
+phpmd.results.xml
+###< phpmd/phpmd ###
