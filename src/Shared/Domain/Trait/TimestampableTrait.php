@@ -17,24 +17,24 @@ trait TimestampableTrait
         return $this->createdAt;
     }
 
-    public function updatedAt(): DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
-    public function deletedAt(): ?DateTimeImmutable
-    {
-        return $this->deletedAt;
-    }
-
     public function updateCreatedAt(DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
     }
 
+    public function updatedAt(): DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
     public function updateUpdatedAt(DateTimeImmutable $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    public function deletedAt(): ?DateTimeImmutable
+    {
+        return $this->deletedAt;
     }
 
     public function updateDeletedAt(?DateTimeImmutable $deletedAt): void

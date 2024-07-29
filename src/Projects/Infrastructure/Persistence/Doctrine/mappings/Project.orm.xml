@@ -6,8 +6,7 @@
         name="App\Projects\Domain\Project"
         table="projects"
     >
-        <id name="id" type="uuid" column="id" />
-        <field name="githubId" type="bigint" column="github_id" unique="true" />
+        <id name="id" type="bigint" column="id" />
         <field name="name" type="string" column="name" length="255" />
         <field name="description" type="text" column="description" nullable="true">
             <options>
