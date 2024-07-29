@@ -13,8 +13,6 @@ doctrine:
         driver: "%env(resolve:DATABASE_DRIVER)%"
         profiling_collect_backtrace: "%kernel.debug%"
         use_savepoints: true
-    types:
-      uuid: App\Shared\Infrastructure\Persistence\Doctrine\Type\UuidType
 
   orm:
     auto_generate_proxy_classes: true
