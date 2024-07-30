@@ -28,6 +28,18 @@ doctrine:
         prefix: 'App\Projects\Domain'
         alias: App\Projects\Domain
         type: xml
+      ProjectDetails:
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Projects/Infrastructure/Persistence/Doctrine/mappings"
+        prefix: 'App\Projects\Domain'
+        alias: App\Projects\Domain
+        type: xml
+      ProjectUrls:
+        is_bundle: false
+        dir: "%kernel.project_dir%/src/Projects/Infrastructure/Persistence/Doctrine/mappings"
+        prefix: 'App\Projects\Domain'
+        alias: App\Projects\Domain
+        type: xml
     filters:
       softdeleteable:
         class: App\Shared\Infrastructure\Persistence\Doctrine\Filter\SoftDeleteableFilter

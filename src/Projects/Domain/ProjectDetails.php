@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Domain\ValueObject;
+namespace App\Projects\Domain;
 
 final class ProjectDetails
 {

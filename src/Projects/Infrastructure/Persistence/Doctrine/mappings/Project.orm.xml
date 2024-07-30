@@ -7,23 +7,8 @@
         table="projects"
     >
         <id name="id" type="bigint" column="id" />
-        <field name="name" type="string" column="name" length="255" />
-        <field name="description" type="text" column="description" nullable="true">
-            <options>
-                <option name="default">null</option>
-            </options>
-        </field>
-        <field name="topics" type="simple_array" column="topics" nullable="true">
-            <options>
-                <option name="default">null</option>
-            </options>
-        </field>
-        <field name="repository" type="text" column="repository" />
-        <field name="homepage" type="text" column="homepage" nullable="true">
-            <options>
-                <option name="default">null</option>
-            </options>
-        </field>
+        <embedded name="details" class="App\Projects\Domain\ProjectDetails" use-column-prefix="false" />
+        <embedded name="urls" class="App\Projects\Domain\ProjectUrls" use-column-prefix="false" />
         <field name="archived" type="boolean" column="archived">
             <options>
                 <option name="default">false</option>
@@ -33,9 +18,6 @@
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true">
-            <options>
-                <option name="default">null</option>
-            </options>
         </field>
     </entity>
 </doctrine-mapping>
