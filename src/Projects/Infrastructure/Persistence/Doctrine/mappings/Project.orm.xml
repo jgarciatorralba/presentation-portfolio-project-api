@@ -13,13 +13,13 @@
                 <option name="default">null</option>
             </options>
         </field>
-        <field name="repoUrl" type="text" column="repo_url" />
-        <field name="homepage" type="text" column="homepage" nullable="true">
+        <field name="topics" type="simple_array" column="topics" nullable="true">
             <options>
                 <option name="default">null</option>
             </options>
         </field>
-        <field name="topics" type="simple_array" column="topics" nullable="true">
+        <field name="repository" type="text" column="repository" />
+        <field name="homepage" type="text" column="homepage" nullable="true">
             <options>
                 <option name="default">null</option>
             </options>

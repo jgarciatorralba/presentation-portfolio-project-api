@@ -7,29 +7,29 @@ namespace App\Projects\Domain\ValueObject;
 final class ProjectUrls
 {
     private function __construct(
-        private string $repoUrl,
+        private string $repository,
         private ?string $homepage,
     ) {
     }
 
     public static function create(
-        string $repoUrl,
+        string $repository,
         ?string $homepage,
     ): self {
         return new self(
-            repoUrl: $repoUrl,
+            repository: $repository,
             homepage: $homepage,
         );
     }
 
-    public function repoUrl(): string
+    public function repository(): string
     {
-        return $this->repoUrl;
+        return $this->repository;
     }
 
-    public function updateRepoUrl(string $repoUrl): void
+    public function updateRepository(string $repository): void
     {
-        $this->repoUrl = $repoUrl;
+        $this->repository = $repository;
     }
 
     public function homepage(): ?string
