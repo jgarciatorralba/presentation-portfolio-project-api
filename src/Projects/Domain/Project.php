@@ -71,6 +71,16 @@ class Project extends AggregateRoot
         $this->archived = $archived;
     }
 
+    public function lastPushed(): DateTimeImmutable
+    {
+        return $this->lastPushed;
+    }
+
+    public function updateLastPushed(DateTimeImmutable $lastPushed): void
+    {
+        $this->lastPushed = $lastPushed;
+    }
+
     /** @return array{
      *    id: int,
      *    name: string,
