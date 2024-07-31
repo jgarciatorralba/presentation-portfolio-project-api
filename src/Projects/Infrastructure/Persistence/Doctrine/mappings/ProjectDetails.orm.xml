@@ -4,9 +4,7 @@
 >
     <embeddable name="App\Projects\Domain\ProjectDetails">
         <field name="name" type="string" column="name" length="255" />
-        <field name="description" type="text" column="description" nullable="true">
-        </field>
-        <field name="topics" type="simple_array" column="topics" nullable="true">
-        </field>
+        <field name="description" type="text" column="description" nullable="true" />
+        <field name="topics" type="simple_array" column="topics" nullable="true" />
     </embeddable>
 </doctrine-mapping>

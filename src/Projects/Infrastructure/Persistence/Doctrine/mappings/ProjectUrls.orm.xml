@@ -4,7 +4,6 @@
 >
     <embeddable name="App\Projects\Domain\ProjectUrls">
         <field name="repository" type="text" column="repository" />
-        <field name="homepage" type="text" column="homepage" nullable="true">
-        </field>
+        <field name="homepage" type="text" column="homepage" nullable="true" />
     </embeddable>
 </doctrine-mapping>
