@@ -16,6 +16,11 @@
 .phpunit.result.cache
 ###< phpunit/phpunit ###
 
+###> phpunit/php-code-coverage ###
+coverage.txt
+html-coverage/
+###< phpunit/php-code-coverage ###
+
 ###> phpstan/phpstan ###
 phpstan.neon
 ###< phpstan/phpstan ###

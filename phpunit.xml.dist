@@ -23,13 +23,18 @@
         </testsuite>
     </testsuites>
 
+    <coverage includeUncoveredFiles="true">
+        <report>
+            <html outputDirectory="html-coverage" lowUpperBound="50" highLowerBound="90"/>
+            <text outputFile="coverage.txt" showUncoveredFiles="false" showOnlySummary="true"/>
+        </report>
+    </coverage>
+
     <source>
         <include>
             <directory suffix=".php">src</directory>
         </include>
     </source>
-
-    <coverage />
 
     <extensions>
         <bootstrap class="DG\BypassFinals\PHPUnitExtension"/>
