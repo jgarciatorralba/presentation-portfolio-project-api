@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ProjectTest extends TestCase
 {
-    public function testProjectCanBeCreated(): void
+    public function testProjectIsCreated(): void
     {
         $projectCreated = ProjectFactory::create();
 
