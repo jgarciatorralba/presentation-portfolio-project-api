@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProjectDetailsTest extends TestCase
 {
-    public function testProjectDetailsIsCreated(): void
+    public function testProjectDetailsAreCreated(): void
     {
         $projectDetailsCreated = ProjectDetailsFactory::create();
 
