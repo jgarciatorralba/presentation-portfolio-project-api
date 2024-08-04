@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain;
 
 use App\Projects\Domain\Project;
+use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectTest extends TestCase

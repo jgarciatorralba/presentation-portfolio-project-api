@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain;
+namespace App\Tests\Unit\Projects\Domain\Factory;
 
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ProjectDetails;
