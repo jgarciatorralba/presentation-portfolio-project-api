@@ -14,6 +14,8 @@ interface ProjectRepository
 
     public function update(Project $project): void;
 
+    public function delete(Project $project): void;
+
     public function softDelete(Project $project): void;
 
     public function find(Uuid $id): Project|null;
