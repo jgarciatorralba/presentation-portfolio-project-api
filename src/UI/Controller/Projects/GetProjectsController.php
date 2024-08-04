@@ -24,6 +24,7 @@ final class GetProjectsController extends BaseController
                 maxCreatedAt: $maxCreatedAt
             )
         );
+
         return new JsonResponse($response->data(), Response::HTTP_OK);
     }
 }
