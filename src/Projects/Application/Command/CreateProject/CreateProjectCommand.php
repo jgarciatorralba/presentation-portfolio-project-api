@@ -20,7 +20,7 @@ final class CreateProjectCommand implements Command
         private readonly string $repository,
         private readonly ?string $homepage,
         private readonly bool $archived,
-        private readonly DateTimeImmutable $lastPushed,
+        private readonly DateTimeImmutable $lastPushedAt,
         private readonly DateTimeImmutable $createdAt
     ) {
     }
@@ -63,9 +63,9 @@ final class CreateProjectCommand implements Command
         return $this->archived;
     }
 
-    public function lastPushed(): DateTimeImmutable
+    public function lastPushedAt(): DateTimeImmutable
     {
-        return $this->lastPushed;
+        return $this->lastPushedAt;
     }
 
     public function createdAt(): DateTimeImmutable

@@ -14,8 +14,8 @@ final class ProjectUrlsFactory
         ?string $homepage = null,
     ): ProjectUrls {
         return ProjectUrls::create(
-            $repository ?? FakeValueGenerator::text(),
-            $homepage ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
+            repository: $repository ?? FakeValueGenerator::text(),
+            homepage: $homepage ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
         );
     }
 }

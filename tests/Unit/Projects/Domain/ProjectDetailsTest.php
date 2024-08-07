@@ -15,9 +15,9 @@ class ProjectDetailsTest extends TestCase
         $projectDetailsCreated = ProjectDetailsFactory::create();
 
         $projectDetailsAsserted = ProjectDetails::create(
-            $projectDetailsCreated->name(),
-            $projectDetailsCreated->description(),
-            $projectDetailsCreated->topics()
+            name: $projectDetailsCreated->name(),
+            description: $projectDetailsCreated->description(),
+            topics: $projectDetailsCreated->topics()
         );
 
         $this->assertEquals($projectDetailsCreated, $projectDetailsAsserted);

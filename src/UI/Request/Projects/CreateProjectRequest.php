@@ -53,7 +53,7 @@ final class CreateProjectRequest extends AbstractRequest
                 new Assert\NotBlank(),
                 new Assert\Type('boolean'),
             ]),
-            'lastPushed' => new Assert\Required([
+            'lastPushedAt' => new Assert\Required([
                 new Assert\NotBlank(),
                 new Assert\DateTime([
                     'format' => DateTimeInterface::ATOM

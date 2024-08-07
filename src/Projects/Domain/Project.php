@@ -18,7 +18,7 @@ class Project extends AggregateRoot
         private ProjectDetails $details,
         private ProjectUrls $urls,
         private bool $archived,
-        private DateTimeImmutable $lastPushed,
+        private DateTimeImmutable $lastPushedAt,
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt,
     ) {
@@ -31,7 +31,7 @@ class Project extends AggregateRoot
         ProjectDetails $details,
         ProjectUrls $urls,
         bool $archived,
-        DateTimeImmutable $lastPushed,
+        DateTimeImmutable $lastPushedAt,
         DateTimeImmutable $createdAt,
         DateTimeImmutable $updatedAt,
     ): self {
@@ -40,7 +40,7 @@ class Project extends AggregateRoot
             details: $details,
             urls: $urls,
             archived: $archived,
-            lastPushed: $lastPushed,
+            lastPushedAt: $lastPushedAt,
             createdAt: $createdAt,
             updatedAt: $updatedAt
         );
@@ -71,14 +71,14 @@ class Project extends AggregateRoot
         $this->archived = $archived;
     }
 
-    public function lastPushed(): DateTimeImmutable
+    public function lastPushedAt(): DateTimeImmutable
     {
-        return $this->lastPushed;
+        return $this->lastPushedAt;
     }
 
-    public function updateLastPushed(DateTimeImmutable $lastPushed): void
+    public function updateLastPushedAt(DateTimeImmutable $lastPushedAt): void
     {
-        $this->lastPushed = $lastPushed;
+        $this->lastPushedAt = $lastPushedAt;
     }
 
     /** @return array{
@@ -89,7 +89,7 @@ class Project extends AggregateRoot
      *    homepage: string|null,
      *    topics: string[]|null,
      *    archived: bool,
-     *    lastPushed: string,
+     *    lastPushedAt: string,
      *    createdAt: string
      *  }
      */
@@ -103,7 +103,7 @@ class Project extends AggregateRoot
             'repository' => $this->urls()->repository(),
             'homepage' => $this->urls()->homepage(),
             'archived' => $this->archived,
-            'lastPushed' => Utils::dateToString($this->lastPushed),
+            'lastPushedAt' => Utils::dateToString($this->lastPushedAt),
             'createdAt' => Utils::dateToString($this->createdAt)
         ];
     }

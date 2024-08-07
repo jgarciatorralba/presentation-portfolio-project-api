@@ -15,8 +15,8 @@ class ProjectUrlsTest extends TestCase
         $projectUrlsCreated = ProjectUrlsFactory::create();
 
         $projectUrlsAsserted = ProjectUrls::create(
-            $projectUrlsCreated->repository(),
-            $projectUrlsCreated->homepage()
+            repository: $projectUrlsCreated->repository(),
+            homepage: $projectUrlsCreated->homepage()
         );
 
         $this->assertEquals($projectUrlsCreated, $projectUrlsAsserted);

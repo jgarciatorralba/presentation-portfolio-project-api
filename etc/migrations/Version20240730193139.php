@@ -25,14 +25,14 @@ final class Version20240730193139 extends AbstractMigration
 				repository TEXT NOT NULL,
 				homepage TEXT DEFAULT NULL,
 				archived BOOLEAN DEFAULT false NOT NULL,
-				last_pushed TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
+				last_pushed_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
 				PRIMARY KEY(id)
 			)'
         );
-        $this->addSql('COMMENT ON COLUMN projects.last_pushed IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN projects.last_pushed_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN projects.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN projects.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN projects.deleted_at IS \'(DC2Type:datetime_immutable)\'');

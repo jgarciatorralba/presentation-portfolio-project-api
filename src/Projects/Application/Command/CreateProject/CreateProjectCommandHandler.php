@@ -36,7 +36,7 @@ final class CreateProjectCommandHandler implements CommandHandler
             details: $projectDetails,
             urls: $projectUrls,
             archived: $command->archived(),
-            lastPushed: $command->lastPushed(),
+            lastPushedAt: $command->lastPushedAt(),
             createdAt: $command->createdAt(),
             updatedAt: $command->createdAt()
         );

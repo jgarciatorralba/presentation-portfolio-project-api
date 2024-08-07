@@ -14,7 +14,7 @@
                 <option name="default">false</option>
             </options>
         </field>
-        <field name="lastPushed" type="datetime_immutable" column="last_pushed" />
+        <field name="lastPushedAt" type="datetime_immutable" column="last_pushed_at" />
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />

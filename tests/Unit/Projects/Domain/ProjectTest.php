@@ -15,13 +15,13 @@ final class ProjectTest extends TestCase
         $projectCreated = ProjectFactory::create();
 
         $projectAsserted = Project::create(
-            $projectCreated->id(),
-            $projectCreated->details(),
-            $projectCreated->urls(),
-            $projectCreated->archived(),
-            $projectCreated->lastPushed(),
-            $projectCreated->createdAt(),
-            $projectCreated->updatedAt()
+            id: $projectCreated->id(),
+            details: $projectCreated->details(),
+            urls: $projectCreated->urls(),
+            archived: $projectCreated->archived(),
+            lastPushedAt: $projectCreated->lastPushedAt(),
+            createdAt: $projectCreated->createdAt(),
+            updatedAt: $projectCreated->updatedAt()
         );
 
         $this->assertEquals($projectCreated, $projectAsserted);

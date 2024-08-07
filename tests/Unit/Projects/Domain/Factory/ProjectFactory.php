@@ -17,18 +17,18 @@ final class ProjectFactory
         ProjectDetails $details = null,
         ProjectUrls $urls = null,
         bool $archived = null,
-        DateTimeImmutable $lastPushed = null,
+        DateTimeImmutable $lastPushedAt = null,
         DateTimeImmutable $createdAt = null,
         DateTimeImmutable $updatedAt = null
     ): Project {
         return Project::create(
-            $id ?? FakeValueGenerator::integer(),
-            $details ?? ProjectDetailsFactory::create(),
-            $urls ?? ProjectUrlsFactory::create(),
-            $archived ?? FakeValueGenerator::boolean(),
-            $lastPushed ?? FakeValueGenerator::dateTime(),
-            $createdAt ?? FakeValueGenerator::dateTime(),
-            $updatedAt ?? FakeValueGenerator::dateTime()
+            id: $id ?? FakeValueGenerator::integer(),
+            details: $details ?? ProjectDetailsFactory::create(),
+            urls: $urls ?? ProjectUrlsFactory::create(),
+            archived: $archived ?? FakeValueGenerator::boolean(),
+            lastPushedAt: $lastPushedAt ?? FakeValueGenerator::dateTime(),
+            createdAt: $createdAt ?? FakeValueGenerator::dateTime(),
+            updatedAt: $updatedAt ?? FakeValueGenerator::dateTime()
         );
     }
 }

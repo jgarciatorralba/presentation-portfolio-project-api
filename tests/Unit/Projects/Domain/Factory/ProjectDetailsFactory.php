@@ -16,9 +16,9 @@ final class ProjectDetailsFactory
         ?array $topics = null,
     ): ProjectDetails {
         return ProjectDetails::create(
-            $name ?? FakeValueGenerator::text(),
-            $description ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
-            $topics ?? FakeValueGenerator::randomElement([null, self::generateTopics()])
+            name: $name ?? FakeValueGenerator::text(),
+            description: $description ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
+            topics: $topics ?? FakeValueGenerator::randomElement([null, self::generateTopics()])
         );
     }
 
