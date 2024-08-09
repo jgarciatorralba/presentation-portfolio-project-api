@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class AbstractRequest
 {
-    final public function __construct(
+    public function __construct(
         private readonly Validator $validator,
         protected readonly RequestStack $request
     ) {
