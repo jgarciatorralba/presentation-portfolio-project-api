@@ -26,7 +26,7 @@ final class CreateProjectController extends BaseController
                 repository: $data['repository'],
                 homepage: $data['homepage'] ?? null,
                 archived: $data['archived'],
-                lastPushedAt: $data['lastPushedAt'],
+                lastPushedAt: new DateTimeImmutable($data['lastPushedAt']),
                 createdAt: new DateTimeImmutable()
             )
         );

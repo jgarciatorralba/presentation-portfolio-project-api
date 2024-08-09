@@ -8,12 +8,14 @@ use App\Projects\Domain\Project;
 use App\Projects\Domain\ProjectDetails;
 use App\Projects\Domain\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
+use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 
 final class CreateProjectCommandHandler implements CommandHandler
 {
     public function __construct(
-        private readonly CreateProject $createProject
+        private readonly CreateProject $createProject,
+        private readonly LocalDateTimeZoneConverter $dateTimeConverter
     ) {
     }
 
@@ -36,7 +38,7 @@ final class CreateProjectCommandHandler implements CommandHandler
             details: $projectDetails,
             urls: $projectUrls,
             archived: $command->archived(),
-            lastPushedAt: $command->lastPushedAt(),
+            lastPushedAt: $this->dateTimeConverter->convert($command->lastPushedAt()),
             createdAt: $command->createdAt(),
             updatedAt: $command->createdAt()
         );
