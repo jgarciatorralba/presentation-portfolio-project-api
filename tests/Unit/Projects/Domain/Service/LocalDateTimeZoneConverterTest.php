@@ -45,8 +45,8 @@ final class LocalDateTimeZoneConverterTest extends TestCase
     public static function datesToConvert(): array
     {
         return [
-            'summertime dateTime' => ['2021-06-24T12:00:00Z', '2021-06-24 14:00:00'],
-            'wintertime dateTime' => ['2020-12-05T18:30:00+01:00', '2020-12-05 18:30:00']
+            'summertime DateTime' => ['2021-06-24T12:00:00Z', '2021-06-24 14:00:00'],
+            'wintertime DateTime' => ['2020-12-05T18:30:00+01:00', '2020-12-05 18:30:00']
         ];
     }
 }
