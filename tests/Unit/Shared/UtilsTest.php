@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Shared;
 use App\Shared\Utils;
 use DateTimeImmutable;
 use DateTimeInterface;
-use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
