@@ -6,7 +6,7 @@ namespace App\Projects\Domain\Exception;
 
 use App\Shared\Domain\DomainException;
 
-class ProjectNotFoundException extends DomainException
+class ProjectAlreadyExistsException extends DomainException
 {
     public function __construct(private readonly int $id)
     {
@@ -15,13 +15,13 @@ class ProjectNotFoundException extends DomainException
 
     public function errorCode(): string
     {
-        return 'project_not_found';
+        return 'project_already_exists';
     }
 
     public function errorMessage(): string
     {
         return sprintf(
-            "Project with id '%s' could not be found.",
+            "Project with id '%s' already exists.",
             $this->id
         );
     }

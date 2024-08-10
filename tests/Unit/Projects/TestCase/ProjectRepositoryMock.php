@@ -15,6 +15,24 @@ final class ProjectRepositoryMock extends AbstractMock
         return ProjectRepository::class;
     }
 
+    public function shouldFindProject(Project $project): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('find')
+            ->with($project->id())
+            ->willReturn($project);
+    }
+
+    public function shouldNotFindProject(int $id): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('find')
+            ->with($id)
+            ->willReturn(null);
+    }
+
     public function shouldCreateProject(Project $project): void
     {
         $this->mock

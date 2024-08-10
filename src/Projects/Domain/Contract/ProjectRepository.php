@@ -6,7 +6,6 @@ namespace App\Projects\Domain\Contract;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\ValueObject\Uuid;
 
 interface ProjectRepository
 {
@@ -18,7 +17,7 @@ interface ProjectRepository
 
     public function softDelete(Project $project): void;
 
-    public function find(Uuid $id): Project|null;
+    public function find(int $id): Project|null;
 
     /** @return Project[] */
     public function matching(Criteria $criteria): array;

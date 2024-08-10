@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Projects\Infrastructure\Persistence\Doctrine;
 
 use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Projects\Domain\Contract\ProjectRepository;
@@ -41,9 +40,9 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
         $this->updateEntity();
     }
 
-    public function find(Uuid $id): Project|null
+    public function find(int $id): Project|null
     {
-        return $this->repository()->find($id->value());
+        return $this->repository()->find($id);
     }
 
     /** @return Project[] */
