@@ -10,23 +10,22 @@ use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 
 final class SimpleFilterFactory
 {
-	public static function create(
-		string $field = null,
-		mixed $value = null,
-		FilterOperatorEnum $operator = null
-	): SimpleFilter
-	{
-		return new SimpleFilter(
-			field: $field ?? FakeValueGenerator::text(),
-			value: $value ?? FakeValueGenerator::randomElement([
-				FakeValueGenerator::text(),
-				FakeValueGenerator::integer(),
-				FakeValueGenerator::float(),
-				FakeValueGenerator::boolean(),
-			]),
-			operator: $operator ?? FilterOperatorEnum::from(
-				FakeValueGenerator::randomElement(FilterOperatorEnum::values())
-			),
-		);
-	}
+    public static function create(
+        string $field = null,
+        mixed $value = null,
+        FilterOperatorEnum $operator = null
+    ): SimpleFilter {
+        return new SimpleFilter(
+            field: $field ?? FakeValueGenerator::text(),
+            value: $value ?? FakeValueGenerator::randomElement([
+                FakeValueGenerator::text(),
+                FakeValueGenerator::integer(),
+                FakeValueGenerator::float(),
+                FakeValueGenerator::boolean(),
+            ]),
+            operator: $operator ?? FilterOperatorEnum::from(
+                FakeValueGenerator::randomElement(FilterOperatorEnum::values())
+            ),
+        );
+    }
 }

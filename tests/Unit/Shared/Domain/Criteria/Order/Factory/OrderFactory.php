@@ -10,15 +10,15 @@ use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 
 final class OrderFactory
 {
-	public static function create(
-		string $orderBy = null,
-		OrderEnum $orderType = null
-	): Order {
-		return new Order(
-			orderBy: $orderBy ?? FakeValueGenerator::text(),
-			orderType: $orderType ?? OrderEnum::from(
-				FakeValueGenerator::randomElement(OrderEnum::values())
-			)
-		);
-	}
+    public static function create(
+        string $orderBy = null,
+        OrderEnum $orderType = null
+    ): Order {
+        return new Order(
+            orderBy: $orderBy ?? FakeValueGenerator::text(),
+            orderType: $orderType ?? OrderEnum::from(
+                FakeValueGenerator::randomElement(OrderEnum::values())
+            )
+        );
+    }
 }

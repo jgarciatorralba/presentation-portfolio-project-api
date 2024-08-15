@@ -13,31 +13,31 @@ use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 
 final class CriteriaFactory
 {
-	/** @param Order[] $orderBy */
-	public static function create(
-		?Filters $filters = null,
-		?array $orderBy = null,
-		?int $limit = null,
-		?int $offset = null
-	): Criteria {
-		return new Criteria(
-			filters: $filters ?? FakeValueGenerator::randomElement([null, FiltersFactory::create()]),
-			orderBy: $orderBy ?? FakeValueGenerator::randomElement([null, self::generatedOrderBy()]),
-			limit: $limit ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()]),
-			offset: $offset ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()])
-		);
-	}
+    /** @param Order[] $orderBy */
+    public static function create(
+        ?Filters $filters = null,
+        ?array $orderBy = null,
+        ?int $limit = null,
+        ?int $offset = null
+    ): Criteria {
+        return new Criteria(
+            filters: $filters ?? FakeValueGenerator::randomElement([null, FiltersFactory::create()]),
+            orderBy: $orderBy ?? FakeValueGenerator::randomElement([null, self::generatedOrderBy()]),
+            limit: $limit ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()]),
+            offset: $offset ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()])
+        );
+    }
 
-	/** @return Order[] */
-	private static function generatedOrderBy(): array
-	{
-		$orderBy = [];
-		$orderByCount = FakeValueGenerator::integer(1, 10);
+    /** @return Order[] */
+    private static function generatedOrderBy(): array
+    {
+        $orderBy = [];
+        $orderByCount = FakeValueGenerator::integer(1, 10);
 
-		for ($i = 0; $i < $orderByCount; $i++) {
-			$orderBy[] = OrderFactory::create();
-		}
+        for ($i = 0; $i < $orderByCount; $i++) {
+            $orderBy[] = OrderFactory::create();
+        }
 
-		return $orderBy;
-	}
+        return $orderBy;
+    }
 }

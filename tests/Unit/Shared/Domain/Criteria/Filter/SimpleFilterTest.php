@@ -10,16 +10,16 @@ use PHPUnit\Framework\TestCase;
 
 class SimpleFilterTest extends TestCase
 {
-	public function testSimpleFilterIsCreated(): void
-	{
-		$simpleFilterCreated = SimpleFilterFactory::create();
+    public function testSimpleFilterIsCreated(): void
+    {
+        $simpleFilterCreated = SimpleFilterFactory::create();
 
-		$simpleFilterAsserted = new SimpleFilter(
-			field: $simpleFilterCreated->field(),
-			value: $simpleFilterCreated->value(),
-			operator: $simpleFilterCreated->operator()
-		);
+        $simpleFilterAsserted = new SimpleFilter(
+            field: $simpleFilterCreated->field(),
+            value: $simpleFilterCreated->value(),
+            operator: $simpleFilterCreated->operator()
+        );
 
-		$this->assertEquals($simpleFilterCreated, $simpleFilterAsserted);
-	}
+        $this->assertEquals($simpleFilterCreated, $simpleFilterAsserted);
+    }
 }

@@ -10,15 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 class FiltersTest extends TestCase
 {
-	public function testFiltersAreCreated(): void
-	{
-		$filtersCreated = FiltersFactory::create();
+    public function testFiltersAreCreated(): void
+    {
+        $filtersCreated = FiltersFactory::create();
 
-		$filtersAsserted = new Filters(
-			filters: $filtersCreated->plainFilters(),
-			condition: $filtersCreated->condition()
-		);
+        $filtersAsserted = new Filters(
+            filters: $filtersCreated->plainFilters(),
+            condition: $filtersCreated->condition()
+        );
 
-		$this->assertEquals($filtersCreated, $filtersAsserted);
-	}
+        $this->assertEquals($filtersCreated, $filtersAsserted);
+    }
 }

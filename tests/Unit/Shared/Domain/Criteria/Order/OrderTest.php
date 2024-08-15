@@ -10,27 +10,27 @@ use App\Tests\Unit\Shared\Domain\Criteria\Order\Factory\OrderFactory;
 
 class OrderTest extends TestCase
 {
-	public function testOrderIsCreated(): void
-	{
-		$orderCreated = OrderFactory::create();
+    public function testOrderIsCreated(): void
+    {
+        $orderCreated = OrderFactory::create();
 
-		$orderAsserted = new Order(
-			orderBy: $orderCreated->orderBy(),
-			orderType: $orderCreated->orderType()
-		);
+        $orderAsserted = new Order(
+            orderBy: $orderCreated->orderBy(),
+            orderType: $orderCreated->orderType()
+        );
 
-		$this->assertEquals($orderCreated, $orderAsserted);
-	}
+        $this->assertEquals($orderCreated, $orderAsserted);
+    }
 
-	public function testOrderIsCreatedFromValues(): void
-	{
-		$orderCreated = OrderFactory::create();
+    public function testOrderIsCreatedFromValues(): void
+    {
+        $orderCreated = OrderFactory::create();
 
-		$orderAsserted = Order::fromValues(
-			$orderCreated->orderBy(),
-			$orderCreated->orderType()->value
-		);
+        $orderAsserted = Order::fromValues(
+            $orderCreated->orderBy(),
+            $orderCreated->orderType()->value
+        );
 
-		$this->assertEquals($orderCreated, $orderAsserted);
-	}
+        $this->assertEquals($orderCreated, $orderAsserted);
+    }
 }

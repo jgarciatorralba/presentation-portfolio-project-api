@@ -11,29 +11,29 @@ use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 
 final class CompositeFilterFactory
 {
-	/** @param SimpleFilter[] $filters */
-	public static function create(
-		array $filters = null,
-		FilterConditionEnum $condition = null
-	): CompositeFilter {
-		return new CompositeFilter(
-			filters: $filters ?? self::generateFilters(),
-			condition: $condition?? FilterConditionEnum::from(
-				FakeValueGenerator::randomElement(FilterConditionEnum::values())
-			)
-		);
-	}
+    /** @param SimpleFilter[] $filters */
+    public static function create(
+        array $filters = null,
+        FilterConditionEnum $condition = null
+    ): CompositeFilter {
+        return new CompositeFilter(
+            filters: $filters ?? self::generateFilters(),
+            condition: $condition ?? FilterConditionEnum::from(
+                FakeValueGenerator::randomElement(FilterConditionEnum::values())
+            )
+        );
+    }
 
-	/** @return SimpleFilter[] */
-	private static function generateFilters(): array
-	{
-		$filters = [];
-		$filtersCount = FakeValueGenerator::integer(1, 10);
+    /** @return SimpleFilter[] */
+    private static function generateFilters(): array
+    {
+        $filters = [];
+        $filtersCount = FakeValueGenerator::integer(1, 10);
 
-		for ($i = 0; $i < $filtersCount; $i++) {
-			$filters[] = SimpleFilterFactory::create();
-		}
+        for ($i = 0; $i < $filtersCount; $i++) {
+            $filters[] = SimpleFilterFactory::create();
+        }
 
-		return $filters;
-	}
+        return $filters;
+    }
 }

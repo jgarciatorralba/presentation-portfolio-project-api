@@ -10,15 +10,15 @@ use PHPUnit\Framework\TestCase;
 
 class CompositeFilterTest extends TestCase
 {
-	public function testCompositeFilterIsCreated(): void
-	{
-		$compositeFilterCreated = CompositeFilterFactory::create();
+    public function testCompositeFilterIsCreated(): void
+    {
+        $compositeFilterCreated = CompositeFilterFactory::create();
 
-		$compositeFilterAsserted = new CompositeFilter(
-			filters: $compositeFilterCreated->filters(),
-			condition: $compositeFilterCreated->condition()
-		);
+        $compositeFilterAsserted = new CompositeFilter(
+            filters: $compositeFilterCreated->filters(),
+            condition: $compositeFilterCreated->condition()
+        );
 
-		$this->assertEquals($compositeFilterCreated, $compositeFilterAsserted);
-	}
+        $this->assertEquals($compositeFilterCreated, $compositeFilterAsserted);
+    }
 }
