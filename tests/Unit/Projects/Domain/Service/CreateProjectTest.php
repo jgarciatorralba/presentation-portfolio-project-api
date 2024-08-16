@@ -31,20 +31,20 @@ final class CreateProjectTest extends TestCase
         $this->projectRepositoryMock->shouldNotFindProject($project->id());
         $this->projectRepositoryMock->shouldCreateProject($project);
 
-        $service = new CreateProject(
+        $sut = new CreateProject(
             projectRepository: $this->projectRepositoryMock->getMock()
         );
-        $result = $service->__invoke($project);
+        $result = $sut->__invoke($project);
 
         $this->assertNull($result);
     }
 
-    public function testItThrowsAnAlreadyExistingException(): void
+    public function testItThrowsAnExceptionIfProjectAlreadyExists(): void
     {
         $project = ProjectFactory::create();
         $this->projectRepositoryMock->shouldFindProject($project);
 
-        $service = new CreateProject(
+        $sut = new CreateProject(
             projectRepository: $this->projectRepositoryMock->getMock()
         );
 
@@ -56,6 +56,6 @@ final class CreateProjectTest extends TestCase
             )
         );
 
-        $service->__invoke($project);
+        $sut->__invoke($project);
     }
 }

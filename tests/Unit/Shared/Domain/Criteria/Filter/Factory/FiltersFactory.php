@@ -17,7 +17,7 @@ final class FiltersFactory
         FilterConditionEnum $condition = null
     ): Filters {
         return new Filters(
-            filters: $filters ?? self::generateFilters(),
+            filters: $filters ?? self::generateRandomFilters(),
             condition: $condition ?? FilterConditionEnum::from(
                 FakeValueGenerator::randomElement(FilterConditionEnum::values())
             )
@@ -25,12 +25,14 @@ final class FiltersFactory
     }
 
     /** @return Filter[] */
-    private static function generateFilters(): array
+    private static function generateRandomFilters(?int $numFilters = null): array
     {
-        $filters = [];
-        $filtersCount = FakeValueGenerator::integer(1, 10);
+        if ($numFilters === null) {
+            $numFilters = FakeValueGenerator::integer(1, 10);
+        }
 
-        for ($i = 0; $i < $filtersCount; $i++) {
+        $filters = [];
+        for ($i = 0; $i < $numFilters; $i++) {
             $filters[] = FakeValueGenerator::randomElement([
                 SimpleFilterFactory::create(),
                 CompositeFilterFactory::create(),

@@ -28,4 +28,19 @@ final class SimpleFilterFactory
             ),
         );
     }
+
+    /** @return SimpleFilter[] */
+    public static function createMany(?int $numFilters = null): array
+    {
+        if ($numFilters === null) {
+            $numFilters = FakeValueGenerator::integer(1, 10);
+        }
+
+        $filters = [];
+        for ($i = 0; $i < $numFilters; $i++) {
+            $filters[] = self::create();
+        }
+
+        return $filters;
+    }
 }

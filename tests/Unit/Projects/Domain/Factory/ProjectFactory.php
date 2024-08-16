@@ -31,4 +31,21 @@ final class ProjectFactory
             updatedAt: $updatedAt ?? FakeValueGenerator::dateTime()
         );
     }
+
+    /**
+     * @return Project[]
+     */
+    public static function createMany(?int $amount = null): array
+    {
+        if ($amount === null) {
+            $amount = FakeValueGenerator::integer(max: 50);
+        }
+
+        $projects = [];
+        for ($i = 0; $i < $amount; $i++) {
+            $projects[] = self::create();
+        }
+
+        return $projects;
+    }
 }

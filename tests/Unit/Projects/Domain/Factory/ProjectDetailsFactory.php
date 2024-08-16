@@ -18,17 +18,22 @@ final class ProjectDetailsFactory
         return ProjectDetails::create(
             name: $name ?? FakeValueGenerator::text(),
             description: $description ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
-            topics: $topics ?? FakeValueGenerator::randomElement([null, self::generateTopics()])
+            topics: $topics ?? FakeValueGenerator::randomElement([
+                null,
+                self::generateRandomTopics()
+            ])
         );
     }
 
     /** @return string[] */
-    private static function generateTopics(): array
+    private static function generateRandomTopics(?int $numTopics = null): array
     {
-        $topics = [];
-        $topicsCount = FakeValueGenerator::integer(1, 10);
+        if ($numTopics === null) {
+            $numTopics = FakeValueGenerator::integer(1, 20);
+        }
 
-        for ($i = 0; $i < $topicsCount; $i++) {
+        $topics = [];
+        for ($i = 0; $i < $numTopics; $i++) {
             $topics[] = FakeValueGenerator::string();
         }
 

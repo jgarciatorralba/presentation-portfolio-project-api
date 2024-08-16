@@ -11,16 +11,16 @@ use PHPUnit\Framework\TestCase;
 
 final class LocalDateTimeZoneConverterTest extends TestCase
 {
-    private ?LocalDateTimeZoneConverter $localDateTimeZoneConverter = null;
+    private ?LocalDateTimeZoneConverter $sut = null;
 
     protected function setUp(): void
     {
-        $this->localDateTimeZoneConverter = new LocalDateTimeZoneConverter();
+        $this->sut = new LocalDateTimeZoneConverter();
     }
 
     protected function tearDown(): void
     {
-        $this->localDateTimeZoneConverter = null;
+        $this->sut = null;
     }
 
     #[DataProvider('datesToConvert')]
@@ -29,7 +29,7 @@ final class LocalDateTimeZoneConverterTest extends TestCase
         string $localDateTimeString
     ): void {
         $originalDateTime = new DateTimeImmutable($receivedDateTimeString);
-        $convertedDateTime = $this->localDateTimeZoneConverter->convert($originalDateTime);
+        $convertedDateTime = $this->sut->convert($originalDateTime);
         $convertedDateTimeFormatted = $convertedDateTime->format('Y-m-d H:i:s');
 
         $this->assertEquals(

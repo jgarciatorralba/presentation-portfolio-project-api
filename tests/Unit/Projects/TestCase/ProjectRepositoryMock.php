@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
+use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
 final class ProjectRepositoryMock extends AbstractMock
@@ -39,5 +40,16 @@ final class ProjectRepositoryMock extends AbstractMock
             ->expects($this->once())
             ->method('create')
             ->with($project);
+    }
+
+    public function shouldFindProjectsMatchingCriteria(
+        Criteria $criteria,
+        Project ...$projects
+    ): void {
+        $this->mock
+            ->expects($this->once())
+            ->method('matching')
+            ->with($criteria)
+            ->willReturn($projects);
     }
 }

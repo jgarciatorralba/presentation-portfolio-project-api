@@ -22,22 +22,9 @@ final class CriteriaFactory
     ): Criteria {
         return new Criteria(
             filters: $filters ?? FakeValueGenerator::randomElement([null, FiltersFactory::create()]),
-            orderBy: $orderBy ?? FakeValueGenerator::randomElement([null, self::generatedOrderBy()]),
+            orderBy: $orderBy ?? FakeValueGenerator::randomElement([null, OrderFactory::createMany()]),
             limit: $limit ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()]),
             offset: $offset ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()])
         );
-    }
-
-    /** @return Order[] */
-    private static function generatedOrderBy(): array
-    {
-        $orderBy = [];
-        $orderByCount = FakeValueGenerator::integer(1, 10);
-
-        for ($i = 0; $i < $orderByCount; $i++) {
-            $orderBy[] = OrderFactory::create();
-        }
-
-        return $orderBy;
     }
 }

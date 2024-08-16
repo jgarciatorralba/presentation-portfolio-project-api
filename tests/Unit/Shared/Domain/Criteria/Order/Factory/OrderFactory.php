@@ -21,4 +21,19 @@ final class OrderFactory
             )
         );
     }
+
+    /** @return Order[] */
+    public static function createMany(?int $numOrders = null): array
+    {
+        if ($numOrders === null) {
+            $numOrders = FakeValueGenerator::integer(1, 10);
+        }
+
+        $orders = [];
+        for ($i = 0; $i < $numOrders; $i++) {
+            $orders[] = self::create();
+        }
+
+        return $orders;
+    }
 }
