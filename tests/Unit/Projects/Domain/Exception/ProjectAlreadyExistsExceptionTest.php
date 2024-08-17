@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Projects\Domain\Exception;
+namespace App\Tests\Unit\Projects\Domain\Exception;
 
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Tests\Unit\Shared\Domain\FakeValueGenerator;

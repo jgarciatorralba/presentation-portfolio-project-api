@@ -48,13 +48,24 @@ final class DoctrineCriteriaConverterTest extends TestCase
         $orderings = $doctrineCriteria->orderings();
 
         $this->assertCount(1, $comparisons);
-        $this->assertEquals('createdAt', reset($comparisons)->getField());
-        $this->assertEquals($maxCreatedAt, reset($comparisons)->getValue()->getValue());
-        $this->assertEquals(Comparison::LT, reset($comparisons)->getOperator());
+        $this->assertEquals(
+            'createdAt',
+            $comparisons[array_key_first($comparisons)]->getField()
+        );
+        $this->assertEquals(
+            Comparison::LT,
+            $comparisons[array_key_first($comparisons)]->getOperator()
+        );
+        $this->assertEquals(
+            $maxCreatedAt,
+            $comparisons[array_key_first($comparisons)]->getValue()->getValue()
+        );
+
         $this->assertEquals(CompositeExpression::TYPE_AND, $type);
+
         $this->assertCount(1, $orderings);
         $this->assertEquals('createdAt', array_key_first($orderings));
-        $this->assertEquals(Order::Descending, $orderings['createdAt']);
+        $this->assertEquals(Order::Descending, $orderings[array_key_first($orderings)]);
     }
 
     /**

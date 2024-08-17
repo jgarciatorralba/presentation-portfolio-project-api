@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Projects\Domain\Service;
+namespace App\Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
 use DateTimeImmutable;

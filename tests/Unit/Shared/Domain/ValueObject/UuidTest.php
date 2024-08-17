@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Shared\Domain\ValueObject;
+namespace App\Tests\Unit\Shared\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
