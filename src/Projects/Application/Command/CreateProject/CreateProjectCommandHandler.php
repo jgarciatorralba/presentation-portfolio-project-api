@@ -19,9 +19,8 @@ final class CreateProjectCommandHandler implements CommandHandler
     ) {
     }
 
-    public function __invoke(
-        CreateProjectCommand $command
-    ): void {
+    public function __invoke(CreateProjectCommand $command): void
+    {
         $projectDetails = ProjectDetails::create(
             name: $command->name(),
             description: $command->description(),
