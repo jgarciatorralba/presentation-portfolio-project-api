@@ -23,9 +23,9 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $this->entityManagerMock = null;
     }
 
-    public function testCreateProject(): void
+    public function testItCreatesProject(): void
     {
-        $repository = new DoctrineProjectRepository(
+        $sut = new DoctrineProjectRepository(
             entityManager: $this->entityManagerMock->getMock()
         );
         $project = ProjectFactory::create();
@@ -33,7 +33,49 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $this->entityManagerMock
             ->shouldPersistEntity($project);
 
-        $result = $repository->create($project);
+        $result = $sut->create($project);
+        $this->assertNull($result);
+    }
+
+    public function testItUpdatesProject(): void
+    {
+        $sut = new DoctrineProjectRepository(
+            entityManager: $this->entityManagerMock->getMock()
+        );
+        $project = ProjectFactory::create();
+
+        $this->entityManagerMock
+            ->shouldUpdateEntity();
+
+        $result = $sut->update($project);
+        $this->assertNull($result);
+    }
+
+    public function testItDeletesProject(): void
+    {
+        $sut = new DoctrineProjectRepository(
+            entityManager: $this->entityManagerMock->getMock()
+        );
+        $project = ProjectFactory::create();
+
+        $this->entityManagerMock
+            ->shouldRemoveEntity($project);
+
+        $result = $sut->delete($project);
+        $this->assertNull($result);
+    }
+
+    public function testItSoftDeletesProject(): void
+    {
+        $sut = new DoctrineProjectRepository(
+            entityManager: $this->entityManagerMock->getMock()
+        );
+        $project = ProjectFactory::create();
+
+        $this->entityManagerMock
+            ->shouldUpdateEntity();
+
+        $result = $sut->softDelete($project);
         $this->assertNull($result);
     }
 }
