@@ -40,7 +40,7 @@ final class EntityRepositoryMock extends AbstractMock
             ->method('matching')
             ->with($criteria)
             ->willReturnCallback(function () use ($entities) {
-                return new CollectionMock($entities);
+                return new TestCollection($entities);
             });
     }
 }
