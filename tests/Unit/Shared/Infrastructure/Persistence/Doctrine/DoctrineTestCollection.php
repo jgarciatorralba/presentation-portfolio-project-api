@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\TestCase;
+namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Selectable;
  * @extends AbstractLazyCollection<int, object>
  * @implements Selectable<int, object>
  */
-class TestCollection extends AbstractLazyCollection implements Selectable
+class DoctrineTestCollection extends AbstractLazyCollection implements Selectable
 {
     /**
      * @param object[] $elements
