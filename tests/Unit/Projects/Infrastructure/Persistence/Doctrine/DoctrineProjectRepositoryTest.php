@@ -6,8 +6,10 @@ namespace App\Tests\Unit\Projects\Infrastructure\Persistence\Doctrine;
 
 use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
+use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
 use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
 use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
@@ -102,5 +104,18 @@ final class DoctrineProjectRepositoryTest extends TestCase
             'existing id' => [$project->id(), $project],
             'non-existent id' => [FakeValueGenerator::integer(), null],
         ];
+    }
+
+    public function testItFindsProjectsMatchingCriteria(): void
+    {
+        $criteria = CriteriaFactory::create();
+        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
+        $projects = ProjectFactory::createMany();
+
+        $this->entityRepositoryMock
+            ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, $projects);
+
+        $result = $this->sut->matching($criteria);
+        $this->assertEquals($projects, $result);
     }
 }
