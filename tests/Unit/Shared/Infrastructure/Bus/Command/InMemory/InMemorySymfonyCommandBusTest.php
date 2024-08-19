@@ -18,13 +18,13 @@ use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 final class InMemorySymfonyCommandBusTest extends TestCase
 {
     private ?CommandBusMock $commandBusMock;
-    private ?InMemorySymfonyCommandBus $commandBus;
+    private ?InMemorySymfonyCommandBus $sut;
     private ?MockObject $command;
 
     protected function setUp(): void
     {
         $this->commandBusMock = new CommandBusMock();
-        $this->commandBus = new InMemorySymfonyCommandBus(
+        $this->sut = new InMemorySymfonyCommandBus(
             commandBus: $this->commandBusMock->getMock()
         );
         $this->command = $this->createMock(Command::class);
@@ -33,7 +33,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
     protected function tearDown(): void
     {
         $this->commandBusMock = null;
-        $this->commandBus = null;
+        $this->sut = null;
         $this->command = null;
     }
 
@@ -42,7 +42,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
         $this->commandBusMock
             ->shouldDispatchCommand($this->command);
 
-        $result = $this->commandBus->dispatch($this->command);
+        $result = $this->sut->dispatch($this->command);
         $this->assertNull($result);
     }
 
@@ -56,13 +56,12 @@ final class InMemorySymfonyCommandBusTest extends TestCase
         $this->expectException(CommandNotRegisteredException::class);
         $this->expectExceptionMessage("Command with class {$commandClass} has no handler registered");
 
-        $this->commandBus->dispatch($this->command);
+        $this->sut->dispatch($this->command);
     }
 
     public function testItThrowsHandlerFailedException(): void
     {
-        $exceptionMessage = 'Test exception message';
-        $previousException = new Exception($exceptionMessage);
+        $previousException = new Exception('Test exception message');
         $handlerFailedException = new HandlerFailedException(
             new Envelope($this->command),
             [$previousException]
@@ -72,8 +71,8 @@ final class InMemorySymfonyCommandBusTest extends TestCase
             ->willThrowException($handlerFailedException);
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage($exceptionMessage);
+        $this->expectExceptionMessage($previousException->getMessage());
 
-        $this->commandBus->dispatch($this->command);
+        $this->sut->dispatch($this->command);
     }
 }

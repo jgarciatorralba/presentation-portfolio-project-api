@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Application\Query\GetProjects;
+namespace App\Tests\Unit\Shared\TestCase;
 
 use App\Shared\Domain\Bus\Query\Response;
 
-final class GetProjectsResponse implements Response
+final class TestResponse implements Response
 {
     /** @param array<mixed> $data */
     public function __construct(
