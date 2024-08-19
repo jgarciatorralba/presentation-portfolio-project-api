@@ -35,10 +35,8 @@ final class InMemorySymfonyEventBusTest extends TestCase
 
     public function testItPublishesEventsSuccessfully(): void
     {
-        foreach ($this->events as $event) {
-            $this->eventBusMock
-                ->shouldDispatchEvent($event);
-        }
+        $this->eventBusMock
+            ->shouldDispatchEvents(...$this->events);
 
         $result = $this->sut->publish(...$this->events);
         $this->assertNull($result);
@@ -46,10 +44,13 @@ final class InMemorySymfonyEventBusTest extends TestCase
 
     public function testItCatchesNoHandlerForMessageException(): void
     {
-        foreach ($this->events as $event) {
-            $this->eventBusMock
-                ->willThrowException(new NoHandlerForMessageException());
-        }
+        $exceptions = array_map(
+            fn () => new NoHandlerForMessageException(),
+            $this->events
+        );
+
+        $this->eventBusMock
+            ->willThrowExceptions(...$exceptions);
 
         $result = $this->sut->publish(...$this->events);
         $this->assertNull($result);
