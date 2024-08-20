@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\TestCase;
 
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use App\Tests\Unit\Shared\Infrastructure\Testing\TestCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 

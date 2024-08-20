@@ -9,7 +9,7 @@ use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Infrastructure\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
 use App\Tests\Unit\Shared\TestCase\QueryBusMock;
-use App\Tests\Unit\Shared\TestCase\TestResponse;
+use App\Tests\Unit\Shared\Infrastructure\Testing\TestResponse;
 use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
