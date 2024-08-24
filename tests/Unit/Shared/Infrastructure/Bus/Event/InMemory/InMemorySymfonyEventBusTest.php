@@ -14,8 +14,6 @@ final class InMemorySymfonyEventBusTest extends TestCase
 {
     private ?EventBusMock $eventBusMock;
     private ?InMemorySymfonyEventBus $sut;
-    /** @var MockObject[]|null $events */
-    private ?array $events;
 
     protected function setUp(): void
     {
@@ -23,36 +21,31 @@ final class InMemorySymfonyEventBusTest extends TestCase
         $this->sut = new InMemorySymfonyEventBus(
             eventBus: $this->eventBusMock->getMock()
         );
-        $this->events[] = $this->createMock(DomainEvent::class);
     }
 
     protected function tearDown(): void
     {
         $this->eventBusMock = null;
         $this->sut = null;
-        $this->events = null;
     }
 
-    public function testItPublishesEventsSuccessfully(): void
+    public function testItPublishesEventsOrCatchesExceptions(): void
     {
-        $this->eventBusMock
-            ->shouldDispatchEvents(...$this->events);
-
-        $result = $this->sut->publish(...$this->events);
-        $this->assertNull($result);
-    }
-
-    public function testItCatchesNoHandlerForMessageException(): void
-    {
-        $exceptions = array_map(
-            fn () => new NoHandlerForMessageException(),
-            $this->events
-        );
+        $events = [
+            [
+                'event' => $this->createMock(DomainEvent::class),
+                'exception' => null
+            ],
+            [
+                'event' => $this->createMock(DomainEvent::class),
+                'exception' => new NoHandlerForMessageException()
+            ]
+        ];
 
         $this->eventBusMock
-            ->willThrowExceptions(...$exceptions);
+            ->shouldDispatchEventsOrThrowExceptions($events);
 
-        $result = $this->sut->publish(...$this->events);
+        $result = $this->sut->publish(...array_column($events, 'event'));
         $this->assertNull($result);
     }
 }

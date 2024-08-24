@@ -24,7 +24,13 @@ final class EventBusMock extends AbstractMock
         return MessageBusInterface::class;
     }
 
-    public function shouldDispatchEvents(DomainEvent ...$events): void
+    /**
+     * @param list<array{
+     * 		event: DomainEvent,
+     * 		exception: Throwable|null
+     * }> $events
+     */
+    public function shouldDispatchEventsOrThrowExceptions(array $events): void
     {
         $this->mock
             ->expects($this->exactly(count($events)))
@@ -32,21 +38,12 @@ final class EventBusMock extends AbstractMock
             ->with(
                 $this->callback(
                     function (DomainEvent $event) use ($events) {
-                        return $event === $events[self::$callIndex++];
+                        if ($events[self::$callIndex]['exception'] !== null) {
+                            throw $events[self::$callIndex++]['exception'];
+                        }
+                        return $event === $events[self::$callIndex++]['event'];
                     }
                 )
-            );
-    }
-
-    public function willThrowExceptions(Throwable ...$exceptions): void
-    {
-        $this->mock
-            ->expects($this->exactly(count($exceptions)))
-            ->method('dispatch')
-            ->willReturnCallback(
-                function () use ($exceptions) {
-                    throw $exceptions[self::$callIndex++];
-                }
             );
     }
 }
