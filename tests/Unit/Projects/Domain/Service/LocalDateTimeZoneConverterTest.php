@@ -30,13 +30,13 @@ final class LocalDateTimeZoneConverterTest extends TestCase
     ): void {
         $originalDateTime = new DateTimeImmutable($receivedDateTimeString);
         $convertedDateTime = $this->sut->convert($originalDateTime);
-        $convertedDateTimeFormatted = $convertedDateTime->format('Y-m-d H:i:s');
+        $formattedDateTime = $convertedDateTime->format('Y-m-d H:i:s');
 
         $this->assertEquals(
             date_default_timezone_get(),
             $convertedDateTime->getTimezone()->getName()
         );
-        $this->assertEquals($localDateTimeString, $convertedDateTimeFormatted);
+        $this->assertEquals($localDateTimeString, $formattedDateTime);
     }
 
     /**
