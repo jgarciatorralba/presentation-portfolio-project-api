@@ -26,8 +26,8 @@ final class EventBusMock extends AbstractMock
 
     /**
      * @param list<array{
-     * 		event: DomainEvent,
-     * 		exception: Throwable|null
+     *      event: DomainEvent,
+     *      exception: Throwable|null
      * }> $events
      */
     public function shouldDispatchEventsOrThrowExceptions(array $events): void
