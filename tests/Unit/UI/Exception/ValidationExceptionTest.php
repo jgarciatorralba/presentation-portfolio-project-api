@@ -15,28 +15,28 @@ class ValidationExceptionTest extends TestCase
     /**
      * @param array<string, string> $errors
      */
-    public function testExceptionIsCreated(ValidationException $exception, array $errors): void
+    public function testExceptionIsCreated(array $errors): void
     {
+        $exception = new ValidationException($errors);
+
         $this->assertEquals('Invalid request data.', $exception->getMessage());
         $this->assertEquals(Response::HTTP_BAD_REQUEST, $exception->getStatusCode());
         $this->assertEquals($errors, $exception->getErrors());
     }
 
     /**
-     * @return array<string, array<ValidationException, array<string, string>>>
+     * @return array<string, array<array<string, string>>>
      */
     public static function dataIsCreated(): array
     {
         return [
             'errors' => [
-                new ValidationException($errors),
                 [
                     'foo' => 'bar',
                     'baz' => 'qux',
                 ]
             ],
             'no errors' => [
-                new ValidationException(),
                 []
             ],
         ];

@@ -48,7 +48,8 @@ final class CreateProjectRequest extends AbstractRequest
             'repository' => new Assert\Required([
                 new Assert\NotBlank(),
                 new Assert\Url([
-                    'protocols' => ['https']
+                    'protocols' => ['https'],
+                    'requireTld' => true
                 ]),
                 new Assert\Regex([
                     'pattern' => '/github\.com/'
@@ -57,7 +58,8 @@ final class CreateProjectRequest extends AbstractRequest
             'homepage' => new Assert\Optional([
                 new Assert\NotBlank(),
                 new Assert\Url([
-                    'protocols' => ['https']
+                    'protocols' => ['https'],
+                    'requireTld' => true
                 ])
             ]),
             'archived' => new Assert\Required([
