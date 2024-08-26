@@ -15,7 +15,6 @@ use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
 use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 
 final class DoctrineProjectRepositoryTest extends TestCase
 {
@@ -33,7 +32,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
         );
         $this->project = ProjectFactory::create();
 
-        $reflection = new ReflectionClass(DoctrineRepository::class);
+        $reflection = new \ReflectionClass(DoctrineRepository::class);
         $property = $reflection->getProperty('repository');
         $property->setAccessible(true);
         $property->setValue($this->sut, $this->entityRepositoryMock->getMock());

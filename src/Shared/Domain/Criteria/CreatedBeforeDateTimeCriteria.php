@@ -9,12 +9,11 @@ use App\Shared\Domain\Criteria\Filter\FilterOperatorEnum;
 use App\Shared\Domain\Criteria\Filter\Filters;
 use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderEnum;
-use DateTimeImmutable;
 
 final class CreatedBeforeDateTimeCriteria extends Criteria
 {
     public function __construct(
-        DateTimeImmutable $maxCreatedAt = new DateTimeImmutable(),
+        \DateTimeImmutable $maxCreatedAt = new \DateTimeImmutable(),
         ?int $limit = null
     ) {
         parent::__construct(

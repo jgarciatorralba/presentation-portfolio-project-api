@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Throwable;
 
 final class ApiExceptionListener
 {
@@ -32,7 +31,7 @@ final class ApiExceptionListener
         $event->setResponse($response);
     }
 
-    private function buildResponse(Throwable $exception): JsonResponse
+    private function buildResponse(\Throwable $exception): JsonResponse
     {
         $content = [
             'code' => $this->getErrorCode($exception),
@@ -46,7 +45,7 @@ final class ApiExceptionListener
         return new JsonResponse($content, $this->getStatusCode($exception));
     }
 
-    private function getStatusCode(Throwable $exception): int
+    private function getStatusCode(\Throwable $exception): int
     {
         $statusCode = $this->exceptionHttpStatusCodeMapper->getStatusCodeFor($exception::class);
 
@@ -57,7 +56,7 @@ final class ApiExceptionListener
         return $statusCode ?? Response::HTTP_INTERNAL_SERVER_ERROR;
     }
 
-    private function getErrorCode(Throwable $exception): string
+    private function getErrorCode(\Throwable $exception): string
     {
         return $exception instanceof DomainException
             ? $exception->errorCode()

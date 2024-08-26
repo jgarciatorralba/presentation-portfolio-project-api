@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Shared\TestCase;
 use App\Shared\Domain\Bus\Event\DomainEvent;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
 
 final class EventBusMock extends AbstractMock
 {
@@ -27,7 +26,7 @@ final class EventBusMock extends AbstractMock
     /**
      * @param list<array{
      *      event: DomainEvent,
-     *      exception: Throwable|null
+     *      exception: \Throwable|null
      * }> $events
      */
     public function shouldDispatchEventsOrThrowExceptions(array $events): void

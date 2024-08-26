@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Projects\Domain;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
-use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectTest extends TestCase
@@ -61,11 +60,11 @@ final class ProjectTest extends TestCase
         $this->assertEquals($this->project->urls()->homepage(), $projectArray['homepage']);
         $this->assertEquals($this->project->archived(), $projectArray['archived']);
         $this->assertEquals(
-            $this->project->lastPushedAt()->format(DateTimeInterface::ATOM),
+            $this->project->lastPushedAt()->format(\DateTimeInterface::ATOM),
             $projectArray['lastPushedAt']
         );
         $this->assertEquals(
-            $this->project->createdAt()->format(DateTimeInterface::ATOM),
+            $this->project->createdAt()->format(\DateTimeInterface::ATOM),
             $projectArray['createdAt']
         );
     }

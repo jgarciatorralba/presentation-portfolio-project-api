@@ -6,9 +6,8 @@ namespace App\Shared\Infrastructure\Bus\Exception;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Utils;
-use Exception;
 
-class CommandNotRegisteredException extends Exception
+class CommandNotRegisteredException extends \Exception
 {
     public function __construct(Command $command)
     {

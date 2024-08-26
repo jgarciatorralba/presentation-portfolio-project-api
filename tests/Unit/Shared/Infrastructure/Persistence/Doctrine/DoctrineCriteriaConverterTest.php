@@ -8,7 +8,6 @@ use App\Shared\Domain\Criteria\CreatedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
@@ -31,7 +30,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
 
     #[DataProvider('dataCreatedBeforeDateTimeCriteria')]
     public function testItConvertsCreatedBeforeDateTimeCriteria(
-        DateTimeImmutable $maxCreatedAt,
+        \DateTimeImmutable $maxCreatedAt,
         ?int $limit
     ): void {
         $criteria = new CreatedBeforeDateTimeCriteria(
@@ -75,11 +74,11 @@ final class DoctrineCriteriaConverterTest extends TestCase
     {
         return [
             'default maxCreatedAt and no limit' => [
-                new DateTimeImmutable(),
+                new \DateTimeImmutable(),
                 null
             ],
             'default maxCreatedAt and limit' => [
-                new DateTimeImmutable(),
+                new \DateTimeImmutable(),
                 FakeValueGenerator::integer()
             ],
             'maxCreatedAt and no limit' => [

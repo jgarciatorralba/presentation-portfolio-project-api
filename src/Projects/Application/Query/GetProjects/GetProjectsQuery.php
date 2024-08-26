@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace App\Projects\Application\Query\GetProjects;
 
 use App\Shared\Domain\Bus\Query\Query;
-use DateTimeImmutable;
 
 final class GetProjectsQuery implements Query
 {
     public function __construct(
         private readonly ?int $pageSize,
-        private readonly DateTimeImmutable $maxCreatedAt
+        private readonly \DateTimeImmutable $maxCreatedAt
     ) {
     }
 
@@ -20,7 +19,7 @@ final class GetProjectsQuery implements Query
         return $this->pageSize;
     }
 
-    public function maxCreatedAt(): DateTimeImmutable
+    public function maxCreatedAt(): \DateTimeImmutable
     {
         return $this->maxCreatedAt;
     }

@@ -7,7 +7,6 @@ namespace App\Tests\Unit\Shared\TestCase;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Throwable;
 
 final class CommandBusMock extends AbstractMock
 {
@@ -24,7 +23,7 @@ final class CommandBusMock extends AbstractMock
             ->with($command);
     }
 
-    public function willThrowException(Throwable $exception): void
+    public function willThrowException(\Throwable $exception): void
     {
         $this->mock
             ->expects($this->once())

@@ -6,7 +6,6 @@ namespace App\Shared\Domain\Bus\Event;
 
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
-use DateTimeImmutable;
 
 abstract class DomainEvent
 {
@@ -19,7 +18,7 @@ abstract class DomainEvent
         string $occurredOn = null
     ) {
         $this->eventId = $eventId ?: Uuid::random()->value();
-        $this->occurredOn = $occurredOn ?: Utils::dateToString(new DateTimeImmutable());
+        $this->occurredOn = $occurredOn ?: Utils::dateToString(new \DateTimeImmutable());
     }
 
     public function aggregateId(): string

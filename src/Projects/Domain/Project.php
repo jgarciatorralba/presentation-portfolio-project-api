@@ -7,7 +7,6 @@ namespace App\Projects\Domain;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Trait\TimestampableTrait;
 use App\Shared\Utils;
-use DateTimeImmutable;
 
 class Project extends AggregateRoot
 {
@@ -18,9 +17,9 @@ class Project extends AggregateRoot
         private ProjectDetails $details,
         private ProjectUrls $urls,
         private bool $archived,
-        private DateTimeImmutable $lastPushedAt,
-        DateTimeImmutable $createdAt,
-        DateTimeImmutable $updatedAt,
+        private \DateTimeImmutable $lastPushedAt,
+        \DateTimeImmutable $createdAt,
+        \DateTimeImmutable $updatedAt,
     ) {
         $this->updateCreatedAt($createdAt);
         $this->updateUpdatedAt($updatedAt);
@@ -31,9 +30,9 @@ class Project extends AggregateRoot
         ProjectDetails $details,
         ProjectUrls $urls,
         bool $archived,
-        DateTimeImmutable $lastPushedAt,
-        DateTimeImmutable $createdAt,
-        DateTimeImmutable $updatedAt,
+        \DateTimeImmutable $lastPushedAt,
+        \DateTimeImmutable $createdAt,
+        \DateTimeImmutable $updatedAt,
     ): self {
         return new self(
             id: $id,
@@ -71,12 +70,12 @@ class Project extends AggregateRoot
         $this->archived = $archived;
     }
 
-    public function lastPushedAt(): DateTimeImmutable
+    public function lastPushedAt(): \DateTimeImmutable
     {
         return $this->lastPushedAt;
     }
 
-    public function updateLastPushedAt(DateTimeImmutable $lastPushedAt): void
+    public function updateLastPushedAt(\DateTimeImmutable $lastPushedAt): void
     {
         $this->lastPushedAt = $lastPushedAt;
     }

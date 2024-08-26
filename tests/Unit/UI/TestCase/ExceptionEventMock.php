@@ -6,7 +6,6 @@ namespace App\Tests\Unit\UI\TestCase;
 
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
-use Throwable;
 
 final class ExceptionEventMock extends AbstractMock
 {
@@ -30,7 +29,7 @@ final class ExceptionEventMock extends AbstractMock
             ->method('setResponse');
     }
 
-    public function shouldGetThrowable(Throwable $exception): void
+    public function shouldGetThrowable(\Throwable $exception): void
     {
         $this->mock
             ->expects($this->once())

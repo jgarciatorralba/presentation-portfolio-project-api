@@ -7,7 +7,6 @@ namespace App\UI\Controller\Projects;
 use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
 use App\UI\Controller\BaseController;
 use App\UI\Request\Projects\CreateProjectRequest;
-use DateTimeImmutable;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,8 +25,8 @@ final class CreateProjectController extends BaseController
                 repository: $data['repository'],
                 homepage: $data['homepage'] ?? null,
                 archived: $data['archived'],
-                lastPushedAt: new DateTimeImmutable($data['lastPushedAt']),
-                createdAt: new DateTimeImmutable()
+                lastPushedAt: new \DateTimeImmutable($data['lastPushedAt']),
+                createdAt: new \DateTimeImmutable()
             )
         );
 

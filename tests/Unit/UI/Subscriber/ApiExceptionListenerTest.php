@@ -9,13 +9,10 @@ use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
 use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
 use App\UI\Exception\ValidationException;
 use App\UI\Subscriber\ApiExceptionListener;
-use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionClass;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 final class ApiExceptionListenerTest extends TestCase
 {
@@ -43,7 +40,7 @@ final class ApiExceptionListenerTest extends TestCase
     public function testOnKernelException(bool $isMainRequest): void
     {
         $this->exceptionEventMock
-            ->shouldGetThrowable(new Exception('Exception message'));
+            ->shouldGetThrowable(new \Exception('Exception message'));
 
         $this->exceptionEventMock
             ->shouldBeMainRequest($isMainRequest);
@@ -74,9 +71,9 @@ final class ApiExceptionListenerTest extends TestCase
      *      errors?: array<string, string>
      * } $exceptionContent
      */
-    public function testBuildResponse(Throwable $exception, array $exceptionContent): void
+    public function testBuildResponse(\Throwable $exception, array $exceptionContent): void
     {
-        $reflection = new ReflectionClass($this->sut);
+        $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('buildResponse');
         $method->setAccessible(true);
 
@@ -99,7 +96,7 @@ final class ApiExceptionListenerTest extends TestCase
     {
         return [
             'generic exception' => [
-                new Exception('Exception message'),
+                new \Exception('Exception message'),
                 [
                     'code' => 'exception',
                     'errorMessage' => 'Exception message'
@@ -124,9 +121,9 @@ final class ApiExceptionListenerTest extends TestCase
     }
 
     #[DataProvider('dataGetErrorCode')]
-    public function testGetErrorCode(Throwable $exception, string $errorCode): void
+    public function testGetErrorCode(\Throwable $exception, string $errorCode): void
     {
-        $reflection = new ReflectionClass($this->sut);
+        $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('getErrorCode');
         $method->setAccessible(true);
 
@@ -141,23 +138,23 @@ final class ApiExceptionListenerTest extends TestCase
     {
         return [
             'generic exception' => [
-                new Exception('Exception message'),
+                new \Exception('Exception message'),
                 'exception'
             ],
             'domain exception' => [
-                new Exception('Exception message'),
+                new \Exception('Exception message'),
                 'exception'
             ]
         ];
     }
 
     #[DataProvider('dataStatusCodes')]
-    public function testGetStatusCode(Throwable $exception, ?int $exceptionStatusCode): void
+    public function testGetStatusCode(\Throwable $exception, ?int $exceptionStatusCode): void
     {
         $this->exceptionHttpStatusCodeMapperMock
             ->shouldGetStatusCodeFor($exception::class, $exceptionStatusCode);
 
-        $reflection = new ReflectionClass($this->sut);
+        $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('getStatusCode');
         $method->setAccessible(true);
 
@@ -175,7 +172,7 @@ final class ApiExceptionListenerTest extends TestCase
     {
         return [
             'generic exception and defined status code' => [
-                new Exception('Exception message'),
+                new \Exception('Exception message'),
                 Response::HTTP_NOT_FOUND
             ],
             'validation exception and defined status code' => [
@@ -183,7 +180,7 @@ final class ApiExceptionListenerTest extends TestCase
                 Response::HTTP_BAD_REQUEST
             ],
             'undefined status code' => [
-                new Exception('Exception message'),
+                new \Exception('Exception message'),
                 null
             ]
         ];

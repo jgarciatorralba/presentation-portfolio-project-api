@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Projects\Application\Command\CreateProject;
 
 use App\Shared\Domain\Bus\Command\Command;
-use DateTimeImmutable;
 
 final class CreateProjectCommand implements Command
 {
@@ -20,8 +19,8 @@ final class CreateProjectCommand implements Command
         private readonly string $repository,
         private readonly ?string $homepage,
         private readonly bool $archived,
-        private readonly DateTimeImmutable $lastPushedAt,
-        private readonly DateTimeImmutable $createdAt
+        private readonly \DateTimeImmutable $lastPushedAt,
+        private readonly \DateTimeImmutable $createdAt
     ) {
     }
 
@@ -63,12 +62,12 @@ final class CreateProjectCommand implements Command
         return $this->archived;
     }
 
-    public function lastPushedAt(): DateTimeImmutable
+    public function lastPushedAt(): \DateTimeImmutable
     {
         return $this->lastPushedAt;
     }
 
-    public function createdAt(): DateTimeImmutable
+    public function createdAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }

@@ -8,7 +8,6 @@ use App\Projects\Domain\Project;
 use App\Projects\Domain\ProjectDetails;
 use App\Projects\Domain\ProjectUrls;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
-use DateTimeImmutable;
 
 final class ProjectFactory
 {
@@ -17,9 +16,9 @@ final class ProjectFactory
         ProjectDetails $details = null,
         ProjectUrls $urls = null,
         bool $archived = null,
-        DateTimeImmutable $lastPushedAt = null,
-        DateTimeImmutable $createdAt = null,
-        DateTimeImmutable $updatedAt = null
+        \DateTimeImmutable $lastPushedAt = null,
+        \DateTimeImmutable $createdAt = null,
+        \DateTimeImmutable $updatedAt = null
     ): Project {
         return Project::create(
             id: $id ?? FakeValueGenerator::integer(),

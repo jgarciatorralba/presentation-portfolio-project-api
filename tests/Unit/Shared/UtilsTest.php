@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared;
 
 use App\Shared\Utils;
-use DateTimeImmutable;
-use DateTimeInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -14,7 +12,7 @@ final class UtilsTest extends TestCase
 {
     public function testDateToString(): void
     {
-        $date = new DateTimeImmutable();
+        $date = new \DateTimeImmutable();
         $dateToString = Utils::dateToString($date);
 
         $this->assertIsString($dateToString);
@@ -27,11 +25,11 @@ final class UtilsTest extends TestCase
     #[DataProvider('dataStringToDate')]
     public function testStringToDate(
         string $stringToConvert,
-        DateTimeInterface $expectedResult
+        \DateTimeInterface $expectedResult
     ): void {
         $date = Utils::stringToDate($stringToConvert);
 
-        $this->assertInstanceOf(DateTimeInterface::class, $date);
+        $this->assertInstanceOf(\DateTimeInterface::class, $date);
         $this->assertGreaterThanOrEqual($expectedResult->getTimestamp(), $date->getTimestamp());
     }
 
@@ -54,8 +52,8 @@ final class UtilsTest extends TestCase
     public static function dataStringToDate(): array
     {
         return [
-            'valid datetime string' => ['2010-10-10', new DateTimeImmutable('2010-10-10')],
-            'invalid datetime string' => ['invalid-date-string', new DateTimeImmutable()]
+            'valid datetime string' => ['2010-10-10', new \DateTimeImmutable('2010-10-10')],
+            'invalid datetime string' => ['invalid-date-string', new \DateTimeImmutable()]
         ];
     }
 

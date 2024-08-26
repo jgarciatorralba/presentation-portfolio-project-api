@@ -10,7 +10,6 @@ use App\Shared\Infrastructure\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
 use App\Tests\Unit\Shared\TestCase\QueryBusMock;
 use App\Tests\Unit\Shared\Infrastructure\Testing\TestResponse;
-use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -69,7 +68,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
 
     public function testItThrowsHandlerFailedException(): void
     {
-        $previousException = new Exception('Test exception message');
+        $previousException = new \Exception('Test exception message');
         $handlerFailedException = new HandlerFailedException(
             new Envelope($this->query),
             [$previousException]
@@ -78,7 +77,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
         $this->queryBusMock
             ->willThrowException($handlerFailedException);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage($previousException->getMessage());
 
         $this->sut->ask($this->query);

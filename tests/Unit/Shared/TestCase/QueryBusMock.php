@@ -9,7 +9,6 @@ use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
-use Throwable;
 
 final class QueryBusMock extends AbstractMock
 {
@@ -29,7 +28,7 @@ final class QueryBusMock extends AbstractMock
             ->willReturn($envelope);
     }
 
-    public function willThrowException(Throwable $exception): void
+    public function willThrowException(\Throwable $exception): void
     {
         $this->mock
             ->expects($this->once())

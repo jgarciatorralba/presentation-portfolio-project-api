@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Testing;
 
 use App\Shared\Domain\ValueObject\Uuid;
-use DateTimeImmutable;
 use Faker\Factory;
 use Faker\Generator;
 
@@ -23,9 +22,9 @@ final class FakeValueGenerator
         return Uuid::fromString(self::generator()->unique()->uuid());
     }
 
-    public static function dateTime(): DateTimeImmutable
+    public static function dateTime(): \DateTimeImmutable
     {
-        return DateTimeImmutable::createFromMutable(self::generator()->dateTimeBetween());
+        return \DateTimeImmutable::createFromMutable(self::generator()->dateTimeBetween());
     }
 
     public static function string(): string

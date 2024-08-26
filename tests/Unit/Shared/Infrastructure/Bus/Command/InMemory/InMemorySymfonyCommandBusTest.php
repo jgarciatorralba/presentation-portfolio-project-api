@@ -8,7 +8,6 @@ use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Infrastructure\Bus\Command\InMemory\InMemorySymfonyCommandBus;
 use App\Shared\Infrastructure\Bus\Exception\CommandNotRegisteredException;
 use App\Tests\Unit\Shared\TestCase\CommandBusMock;
-use Exception;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -61,7 +60,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
 
     public function testItThrowsHandlerFailedException(): void
     {
-        $previousException = new Exception('Test exception message');
+        $previousException = new \Exception('Test exception message');
         $handlerFailedException = new HandlerFailedException(
             new Envelope($this->command),
             [$previousException]
@@ -70,7 +69,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
         $this->commandBusMock
             ->willThrowException($handlerFailedException);
 
-        $this->expectException(Exception::class);
+        $this->expectException(\Exception::class);
         $this->expectExceptionMessage($previousException->getMessage());
 
         $this->sut->dispatch($this->command);

@@ -6,9 +6,8 @@ namespace App\Shared\Infrastructure\Bus\Exception;
 
 use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Utils;
-use Exception;
 
-class QueryNotRegisteredException extends Exception
+class QueryNotRegisteredException extends \Exception
 {
     public function __construct(Query $query)
     {

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
-use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +27,7 @@ final class LocalDateTimeZoneConverterTest extends TestCase
         string $receivedDateTimeString,
         string $localDateTimeString
     ): void {
-        $originalDateTime = new DateTimeImmutable($receivedDateTimeString);
+        $originalDateTime = new \DateTimeImmutable($receivedDateTimeString);
         $convertedDateTime = $this->sut->convert($originalDateTime);
         $formattedDateTime = $convertedDateTime->format('Y-m-d H:i:s');
 

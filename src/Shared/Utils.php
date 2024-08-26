@@ -4,23 +4,19 @@ declare(strict_types=1);
 
 namespace App\Shared;
 
-use DateTimeImmutable;
-use DateTimeInterface;
-use Exception;
-
 final class Utils
 {
-    public static function dateToString(DateTimeInterface $date): string
+    public static function dateToString(\DateTimeInterface $date): string
     {
-        return $date->format(DateTimeInterface::ATOM);
+        return $date->format(\DateTimeInterface::ATOM);
     }
 
-    public static function stringToDate(string $date): DateTimeImmutable
+    public static function stringToDate(string $date): \DateTimeImmutable
     {
         try {
-            return new DateTimeImmutable($date);
-        } catch (Exception) {
-            return new DateTimeImmutable();
+            return new \DateTimeImmutable($date);
+        } catch (\Exception) {
+            return new \DateTimeImmutable();
         }
     }
 
