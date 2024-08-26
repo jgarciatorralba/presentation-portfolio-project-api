@@ -27,15 +27,13 @@ class ValidationExceptionTest extends TestCase
      */
     public static function dataIsCreated(): array
     {
-        $errors = [
-            'foo' => 'bar',
-            'baz' => 'qux',
-        ];
-
         return [
             'errors' => [
                 new ValidationException($errors),
-                $errors
+                [
+                    'foo' => 'bar',
+                    'baz' => 'qux',
+                ]
             ],
             'no errors' => [
                 new ValidationException(),
