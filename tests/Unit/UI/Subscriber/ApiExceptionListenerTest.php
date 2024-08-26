@@ -70,9 +70,9 @@ final class ApiExceptionListenerTest extends TestCase
     #[DataProvider('dataBuildResponse')]
     /**
      * @param array{
-     * 		code: string,
-     * 		errorMessage: string
-     * 		errors?: array<string, string>
+     *      code: string,
+     *      errorMessage: string
+     *      errors?: array<string, string>
      * } $exceptionContent
      */
     public function testBuildResponse(Throwable $exception, array $exceptionContent): void
@@ -91,9 +91,9 @@ final class ApiExceptionListenerTest extends TestCase
 
     /**
      * @return array<string, array<Exception, array{
-     * 		code: string,
-     * 		errorMessage: string
-     * 		errors?: array<string, string>
+     *      code: string,
+     *      errorMessage: string
+     *      errors?: array<string, string>
      * }>>
      */
     public static function dataBuildResponse(): array
