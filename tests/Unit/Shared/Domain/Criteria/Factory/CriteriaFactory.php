@@ -9,7 +9,7 @@ use App\Shared\Domain\Criteria\Filter\Filters;
 use App\Shared\Domain\Criteria\Order\Order;
 use App\Tests\Unit\Shared\Domain\Criteria\Filter\Factory\FiltersFactory;
 use App\Tests\Unit\Shared\Domain\Criteria\Order\Factory\OrderFactory;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CriteriaFactory
 {

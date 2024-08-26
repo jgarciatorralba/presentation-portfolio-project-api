@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Shared\Domain\Criteria\Order\Factory;
 
 use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderEnum;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class OrderFactory
 {

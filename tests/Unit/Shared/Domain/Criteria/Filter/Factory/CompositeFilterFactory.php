@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Shared\Domain\Criteria\Filter\Factory;
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
 use App\Shared\Domain\Criteria\Filter\CompositeFilter;
 use App\Shared\Domain\Criteria\Filter\FilterConditionEnum;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CompositeFilterFactory
 {

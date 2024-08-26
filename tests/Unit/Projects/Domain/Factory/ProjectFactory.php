@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Projects\Domain\Factory;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ProjectDetails;
 use App\Projects\Domain\ProjectUrls;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use DateTimeImmutable;
 
 final class ProjectFactory

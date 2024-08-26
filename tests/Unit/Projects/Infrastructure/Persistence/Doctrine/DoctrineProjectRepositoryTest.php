@@ -10,7 +10,7 @@ use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
 use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
 use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
 use PHPUnit\Framework\Attributes\DataProvider;

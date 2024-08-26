@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\Exception;
 
 use App\Projects\Domain\Exception\ProjectNotFoundException;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectNotFoundExceptionTest extends TestCase
