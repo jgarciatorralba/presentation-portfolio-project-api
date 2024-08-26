@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Subscriber;
 
+use App\Projects\Domain\Exception\ProjectNotFoundException;
+use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
 use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
 use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
+use App\UI\Exception\ValidationException;
 use App\UI\Subscriber\ApiExceptionListener;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 final class ApiExceptionListenerTest extends TestCase
@@ -59,8 +62,95 @@ final class ApiExceptionListenerTest extends TestCase
     public static function dataIsMainRequest(): array
     {
         return [
-            'is main request' => [true],
-            'is not main request' => [false]
+            'main request' => [true],
+            'not main request' => [false]
+        ];
+    }
+
+    #[DataProvider('dataBuildResponse')]
+    /**
+     * @param array{
+     * 		code: string,
+     * 		errorMessage: string
+     * 		errors?: array<string, string>
+     * } $exceptionContent
+     */
+    public function testBuildResponse(Throwable $exception, array $exceptionContent): void
+    {
+        $reflection = new ReflectionClass($this->sut);
+        $method = $reflection->getMethod('buildResponse');
+        $method->setAccessible(true);
+
+        $response = $method->invoke($this->sut, $exception);
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $this->assertEquals(
+            $exceptionContent,
+            json_decode($response->getContent(), true)
+        );
+    }
+
+    /**
+     * @return array<string, array<Exception, array{
+     * 		code: string,
+     * 		errorMessage: string
+     * 		errors?: array<string, string>
+     * }>>
+     */
+    public static function dataBuildResponse(): array
+    {
+        $projectId = FakeValueGenerator::integer();
+
+        return [
+            'generic exception' => [
+                new Exception('Exception message'),
+                [
+                    'code' => 'exception',
+                    'errorMessage' => 'Exception message'
+                ]
+            ],
+            'validation exception' => [
+                new ValidationException(['field' => 'error']),
+                [
+                    'code' => 'validation_exception',
+                    'errorMessage' => 'Invalid request data.',
+                    'errors' => ['field' => 'error']
+                ]
+            ],
+            'domain exception' => [
+                new ProjectNotFoundException($projectId),
+                [
+                    'code' => 'project_not_found',
+                    'errorMessage' => "Project with id '$projectId' could not be found."
+                ]
+            ]
+        ];
+    }
+
+    #[DataProvider('dataGetErrorCode')]
+    public function testGetErrorCode(Throwable $exception, string $errorCode): void
+    {
+        $reflection = new ReflectionClass($this->sut);
+        $method = $reflection->getMethod('getErrorCode');
+        $method->setAccessible(true);
+
+        $errorCode = $method->invoke($this->sut, $exception);
+        $this->assertEquals($errorCode, $errorCode);
+    }
+
+    /**
+     * @return array<string, array<Exception, string>>
+     */
+    public static function dataGetErrorCode(): array
+    {
+        return [
+            'generic exception' => [
+                new Exception('Exception message'),
+                'exception'
+            ],
+            'domain exception' => [
+                new Exception('Exception message'),
+                'exception'
+            ]
         ];
     }
 
@@ -87,13 +177,13 @@ final class ApiExceptionListenerTest extends TestCase
     public static function dataStatusCodes(): array
     {
         return [
-            'defined status code and generic exception' => [
+            'generic exception and defined status code' => [
                 new Exception('Exception message'),
                 Response::HTTP_NOT_FOUND
             ],
-            'defined status code and http exception' => [
-                new HttpException(Response::HTTP_CONFLICT),
-                Response::HTTP_CONFLICT
+            'validation exception and defined status code' => [
+                new ValidationException(['field' => 'error']),
+                Response::HTTP_BAD_REQUEST
             ],
             'undefined status code' => [
                 new Exception('Exception message'),
