@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Subscriber;
 
-use App\Projects\Domain\Exception\ProjectNotFoundException;
-use App\Tests\Unit\Shared\Domain\FakeValueGenerator;
+use App\Tests\Unit\Shared\Domain\Testing\TestDomainException;
 use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
 use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
 use App\UI\Exception\ValidationException;
@@ -98,8 +97,6 @@ final class ApiExceptionListenerTest extends TestCase
      */
     public static function dataBuildResponse(): array
     {
-        $projectId = FakeValueGenerator::integer();
-
         return [
             'generic exception' => [
                 new Exception('Exception message'),
@@ -117,10 +114,10 @@ final class ApiExceptionListenerTest extends TestCase
                 ]
             ],
             'domain exception' => [
-                new ProjectNotFoundException($projectId),
+                new TestDomainException(),
                 [
-                    'code' => 'project_not_found',
-                    'errorMessage' => "Project with id '$projectId' could not be found."
+                    'code' => 'test_domain',
+                    'errorMessage' => 'Test error message'
                 ]
             ]
         ];
