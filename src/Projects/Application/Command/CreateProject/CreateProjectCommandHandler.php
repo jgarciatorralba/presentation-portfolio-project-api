@@ -8,8 +8,8 @@ use App\Projects\Domain\Project;
 use App\Projects\Domain\ProjectDetails;
 use App\Projects\Domain\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
-use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\Bus\Command\CommandHandler;
+use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 
 final class CreateProjectCommandHandler implements CommandHandler
 {

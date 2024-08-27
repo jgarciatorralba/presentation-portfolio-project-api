@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Domain\Service;
+namespace App\Shared\Domain\Service;
 
 final class LocalDateTimeZoneConverter
 {

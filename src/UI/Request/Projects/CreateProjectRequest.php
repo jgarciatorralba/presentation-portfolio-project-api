@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Request\Projects;
 
-use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\UI\Request\AbstractRequest;
 use App\UI\Validation\Validator;
 use Symfony\Component\HttpFoundation\RequestStack;

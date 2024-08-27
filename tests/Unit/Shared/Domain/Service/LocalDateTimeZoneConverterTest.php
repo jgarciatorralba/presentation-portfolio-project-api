@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain\Service;
+namespace App\Tests\Unit\Shared\Domain\Service;
 
-use App\Projects\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
