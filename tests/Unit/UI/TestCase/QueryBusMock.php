@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\TestCase;
 
+use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Bus\Query\Response;
-use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
-final class InMemorySymfonyQueryBusMock extends AbstractMock
+final class QueryBusMock extends AbstractMock
 {
     protected function getClassName(): string
     {
-        return InMemorySymfonyQueryBus::class;
+        return QueryBus::class;
     }
 
-    public function willGetResult(Response $response): void
+    public function willGetResponse(Response $response): void
     {
         $this->mock
             ->expects($this->once())

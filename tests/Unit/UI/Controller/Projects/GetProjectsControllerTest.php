@@ -6,7 +6,7 @@ namespace App\Tests\Unit\UI\Controller\Projects;
 
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
-use App\Tests\Unit\UI\TestCase\InMemorySymfonyQueryBusMock;
+use App\Tests\Unit\UI\TestCase\QueryBusMock;
 use App\UI\Controller\Projects\GetProjectsController;
 use App\UI\Request\Projects\GetProjectsRequest;
 use App\UI\Validation\Validator;
@@ -18,13 +18,13 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class GetProjectsControllerTest extends TestCase
 {
-    private ?InMemorySymfonyQueryBusMock $queryBusMock;
+    private ?QueryBusMock $queryBusMock;
     private ?GetProjectsController $sut;
     private ?GetProjectsRequest $getProjectsRequest;
 
     protected function setUp(): void
     {
-        $this->queryBusMock = new InMemorySymfonyQueryBusMock();
+        $this->queryBusMock = new QueryBusMock();
         $this->sut = new GetProjectsController(
             queryBus: $this->queryBusMock->getMock(),
             commandBus: $this->createMock(CommandBus::class)
@@ -48,7 +48,7 @@ final class GetProjectsControllerTest extends TestCase
     public function testItReturnsResponse(): void
     {
         $this->queryBusMock
-            ->willGetResult($this->createMock(Response::class));
+            ->willGetResponse($this->createMock(Response::class));
 
         $result = $this->sut->__invoke($this->getProjectsRequest);
 
