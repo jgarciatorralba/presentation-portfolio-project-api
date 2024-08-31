@@ -71,7 +71,11 @@ final class GetProjectsRequestTest extends TestCase
                 [],
                 []
             ],
-            'payload with data' => [
+            'valid payload data' => [
+                ['pageSize' => 3, 'maxCreatedAt' => '2021-01-01'],
+                []
+            ],
+            'invalid payload data' => [
                 ['foo' => 'bar'],
                 ['baz' => 'qux']
             ]

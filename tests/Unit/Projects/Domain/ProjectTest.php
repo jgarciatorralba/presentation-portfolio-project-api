@@ -46,7 +46,7 @@ final class ProjectTest extends TestCase
         $this->assertTrue(method_exists($this->project, 'recordEvent'));
     }
 
-    public function testProjectConvertsToArray(): void
+    public function testProjectIsConvertedToArray(): void
     {
         $projectArray = $this->project->toArray();
 

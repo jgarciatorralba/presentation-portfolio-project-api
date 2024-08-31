@@ -71,9 +71,21 @@ final class CreateProjectRequestTest extends TestCase
         return [
             'empty payload' => [
                 [],
+                ['name' => 'This value should not be blank.']
+            ],
+            'valid payload data' => [
+                [
+                    'name' => 'foo',
+                    'description' => 'bar',
+                    'topics' => ['baz', 'qux'],
+                    'repository' => 'https://www.github.com/foo/bar',
+                    'homepage' => 'https://www.foo.com',
+                    'archived' => false,
+                    'lastPushedAt' => '2021-01-01T00:00:00+00:00'
+                ],
                 []
             ],
-            'payload with data' => [
+            'invalid payload data' => [
                 ['foo' => 'bar'],
                 ['baz' => 'qux']
             ]
