@@ -48,7 +48,7 @@ final class GetProjectsControllerTest extends TestCase
     public function testItReturnsResponse(): void
     {
         $this->queryBusMock
-            ->willGetResponse($this->createMock(Response::class));
+            ->shouldAskQuery($this->createMock(Response::class));
 
         $result = $this->sut->__invoke($this->getProjectsRequest);
 

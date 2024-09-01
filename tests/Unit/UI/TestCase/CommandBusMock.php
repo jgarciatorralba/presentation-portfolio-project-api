@@ -4,30 +4,29 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\TestCase;
 
-use App\Shared\Domain\Bus\Query\QueryBus;
-use App\Shared\Domain\Bus\Query\Response;
+use App\Shared\Domain\Bus\Command\Command;
+use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
-final class QueryBusMock extends AbstractMock
+final class CommandBusMock extends AbstractMock
 {
     protected function getClassName(): string
     {
-        return QueryBus::class;
+        return CommandBus::class;
     }
 
-    public function shouldAskQuery(Response $response): void
+    public function shouldDispatchCommand(): void
     {
         $this->mock
             ->expects($this->once())
-            ->method('ask')
-            ->willReturn($response);
+            ->method('dispatch');
     }
 
     public function willThrowException(\Throwable $exception): void
     {
         $this->mock
             ->expects($this->once())
-            ->method('ask')
+            ->method('dispatch')
             ->willThrowException($exception);
     }
 }
