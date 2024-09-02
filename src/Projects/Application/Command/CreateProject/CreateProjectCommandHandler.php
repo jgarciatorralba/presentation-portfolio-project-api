@@ -32,14 +32,16 @@ final class CreateProjectCommandHandler implements CommandHandler
             homepage: $command->homepage()
         );
 
+        $now = new \DateTimeImmutable();
+
         $project = Project::create(
             id: $command->id(),
             details: $projectDetails,
             urls: $projectUrls,
             archived: $command->archived(),
             lastPushedAt: $this->dateTimeConverter->convert($command->lastPushedAt()),
-            createdAt: $command->createdAt(),
-            updatedAt: $command->createdAt()
+            createdAt: $now,
+            updatedAt: $now
         );
 
         $this->createProject->__invoke($project);

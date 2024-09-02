@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Controller\Projects;
 
+use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Tests\Unit\UI\TestCase\CommandBusMock;
@@ -20,6 +21,7 @@ final class CreateProjectControllerTest extends TestCase
 {
     private ?CommandBusMock $commandBusMock;
     private ?CreateProjectController $sut;
+    private ?RequestStack $requestStack;
     private ?CreateProjectRequest $createProjectRequest;
 
     protected function setUp(): void
@@ -30,8 +32,8 @@ final class CreateProjectControllerTest extends TestCase
             queryBus: $this->createMock(QueryBus::class)
         );
 
-        $requestStack = new RequestStack();
-        $requestStack->push(new Request(
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push(new Request(
             content: json_encode([
                 'id' => 1,
                 'name' => 'Project Name',
@@ -42,7 +44,7 @@ final class CreateProjectControllerTest extends TestCase
         ));
         $this->createProjectRequest = new CreateProjectRequest(
             validator: $this->createMock(Validator::class),
-            request: $requestStack,
+            request: $this->requestStack,
             dateTimeConverter: $this->createMock(LocalDateTimeZoneConverter::class)
         );
     }
@@ -51,13 +53,30 @@ final class CreateProjectControllerTest extends TestCase
     {
         $this->commandBusMock = null;
         $this->sut = null;
+        $this->requestStack = null;
         $this->createProjectRequest = null;
     }
 
     public function testItReturnsResponse(): void
     {
+        $requestContent = json_decode(
+            $this->requestStack->getCurrentRequest()->getContent(),
+            true
+        );
+
         $this->commandBusMock
-            ->shouldDispatchCommand();
+            ->shouldDispatchCommand(
+                new CreateProjectCommand(
+                    id: $requestContent['id'],
+                    name: $requestContent['name'],
+                    description: $requestContent['description'] ?? null,
+                    topics: $requestContent['topics'] ?? null,
+                    repository: $requestContent['repository'],
+                    homepage: $requestContent['homepage'] ?? null,
+                    archived: $requestContent['archived'],
+                    lastPushedAt: new \DateTimeImmutable($requestContent['lastPushedAt'])
+                )
+            );
 
         $result = $this->sut->__invoke($this->createProjectRequest);
 
@@ -69,8 +88,25 @@ final class CreateProjectControllerTest extends TestCase
 
     public function testItThrowsException(): void
     {
+        $requestContent = json_decode(
+            $this->requestStack->getCurrentRequest()->getContent(),
+            true
+        );
+
         $this->commandBusMock
-            ->willThrowException($this->createMock(\Exception::class));
+            ->willThrowException(
+                new CreateProjectCommand(
+                    id: $requestContent['id'],
+                    name: $requestContent['name'],
+                    description: $requestContent['description'] ?? null,
+                    topics: $requestContent['topics'] ?? null,
+                    repository: $requestContent['repository'],
+                    homepage: $requestContent['homepage'] ?? null,
+                    archived: $requestContent['archived'],
+                    lastPushedAt: new \DateTimeImmutable($requestContent['lastPushedAt'])
+                ),
+                $this->createMock(\Exception::class)
+            );
 
         $this->expectException(\Exception::class);
 

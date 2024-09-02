@@ -15,18 +15,20 @@ final class CommandBusMock extends AbstractMock
         return CommandBus::class;
     }
 
-    public function shouldDispatchCommand(): void
-    {
-        $this->mock
-            ->expects($this->once())
-            ->method('dispatch');
-    }
-
-    public function willThrowException(\Throwable $exception): void
+    public function shouldDispatchCommand(Command $command): void
     {
         $this->mock
             ->expects($this->once())
             ->method('dispatch')
+            ->with($command);
+    }
+
+    public function willThrowException(Command $command, \Throwable $exception): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('dispatch')
+            ->with($command)
             ->willThrowException($exception);
     }
 }

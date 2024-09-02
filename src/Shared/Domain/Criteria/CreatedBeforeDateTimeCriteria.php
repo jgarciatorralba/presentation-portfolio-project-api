@@ -13,7 +13,7 @@ use App\Shared\Domain\Criteria\Order\OrderEnum;
 final class CreatedBeforeDateTimeCriteria extends Criteria
 {
     public function __construct(
-        \DateTimeImmutable $maxCreatedAt = new \DateTimeImmutable(),
+        \DateTimeImmutable $maxCreatedAt,
         ?int $limit = null
     ) {
         parent::__construct(

@@ -16,7 +16,9 @@ final class GetProjectsController extends BaseController
     public function __invoke(GetProjectsRequest $request): Response
     {
         $pageSize = $request->get('pageSize');
-        $maxCreatedAt = Utils::stringToDate($request->get('maxCreatedAt') ?? 'now');
+        $maxCreatedAt = $request->get('maxCreatedAt')
+            ? Utils::stringToDate($request->get('maxCreatedAt'))
+            : null;
 
         $response = $this->ask(
             new GetProjectsQuery(

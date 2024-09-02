@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Controller\Projects;
 
+use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
 use App\Tests\Unit\UI\TestCase\QueryBusMock;
@@ -20,6 +21,7 @@ final class GetProjectsControllerTest extends TestCase
 {
     private ?QueryBusMock $queryBusMock;
     private ?GetProjectsController $sut;
+    private ?RequestStack $requestStack;
     private ?GetProjectsRequest $getProjectsRequest;
 
     protected function setUp(): void
@@ -30,11 +32,11 @@ final class GetProjectsControllerTest extends TestCase
             commandBus: $this->createMock(CommandBus::class)
         );
 
-        $requestStack = new RequestStack();
-        $requestStack->push(new Request());
+        $this->requestStack = new RequestStack();
+        $this->requestStack->push(new Request());
         $this->getProjectsRequest = new GetProjectsRequest(
             validator: $this->createMock(Validator::class),
-            request: $requestStack
+            request: $this->requestStack
         );
     }
 
@@ -42,13 +44,27 @@ final class GetProjectsControllerTest extends TestCase
     {
         $this->queryBusMock = null;
         $this->sut = null;
+        $this->requestStack = null;
         $this->getProjectsRequest = null;
     }
 
     public function testItReturnsResponse(): void
     {
+        $requestContent = json_decode(
+            $this->requestStack->getCurrentRequest()->getContent(),
+            true
+        );
+
         $this->queryBusMock
-            ->shouldAskQuery($this->createMock(Response::class));
+            ->shouldAskQuery(
+                new GetProjectsQuery(
+                    pageSize: $requestContent['pageSize'] ?? null,
+                    maxCreatedAt: isset($requestContent['maxCreatedAt'])
+                        ? new \DateTimeImmutable($requestContent['maxCreatedAt'])
+                        : null
+                ),
+                $this->createMock(Response::class)
+            );
 
         $result = $this->sut->__invoke($this->getProjectsRequest);
 
@@ -59,8 +75,21 @@ final class GetProjectsControllerTest extends TestCase
 
     public function testItThrowsException(): void
     {
+        $requestContent = json_decode(
+            $this->requestStack->getCurrentRequest()->getContent(),
+            true
+        );
+
         $this->queryBusMock
-            ->willThrowException($this->createMock(\Exception::class));
+            ->willThrowException(
+                new GetProjectsQuery(
+                    pageSize: $requestContent['pageSize'] ?? null,
+                    maxCreatedAt: isset($requestContent['maxCreatedAt'])
+                        ? new \DateTimeImmutable($requestContent['maxCreatedAt'])
+                        : null
+                ),
+                $this->createMock(\Exception::class)
+            );
 
         $this->expectException(\Exception::class);
 

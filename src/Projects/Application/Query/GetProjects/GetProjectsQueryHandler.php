@@ -19,11 +19,10 @@ final class GetProjectsQueryHandler implements QueryHandler
     public function __invoke(GetProjectsQuery $query): GetProjectsResponse
     {
         $limit = $query->pageSize() > 0 ? $query->pageSize() : null;
+        $maxCreatedAt = $query->maxCreatedAt() ?? new \DateTimeImmutable();
+
         $projects = $this->getProjectsByCriteria->__invoke(
-            new CreatedBeforeDateTimeCriteria(
-                $query->maxCreatedAt(),
-                $limit
-            )
+            new CreatedBeforeDateTimeCriteria($maxCreatedAt, $limit)
         );
 
         $projects = array_map(
