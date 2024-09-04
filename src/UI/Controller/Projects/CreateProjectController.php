@@ -29,8 +29,8 @@ final class CreateProjectController extends BaseController
             )
         );
 
-        return new JsonResponse([
-            'id' => $data['id']
-        ], Response::HTTP_CREATED);
+        return new JsonResponse(null, Response::HTTP_CREATED, [
+            'Location' => $this->getResourceUrl('projects', $data['id'])
+        ]);
     }
 }

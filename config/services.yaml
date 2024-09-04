@@ -1,4 +1,5 @@
 parameters:
+  base_url: '%env(BASE_URL)%'
 
 services:
   _defaults:

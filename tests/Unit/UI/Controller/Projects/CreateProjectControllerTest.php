@@ -8,6 +8,7 @@ use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Tests\Unit\UI\TestCase\CommandBusMock;
+use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\CreateProjectController;
 use App\UI\Request\Projects\CreateProjectRequest;
 use App\UI\Validation\Validator;
@@ -20,17 +21,14 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 final class CreateProjectControllerTest extends TestCase
 {
     private ?CommandBusMock $commandBusMock;
-    private ?CreateProjectController $sut;
+    private ?ParameterBagMock $parameterBagMock;
     private ?RequestStack $requestStack;
     private ?CreateProjectRequest $createProjectRequest;
 
     protected function setUp(): void
     {
         $this->commandBusMock = new CommandBusMock();
-        $this->sut = new CreateProjectController(
-            commandBus: $this->commandBusMock->getMock(),
-            queryBus: $this->createMock(QueryBus::class)
-        );
+        $this->parameterBagMock = new ParameterBagMock();
 
         $this->requestStack = new RequestStack();
         $this->requestStack->push(new Request(
@@ -52,7 +50,7 @@ final class CreateProjectControllerTest extends TestCase
     protected function tearDown(): void
     {
         $this->commandBusMock = null;
-        $this->sut = null;
+        $this->parameterBagMock = null;
         $this->requestStack = null;
         $this->createProjectRequest = null;
     }
@@ -62,6 +60,17 @@ final class CreateProjectControllerTest extends TestCase
         $requestContent = json_decode(
             $this->requestStack->getCurrentRequest()->getContent(),
             true
+        );
+        $baseUrl = 'http://localhost:8000';
+
+        $this->parameterBagMock
+            ->shouldGetBaseUrl($baseUrl)
+            ->getMock();
+
+        $sut = new CreateProjectController(
+            commandBus: $this->commandBusMock->getMock(),
+            queryBus: $this->createMock(QueryBus::class),
+            params: $this->parameterBagMock->getMock()
         );
 
         $this->commandBusMock
@@ -78,12 +87,16 @@ final class CreateProjectControllerTest extends TestCase
                 )
             );
 
-        $result = $this->sut->__invoke($this->createProjectRequest);
+        $result = $sut->__invoke($this->createProjectRequest);
+        $responseHeaders = $result->headers->all();
 
         $this->assertInstanceOf(JsonResponse::class, $result);
         $this->assertEquals($result->getStatusCode(), HttpResponse::HTTP_CREATED);
-        $this->assertIsArray(json_decode($result->getContent(), true));
-        $this->assertArrayHasKey('id', json_decode($result->getContent(), true));
+        $this->assertEmpty(json_decode($result->getContent(), true));
+        $this->assertEquals(
+            $responseHeaders['location'][0],
+            sprintf('%s/api/projects/%d', $baseUrl, $requestContent['id'])
+        );
     }
 
     public function testItThrowsException(): void
@@ -91,6 +104,17 @@ final class CreateProjectControllerTest extends TestCase
         $requestContent = json_decode(
             $this->requestStack->getCurrentRequest()->getContent(),
             true
+        );
+        $baseUrl = 'http://localhost:8000';
+
+        $this->parameterBagMock
+            ->shouldGetBaseUrl($baseUrl)
+            ->getMock();
+
+        $sut = new CreateProjectController(
+            commandBus: $this->commandBusMock->getMock(),
+            queryBus: $this->createMock(QueryBus::class),
+            params: $this->parameterBagMock->getMock()
         );
 
         $this->commandBusMock
@@ -110,6 +134,6 @@ final class CreateProjectControllerTest extends TestCase
 
         $this->expectException(\Exception::class);
 
-        $this->sut->__invoke($this->createProjectRequest);
+        $sut->__invoke($this->createProjectRequest);
     }
 }
