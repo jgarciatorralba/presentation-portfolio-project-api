@@ -1,6 +1,6 @@
 server {
-    listen 80;
-    server_name ${NGINX_BACKEND_DOMAIN};
+    listen ${NGINX_PORT};
+    server_name ${NGINX_SERVER_NAME};
     root /var/www/portfolio-api/${NGINX_PUBLIC_FOLDER_PATH};
 
     location = /favicon.ico {
