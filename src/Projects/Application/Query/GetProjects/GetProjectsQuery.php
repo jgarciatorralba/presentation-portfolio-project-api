@@ -9,8 +9,8 @@ use App\Shared\Domain\Bus\Query\Query;
 final class GetProjectsQuery implements Query
 {
     public function __construct(
-        private readonly ?int $pageSize,
-        private readonly ?\DateTimeImmutable $maxCreatedAt
+        private readonly ?int $pageSize = null,
+        private readonly ?\DateTimeImmutable $maxCreatedAt = null
     ) {
     }
 
