@@ -16,15 +16,20 @@ use PHPUnit\Framework\TestCase;
 final class GetProjectsQueryHandlerTest extends TestCase
 {
     private ?GetProjectsByCriteriaMock $getProjectsByCriteria;
+    private ?GetProjectsQueryHandler $sut;
 
     protected function setUp(): void
     {
         $this->getProjectsByCriteria = new GetProjectsByCriteriaMock($this);
+        $this->sut = new GetProjectsQueryHandler(
+            getProjectsByCriteria: $this->getProjectsByCriteria->getMock()
+        );
     }
 
     protected function tearDown(): void
     {
         $this->getProjectsByCriteria = null;
+        $this->sut = null;
     }
 
     public function testGetProjects(): void
@@ -36,10 +41,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
             ...$projects
         );
 
-        $sut = new GetProjectsQueryHandler(
-            getProjectsByCriteria: $this->getProjectsByCriteria->getMock()
-        );
-        $result = $sut->__invoke(
+        $result = $this->sut->__invoke(
             query: GetProjectsQueryFactory::create()
         );
 
