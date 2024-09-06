@@ -41,11 +41,11 @@ final class CreatedBeforeDateTimeCriteriaTest extends TestCase
     public static function dataCreatedBeforeDateTimeCriteria(): array
     {
         return [
-            [
+            'current DateTime and given limit' => [
                 'maxCreatedAt' => new \DateTimeImmutable(),
                 'limit' => 10
             ],
-            [
+            'given DateTime and no limit' => [
                 'maxCreatedAt' => new \DateTimeImmutable('2022-01-01 00:00:00'),
                 'limit' => null
             ]
