@@ -32,16 +32,4 @@ final class EntityManagerMock extends AbstractMock
             ->expects($this->once())
             ->method('flush');
     }
-
-    public function shouldRemoveEntity(object $entity): void
-    {
-        $this->mock
-            ->expects($this->once())
-            ->method('remove')
-            ->with($entity);
-
-        $this->mock
-            ->expects($this->once())
-            ->method('flush');
-    }
 }

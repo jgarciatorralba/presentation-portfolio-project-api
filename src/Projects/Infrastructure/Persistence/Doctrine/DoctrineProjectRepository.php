@@ -29,13 +29,7 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
 
     public function delete(Project $project): void
     {
-        $this->remove($project);
-    }
-
-    public function softDelete(Project $project): void
-    {
-        $lastUpdatedAt = $project->updatedAt();
-        $project->updateDeletedAt($lastUpdatedAt);
+        $project->updateDeletedAt(new \DateTimeImmutable());
 
         $this->updateEntity();
     }

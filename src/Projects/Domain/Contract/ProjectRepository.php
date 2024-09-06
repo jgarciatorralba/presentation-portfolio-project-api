@@ -15,8 +15,6 @@ interface ProjectRepository
 
     public function delete(Project $project): void;
 
-    public function softDelete(Project $project): void;
-
     public function find(int $id): Project|null;
 
     /** @return Project[] */

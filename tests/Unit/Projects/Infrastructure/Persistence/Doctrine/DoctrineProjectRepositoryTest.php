@@ -67,18 +67,9 @@ final class DoctrineProjectRepositoryTest extends TestCase
     public function testItDeletesProject(): void
     {
         $this->entityManagerMock
-            ->shouldRemoveEntity($this->project);
-
-        $result = $this->sut->delete($this->project);
-        $this->assertNull($result);
-    }
-
-    public function testItSoftDeletesProject(): void
-    {
-        $this->entityManagerMock
             ->shouldUpdateEntity();
 
-        $result = $this->sut->softDelete($this->project);
+        $result = $this->sut->delete($this->project);
         $this->assertNull($result);
     }
 
