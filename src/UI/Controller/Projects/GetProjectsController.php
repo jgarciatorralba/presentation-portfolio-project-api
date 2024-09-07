@@ -15,14 +15,16 @@ final class GetProjectsController extends BaseController
 {
     public function __invoke(GetProjectsRequest $request): Response
     {
-        $pageSize = $request->get('pageSize');
+        $pageSize = $request->get('pageSize')
+            ? intval($request->get('pageSize'))
+            : null;
         $maxCreatedAt = $request->get('maxCreatedAt')
             ? Utils::stringToDate($request->get('maxCreatedAt'))
             : null;
 
         $response = $this->ask(
             new GetProjectsQuery(
-                pageSize: is_numeric($pageSize) ? intval($pageSize) : null,
+                pageSize: $pageSize,
                 maxCreatedAt: $maxCreatedAt
             )
         );
