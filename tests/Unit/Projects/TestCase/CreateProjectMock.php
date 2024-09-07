@@ -15,34 +15,68 @@ final class CreateProjectMock extends AbstractMock
         return CreateProject::class;
     }
 
-    public function shouldCreateProject(Project $expectedProject): void
+    public function shouldCreateProject(Project $expected): void
     {
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->with($this->callback(function (Project $actualProject) use ($expectedProject) {
-                $this->assertGreaterThanOrEqual($expectedProject->createdAt(), $actualProject->createdAt());
-                $this->assertGreaterThanOrEqual($expectedProject->updatedAt(), $actualProject->updatedAt());
+            ->with($this->callback(
+                function (Project $actual) use ($expected) {
+                    $this->assertGreaterThanOrEqual(
+                        $expected->createdAt(),
+                        $actual->createdAt()
+                    );
+                    $this->assertGreaterThanOrEqual(
+                        $expected->updatedAt(),
+                        $actual->updatedAt()
+                    );
 
-                $now = new \DateTimeImmutable();
-                $this->assertLessThanOrEqual($now, $actualProject->createdAt());
-                $this->assertLessThanOrEqual($now, $actualProject->updatedAt());
+                    $now = new \DateTimeImmutable();
+                    $this->assertLessThanOrEqual($now, $actual->createdAt());
+                    $this->assertLessThanOrEqual($now, $actual->updatedAt());
 
-                $this->assertProjectsAreEqual($expectedProject, $actualProject);
+                    $this->assertProjectsAreEqual($expected, $actual);
 
-                return true;
-            }));
+                    return true;
+                }
+            ));
     }
 
-    private function assertProjectsAreEqual(Project $expectedProject, Project $actualProject): void
-    {
-        $this->assertEquals($expectedProject->id(), $actualProject->id());
-        $this->assertEquals($expectedProject->details()->name(), $actualProject->details()->name());
-        $this->assertEquals($expectedProject->details()->description(), $actualProject->details()->description());
-        $this->assertEquals($expectedProject->details()->topics(), $actualProject->details()->topics());
-        $this->assertEquals($expectedProject->urls()->repository(), $actualProject->urls()->repository());
-        $this->assertEquals($expectedProject->urls()->homepage(), $actualProject->urls()->homepage());
-        $this->assertEquals($expectedProject->archived(), $actualProject->archived());
-        $this->assertEquals($expectedProject->lastPushedAt(), $actualProject->lastPushedAt());
+    private function assertProjectsAreEqual(
+        Project $expected,
+        Project $actual
+    ): void {
+        $this->assertEquals(
+            $expected->id(),
+            $actual->id()
+        );
+        $this->assertEquals(
+            $expected->details()->name(),
+            $actual->details()->name()
+        );
+        $this->assertEquals(
+            $expected->details()->description(),
+            $actual->details()->description()
+        );
+        $this->assertEquals(
+            $expected->details()->topics(),
+            $actual->details()->topics()
+        );
+        $this->assertEquals(
+            $expected->urls()->repository(),
+            $actual->urls()->repository()
+        );
+        $this->assertEquals(
+            $expected->urls()->homepage(),
+            $actual->urls()->homepage()
+        );
+        $this->assertEquals(
+            $expected->archived(),
+            $actual->archived()
+        );
+        $this->assertEquals(
+            $expected->lastPushedAt(),
+            $actual->lastPushedAt()
+        );
     }
 }

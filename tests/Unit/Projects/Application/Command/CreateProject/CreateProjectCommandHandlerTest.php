@@ -36,11 +36,7 @@ final class CreateProjectCommandHandlerTest extends TestCase
 
     public function testCreateProject(): void
     {
-        $now = new \DateTimeImmutable();
-        $project = ProjectFactory::create(
-            createdAt: $now,
-            updatedAt: $now
-        );
+        $project = ProjectFactory::create();
         $command = CreateProjectCommandFactory::createFromProject($project);
 
         $this->dateTimeConverter->shouldConvert(
