@@ -22,21 +22,7 @@ final class CreateProjectMock extends AbstractMock
             ->method('__invoke')
             ->with($this->callback(
                 function (Project $actual) use ($expected) {
-                    $this->assertGreaterThanOrEqual(
-                        $expected->createdAt(),
-                        $actual->createdAt()
-                    );
-                    $this->assertGreaterThanOrEqual(
-                        $expected->updatedAt(),
-                        $actual->updatedAt()
-                    );
-
-                    $now = new \DateTimeImmutable();
-                    $this->assertLessThanOrEqual($now, $actual->createdAt());
-                    $this->assertLessThanOrEqual($now, $actual->updatedAt());
-
                     $this->assertProjectsAreEqual($expected, $actual);
-
                     return true;
                 }
             ));
@@ -51,24 +37,12 @@ final class CreateProjectMock extends AbstractMock
             $actual->id()
         );
         $this->assertEquals(
-            $expected->details()->name(),
-            $actual->details()->name()
+            $expected->details(),
+            $actual->details()
         );
         $this->assertEquals(
-            $expected->details()->description(),
-            $actual->details()->description()
-        );
-        $this->assertEquals(
-            $expected->details()->topics(),
-            $actual->details()->topics()
-        );
-        $this->assertEquals(
-            $expected->urls()->repository(),
-            $actual->urls()->repository()
-        );
-        $this->assertEquals(
-            $expected->urls()->homepage(),
-            $actual->urls()->homepage()
+            $expected->urls(),
+            $actual->urls()
         );
         $this->assertEquals(
             $expected->archived(),
@@ -78,5 +52,17 @@ final class CreateProjectMock extends AbstractMock
             $expected->lastPushedAt(),
             $actual->lastPushedAt()
         );
+        $this->assertEquals(
+            $expected->deletedAt(),
+            $actual->deletedAt()
+        );
+
+        $diffCreatedAt = $actual->createdAt()->getTimestamp()
+            - $expected->createdAt()->getTimestamp();
+        $this->assertLessThanOrEqual(1, $diffCreatedAt);
+
+        $diffUpdatedAt = $actual->updatedAt()->getTimestamp()
+            - $expected->updatedAt()->getTimestamp();
+        $this->assertLessThanOrEqual(1, $diffUpdatedAt);
     }
 }

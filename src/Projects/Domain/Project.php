@@ -17,12 +17,12 @@ class Project extends AggregateRoot
         private ProjectDetails $details,
         private ProjectUrls $urls,
         private bool $archived,
-        private \DateTimeImmutable $lastPushedAt,
-        \DateTimeImmutable $createdAt,
-        \DateTimeImmutable $updatedAt,
+        private \DateTimeImmutable $lastPushedAt
     ) {
-        $this->updateCreatedAt($createdAt);
-        $this->updateUpdatedAt($updatedAt);
+        $now = new \DateTimeImmutable();
+
+        $this->updateCreatedAt($now);
+        $this->updateUpdatedAt($now);
     }
 
     public static function create(
@@ -30,18 +30,14 @@ class Project extends AggregateRoot
         ProjectDetails $details,
         ProjectUrls $urls,
         bool $archived,
-        \DateTimeImmutable $lastPushedAt,
-        \DateTimeImmutable $createdAt,
-        \DateTimeImmutable $updatedAt,
+        \DateTimeImmutable $lastPushedAt
     ): self {
         return new self(
             id: $id,
             details: $details,
             urls: $urls,
             archived: $archived,
-            lastPushedAt: $lastPushedAt,
-            createdAt: $createdAt,
-            updatedAt: $updatedAt
+            lastPushedAt: $lastPushedAt
         );
     }
 
