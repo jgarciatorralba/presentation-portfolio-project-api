@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\TestCase;
 
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
-use App\Tests\Unit\Shared\Infrastructure\Testing\TestCollection;
+use App\Tests\Unit\Shared\Infrastructure\Testing\DoctrineTestCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
 
@@ -41,7 +41,7 @@ final class EntityRepositoryMock extends AbstractMock
             ->method('matching')
             ->with($criteria)
             ->willReturnCallback(function () use ($entities) {
-                return new TestCollection($entities);
+                return new DoctrineTestCollection($entities);
             });
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Testing;
+namespace App\Tests\Unit\Shared\Application\Testing;
 
 use App\Shared\Domain\Bus\Query\Response;
 

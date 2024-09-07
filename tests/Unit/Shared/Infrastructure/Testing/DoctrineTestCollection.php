@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\Selectable;
  * @extends AbstractLazyCollection<int, object>
  * @implements Selectable<int, object>
  */
-class TestCollection extends AbstractLazyCollection implements Selectable
+class DoctrineTestCollection extends AbstractLazyCollection implements Selectable
 {
     /**
      * @param object[] $elements
