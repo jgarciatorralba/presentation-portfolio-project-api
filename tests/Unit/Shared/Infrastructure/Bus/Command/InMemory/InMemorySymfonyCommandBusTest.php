@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Bus\Command\InMemory;
 
+use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Infrastructure\Bus\Command\InMemory\InMemorySymfonyCommandBus;
-use App\Shared\Infrastructure\Bus\Exception\CommandNotRegisteredException;
 use App\Tests\Unit\Shared\TestCase\CommandBusMock;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

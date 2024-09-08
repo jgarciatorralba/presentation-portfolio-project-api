@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Bus\Exception;
+namespace App\Tests\Unit\Shared\Application\Bus\Exception;
 
+use App\Shared\Application\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Domain\Bus\Query\Query;
-use App\Shared\Infrastructure\Bus\Exception\QueryNotRegisteredException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

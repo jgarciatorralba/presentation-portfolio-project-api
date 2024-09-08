@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Bus\Exception;
+namespace App\Shared\Application\Bus\Exception;
 
 use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Utils;

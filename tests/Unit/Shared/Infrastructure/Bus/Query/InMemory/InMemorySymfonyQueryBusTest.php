@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Bus\Query\InMemory;
 
+use App\Shared\Application\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Domain\Bus\Query\Response;
-use App\Shared\Infrastructure\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
 use App\Tests\Unit\Shared\Application\Testing\TestResponse;
 use App\Tests\Unit\Shared\TestCase\QueryBusMock;
