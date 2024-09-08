@@ -12,9 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CreateProjectControllerTest extends FeatureTestCase
 {
-    /**
-     * @throws \InvalidArgumentException
-     */
     public function testCreateProject(): void
     {
         $project = ProjectFactory::create();
