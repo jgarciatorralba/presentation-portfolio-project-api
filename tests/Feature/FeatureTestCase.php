@@ -11,11 +11,15 @@ use Symfony\Component\HttpKernel\HttpKernelBrowser;
 
 abstract class FeatureTestCase extends WebTestCase
 {
+    private ?EntityManagerInterface $entityManager = null;
     protected ?HttpKernelBrowser $client = null;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
+
+        $this->entityManager = $this->getContainer()
+            ->get(EntityManagerInterface::class);
     }
 
     /**
@@ -24,24 +28,21 @@ abstract class FeatureTestCase extends WebTestCase
      */
     protected function find(string $className, mixed $id): ?object
     {
-        $em = $this->getContainer()->get(EntityManagerInterface::class);
-        return $em->find($className, $id);
+        return $this->entityManager->find($className, $id);
     }
 
     protected function persist(object ...$entities): void
     {
-        $em = $this->getContainer()->get(EntityManagerInterface::class);
         foreach ($entities as $entity) {
-            $em->persist($entity);
-            $em->flush();
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
         }
     }
 
     protected function remove(object $entity): void
     {
-        $em = $this->getContainer()->get(EntityManagerInterface::class);
-        $em->remove($entity);
-        $em->flush();
+        $this->entityManager->remove($entity);
+        $this->entityManager->flush();
     }
 
     /**
@@ -51,9 +52,7 @@ abstract class FeatureTestCase extends WebTestCase
      */
     protected function repository(string $className): EntityRepository
     {
-        return $this->getContainer()
-            ->get(EntityManagerInterface::class)
-            ->getRepository($className);
+        return $this->entityManager->getRepository($className);
     }
 
     /**
@@ -61,28 +60,35 @@ abstract class FeatureTestCase extends WebTestCase
      */
     private function tables(): array
     {
-        $entityManager = $this->getContainer()->get(EntityManagerInterface::class);
-
         $notMappedSuperClassNames = array_filter(
-            $entityManager->getConfiguration()->getMetadataDriverImpl()->getAllClassNames(),
-            fn (string $class): bool => false === $entityManager->getClassMetadata($class)->isMappedSuperclass,
+            $this->entityManager
+                ->getConfiguration()
+                ->getMetadataDriverImpl()
+                ->getAllClassNames(),
+            fn (string $class): bool => false ===
+                $this->entityManager
+                    ->getClassMetadata($class)
+                    ->isMappedSuperclass
         );
 
         return array_map(
-            fn (string $class): string => $entityManager->getClassMetadata($class)->getTableName(),
+            fn (string $class): string =>
+                $this->entityManager
+                    ->getClassMetadata($class)
+                    ->getTableName(),
             $notMappedSuperClassNames
         );
     }
 
     protected function clearDatabase(): void
     {
-        $entityManager = $this->getContainer()->get(EntityManagerInterface::class);
-
-        $connection = $entityManager->getConnection();
+        $connection = $this->entityManager->getConnection();
         foreach ($this->tables() as $table) {
-            $connection->query(sprintf('TRUNCATE "%s" CASCADE;', $table));
+            $connection->executeQuery(
+                sprintf('TRUNCATE "%s" CASCADE;', $table)
+            );
         }
 
-        $entityManager->clear();
+        $this->entityManager->clear();
     }
 }
