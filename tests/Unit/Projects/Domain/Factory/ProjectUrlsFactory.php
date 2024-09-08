@@ -15,7 +15,10 @@ final class ProjectUrlsFactory
     ): ProjectUrls {
         return ProjectUrls::create(
             repository: $repository ?? ('https://github.com/' . FakeValueGenerator::string()),
-            homepage: $homepage ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::text()]),
+            homepage: $homepage ?? FakeValueGenerator::randomElement([
+                null,
+                'https://' . FakeValueGenerator::text() . '.com'
+            ]),
         );
     }
 }

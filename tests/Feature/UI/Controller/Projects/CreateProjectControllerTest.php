@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CreateProjectControllerTest extends FeatureTestCase
 {
-    public function testCreateProject(): void
+    public function testItCreatesProject(): void
     {
         $project = ProjectFactory::create();
 
@@ -23,6 +23,16 @@ final class CreateProjectControllerTest extends FeatureTestCase
             'archived' => $project->archived(),
             'lastPushedAt' => Utils::dateToString($project->lastPushedAt()),
         ];
+
+        if (null !== $project->details()->description()) {
+            $content['description'] = $project->details()->description();
+        }
+        if (null !== $project->details()->topics()) {
+            $content['topics'] = $project->details()->topics();
+        }
+        if (null !== $project->urls()->homepage()) {
+            $content['homepage'] = $project->urls()->homepage();
+        }
 
         $this->client->request(
             method: 'POST',
