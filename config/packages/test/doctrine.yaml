@@ -1,0 +1,15 @@
+doctrine:
+  dbal:
+    default_connection: postgres
+    connections:
+      postgres:
+        dbname: "app_db_test"
+        host: "%env(resolve:DATABASE_HOST)%"
+        port: "%env(resolve:DATABASE_PORT)%"
+        user: "%env(resolve:DATABASE_USER)%"
+        password: "%env(resolve:DATABASE_PASSWORD)%"
+        server_version: "%env(resolve:DATABASE_SERVER_VERSION)%"
+        charset: "%env(resolve:DATABASE_CHARSET)%"
+        driver: "%env(resolve:DATABASE_DRIVER)%"
+        profiling_collect_backtrace: "%kernel.debug%"
+        use_savepoints: true
