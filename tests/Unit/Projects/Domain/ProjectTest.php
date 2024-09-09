@@ -49,7 +49,7 @@ final class ProjectTest extends TestCase
         $projectArray = $this->expected->toArray();
 
         $this->assertIsArray($projectArray);
-        $this->assertCount(9, array_keys($projectArray));
+        $this->assertCount(8, array_keys($projectArray));
         $this->assertEquals($this->expected->id(), $projectArray['id']);
         $this->assertEquals($this->expected->details()->name(), $projectArray['name']);
         $this->assertEquals($this->expected->details()->description(), $projectArray['description']);
@@ -60,10 +60,6 @@ final class ProjectTest extends TestCase
         $this->assertEquals(
             $this->expected->lastPushedAt()->format(\DateTimeInterface::ATOM),
             $projectArray['lastPushedAt']
-        );
-        $this->assertEquals(
-            $this->expected->createdAt()->format(\DateTimeInterface::ATOM),
-            $projectArray['createdAt']
         );
     }
 

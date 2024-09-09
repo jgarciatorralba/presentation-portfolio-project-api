@@ -84,8 +84,7 @@ class Project extends AggregateRoot
      *    homepage: string|null,
      *    topics: string[]|null,
      *    archived: bool,
-     *    lastPushedAt: string,
-     *    createdAt: string
+     *    lastPushedAt: string
      *  }
      */
     public function toArray(): array
@@ -98,8 +97,7 @@ class Project extends AggregateRoot
             'repository' => $this->urls()->repository(),
             'homepage' => $this->urls()->homepage(),
             'archived' => $this->archived,
-            'lastPushedAt' => Utils::dateToString($this->lastPushedAt),
-            'createdAt' => Utils::dateToString($this->createdAt)
+            'lastPushedAt' => Utils::dateToString($this->lastPushedAt)
         ];
     }
 }
