@@ -37,6 +37,11 @@ final class FakeValueGenerator
         return self::generator()->text();
     }
 
+    public static function url(): string
+    {
+        return 'https://' . self::generator()->domainWord() . '.' . self::generator()->tld();
+    }
+
     public static function integer(int $min = 0, ?int $max = null): int
     {
         return self::generator()->numberBetween($min, $max ?? getrandmax());
