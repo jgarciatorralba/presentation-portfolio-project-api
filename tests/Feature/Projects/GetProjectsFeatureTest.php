@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\UI\Controller\Projects;
+namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
@@ -12,7 +12,7 @@ use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
-final class GetProjectsControllerTest extends FeatureTestCase
+final class GetProjectsFeatureTest extends FeatureTestCase
 {
     /** @var Project[] */
     private ?array $projects;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\UI\Controller\Projects;
+namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Utils;
@@ -12,7 +12,7 @@ use App\UI\Exception\ValidationException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CreateProjectControllerTest extends FeatureTestCase
+final class CreateProjectFeatureTest extends FeatureTestCase
 {
     public function testItCreatesProject(): void
     {
