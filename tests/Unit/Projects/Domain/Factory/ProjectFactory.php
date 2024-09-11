@@ -18,13 +18,17 @@ final class ProjectFactory
         bool $archived = null,
         \DateTimeImmutable $lastPushedAt = null
     ): Project {
-        return Project::create(
+        $project = Project::create(
             id: $id ?? FakeValueGenerator::integer(),
             details: $details ?? ProjectDetailsFactory::create(),
             urls: $urls ?? ProjectUrlsFactory::create(),
             archived: $archived ?? FakeValueGenerator::boolean(),
             lastPushedAt: $lastPushedAt ?? FakeValueGenerator::dateTime()
         );
+
+        $project->updateCreatedAt(FakeValueGenerator::dateTime());
+
+        return $project;
     }
 
     /**
