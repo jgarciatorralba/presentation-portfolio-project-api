@@ -11,11 +11,11 @@ final class GetProjectsQueryFactory
 {
     public static function create(
         ?int $pageSize = null,
-        ?\DateTimeImmutable $maxCreatedAt = null
+        ?\DateTimeImmutable $maxUpdatedAt = null
     ): GetProjectsQuery {
         return new GetProjectsQuery(
             $pageSize ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::integer()]),
-            $maxCreatedAt ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::dateTime()])
+            $maxUpdatedAt ?? FakeValueGenerator::randomElement([null, FakeValueGenerator::dateTime()])
         );
     }
 }

@@ -10,17 +10,17 @@ use App\Shared\Domain\Criteria\Filter\Filters;
 use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderEnum;
 
-final class CreatedBeforeDateTimeCriteria extends Criteria
+final class UpdatedBeforeDateTimeCriteria extends Criteria
 {
     public function __construct(
-        \DateTimeImmutable $maxCreatedAt,
+        \DateTimeImmutable $maxUpdatedAt,
         ?int $limit = null
     ) {
         parent::__construct(
             filters: new Filters([
-                new SimpleFilter('createdAt', $maxCreatedAt, FilterOperatorEnum::LOWER_THAN)
+                new SimpleFilter('updatedAt', $maxUpdatedAt, FilterOperatorEnum::LOWER_THAN)
             ]),
-            orderBy: [new Order('createdAt', OrderEnum::DESCENDING)],
+            orderBy: [new Order('updatedAt', OrderEnum::DESCENDING)],
             limit: $limit
         );
     }

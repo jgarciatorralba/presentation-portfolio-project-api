@@ -15,8 +15,11 @@ final class ProjectTest extends TestCase
 
     protected function setUp(): void
     {
+        $now = new \DateTimeImmutable();
+
         $this->expected = ProjectFactory::create(
-            createdAt: new \DateTimeImmutable(),
+            createdAt: $now,
+            updatedAt: $now,
         );
     }
 

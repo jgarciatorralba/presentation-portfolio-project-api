@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 
-use App\Shared\Domain\Criteria\CreatedBeforeDateTimeCriteria;
+use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
@@ -28,13 +28,13 @@ final class DoctrineCriteriaConverterTest extends TestCase
         $this->assertEquals($criteria->offset(), $doctrineCriteria->getFirstResult());
     }
 
-    #[DataProvider('dataCreatedBeforeDateTimeCriteria')]
-    public function testItConvertsCreatedBeforeDateTimeCriteria(
-        \DateTimeImmutable $maxCreatedAt,
+    #[DataProvider('dataUpdatedBeforeDateTimeCriteria')]
+    public function testItConvertsUpdatedBeforeDateTimeCriteria(
+        \DateTimeImmutable $maxUpdatedAt,
         ?int $limit
     ): void {
-        $criteria = new CreatedBeforeDateTimeCriteria(
-            maxCreatedAt: $maxCreatedAt,
+        $criteria = new UpdatedBeforeDateTimeCriteria(
+            maxUpdatedAt: $maxUpdatedAt,
             limit: $limit
         );
 
@@ -48,7 +48,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
 
         $this->assertCount(1, $comparisons);
         $this->assertEquals(
-            'createdAt',
+            'updatedAt',
             $comparisons[array_key_first($comparisons)]->getField()
         );
         $this->assertEquals(
@@ -56,36 +56,36 @@ final class DoctrineCriteriaConverterTest extends TestCase
             $comparisons[array_key_first($comparisons)]->getOperator()
         );
         $this->assertEquals(
-            $maxCreatedAt,
+            $maxUpdatedAt,
             $comparisons[array_key_first($comparisons)]->getValue()->getValue()
         );
 
         $this->assertEquals(CompositeExpression::TYPE_AND, $type);
 
         $this->assertCount(1, $orderings);
-        $this->assertEquals('createdAt', array_key_first($orderings));
+        $this->assertEquals('updatedAt', array_key_first($orderings));
         $this->assertEquals(Order::Descending, $orderings[array_key_first($orderings)]);
     }
 
     /**
      * @return array<string, array<DateTimeImmutable, int|null>>
      */
-    public static function dataCreatedBeforeDateTimeCriteria(): array
+    public static function dataUpdatedBeforeDateTimeCriteria(): array
     {
         return [
-            'default maxCreatedAt and no limit' => [
+            'default maxUpdatedAt and no limit' => [
                 new \DateTimeImmutable(),
                 null
             ],
-            'default maxCreatedAt and limit' => [
+            'default maxUpdatedAt and limit' => [
                 new \DateTimeImmutable(),
                 FakeValueGenerator::integer()
             ],
-            'maxCreatedAt and no limit' => [
+            'maxUpdatedAt and no limit' => [
                 FakeValueGenerator::dateTime(),
                 null
             ],
-            'maxCreatedAt and limit' => [
+            'maxUpdatedAt and limit' => [
                 FakeValueGenerator::dateTime(),
                 FakeValueGenerator::integer()
             ]

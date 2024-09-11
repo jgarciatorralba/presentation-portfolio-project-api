@@ -10,7 +10,7 @@ final class GetProjectsQuery implements Query
 {
     public function __construct(
         private readonly ?int $pageSize = null,
-        private readonly ?\DateTimeImmutable $maxCreatedAt = null
+        private readonly ?\DateTimeImmutable $maxUpdatedAt = null
     ) {
     }
 
@@ -19,8 +19,8 @@ final class GetProjectsQuery implements Query
         return $this->pageSize;
     }
 
-    public function maxCreatedAt(): ?\DateTimeImmutable
+    public function maxUpdatedAt(): ?\DateTimeImmutable
     {
-        return $this->maxCreatedAt;
+        return $this->maxUpdatedAt;
     }
 }
