@@ -19,7 +19,7 @@ final class GetProjectsControllerTest extends FeatureTestCase
     {
         parent::setUp();
 
-        $projects = ProjectFactory::createMany(10);
+        $projects = ProjectFactory::createMany();
         if (!empty($projects)) {
             $this->persist(...$projects);
         }
