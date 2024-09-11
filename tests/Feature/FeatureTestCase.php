@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Feature;
 
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -20,6 +22,14 @@ abstract class FeatureTestCase extends WebTestCase
 
         $this->entityManager = $this->getContainer()
             ->get(EntityManagerInterface::class);
+    }
+
+    protected function tearDown(): void
+    {
+        $this->client = null;
+        $this->entityManager = null;
+
+        parent::tearDown();
     }
 
     /**
@@ -56,6 +66,18 @@ abstract class FeatureTestCase extends WebTestCase
         return $this->entityManager->getRepository($className);
     }
 
+    protected function clearDatabase(): void
+    {
+        $connection = $this->entityManager->getConnection();
+        foreach ($this->tables() as $table) {
+            $connection->executeQuery(
+                sprintf('TRUNCATE "%s" CASCADE;', $table)
+            );
+        }
+
+        $this->entityManager->clear();
+    }
+
     /**
      * @return string[]
      */
@@ -72,24 +94,30 @@ abstract class FeatureTestCase extends WebTestCase
                     ->isMappedSuperclass
         );
 
-        return array_map(
+        $primaryTableNames = array_map(
             fn (string $class): string =>
                 $this->entityManager
                     ->getClassMetadata($class)
                     ->getTableName(),
             $notMappedSuperClassNames
         );
+
+        $existingTables = $this->schemaManager()
+            ->listTableNames();
+
+        return array_filter(
+            $primaryTableNames,
+            fn (string $table): bool => in_array($table, $existingTables)
+        );
     }
 
-    protected function clearDatabase(): void
+    /**
+     * @return AbstractSchemaManager<AbstractPlatform>
+     */
+    private function schemaManager(): AbstractSchemaManager
     {
-        $connection = $this->entityManager->getConnection();
-        foreach ($this->tables() as $table) {
-            $connection->executeQuery(
-                sprintf('TRUNCATE "%s" CASCADE;', $table)
-            );
-        }
-
-        $this->entityManager->clear();
+        return $this->entityManager
+            ->getConnection()
+            ->createSchemaManager();
     }
 }
