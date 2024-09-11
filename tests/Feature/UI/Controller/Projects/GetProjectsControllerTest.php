@@ -28,7 +28,7 @@ final class GetProjectsControllerTest extends FeatureTestCase
         }
 
         usort($projects, function (Project $a, Project $b) {
-            return $a->createdAt()->getTimestamp() <=> $b->createdAt()->getTimestamp();
+            return $b->createdAt()->getTimestamp() <=> $a->createdAt()->getTimestamp();
         });
 
         $this->projects = $projects;
@@ -100,7 +100,9 @@ final class GetProjectsControllerTest extends FeatureTestCase
                 'pageSize' => 10
             ]],
             'defined maxCreatedAt and no pageSize' => [[
-                'maxCreatedAt' => Utils::dateToString(new \DateTimeImmutable('yesterday'))
+                'maxCreatedAt' => Utils::dateToString(
+                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
+                )
             ]],
         ];
     }
