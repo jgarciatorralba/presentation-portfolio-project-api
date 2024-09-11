@@ -93,7 +93,9 @@ class Project extends AggregateRoot
             'id' => $this->id,
             'name' => $this->details()->name(),
             'description' => $this->details()->description(),
-            'topics' => $this->details()->topics(),
+            'topics' => !empty($this->details()->topics())
+                ? $this->details()->topics()
+                : null,
             'repository' => $this->urls()->repository(),
             'homepage' => $this->urls()->homepage(),
             'archived' => $this->archived,

@@ -6,7 +6,7 @@ namespace App\Projects\Domain;
 
 final class ProjectDetails
 {
-    /** @param list<string> $topics */
+    /** @param list<string>|null $topics */
     private function __construct(
         private string $name,
         private ?string $description,
@@ -14,7 +14,7 @@ final class ProjectDetails
     ) {
     }
 
-    /** @param list<string> $topics */
+    /** @param list<string>|null $topics */
     public static function create(
         string $name,
         ?string $description,
@@ -47,13 +47,13 @@ final class ProjectDetails
         $this->description = $description;
     }
 
-    /** @return list<string> */
+    /** @return list<string>|null */
     public function topics(): ?array
     {
         return $this->topics;
     }
 
-    /** @param list<string> $topics */
+    /** @param list<string>|null $topics */
     public function updateTopics(?array $topics): void
     {
         $this->topics = $topics;
