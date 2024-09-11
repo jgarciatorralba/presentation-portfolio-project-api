@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class GetProjectsControllerTest extends FeatureTestCase
 {
-    /**	@var Project[] */
+    /** @var Project[] */
     private ?array $projects;
 
     protected function setUp(): void
