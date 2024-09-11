@@ -6,8 +6,10 @@ namespace App\Tests\Feature\UI\Controller\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
+use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
 final class GetProjectsControllerTest extends FeatureTestCase
@@ -40,11 +42,16 @@ final class GetProjectsControllerTest extends FeatureTestCase
         parent::tearDown();
     }
 
-    public function testItGetsProjects(): void
+    #[DataProvider('dataParameters')]
+    /**
+     * @param array<string, int|string> $params
+     */
+    public function testItGetsProjects(array $params): void
     {
         $this->client->request(
             method: 'GET',
             uri: 'api/projects',
+            parameters: $params
         );
 
         $response = $this->client->getResponse();
@@ -56,20 +63,23 @@ final class GetProjectsControllerTest extends FeatureTestCase
         $this->assertArrayHasKey('count', $decodedResponse);
         $this->assertArrayHasKey('projects', $decodedResponse);
 
-        $this->assertCount(
-            count($this->projects) > $this->getMaxPageSize()
-                ? $this->getMaxPageSize()
-                : count($this->projects),
-            $decodedResponse['projects']
+        $expectedCount = count($this->projects);
+        if (isset($params['pageSize']) && $params['pageSize'] < $expectedCount) {
+            $expectedCount = $params['pageSize'];
+        } elseif (isset($params['maxCreatedAt'])) {
+            $expectedCount = 0;
+        }
+        if ($this->getMaxPageSize() < $expectedCount) {
+            $expectedCount = $this->getMaxPageSize();
+        }
+
+        $expectedProjects = array_map(
+            fn (Project $project): array => $project->toArray(),
+            array_slice($this->projects, 0, $expectedCount)
         );
 
-        $this->assertEquals(
-            array_map(
-                fn (Project $project): array => $project->toArray(),
-                array_slice($this->projects, 0, $this->getMaxPageSize())
-            ),
-            $decodedResponse['projects']
-        );
+        $this->assertEquals($expectedCount, $decodedResponse['count']);
+        $this->assertEquals($expectedProjects, $decodedResponse['projects']);
     }
 
     private function getMaxPageSize(): int
@@ -77,5 +87,21 @@ final class GetProjectsControllerTest extends FeatureTestCase
         $reflectionClass = new \ReflectionClass(Criteria::class);
         $constants = $reflectionClass->getConstants();
         return $constants['MAX_PAGE_SIZE'];
+    }
+
+    /**
+     * @return array<string, array<array<string, int|string>>>
+     */
+    public static function dataParameters(): array
+    {
+        return [
+            'no query parameters' => [[]],
+            'defined pageSize and no maxCreatedAt' => [[
+                'pageSize' => 10
+            ]],
+            'defined maxCreatedAt and no pageSize' => [[
+                'maxCreatedAt' => Utils::dateToString(new \DateTimeImmutable('yesterday'))
+            ]],
+        ];
     }
 }

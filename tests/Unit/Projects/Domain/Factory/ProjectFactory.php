@@ -37,10 +37,16 @@ final class ProjectFactory
         }
 
         $projects = [];
-        for ($i = 0; $i < $amount; $i++) {
-            $projects[] = self::create();
+
+        $i = 0;
+        while ($i < $amount) {
+            $project = self::create();
+            if (!in_array($project->id(), array_keys($projects))) {
+                $projects[$project->id()] = $project;
+                $i++;
+            }
         }
 
-        return $projects;
+        return array_values($projects);
     }
 }
