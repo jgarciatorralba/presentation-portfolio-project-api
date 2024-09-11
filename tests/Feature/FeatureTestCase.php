@@ -18,6 +18,8 @@ abstract class FeatureTestCase extends WebTestCase
 
     protected function setUp(): void
     {
+        parent::setUp();
+
         $this->client = static::createClient();
 
         $this->entityManager = $this->getContainer()

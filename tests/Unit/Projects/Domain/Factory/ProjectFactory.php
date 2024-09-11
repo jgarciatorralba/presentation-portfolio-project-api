@@ -33,7 +33,7 @@ final class ProjectFactory
     public static function createMany(?int $amount = null): array
     {
         if ($amount === null) {
-            $amount = FakeValueGenerator::integer(max: 75);
+            $amount = FakeValueGenerator::integer(max: 100);
         }
 
         $projects = [];
