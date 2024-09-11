@@ -16,16 +16,10 @@ abstract class FeatureTestCase extends WebTestCase
 
     protected function setUp(): void
     {
+        $this->client = static::createClient();
+
         $this->entityManager = $this->getContainer()
             ->get(EntityManagerInterface::class);
-
-        $this->client = static::createClient();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->entityManager = null;
-        $this->client = null;
     }
 
     /**
