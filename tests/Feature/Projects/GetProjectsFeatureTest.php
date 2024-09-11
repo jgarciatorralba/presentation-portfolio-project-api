@@ -44,8 +44,9 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     #[DataProvider('dataParameters')]
     /**
      * @param array<string, int|string> $params
+     * @param int|null $maxExpectedCount
      */
-    public function testItGetsProjects(array $params): void
+    public function testItGetsProjects(array $params, ?int $maxExpectedCount): void
     {
         $this->client->request(
             method: 'GET',
@@ -63,12 +64,10 @@ final class GetProjectsFeatureTest extends FeatureTestCase
         $this->assertArrayHasKey('projects', $decodedResponse);
 
         $expectedCount = count($this->projects);
-        if (isset($params['pageSize']) && $params['pageSize'] < $expectedCount) {
-            $expectedCount = $params['pageSize'];
-        } elseif (isset($params['maxCreatedAt'])) {
-            $expectedCount = 0;
+        if ($maxExpectedCount !== null && $expectedCount > $maxExpectedCount) {
+            $expectedCount = $maxExpectedCount;
         }
-        if ($this->getMaxPageSize() < $expectedCount) {
+        if ($expectedCount > $this->getMaxPageSize()) {
             $expectedCount = $this->getMaxPageSize();
         }
 
@@ -89,20 +88,29 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     }
 
     /**
-     * @return array<string, array<array<string, int|string>>>
+     * @return array<string, array<array<string, int|string>|int|null>>
      */
     public static function dataParameters(): array
     {
         return [
-            'no query parameters' => [[]],
-            'defined pageSize and no maxCreatedAt' => [[
-                'pageSize' => 10
-            ]],
-            'defined maxCreatedAt and no pageSize' => [[
-                'maxCreatedAt' => Utils::dateToString(
-                    \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
-                )
-            ]],
+            'no query parameters' => [
+                [],
+                null,
+            ],
+            'defined pageSize and no maxCreatedAt' => [
+                [
+                    'pageSize' => 10
+                ],
+                10,
+            ],
+            'defined maxCreatedAt and no pageSize' => [
+                [
+                    'maxCreatedAt' => Utils::dateToString(
+                        \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
+                    )
+                ],
+                0,
+            ],
         ];
     }
 }
