@@ -21,10 +21,9 @@ final class GetProjectsControllerTest extends FeatureTestCase
     {
         parent::setUp();
 
-        $projects = ProjectFactory::createMany(55);
+        $projects = ProjectFactory::createMany();
         if (!empty($projects)) {
             $this->persist(...$projects);
-            sleep(1);
         }
 
         usort($projects, function (Project $a, Project $b) {

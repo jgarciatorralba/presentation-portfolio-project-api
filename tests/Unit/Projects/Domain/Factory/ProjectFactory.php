@@ -16,7 +16,8 @@ final class ProjectFactory
         ProjectDetails $details = null,
         ProjectUrls $urls = null,
         bool $archived = null,
-        \DateTimeImmutable $lastPushedAt = null
+        \DateTimeImmutable $lastPushedAt = null,
+        \DateTimeImmutable $createdAt = null
     ): Project {
         $project = Project::create(
             id: $id ?? FakeValueGenerator::integer(),
@@ -26,7 +27,7 @@ final class ProjectFactory
             lastPushedAt: $lastPushedAt ?? FakeValueGenerator::dateTime()
         );
 
-        $project->updateCreatedAt(FakeValueGenerator::dateTime());
+        $project->updateCreatedAt($createdAt ?? FakeValueGenerator::dateTime());
 
         return $project;
     }

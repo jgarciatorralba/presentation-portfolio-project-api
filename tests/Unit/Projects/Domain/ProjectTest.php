@@ -15,7 +15,9 @@ final class ProjectTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->expected = ProjectFactory::create();
+        $this->expected = ProjectFactory::create(
+            createdAt: new \DateTimeImmutable(),
+        );
     }
 
     protected function tearDown(): void
