@@ -8,7 +8,7 @@ use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
@@ -30,7 +30,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $this->sut = new DoctrineProjectRepository(
             entityManager: $this->entityManagerMock->getMock()
         );
-        $this->project = ProjectFactory::create();
+        $this->project = ProjectBuilder::any()->build();
 
         $reflection = new \ReflectionClass(DoctrineRepository::class);
         $property = $reflection->getProperty('repository');
@@ -88,7 +88,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
      */
     public static function dataFindsProject(): array
     {
-        $project = ProjectFactory::create();
+        $project = ProjectBuilder::any()->build();
 
         return [
             'existing id' => [$project->id(), $project],
@@ -100,7 +100,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
     {
         $criteria = CriteriaFactory::create();
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
-        $projects = ProjectFactory::createMany();
+        $projects = ProjectBuilder::buildMany();
 
         $this->entityRepositoryMock
             ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, $projects);

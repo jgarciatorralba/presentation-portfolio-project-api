@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain;
 
 use App\Projects\Domain\ProjectUrls;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectUrlsFactory;
+use App\Tests\Builder\Projects\Domain\ProjectUrlsBuilder;
 use PHPUnit\Framework\TestCase;
 
 class ProjectUrlsTest extends TestCase
 {
     public function testProjectUrlsAreCreated(): void
     {
-        $projectUrlsCreated = ProjectUrlsFactory::create();
+        $expected = ProjectUrlsBuilder::any()->build();
 
-        $projectUrlsAsserted = ProjectUrls::create(
-            repository: $projectUrlsCreated->repository(),
-            homepage: $projectUrlsCreated->homepage()
+        $actual = ProjectUrls::create(
+            repository: $expected->repository(),
+            homepage: $expected->homepage()
         );
 
-        $this->assertEquals($projectUrlsCreated, $projectUrlsAsserted);
+        $this->assertEquals($expected, $actual);
     }
 }

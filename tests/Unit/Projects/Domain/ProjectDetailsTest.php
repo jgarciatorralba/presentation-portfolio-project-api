@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain;
 
 use App\Projects\Domain\ProjectDetails;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectDetailsFactory;
+use App\Tests\Builder\Projects\Domain\ProjectDetailsBuilder;
 use PHPUnit\Framework\TestCase;
 
 class ProjectDetailsTest extends TestCase
 {
     public function testProjectDetailsAreCreated(): void
     {
-        $projectDetailsCreated = ProjectDetailsFactory::create();
+        $expected = ProjectDetailsBuilder::any()->build();
 
-        $projectDetailsAsserted = ProjectDetails::create(
-            name: $projectDetailsCreated->name(),
-            description: $projectDetailsCreated->description(),
-            topics: $projectDetailsCreated->topics()
+        $actual = ProjectDetails::create(
+            name: $expected->name(),
+            description: $expected->description(),
+            topics: $expected->topics()
         );
 
-        $this->assertEquals($projectDetailsCreated, $projectDetailsAsserted);
+        $this->assertEquals($expected, $expected);
     }
 }

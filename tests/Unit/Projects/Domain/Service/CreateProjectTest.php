@@ -5,57 +5,59 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
+use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\CreateProject;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
 use PHPUnit\Framework\TestCase;
 
 final class CreateProjectTest extends TestCase
 {
+    private ?Project $project;
     private ?ProjectRepositoryMock $projectRepositoryMock;
+    private ?CreateProject $sut;
 
     protected function setUp(): void
     {
+        $this->project = ProjectBuilder::any()->build();
         $this->projectRepositoryMock = new ProjectRepositoryMock($this);
+        $this->sut = new CreateProject(
+            projectRepository: $this->projectRepositoryMock->getMock()
+        );
     }
 
     protected function tearDown(): void
     {
+        $this->project = null;
         $this->projectRepositoryMock = null;
+        $this->sut = null;
     }
 
     public function testItCreatesAProject(): void
     {
-        $project = ProjectFactory::create();
+        $this->projectRepositoryMock
+            ->shouldNotFindProject($this->project->id());
+        $this->projectRepositoryMock
+            ->shouldCreateProject($this->project);
 
-        $this->projectRepositoryMock->shouldNotFindProject($project->id());
-        $this->projectRepositoryMock->shouldCreateProject($project);
-
-        $sut = new CreateProject(
-            projectRepository: $this->projectRepositoryMock->getMock()
-        );
-        $result = $sut->__invoke($project);
+        $result = $this->sut->__invoke($this->project);
 
         $this->assertNull($result);
     }
 
     public function testItThrowsAnExceptionIfProjectAlreadyExists(): void
     {
-        $project = ProjectFactory::create();
-        $this->projectRepositoryMock->shouldFindProject($project);
-
-        $sut = new CreateProject(
-            projectRepository: $this->projectRepositoryMock->getMock()
-        );
+        $this->projectRepositoryMock
+            ->shouldFindProject($this->project);
 
         $this->expectException(ProjectAlreadyExistsException::class);
         $this->expectExceptionMessage(
             sprintf(
                 "Project with id '%s' already exists.",
-                $project->id()
+                $this->project->id()
             )
         );
 
-        $sut->__invoke($project);
+        $this->sut->__invoke($this->project);
     }
 }

@@ -7,7 +7,7 @@ namespace App\Tests\Feature\Projects;
 use App\Projects\Domain\Project;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\UI\Exception\ValidationException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ final class CreateProjectFeatureTest extends FeatureTestCase
 {
     public function testItCreatesProject(): void
     {
-        $project = ProjectFactory::create();
+        $project = ProjectBuilder::any()->build();
 
         $content = [
             'id' => $project->id(),
@@ -96,7 +96,9 @@ final class CreateProjectFeatureTest extends FeatureTestCase
 
     public static function dataValidation(): array
     {
-        $projectData = ProjectFactory::create()->toArray();
+        $projectData = ProjectBuilder::any()
+            ->build()
+            ->toArray();
 
         $missingIdData = $projectData;
         unset($missingIdData['id']);

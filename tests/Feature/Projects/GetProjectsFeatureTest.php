@@ -8,7 +8,7 @@ use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
-use App\Tests\Unit\Projects\Domain\Factory\ProjectFactory;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +21,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     {
         parent::setUp();
 
-        $projects = ProjectFactory::createMany();
+        $projects = ProjectBuilder::buildMany();
         if (!empty($projects)) {
             $this->persist(...$projects);
         }

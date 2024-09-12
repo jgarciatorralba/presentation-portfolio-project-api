@@ -1,0 +1,85 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Tests\Builder\Projects\Domain;
+
+use App\Projects\Domain\ProjectDetails;
+use App\Tests\Builder\BuilderInterface;
+use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+
+final class ProjectDetailsBuilder implements BuilderInterface
+{
+    /**
+     * @param list<string>|null $topics
+     */
+    private function __construct(
+        private string $name,
+        private ?string $description,
+        private ?array $topics,
+    ) {
+    }
+
+    public static function any(): self
+    {
+        return new self(
+            name: FakeValueGenerator::string(),
+            description: FakeValueGenerator::randomElement([
+                null,
+                FakeValueGenerator::text()
+            ]),
+            topics: FakeValueGenerator::randomElement([
+                null,
+                self::generateRandomTopics()
+            ])
+        );
+    }
+
+    public function withName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function withDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @param list<string>|null $topics
+     */
+    public function withTopics(?array $topics): self
+    {
+        $this->topics = $topics;
+
+        return $this;
+    }
+
+    public function build(): ProjectDetails
+    {
+        return ProjectDetails::create(
+            name: $this->name,
+            description: $this->description,
+            topics: $this->topics,
+        );
+    }
+
+    /** @return string[] */
+    private static function generateRandomTopics(?int $numTopics = null): array
+    {
+        if ($numTopics === null) {
+            $numTopics = FakeValueGenerator::integer(1, 20);
+        }
+
+        $topics = [];
+        for ($i = 0; $i < $numTopics; $i++) {
+            $topics[] = FakeValueGenerator::string();
+        }
+
+        return $topics;
+    }
+}
