@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Projects\Application\Command\CreateProject;
 
 use App\Projects\Application\Command\CreateProject\CreateProjectCommandHandler;
 use App\Projects\Domain\Project;
-use App\Tests\Unit\Projects\Application\Command\CreateProject\Factory\CreateProjectCommandFactory;
+use App\Tests\Builder\Projects\Application\Command\CreateProject\CreateProjectCommandBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\CreateProjectMock;
 use App\Tests\Unit\Shared\TestCase\LocalDateTimeZoneConverterMock;
@@ -45,7 +45,16 @@ final class CreateProjectCommandHandlerTest extends TestCase
 
     public function testCreateProject(): void
     {
-        $command = CreateProjectCommandFactory::createFromProject($this->project);
+        $command = CreateProjectCommandBuilder::any()
+            ->withId($this->project->id())
+            ->withName($this->project->details()->name())
+            ->withDescription($this->project->details()->description())
+            ->withTopics($this->project->details()->topics())
+            ->withRepository($this->project->urls()->repository())
+            ->withHomepage($this->project->urls()->homepage())
+            ->withArchived($this->project->archived())
+            ->withLastPushedAt($this->project->lastPushedAt())
+            ->build();
 
         $this->dateTimeConverter->shouldConvert(
             $this->project->lastPushedAt(),

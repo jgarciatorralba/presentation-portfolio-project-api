@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Projects\Application\Query\GetProjects;
 use App\Projects\Application\Query\GetProjects\GetProjectsQueryHandler;
 use App\Projects\Application\Query\GetProjects\GetProjectsResponse;
 use App\Projects\Domain\Project;
-use App\Tests\Unit\Projects\Application\Query\GetProjects\Factory\GetProjectsQueryFactory;
+use App\Tests\Builder\Projects\Application\Query\GetProjects\GetProjectsQueryBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\GetProjectsByCriteriaMock;
 use App\Tests\Unit\Shared\Domain\Criteria\Factory\UpdatedBeforeDateTimeCriteriaFactory;
@@ -42,7 +42,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
         );
 
         $result = $this->sut->__invoke(
-            query: GetProjectsQueryFactory::create()
+            query: GetProjectsQueryBuilder::any()->build()
         );
 
         $this->assertInstanceof(GetProjectsResponse::class, $result);
