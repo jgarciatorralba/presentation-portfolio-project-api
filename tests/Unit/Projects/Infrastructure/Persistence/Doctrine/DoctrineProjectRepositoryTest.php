@@ -103,7 +103,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $projects = ProjectBuilder::buildMany();
 
         $this->entityRepositoryMock
-            ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, $projects);
+            ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, ...$projects);
 
         $result = $this->sut->matching($criteria);
         $this->assertEquals($projects, $result);

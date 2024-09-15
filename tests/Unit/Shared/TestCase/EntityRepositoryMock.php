@@ -29,12 +29,9 @@ final class EntityRepositoryMock extends AbstractMock
             ->willReturn($entityId === $id ? $entity : null);
     }
 
-    /**
-     * @param object[] $entities
-     */
     public function shouldFindEntitiesMatchingCriteria(
         Criteria $criteria,
-        array $entities
+        object ...$entities
     ): void {
         $this->mock
             ->expects($this->once())
