@@ -6,31 +6,31 @@ namespace App\Tests\Unit\Shared\Domain\Criteria\Order;
 
 use PHPUnit\Framework\TestCase;
 use App\Shared\Domain\Criteria\Order\Order;
-use App\Tests\Unit\Shared\Domain\Criteria\Order\Factory\OrderFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
 
 class OrderTest extends TestCase
 {
     public function testOrderIsCreated(): void
     {
-        $orderCreated = OrderFactory::create();
+        $expected = OrderBuilder::any()->build();
 
-        $orderAsserted = new Order(
-            orderBy: $orderCreated->orderBy(),
-            orderType: $orderCreated->orderType()
+        $actual = new Order(
+            orderBy: $expected->orderBy(),
+            orderType: $expected->orderType()
         );
 
-        $this->assertEquals($orderCreated, $orderAsserted);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testOrderIsCreatedFromValues(): void
     {
-        $orderCreated = OrderFactory::create();
+        $expected = OrderBuilder::any()->build();
 
-        $orderAsserted = Order::fromValues(
-            $orderCreated->orderBy(),
-            $orderCreated->orderType()->value
+        $actual = Order::fromValues(
+            $expected->orderBy(),
+            $expected->orderType()->value
         );
 
-        $this->assertEquals($orderCreated, $orderAsserted);
+        $this->assertEquals($expected, $actual);
     }
 }

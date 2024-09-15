@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
-use App\Tests\Unit\Shared\Domain\Criteria\Filter\Factory\SimpleFilterFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\Filter\SimpleFilterBuilder;
 use PHPUnit\Framework\TestCase;
 
 class SimpleFilterTest extends TestCase
 {
     public function testSimpleFilterIsCreated(): void
     {
-        $simpleFilterCreated = SimpleFilterFactory::create();
+        $simpleFilterCreated = SimpleFilterBuilder::any()->build();
 
         $simpleFilterAsserted = new SimpleFilter(
             field: $simpleFilterCreated->field(),

@@ -9,7 +9,7 @@ use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
 use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
@@ -98,7 +98,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
 
     public function testItFindsProjectsMatchingCriteria(): void
     {
-        $criteria = CriteriaFactory::create();
+        $criteria = CriteriaBuilder::any()->build();
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
         $projects = ProjectBuilder::buildMany();
 

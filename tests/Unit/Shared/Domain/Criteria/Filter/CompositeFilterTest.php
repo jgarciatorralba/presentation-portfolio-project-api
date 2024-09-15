@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\CompositeFilter;
-use App\Tests\Unit\Shared\Domain\Criteria\Filter\Factory\CompositeFilterFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\Filter\CompositeFilterBuilder;
 use PHPUnit\Framework\TestCase;
 
 class CompositeFilterTest extends TestCase
 {
     public function testCompositeFilterIsCreated(): void
     {
-        $compositeFilterCreated = CompositeFilterFactory::create();
+        $expected = CompositeFilterBuilder::any()->build();
 
-        $compositeFilterAsserted = new CompositeFilter(
-            filters: $compositeFilterCreated->filters(),
-            condition: $compositeFilterCreated->condition()
+        $actual = new CompositeFilter(
+            filters: $expected->filters(),
+            condition: $expected->condition()
         );
 
-        $this->assertEquals($compositeFilterCreated, $compositeFilterAsserted);
+        $this->assertEquals($expected, $actual);
     }
 }

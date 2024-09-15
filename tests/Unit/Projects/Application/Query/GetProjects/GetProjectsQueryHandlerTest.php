@@ -9,8 +9,8 @@ use App\Projects\Application\Query\GetProjects\GetProjectsResponse;
 use App\Projects\Domain\Project;
 use App\Tests\Builder\Projects\Application\Query\GetProjects\GetProjectsQueryBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteriaBuilder;
 use App\Tests\Unit\Projects\TestCase\GetProjectsByCriteriaMock;
-use App\Tests\Unit\Shared\Domain\Criteria\Factory\UpdatedBeforeDateTimeCriteriaFactory;
 use PHPUnit\Framework\TestCase;
 
 final class GetProjectsQueryHandlerTest extends TestCase
@@ -37,7 +37,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
         $projects = ProjectBuilder::buildMany(10);
 
         $this->getProjectsByCriteria->shouldGetProjects(
-            UpdatedBeforeDateTimeCriteriaFactory::create(),
+            UpdatedBeforeDateTimeCriteriaBuilder::any()->build(),
             ...$projects
         );
 

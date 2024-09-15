@@ -6,8 +6,8 @@ namespace App\Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\Service\GetProjectsByCriteria;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
-use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
 use PHPUnit\Framework\TestCase;
 
 class GetProjectsByCriteriaTest extends TestCase
@@ -27,7 +27,7 @@ class GetProjectsByCriteriaTest extends TestCase
     public function testItReturnsProjectsMatchingCriteria(): void
     {
         $projects = ProjectBuilder::buildMany();
-        $criteria = CriteriaFactory::create();
+        $criteria = CriteriaBuilder::any()->build();
 
         $this->projectRepositoryMock
             ->shouldFindProjectsMatchingCriteria(

@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 
 use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
-use App\Tests\Unit\Shared\Domain\Criteria\Factory\CriteriaFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\Common\Collections\Expr\Comparison;
@@ -19,7 +19,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
 {
     public function testItConvertsRandomCriteria(): void
     {
-        $criteria = CriteriaFactory::create();
+        $criteria = CriteriaBuilder::any()->build();
 
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
-use App\Tests\Unit\Shared\Domain\Criteria\Factory\UpdatedBeforeDateTimeCriteriaFactory;
+use App\Tests\Builder\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteriaBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -16,19 +16,19 @@ final class UpdatedBeforeDateTimeCriteriaTest extends TestCase
         \DateTimeImmutable $maxUpdatedAt,
         ?int $limit
     ): void {
-        $expectedUpdatedBeforeDateTimeCriteria = UpdatedBeforeDateTimeCriteriaFactory::create(
-            $maxUpdatedAt,
-            $limit
-        );
+        $expected = UpdatedBeforeDateTimeCriteriaBuilder::any()
+            ->withMaxUpdatedAt($maxUpdatedAt)
+            ->withLimit($limit)
+            ->build();
 
-        $actualUpdatedBeforeDateTimeCriteria = new UpdatedBeforeDateTimeCriteria(
+        $actual = new UpdatedBeforeDateTimeCriteria(
             maxUpdatedAt: $maxUpdatedAt,
             limit: $limit
         );
 
         $this->assertEquals(
-            $expectedUpdatedBeforeDateTimeCriteria,
-            $actualUpdatedBeforeDateTimeCriteria
+            $expected,
+            $actual
         );
     }
 
