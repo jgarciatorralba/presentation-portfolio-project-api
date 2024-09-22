@@ -41,10 +41,6 @@ services:
       - ../:/var/www/portfolio-api:cached
       - app_var:/var/www/portfolio-api/var
       - app_vendor:/var/www/portfolio-api/vendor
-    environment:
-      NGINX_PORT: ${SERVER_PORT}
-      NGINX_NAME: ${SERVER_NAME}
-      NGINX_PUBLIC_FOLDER_PATH: ${SERVER_PUBLIC_FOLDER_PATH}
     ports:
       - ${SERVER_MAPPED_PORT}:${SERVER_PORT}
     networks:

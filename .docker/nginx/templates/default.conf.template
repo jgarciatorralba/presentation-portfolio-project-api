@@ -1,7 +1,7 @@
 server {
-    listen ${NGINX_PORT};
-    server_name ${NGINX_SERVER_NAME};
-    root /var/www/portfolio-api/${NGINX_PUBLIC_FOLDER_PATH};
+    listen 80;
+    server_name localhost;
+    root /var/www/portfolio-api/public;
 
     location = /favicon.ico {
         try_files /dev/null =204;

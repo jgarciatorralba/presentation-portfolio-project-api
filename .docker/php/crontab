@@ -1,0 +1,5 @@
+SHELL=/bin/sh
+PATH=/usr/local/bin
+
+# Retrieve projects from GitHub every minute
+*/1 * * * * php /var/www/portfolio-api/bin/console app:projects:fetch-from-external-api >> /var/log/cron.log 2>&1
