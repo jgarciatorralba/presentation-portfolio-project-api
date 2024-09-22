@@ -35,7 +35,8 @@ RUN pecl install -o -f xdebug \
 COPY crontab /etc/cron.d/crontab
 RUN chmod 0644 /etc/cron.d/crontab \
     && crontab /etc/cron.d/crontab \
-    && touch /var/log/cron.log
+    && touch /var/log/cron.log \
+    && touch /var/log/cron.error.log
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
