@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\TestCase;
 
-use App\Shared\Domain\Bus\Event\DomainEvent;
+use App\Shared\Domain\Bus\Event\Event;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -25,7 +25,7 @@ final class EventBusMock extends AbstractMock
 
     /**
      * @param list<array{
-     *      event: DomainEvent,
+     *      event: Event,
      *      exception: \Throwable|null
      * }> $events
      */
@@ -36,7 +36,7 @@ final class EventBusMock extends AbstractMock
             ->method('dispatch')
             ->with(
                 $this->callback(
-                    function (DomainEvent $event) use ($events) {
+                    function (Event $event) use ($events) {
                         if ($events[self::$callIndex]['exception'] !== null) {
                             throw $events[self::$callIndex++]['exception'];
                         }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Bus\Event\InMemory;
 
-use App\Shared\Domain\Bus\Event\DomainEvent;
+use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus;
 use App\Tests\Unit\Shared\TestCase\EventBusMock;
 use PHPUnit\Framework\TestCase;
@@ -33,11 +33,11 @@ final class InMemorySymfonyEventBusTest extends TestCase
     {
         $events = [
             [
-                'event' => $this->createMock(DomainEvent::class),
+                'event' => $this->createMock(Event::class),
                 'exception' => null
             ],
             [
-                'event' => $this->createMock(DomainEvent::class),
+                'event' => $this->createMock(Event::class),
                 'exception' => new NoHandlerForMessageException()
             ]
         ];
