@@ -1,5 +1,5 @@
 SHELL=/bin/sh
 PATH=/usr/local/bin
 
-# Retrieve projects from GitHub every minute
+# Synchronize internal projects with external API
 */2 * * * * php /var/www/portfolio-api/bin/console app:projects:sync >> /var/log/cron.log 2>> /var/log/cron.error.log
