@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\Application\Bus\Event;
 
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
 use App\Shared\Application\Bus\Event\ApplicationEvent;
+use App\Shared\Domain\Bus\Event\Event;
 use PHPUnit\Framework\TestCase;
 
 final class SyncProjectsRequestedEventTest extends TestCase
@@ -30,15 +31,17 @@ final class SyncProjectsRequestedEventTest extends TestCase
         );
     }
 
-    public function testItShouldHaveAnEventId(): void
+    public function testItShouldBeAnInstanceOfEvent(): void
     {
+        $this->assertInstanceOf(
+            Event::class,
+            $this->syncProjectsRequestedEvent
+        );
+
         $this->assertNotEmpty(
             $this->syncProjectsRequestedEvent->eventId()
         );
-    }
 
-    public function testItShouldHaveAnOccurredOn(): void
-    {
         $this->assertNotEmpty(
             $this->syncProjectsRequestedEvent->occurredOn()
         );
