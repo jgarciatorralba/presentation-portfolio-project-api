@@ -2,7 +2,7 @@
     xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
     xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
 >
-    <embeddable name="App\Projects\Domain\ProjectDetails">
+    <embeddable name="App\Projects\Domain\ValueObject\ProjectDetails">
         <field name="name" type="string" column="name" length="255" />
         <field name="description" type="text" column="description" nullable="true" />
         <field name="topics" type="simple_array" column="topics" nullable="true" />

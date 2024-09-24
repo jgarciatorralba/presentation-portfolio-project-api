@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Projects\Application\Command\CreateProject;
 
 use App\Projects\Domain\Project;
-use App\Projects\Domain\ProjectDetails;
-use App\Projects\Domain\ProjectUrls;
+use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;

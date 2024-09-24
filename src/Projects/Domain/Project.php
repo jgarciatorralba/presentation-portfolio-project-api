@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain;
 
+use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Trait\TimestampableTrait;
 use App\Shared\Utils;

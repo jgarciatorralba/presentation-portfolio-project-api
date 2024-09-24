@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Tests\Builder\Projects\Domain;
 
 use App\Projects\Domain\Project;
-use App\Projects\Domain\ProjectDetails;
-use App\Projects\Domain\ProjectUrls;
+use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Tests\Builder\BuilderInterface;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectBuilder implements BuilderInterface

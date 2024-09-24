@@ -2,7 +2,7 @@
     xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
     xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
 >
-    <embeddable name="App\Projects\Domain\ProjectUrls">
+    <embeddable name="App\Projects\Domain\ValueObject\ProjectUrls">
         <field name="repository" type="text" column="repository" />
         <field name="homepage" type="text" column="homepage" nullable="true" />
     </embeddable>

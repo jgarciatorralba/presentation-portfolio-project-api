@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain;
+namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\ProjectDetails;
-use App\Tests\Builder\Projects\Domain\ProjectDetailsBuilder;
+use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
 use PHPUnit\Framework\TestCase;
 
 class ProjectDetailsTest extends TestCase

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Domain;
+namespace App\Projects\Domain\ValueObject;
 
 final class ProjectUrls
 {

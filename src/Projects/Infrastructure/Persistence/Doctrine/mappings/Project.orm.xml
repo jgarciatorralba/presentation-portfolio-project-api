@@ -7,8 +7,8 @@
         table="projects"
     >
         <id name="id" type="bigint" column="id" />
-        <embedded name="details" class="App\Projects\Domain\ProjectDetails" use-column-prefix="false" />
-        <embedded name="urls" class="App\Projects\Domain\ProjectUrls" use-column-prefix="false" />
+        <embedded name="details" class="App\Projects\Domain\ValueObject\ProjectDetails" use-column-prefix="false" />
+        <embedded name="urls" class="App\Projects\Domain\ValueObject\ProjectUrls" use-column-prefix="false" />
         <field name="archived" type="boolean" column="archived">
             <options>
                 <option name="default">false</option>

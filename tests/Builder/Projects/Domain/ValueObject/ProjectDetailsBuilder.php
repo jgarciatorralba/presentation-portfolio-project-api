@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Builder\Projects\Domain;
+namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
