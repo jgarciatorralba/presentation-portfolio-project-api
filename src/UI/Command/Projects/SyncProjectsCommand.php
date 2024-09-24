@@ -26,9 +26,10 @@ class SyncProjectsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->eventBus->publish(new SyncProjectsRequestedEvent());
+        $event = new SyncProjectsRequestedEvent();
+        $this->eventBus->publish($event);
 
-        $io->success('Event published successfully!');
+        $io->success("Event {$event->eventId()} published successfully!");
         return Command::SUCCESS;
     }
 }
