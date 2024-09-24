@@ -90,16 +90,14 @@ class Project extends AggregateRoot
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            'id' => $this->id(),
             'name' => $this->details()->name(),
             'description' => $this->details()->description(),
-            'topics' => !empty($this->details()->topics())
-                ? $this->details()->topics()
-                : null,
+            'topics' => $this->details()->topics() ?? null,
             'repository' => $this->urls()->repository(),
             'homepage' => $this->urls()->homepage(),
-            'archived' => $this->archived,
-            'lastPushedAt' => Utils::dateToString($this->lastPushedAt)
+            'archived' => $this->archived(),
+            'lastPushedAt' => Utils::dateToString($this->lastPushedAt())
         ];
     }
 }
