@@ -41,6 +41,7 @@ class SyncProjectsCommandTest extends TestCase
         $this->commandTester->execute(input: []);
 
         $output = $this->commandTester->getDisplay();
-        $this->assertStringContainsString('Event published successfully!', $output);
+        $pattern = '/\s*\[OK\] Event [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} published successfully!\s*/';
+        $this->assertMatchesRegularExpression($pattern, $output);
     }
 }
