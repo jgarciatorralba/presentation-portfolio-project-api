@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
-class HttpResponse
+readonly class HttpResponse
 {
+    /**
+     * @param array<string, list<string>>|null $headers
+     */
     public function __construct(
-        private readonly ?int $statusCode = null,
-        private readonly ?string $error = null,
-        private readonly ?string $content = null
+        private ?int $statusCode = null,
+        private ?string $error = null,
+        private ?string $content = null,
+        private ?array $headers = null
     ) {
     }
 
@@ -26,5 +30,13 @@ class HttpResponse
     public function content(): ?string
     {
         return $this->content;
+    }
+
+    /**
+     * @return array<string, list<string>>|null
+     */
+    public function headers(): ?array
+    {
+        return $this->headers;
     }
 }
