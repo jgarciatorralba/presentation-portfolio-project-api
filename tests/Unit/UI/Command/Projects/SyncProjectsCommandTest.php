@@ -41,7 +41,10 @@ class SyncProjectsCommandTest extends TestCase
         $this->commandTester->execute(input: []);
 
         $output = $this->commandTester->getDisplay();
-        $pattern = '/\s*\[OK\] Event [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12} published successfully!\s*/';
+        $uuidPattern = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+        $dateTimePattern = '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}';
+        $pattern = "/\s*\[OK\] Event $uuidPattern published successfully on $dateTimePattern\s*/";
+
         $this->assertMatchesRegularExpression($pattern, $output);
     }
 }

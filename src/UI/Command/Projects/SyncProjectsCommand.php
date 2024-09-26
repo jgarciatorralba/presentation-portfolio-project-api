@@ -29,7 +29,7 @@ class SyncProjectsCommand extends Command
         $event = new SyncProjectsRequestedEvent();
         $this->eventBus->publish($event);
 
-        $io->success("Event {$event->eventId()} published successfully!");
+        $io->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}.");
         return Command::SUCCESS;
     }
 }
