@@ -6,20 +6,20 @@ namespace App\Projects\Application\Command\CreateProject;
 
 use App\Shared\Domain\Bus\Command\Command;
 
-final class CreateProjectCommand implements Command
+final readonly class CreateProjectCommand implements Command
 {
     /**
      * @param string[]|null $topics
      */
     public function __construct(
-        private readonly int $id,
-        private readonly string $name,
-        private readonly ?string $description,
-        private readonly ?array $topics,
-        private readonly string $repository,
-        private readonly ?string $homepage,
-        private readonly bool $archived,
-        private readonly \DateTimeImmutable $lastPushedAt
+        private int $id,
+        private string $name,
+        private ?string $description,
+        private ?array $topics,
+        private string $repository,
+        private ?string $homepage,
+        private bool $archived,
+        private \DateTimeImmutable $lastPushedAt
     ) {
     }
 
