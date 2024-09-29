@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
-final class ProjectDetails
+use App\Shared\Domain\Contract\Comparable;
+
+final readonly class ProjectDetails implements Comparable
 {
     /** @param list<string>|null $topics */
     private function __construct(
@@ -32,19 +34,9 @@ final class ProjectDetails
         return $this->name;
     }
 
-    public function updateName(string $name): void
-    {
-        $this->name = $name;
-    }
-
     public function description(): ?string
     {
         return $this->description;
-    }
-
-    public function updateDescription(?string $description): void
-    {
-        $this->description = $description;
     }
 
     /** @return list<string>|null */
@@ -53,9 +45,14 @@ final class ProjectDetails
         return $this->topics;
     }
 
-    /** @param list<string>|null $topics */
-    public function updateTopics(?array $topics): void
+    public function equals(Comparable $details): bool
     {
-        $this->topics = $topics;
+        if (!$details instanceof self) {
+            return false;
+        }
+
+        return $this->name === $details->name
+            && $this->description === $details->description
+            && $this->topics === $details->topics;
     }
 }

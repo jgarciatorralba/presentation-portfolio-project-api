@@ -7,10 +7,11 @@ namespace App\Projects\Domain;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Domain\Contract\Comparable;
 use App\Shared\Domain\Trait\TimestampableTrait;
 use App\Shared\Utils;
 
-class Project extends AggregateRoot
+class Project extends AggregateRoot implements Comparable
 {
     use TimestampableTrait;
 
@@ -63,19 +64,9 @@ class Project extends AggregateRoot
         return $this->archived;
     }
 
-    public function updateArchived(bool $archived): void
-    {
-        $this->archived = $archived;
-    }
-
     public function lastPushedAt(): \DateTimeImmutable
     {
         return $this->lastPushedAt;
-    }
-
-    public function updateLastPushedAt(\DateTimeImmutable $lastPushedAt): void
-    {
-        $this->lastPushedAt = $lastPushedAt;
     }
 
     /** @return array{
@@ -101,5 +92,18 @@ class Project extends AggregateRoot
             'archived' => $this->archived(),
             'lastPushedAt' => Utils::dateToString($this->lastPushedAt())
         ];
+    }
+
+    public function equals(Comparable $project): bool
+    {
+        if (!$project instanceof self) {
+            return false;
+        }
+
+        return $this->id() === $project->id()
+            && $this->details()->equals($project->details())
+            && $this->urls()->equals($project->urls())
+            && $this->archived() === $project->archived()
+            && $this->lastPushedAt()->getTimestamp() === $project->lastPushedAt()->getTimestamp();
     }
 }

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
-final class ProjectUrls
+use App\Shared\Domain\Contract\Comparable;
+
+final readonly class ProjectUrls implements Comparable
 {
     private function __construct(
         private string $repository,
@@ -27,18 +29,18 @@ final class ProjectUrls
         return $this->repository;
     }
 
-    public function updateRepository(string $repository): void
-    {
-        $this->repository = $repository;
-    }
-
     public function homepage(): ?string
     {
         return $this->homepage;
     }
 
-    public function updateHomepage(?string $homepage): void
+    public function equals(Comparable $projectUrls): bool
     {
-        $this->homepage = $homepage;
+        if (!$projectUrls instanceof self) {
+            return false;
+        }
+
+        return $this->repository === $projectUrls->repository()
+            && $this->homepage === $projectUrls->homepage();
     }
 }
