@@ -16,7 +16,6 @@ final class GetProjectsByCriteria
     }
 
     /**
-     * @param Criteria $criteria
      * @return Project[]
      * */
     public function __invoke(Criteria $criteria): array
