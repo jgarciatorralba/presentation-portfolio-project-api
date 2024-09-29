@@ -31,3 +31,8 @@ services:
 
   App\Shared\Domain\Bus\Event\EventBus:
     class: App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus
+
+  App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever:
+    arguments:
+      $apiToken: "%env(resolve:GITHUB_API_TOKEN)%"
+      $baseUri: "%env(resolve:GITHUB_BASE_URI)%"
