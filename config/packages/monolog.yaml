@@ -1,19 +1,26 @@
 monolog:
   channels:
     - deprecation
+    - project
 
 when@dev:
   monolog:
     handlers:
       main:
         type: stream
-        path: "%kernel.logs_dir%/%kernel.environment%.log"
+        path: "%kernel.logs_dir%/%kernel.environment%/main.log"
         level: debug
         channels: ["!event"]
       console:
         type: console
         process_psr_3_messages: false
         channels: ["!event", "!doctrine", "!console"]
+      project:
+        type: stream
+        path: "%kernel.logs_dir%/%kernel.environment%/project.log"
+        level: info
+        channels: [project]
+        formatter: monolog.formatter.json
 
 when@test:
   monolog:
@@ -51,4 +58,10 @@ when@prod:
         type: stream
         channels: [deprecation]
         path: php://stderr
+        formatter: monolog.formatter.json
+      project:
+        type: stream
+        path: "%kernel.logs_dir%/%kernel.environment%/project.log"
+        level: info
+        channels: [project]
         formatter: monolog.formatter.json
