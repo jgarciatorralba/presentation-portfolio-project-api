@@ -19,7 +19,7 @@ framework:
 
     transports:
       async:
-        dsn: '%env(MESSENGER_TRANSPORT_DSN)%)'
+        dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
         retry_strategy:
           max_retries: 0
           delay: 1000
@@ -32,7 +32,7 @@ framework:
       sync: "sync://"
 
     routing:
-      'App\Shared\Domain\Bus\Event\DomainEvent': async
+      'App\Shared\Domain\Bus\Event\Event': sync
 
 # when@test:
 #  framework:
