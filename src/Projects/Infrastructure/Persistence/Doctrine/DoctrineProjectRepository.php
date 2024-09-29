@@ -40,6 +40,12 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
     }
 
     /** @return Project[] */
+    public function findAll(): array
+    {
+        return $this->repository()->findAll();
+    }
+
+    /** @return Project[] */
     public function matching(Criteria $criteria): array
     {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);

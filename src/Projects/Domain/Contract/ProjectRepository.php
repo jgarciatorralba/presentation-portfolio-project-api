@@ -18,5 +18,8 @@ interface ProjectRepository
     public function find(int $id): Project|null;
 
     /** @return Project[] */
+    public function findAll(): array;
+
+    /** @return Project[] */
     public function matching(Criteria $criteria): array;
 }
