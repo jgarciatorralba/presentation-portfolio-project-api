@@ -11,16 +11,16 @@ use App\Shared\Domain\Contract\Comparable;
 use App\Shared\Domain\Trait\TimestampableTrait;
 use App\Shared\Utils;
 
-class Project extends AggregateRoot implements Comparable
+final class Project extends AggregateRoot implements Comparable
 {
     use TimestampableTrait;
 
     private function __construct(
-        private int $id,
-        private ProjectDetails $details,
-        private ProjectUrls $urls,
-        private bool $archived,
-        private \DateTimeImmutable $lastPushedAt
+        private readonly int $id,
+        private readonly ProjectDetails $details,
+        private readonly ProjectUrls $urls,
+        private readonly bool $archived,
+        private readonly \DateTimeImmutable $lastPushedAt
     ) {
         $now = new \DateTimeImmutable();
 

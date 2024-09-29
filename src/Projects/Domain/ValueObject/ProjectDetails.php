@@ -51,8 +51,13 @@ final readonly class ProjectDetails implements Comparable
             return false;
         }
 
+        foreach ($this->topics as $topic) {
+            if (!in_array($topic, $details->topics)) {
+                return false;
+            }
+        }
+
         return $this->name === $details->name
-            && $this->description === $details->description
-            && $this->topics === $details->topics;
+            && $this->description === $details->description;
     }
 }
