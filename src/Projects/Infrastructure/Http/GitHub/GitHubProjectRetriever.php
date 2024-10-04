@@ -72,14 +72,14 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
 
     /**
      * @param array{
-     * 		id: int,
-     * 		name: string,
-     * 		description: string|null,
-     * 		topics: list<string>|null,
-     * 		html_url: string,
-     * 		homepage: string|null,
-     * 		archived: bool,
-     * 		pushed_at: string
+     *      id: int,
+     *      name: string,
+     *      description: string|null,
+     *      topics: list<string>|null,
+     *      html_url: string,
+     *      homepage: string|null,
+     *      archived: bool,
+     *      pushed_at: string
      * } $projectData
      */
     protected function createProjectFromData(array $projectData): Project
