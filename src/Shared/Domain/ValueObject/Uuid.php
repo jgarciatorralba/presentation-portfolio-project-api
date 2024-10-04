@@ -9,10 +9,10 @@ use Stringable;
 use InvalidArgumentException;
 use Symfony\Component\Uid\Uuid as SymfonyUuid;
 
-final class Uuid implements Stringable
+final readonly class Uuid implements Stringable
 {
     public function __construct(
-        protected readonly string $value
+        private string $value
     ) {
         $this->ensureIsValidUuid($value);
     }
