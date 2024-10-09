@@ -8,8 +8,11 @@ use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
+use App\Projects\Domain\ValueObject\ProjectId;
+use App\Projects\Domain\ValueObject\ProjectRepository;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\ValueObject\Url;
 
 final class CreateProjectCommandHandler implements CommandHandler
 {
@@ -27,13 +30,18 @@ final class CreateProjectCommandHandler implements CommandHandler
             topics: $command->topics()
         );
 
+        $projectRepository = ProjectRepository::fromString($command->repository());
+        $homepage = $command->homepage() !== null ? Url::fromString($command->homepage()) : null;
+
         $projectUrls = ProjectUrls::create(
-            repository: $command->repository(),
-            homepage: $command->homepage()
+            repository: $projectRepository,
+            homepage: $homepage
         );
 
+        $projectId = ProjectId::create($command->id());
+
         $project = Project::create(
-            id: $command->id(),
+            id: $projectId,
             details: $projectDetails,
             urls: $projectUrls,
             archived: $command->archived(),
