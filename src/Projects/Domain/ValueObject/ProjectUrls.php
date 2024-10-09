@@ -5,18 +5,19 @@ declare(strict_types=1);
 namespace App\Projects\Domain\ValueObject;
 
 use App\Shared\Domain\Contract\Comparable;
+use App\Shared\Domain\ValueObject\Url;
 
 final readonly class ProjectUrls implements Comparable
 {
     private function __construct(
-        private string $repository,
-        private ?string $homepage,
+        private ProjectRepository $repository,
+        private ?Url $homepage,
     ) {
     }
 
     public static function create(
-        string $repository,
-        ?string $homepage,
+        ProjectRepository $repository,
+        ?Url $homepage,
     ): self {
         return new self(
             repository: $repository,
@@ -24,12 +25,12 @@ final readonly class ProjectUrls implements Comparable
         );
     }
 
-    public function repository(): string
+    public function repository(): ProjectRepository
     {
         return $this->repository;
     }
 
-    public function homepage(): ?string
+    public function homepage(): ?Url
     {
         return $this->homepage;
     }
@@ -40,7 +41,7 @@ final readonly class ProjectUrls implements Comparable
             return false;
         }
 
-        return $this->repository === $projectUrls->repository()
-            && $this->homepage === $projectUrls->homepage();
+        return $this->repository->value() === $projectUrls->repository()->value()
+            && $this->homepage?->value() === $projectUrls->homepage()?->value();
     }
 }

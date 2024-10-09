@@ -9,6 +9,7 @@ use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 
 class DoctrineProjectRepository extends DoctrineRepository implements ProjectRepository
 {
@@ -34,9 +35,9 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
         $this->updateEntity();
     }
 
-    public function find(int $id): Project|null
+    public function find(ProjectId $id): Project|null
     {
-        return $this->repository()->find($id);
+        return $this->repository()->find($id->value());
     }
 
     /** @return Project[] */

@@ -13,6 +13,10 @@ doctrine:
         driver: "%env(resolve:DATABASE_DRIVER)%"
         profiling_collect_backtrace: "%kernel.debug%"
         use_savepoints: true
+    types:
+      project_id: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectIdType
+      project_repository: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectRepositoryType
+      url: App\Shared\Infrastructure\Persistence\Doctrine\Type\UrlType
 
   orm:
     auto_generate_proxy_classes: true

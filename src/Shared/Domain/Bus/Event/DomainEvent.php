@@ -7,20 +7,20 @@ namespace App\Shared\Domain\Bus\Event;
 abstract class DomainEvent extends Event
 {
     public function __construct(
-        private readonly int $aggregateId,
+        private readonly string $aggregateId,
         string $eventId = null,
         string $occurredOn = null
     ) {
         parent::__construct($eventId, $occurredOn);
     }
 
-    public function aggregateId(): int
+    public function aggregateId(): string
     {
         return $this->aggregateId;
     }
 
     /**
-     * @return array<string, string|array<string, string|int>>
+     * @return array<string, string|array<string, string>>
      */
     public function toArray(): array
     {

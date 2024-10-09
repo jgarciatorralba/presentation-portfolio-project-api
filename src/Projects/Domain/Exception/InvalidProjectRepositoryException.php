@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Exception;
 
-use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\DomainException;
 
-class ProjectNotFoundException extends DomainException
+final class InvalidProjectRepositoryException extends DomainException
 {
-    public function __construct(private readonly ProjectId $id)
+    public function __construct(private readonly string $url)
     {
         parent::__construct();
     }
 
     public function errorCode(): string
     {
-        return 'project_not_found';
+        return 'invalid_project_repository';
     }
 
     public function errorMessage(): string
     {
         return sprintf(
-            "Project with id '%s' could not be found.",
-            $this->id->value()
+            "Invalid value for project repository: '%s'. Must belong to GitHub domain.",
+            $this->url
         );
     }
 }

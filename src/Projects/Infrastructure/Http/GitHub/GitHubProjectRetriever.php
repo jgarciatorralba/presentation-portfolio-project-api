@@ -7,11 +7,14 @@ namespace App\Projects\Infrastructure\Http\GitHub;
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectId;
+use App\Projects\Domain\ValueObject\ProjectRepository;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Contract\HttpClient;
 use App\Shared\Domain\Contract\Logger;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\ValueObject\Url;
 
 final class GitHubProjectRetriever extends BaseProjectRetriever implements ExternalProjectRetriever
 {
@@ -94,15 +97,18 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 : null,
         );
 
+        $projectRepository = ProjectRepository::fromString($projectData['html_url']);
+        $homepage = !empty($projectData['homepage'])
+            ? Url::fromString($projectData['homepage'])
+            : null;
+
         $projectUrls = ProjectUrls::create(
-            repository: $projectData['html_url'],
-            homepage: !empty($projectData['homepage'])
-                ? $projectData['homepage']
-                : null,
+            repository: $projectRepository,
+            homepage: $homepage,
         );
 
         return Project::create(
-            id: $projectData['id'],
+            id: ProjectId::create($projectData['id']),
             details: $projectDetails,
             urls: $projectUrls,
             archived: $projectData['archived'],

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projects\Domain;
 
 use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Contract\Comparable;
@@ -16,7 +17,7 @@ final class Project extends AggregateRoot implements Comparable
     use TimestampableTrait;
 
     private function __construct(
-        private readonly int $id,
+        private readonly ProjectId $id,
         private readonly ProjectDetails $details,
         private readonly ProjectUrls $urls,
         private readonly bool $archived,
@@ -29,7 +30,7 @@ final class Project extends AggregateRoot implements Comparable
     }
 
     public static function create(
-        int $id,
+        ProjectId $id,
         ProjectDetails $details,
         ProjectUrls $urls,
         bool $archived,
@@ -44,7 +45,7 @@ final class Project extends AggregateRoot implements Comparable
         );
     }
 
-    public function id(): int
+    public function id(): ProjectId
     {
         return $this->id;
     }
@@ -83,12 +84,12 @@ final class Project extends AggregateRoot implements Comparable
     public function toArray(): array
     {
         return [
-            'id' => $this->id(),
+            'id' => $this->id()->value(),
             'name' => $this->details()->name(),
             'description' => $this->details()->description(),
             'topics' => $this->details()->topics() ?? null,
-            'repository' => $this->urls()->repository(),
-            'homepage' => $this->urls()->homepage(),
+            'repository' => $this->urls()->repository()->value(),
+            'homepage' => $this->urls()->homepage()?->value() ?? null,
             'archived' => $this->archived(),
             'lastPushedAt' => Utils::dateToString($this->lastPushedAt())
         ];
@@ -100,7 +101,7 @@ final class Project extends AggregateRoot implements Comparable
             return false;
         }
 
-        return $this->id() === $project->id()
+        return $this->id()->equals($project->id())
             && $this->details()->equals($project->details())
             && $this->urls()->equals($project->urls())
             && $this->archived() === $project->archived()

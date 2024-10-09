@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
@@ -25,7 +26,7 @@ final class ProjectRepositoryMock extends AbstractMock
             ->willReturn($project);
     }
 
-    public function shouldNotFindProject(int $id): void
+    public function shouldNotFindProject(ProjectId $id): void
     {
         $this->mock
             ->expects($this->once())

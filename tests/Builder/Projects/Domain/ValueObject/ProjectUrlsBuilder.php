@@ -4,34 +4,40 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
+use App\Projects\Domain\ValueObject\ProjectRepository;
 use App\Projects\Domain\ValueObject\ProjectUrls;
+use App\Shared\Domain\ValueObject\Url;
 use App\Tests\Builder\BuilderInterface;
+use App\Tests\Builder\Shared\Domain\ValueObject\UrlBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectUrlsBuilder implements BuilderInterface
 {
     private function __construct(
-        private string $repository,
-        private ?string $homepage,
+        private ProjectRepository $repository,
+        private ?Url $homepage,
     ) {
     }
 
     public static function any(): self
     {
         return new self(
-            repository: ('https://github.com/' . FakeValueGenerator::string()),
-            homepage: FakeValueGenerator::randomElement([null, FakeValueGenerator::url()]),
+            repository: ProjectRepositoryBuilder::any()->build(),
+            homepage: FakeValueGenerator::randomElement([
+                null,
+                UrlBuilder::any()->build(),
+            ]),
         );
     }
 
-    public function withRepository(string $repository): self
+    public function withRepository(ProjectRepository $repository): self
     {
         $this->repository = $repository;
 
         return $this;
     }
 
-    public function withHomepage(?string $homepage): self
+    public function withHomepage(?Url $homepage): self
     {
         $this->homepage = $homepage;
 

@@ -6,16 +6,18 @@ namespace App\Tests\Builder\Projects\Domain;
 
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectBuilder implements BuilderInterface
 {
     private function __construct(
-        private int $id,
+        private ProjectId $id,
         private ProjectDetails $details,
         private ProjectUrls $urls,
         private bool $archived,
@@ -28,7 +30,7 @@ final class ProjectBuilder implements BuilderInterface
     public static function any(): self
     {
         return new self(
-            id: FakeValueGenerator::integer(),
+            id: ProjectIdBuilder::any()->build(),
             details: ProjectDetailsBuilder::any()->build(),
             urls: ProjectUrlsBuilder::any()->build(),
             archived: FakeValueGenerator::boolean(),
@@ -52,8 +54,8 @@ final class ProjectBuilder implements BuilderInterface
         $i = 0;
         while ($i < $amount) {
             $project = self::any()->build();
-            if (!in_array($project->id(), array_keys($projects))) {
-                $projects[$project->id()] = $project;
+            if (!in_array($project->id()->value(), array_keys($projects))) {
+                $projects[$project->id()->value()] = $project;
                 $i++;
             }
         }

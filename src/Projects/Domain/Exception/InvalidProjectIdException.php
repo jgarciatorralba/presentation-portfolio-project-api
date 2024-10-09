@@ -4,26 +4,25 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Exception;
 
-use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\DomainException;
 
-class ProjectNotFoundException extends DomainException
+final class InvalidProjectIdException extends DomainException
 {
-    public function __construct(private readonly ProjectId $id)
+    public function __construct(private readonly int $id)
     {
         parent::__construct();
     }
 
     public function errorCode(): string
     {
-        return 'project_not_found';
+        return 'invalid_project_id';
     }
 
     public function errorMessage(): string
     {
         return sprintf(
-            "Project with id '%s' could not be found.",
-            $this->id->value()
+            "Invalid value for project id: '%s'. Must be a positive integer.",
+            $this->id
         );
     }
 }

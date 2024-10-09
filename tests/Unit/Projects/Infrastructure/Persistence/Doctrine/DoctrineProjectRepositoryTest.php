@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Infrastructure\Persistence\Doctrine;
 
 use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
 use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -73,8 +74,8 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $this->assertNull($result);
     }
 
-    #[DataProvider('dataFindsProject')]
-    public function testItFindsProjectOrReturnsNull(int $id, ?Project $project): void
+    #[DataProvider('dataReturnsProject')]
+    public function testItReturnsProjectOrNull(ProjectId $id, ?Project $project): void
     {
         $this->entityRepositoryMock
             ->shouldFindEntity($id, $project);
@@ -84,15 +85,16 @@ final class DoctrineProjectRepositoryTest extends TestCase
     }
 
     /**
-     * @return array<string, array<int, Project|null>>
+     * @return array<string, array<ProjectId, Project|null>>
      */
-    public static function dataFindsProject(): array
+    public static function dataReturnsProject(): array
     {
         $project = ProjectBuilder::any()->build();
+        $projectId = ProjectIdBuilder::any()->build();
 
         return [
             'existing id' => [$project->id(), $project],
-            'non-existent id' => [FakeValueGenerator::integer(), null],
+            'non-existent id' => [$projectId, null],
         ];
     }
 

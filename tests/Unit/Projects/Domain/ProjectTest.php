@@ -55,12 +55,12 @@ final class ProjectTest extends TestCase
 
         $this->assertIsArray($projectArray);
         $this->assertCount(8, array_keys($projectArray));
-        $this->assertEquals($this->expected->id(), $projectArray['id']);
+        $this->assertEquals($this->expected->id()->value(), $projectArray['id']);
         $this->assertEquals($this->expected->details()->name(), $projectArray['name']);
         $this->assertEquals($this->expected->details()->description(), $projectArray['description']);
         $this->assertEquals($this->expected->details()->topics(), $projectArray['topics']);
-        $this->assertEquals($this->expected->urls()->repository(), $projectArray['repository']);
-        $this->assertEquals($this->expected->urls()->homepage(), $projectArray['homepage']);
+        $this->assertEquals($this->expected->urls()->repository()->value(), $projectArray['repository']);
+        $this->assertEquals($this->expected->urls()->homepage()?->value() ?? null, $projectArray['homepage']);
         $this->assertEquals($this->expected->archived(), $projectArray['archived']);
         $this->assertEquals(
             $this->expected->lastPushedAt()->format(\DateTimeInterface::ATOM),

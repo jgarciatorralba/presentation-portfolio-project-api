@@ -46,12 +46,12 @@ final class CreateProjectCommandHandlerTest extends TestCase
     public function testCreateProject(): void
     {
         $command = CreateProjectCommandBuilder::any()
-            ->withId($this->project->id())
+            ->withId($this->project->id()->value())
             ->withName($this->project->details()->name())
             ->withDescription($this->project->details()->description())
             ->withTopics($this->project->details()->topics())
-            ->withRepository($this->project->urls()->repository())
-            ->withHomepage($this->project->urls()->homepage())
+            ->withRepository($this->project->urls()->repository()->value())
+            ->withHomepage($this->project->urls()->homepage()?->value() ?? null)
             ->withArchived($this->project->archived())
             ->withLastPushedAt($this->project->lastPushedAt())
             ->build();

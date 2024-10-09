@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projects\Domain\Contract;
 
 use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Criteria\Criteria;
 
 interface ProjectRepository
@@ -15,7 +16,7 @@ interface ProjectRepository
 
     public function delete(Project $project): void;
 
-    public function find(int $id): Project|null;
+    public function find(ProjectId $id): Project|null;
 
     /** @return Project[] */
     public function findAll(): array;

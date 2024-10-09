@@ -25,7 +25,11 @@ final class EntityRepositoryMock extends AbstractMock
         $this->mock
             ->expects($this->once())
             ->method('find')
-            ->with($id)
+            ->with(
+                is_object($id) && method_exists($id, 'value')
+                    ? $id->value()
+                    : $id
+            )
             ->willReturn($entityId === $id ? $entity : null);
     }
 

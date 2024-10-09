@@ -19,9 +19,9 @@ final class CreateProjectFeatureTest extends FeatureTestCase
         $project = ProjectBuilder::any()->build();
 
         $content = [
-            'id' => $project->id(),
+            'id' => $project->id()->value(),
             'name' => $project->details()->name(),
-            'repository' => $project->urls()->repository(),
+            'repository' => $project->urls()->repository()->value(),
             'archived' => $project->archived(),
             'lastPushedAt' => Utils::dateToString($project->lastPushedAt()),
         ];
@@ -33,7 +33,7 @@ final class CreateProjectFeatureTest extends FeatureTestCase
             $content['topics'] = $project->details()->topics();
         }
         if (null !== $project->urls()->homepage()) {
-            $content['homepage'] = $project->urls()->homepage();
+            $content['homepage'] = $project->urls()->homepage()->value();
         }
 
         $this->client->request(

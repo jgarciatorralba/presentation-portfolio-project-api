@@ -6,7 +6,7 @@
         name="App\Projects\Domain\Project"
         table="projects"
     >
-        <id name="id" type="bigint" column="id" />
+        <id name="id" type="project_id" column="id" />
         <embedded name="details" class="App\Projects\Domain\ValueObject\ProjectDetails" use-column-prefix="false" />
         <embedded name="urls" class="App\Projects\Domain\ValueObject\ProjectUrls" use-column-prefix="false" />
         <field name="archived" type="boolean" column="archived">

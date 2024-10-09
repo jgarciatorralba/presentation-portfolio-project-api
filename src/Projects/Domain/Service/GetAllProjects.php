@@ -23,7 +23,7 @@ final class GetAllProjects
 
         $mappedProjects = [];
         foreach ($projects as $project) {
-            $mappedProjects[$project->id()] = $project;
+            $mappedProjects[$project->id()->value()] = $project;
         }
 
         return $mappedProjects;
