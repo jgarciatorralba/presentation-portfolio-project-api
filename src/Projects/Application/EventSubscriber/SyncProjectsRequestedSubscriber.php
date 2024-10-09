@@ -42,7 +42,7 @@ final readonly class SyncProjectsRequestedSubscriber implements EventSubscriber
         foreach ($storedProjects as $projectId => $project) {
             if (!isset($externalProjects[$projectId])) {
                 $this->eventBus->publish(
-                    new ProjectRemovedEvent($projectId)
+                    new ProjectRemovedEvent($project->id())
                 );
             }
         }

@@ -12,7 +12,7 @@ final class ProjectAddedEvent extends DomainEvent
     public function __construct(
         private readonly Project $project
     ) {
-        parent::__construct($project->id());
+        parent::__construct($project->id()->__toString());
     }
 
     public function project(): Project
