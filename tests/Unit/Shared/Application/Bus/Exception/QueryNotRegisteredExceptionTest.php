@@ -26,7 +26,7 @@ final class QueryNotRegisteredExceptionTest extends TestCase
     public function testExceptionIsCreated(): void
     {
         $exception = new QueryNotRegisteredException($this->query);
-        $queryClass = get_class($this->query);
+        $queryClass = $this->query !== null ? $this->query::class : self::class;
 
         $this->assertEquals(
             "Query with class {$queryClass} has no handler registered",

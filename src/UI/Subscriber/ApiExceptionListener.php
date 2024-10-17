@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
-final class ApiExceptionListener
+final readonly class ApiExceptionListener
 {
     public function __construct(
-        private readonly ExceptionHttpStatusCodeMapper $exceptionHttpStatusCodeMapper
+        private ExceptionHttpStatusCodeMapper $exceptionHttpStatusCodeMapper
     ) {
     }
 

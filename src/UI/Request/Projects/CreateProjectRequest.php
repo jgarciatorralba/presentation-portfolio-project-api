@@ -71,7 +71,7 @@ final class CreateProjectRequest extends AbstractRequest
                 new Assert\DateTime([
                     'format' => \DateTimeInterface::ATOM
                 ]),
-                new Assert\Callback([$this, 'validateDateTimeIsInThePast'])
+                new Assert\Callback($this->validateDateTimeIsInThePast(...))
             ])
         ]);
     }

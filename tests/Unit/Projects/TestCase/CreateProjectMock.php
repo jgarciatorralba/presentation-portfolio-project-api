@@ -21,7 +21,7 @@ final class CreateProjectMock extends AbstractMock
             ->expects($this->once())
             ->method('__invoke')
             ->with($this->callback(
-                function (Project $actual) use ($expected) {
+                function (Project $actual) use ($expected): true {
                     $this->assertProjectsAreEqual($expected, $actual);
                     return true;
                 }

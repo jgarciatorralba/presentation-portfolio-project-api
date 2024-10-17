@@ -6,11 +6,11 @@ namespace App\Projects\Application\Query\GetProjects;
 
 use App\Shared\Domain\Bus\Query\Query;
 
-final class GetProjectsQuery implements Query
+final readonly class GetProjectsQuery implements Query
 {
     public function __construct(
-        private readonly ?int $pageSize = null,
-        private readonly ?\DateTimeImmutable $maxUpdatedAt = null
+        private ?int $pageSize = null,
+        private ?\DateTimeImmutable $maxUpdatedAt = null
     ) {
     }
 

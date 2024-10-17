@@ -10,11 +10,11 @@ use Faker\Generator;
 
 final class FakeValueGenerator
 {
-    private static ?Generator $faker;
+    private static ?Generator $faker = null;
 
     private static function generator(): Generator
     {
-        return self::$faker = self::$faker ?? Factory::create();
+        return self::$faker ??= Factory::create();
     }
 
     public static function uuid(): Uuid
@@ -44,7 +44,7 @@ final class FakeValueGenerator
 
     public static function integer(int $min = 0, ?int $max = null): int
     {
-        return self::generator()->numberBetween($min, $max ?? getrandmax());
+        return self::generator()->numberBetween($min, $max ?? mt_getrandmax());
     }
 
     public static function float(int $min = 0, ?int $max = null, int $decimals = 2): float

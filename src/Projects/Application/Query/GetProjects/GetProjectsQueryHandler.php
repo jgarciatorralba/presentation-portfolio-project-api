@@ -9,10 +9,10 @@ use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Bus\Query\QueryHandler;
 use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
 
-final class GetProjectsQueryHandler implements QueryHandler
+final readonly class GetProjectsQueryHandler implements QueryHandler
 {
     public function __construct(
-        private readonly GetProjectsByCriteria $getProjectsByCriteria
+        private GetProjectsByCriteria $getProjectsByCriteria
     ) {
     }
 
@@ -26,7 +26,7 @@ final class GetProjectsQueryHandler implements QueryHandler
         );
 
         $projects = array_map(
-            fn (AggregateRoot $project) => $project->toArray(),
+            fn (AggregateRoot $project): array => $project->toArray(),
             $projects
         );
 

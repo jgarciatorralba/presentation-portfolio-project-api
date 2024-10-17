@@ -41,8 +41,6 @@ final class EntityRepositoryMock extends AbstractMock
             ->expects($this->once())
             ->method('matching')
             ->with($criteria)
-            ->willReturnCallback(function () use ($entities) {
-                return new DoctrineTestCollection($entities);
-            });
+            ->willReturnCallback(fn (): DoctrineTestCollection => new DoctrineTestCollection($entities));
     }
 }

@@ -48,7 +48,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
         $this->assertInstanceof(GetProjectsResponse::class, $result);
         $this->assertEquals(
             array_map(
-                fn (Project $project) => $project->toArray(),
+                fn (Project $project): array => $project->toArray(),
                 $projects
             ),
             $result->data()['projects']

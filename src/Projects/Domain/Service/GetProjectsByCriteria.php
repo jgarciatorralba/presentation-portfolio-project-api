@@ -8,10 +8,10 @@ use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
 
-final class GetProjectsByCriteria
+final readonly class GetProjectsByCriteria
 {
     public function __construct(
-        private readonly ProjectRepository $projectRepository
+        private ProjectRepository $projectRepository
     ) {
     }
 

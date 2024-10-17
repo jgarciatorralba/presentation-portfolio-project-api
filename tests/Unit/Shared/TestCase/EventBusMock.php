@@ -36,7 +36,7 @@ final class EventBusMock extends AbstractMock
             ->method('dispatch')
             ->with(
                 $this->callback(
-                    function (Event $event) use ($events) {
+                    function (Event $event) use ($events): bool {
                         if ($events[self::$callIndex]['exception'] !== null) {
                             throw $events[self::$callIndex++]['exception'];
                         }

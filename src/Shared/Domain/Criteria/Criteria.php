@@ -11,7 +11,7 @@ class Criteria
 {
     private const MAX_PAGE_SIZE = 50;
 
-    private int $limit;
+    private readonly int $limit;
 
     /** @param Order[] $orderBy */
     public function __construct(

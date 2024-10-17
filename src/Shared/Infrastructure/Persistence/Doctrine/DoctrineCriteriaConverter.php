@@ -14,10 +14,10 @@ use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Doctrine\Common\Collections\Expr\Expression;
 use Doctrine\Common\Collections\Order as DoctrineCriteriaOrder;
 
-final class DoctrineCriteriaConverter
+final readonly class DoctrineCriteriaConverter
 {
     public function __construct(
-        private readonly Criteria $criteria
+        private Criteria $criteria
     ) {
     }
 

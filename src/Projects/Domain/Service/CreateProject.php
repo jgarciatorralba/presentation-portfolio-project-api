@@ -8,10 +8,10 @@ use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Project;
 
-final class CreateProject
+final readonly class CreateProject
 {
     public function __construct(
-        private readonly ProjectRepository $projectRepository
+        private ProjectRepository $projectRepository
     ) {
     }
 

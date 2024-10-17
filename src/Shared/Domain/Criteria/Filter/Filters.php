@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Criteria\Filter;
 
-final class Filters
+final readonly class Filters
 {
     /** @param Filter[] $filters */
     public function __construct(
-        private readonly array $filters = [],
-        private readonly FilterConditionEnum $condition = FilterConditionEnum::AND
+        private array $filters = [],
+        private FilterConditionEnum $condition = FilterConditionEnum::AND
     ) {
     }
 

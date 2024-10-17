@@ -55,7 +55,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
 
     public function testItThrowsQueryNotRegisteredException(): void
     {
-        $queryClass = get_class($this->query);
+        $queryClass = $this->query !== null ? $this->query::class : self::class;
 
         $this->queryBusMock
             ->willThrowException(new NoHandlerForMessageException());

@@ -30,9 +30,7 @@ final class EventBusMock extends AbstractMock
             ->method('publish')
             ->with(
                 $this->callback(
-                    function (Event $event) use ($eventTypes) {
-                        return $event::eventType() === $eventTypes[self::$callIndex++];
-                    }
+                    fn(Event $event): bool => $event::eventType() === $eventTypes[self::$callIndex++]
                 )
             );
     }

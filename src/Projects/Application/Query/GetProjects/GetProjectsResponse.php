@@ -6,11 +6,11 @@ namespace App\Projects\Application\Query\GetProjects;
 
 use App\Shared\Domain\Bus\Query\Response;
 
-final class GetProjectsResponse implements Response
+final readonly class GetProjectsResponse implements Response
 {
     /** @param array<mixed> $data */
     public function __construct(
-        private readonly array $data
+        private array $data
     ) {
     }
 

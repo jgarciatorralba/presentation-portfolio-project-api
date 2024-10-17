@@ -7,10 +7,10 @@ namespace App\Projects\Domain\Service;
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
 
-final class GetAllProjects
+final readonly class GetAllProjects
 {
     public function __construct(
-        private readonly ProjectRepository $projectRepository
+        private ProjectRepository $projectRepository
     ) {
     }
 

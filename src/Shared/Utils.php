@@ -28,6 +28,6 @@ final class Utils
 
     public static function toSnakeCase(string $value): string
     {
-        return strtolower(preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], '\1_\2', $value));
+        return strtolower((string) preg_replace(['/([A-Z]+)([A-Z][a-z])/', '/([a-z\d])([A-Z])/'], '\1_\2', $value));
     }
 }

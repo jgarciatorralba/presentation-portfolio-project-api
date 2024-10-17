@@ -14,11 +14,11 @@ use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\ValueObject\Url;
 
-final class CreateProjectCommandHandler implements CommandHandler
+final readonly class CreateProjectCommandHandler implements CommandHandler
 {
     public function __construct(
-        private readonly CreateProject $createProject,
-        private readonly LocalDateTimeZoneConverter $dateTimeConverter
+        private CreateProject $createProject,
+        private LocalDateTimeZoneConverter $dateTimeConverter
     ) {
     }
 

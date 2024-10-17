@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityRepository;
 abstract class DoctrineRepository
 {
     /** @var EntityRepository<object> $repository */
-    private EntityRepository $repository;
+    private readonly EntityRepository $repository;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager

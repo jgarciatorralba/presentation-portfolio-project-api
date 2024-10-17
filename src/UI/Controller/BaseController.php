@@ -13,7 +13,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 abstract class BaseController
 {
-    private string $baseUrl;
+    private readonly string $baseUrl;
 
     public function __construct(
         private readonly QueryBus $queryBus,

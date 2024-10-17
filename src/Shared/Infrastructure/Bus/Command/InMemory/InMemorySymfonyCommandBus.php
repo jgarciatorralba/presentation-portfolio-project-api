@@ -11,10 +11,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
-final class InMemorySymfonyCommandBus implements CommandBus
+final readonly class InMemorySymfonyCommandBus implements CommandBus
 {
     public function __construct(
-        private readonly MessageBusInterface $commandBus
+        private MessageBusInterface $commandBus
     ) {
     }
 

@@ -9,10 +9,10 @@ use App\Shared\Domain\Bus\Event\EventBus;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
-final class InMemorySymfonyEventBus implements EventBus
+final readonly class InMemorySymfonyEventBus implements EventBus
 {
     public function __construct(
-        private readonly MessageBusInterface $eventBus
+        private MessageBusInterface $eventBus
     ) {
     }
 

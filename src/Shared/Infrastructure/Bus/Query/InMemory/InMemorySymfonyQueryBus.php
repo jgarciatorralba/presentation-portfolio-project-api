@@ -13,10 +13,10 @@ use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
-final class InMemorySymfonyQueryBus implements QueryBus
+final readonly class InMemorySymfonyQueryBus implements QueryBus
 {
     public function __construct(
-        private readonly MessageBusInterface $queryBus
+        private MessageBusInterface $queryBus
     ) {
     }
 
