@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\ValueObject\ProjectRepository;
+use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\ValueObject\Url;
 use App\Tests\Builder\BuilderInterface;
@@ -14,7 +14,7 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 final class ProjectUrlsBuilder implements BuilderInterface
 {
     private function __construct(
-        private ProjectRepository $repository,
+        private ProjectRepositoryUrl $repository,
         private ?Url $homepage,
     ) {
     }
@@ -22,7 +22,7 @@ final class ProjectUrlsBuilder implements BuilderInterface
     public static function any(): self
     {
         return new self(
-            repository: ProjectRepositoryBuilder::any()->build(),
+            repository: ProjectRepositoryUrlBuilder::any()->build(),
             homepage: FakeValueGenerator::randomElement([
                 null,
                 UrlBuilder::any()->build(),
@@ -30,7 +30,7 @@ final class ProjectUrlsBuilder implements BuilderInterface
         );
     }
 
-    public function withRepository(ProjectRepository $repository): self
+    public function withRepository(ProjectRepositoryUrl $repository): self
     {
         $this->repository = $repository;
 

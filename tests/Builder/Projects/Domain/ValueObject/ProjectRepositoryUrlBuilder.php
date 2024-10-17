@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\ValueObject\ProjectRepository;
+use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
-final class ProjectRepositoryBuilder implements BuilderInterface
+final class ProjectRepositoryUrlBuilder implements BuilderInterface
 {
     private function __construct(
         private string $value
@@ -27,8 +27,8 @@ final class ProjectRepositoryBuilder implements BuilderInterface
         return $this;
     }
 
-    public function build(): ProjectRepository
+    public function build(): ProjectRepositoryUrl
     {
-        return ProjectRepository::fromString($this->value);
+        return ProjectRepositoryUrl::fromString($this->value);
     }
 }

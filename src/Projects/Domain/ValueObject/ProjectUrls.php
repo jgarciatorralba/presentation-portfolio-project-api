@@ -10,13 +10,13 @@ use App\Shared\Domain\ValueObject\Url;
 final readonly class ProjectUrls implements Comparable
 {
     private function __construct(
-        private ProjectRepository $repository,
+        private ProjectRepositoryUrl $repository,
         private ?Url $homepage,
     ) {
     }
 
     public static function create(
-        ProjectRepository $repository,
+        ProjectRepositoryUrl $repository,
         ?Url $homepage,
     ): self {
         return new self(
@@ -25,7 +25,7 @@ final readonly class ProjectUrls implements Comparable
         );
     }
 
-    public function repository(): ProjectRepository
+    public function repository(): ProjectRepositoryUrl
     {
         return $this->repository;
     }

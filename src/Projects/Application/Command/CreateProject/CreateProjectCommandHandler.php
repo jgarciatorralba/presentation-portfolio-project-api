@@ -9,7 +9,7 @@ use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Projects\Domain\ValueObject\ProjectRepository;
+use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Shared\Domain\Bus\Command\CommandHandler;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\ValueObject\Url;
@@ -30,11 +30,11 @@ final readonly class CreateProjectCommandHandler implements CommandHandler
             topics: $command->topics()
         );
 
-        $projectRepository = ProjectRepository::fromString($command->repository());
+        $projectRepositoryUrl = ProjectRepositoryUrl::fromString($command->repository());
         $homepage = $command->homepage() !== null ? Url::fromString($command->homepage()) : null;
 
         $projectUrls = ProjectUrls::create(
-            repository: $projectRepository,
+            repository: $projectRepositoryUrl,
             homepage: $homepage
         );
 

@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Projects\Infrastructure\Persistence\Doctrine\Type;
 
-use App\Projects\Domain\Exception\InvalidProjectRepositoryException;
-use App\Projects\Domain\ValueObject\ProjectRepository;
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
+use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class ProjectRepositoryType extends Type
+class ProjectRepositoryUrlType extends Type
 {
     public function getName(): string
     {
-        return 'project_repository';
+        return 'project_repository_url';
     }
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
@@ -24,7 +24,7 @@ class ProjectRepositoryType extends Type
 
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
-        if ($value instanceof ProjectRepository) {
+        if ($value instanceof ProjectRepositoryUrl) {
             return $value;
         }
 
@@ -33,14 +33,14 @@ class ProjectRepositoryType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be a string.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value)
+                    get_debug_type($value)
                 )
             );
         }
 
         try {
-            return ProjectRepository::fromString($value);
-        } catch (\InvalidArgumentException | InvalidProjectRepositoryException $e) {
+            return ProjectRepositoryUrl::fromString($value);
+        } catch (\InvalidArgumentException | InvalidProjectRepositoryUrlException $e) {
             throw new ConversionException(
                 sprintf(
                     "Conversion failed: %s",
@@ -52,7 +52,7 @@ class ProjectRepositoryType extends Type
 
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
-        if ($value instanceof ProjectRepository) {
+        if ($value instanceof ProjectRepositoryUrl) {
             return $value->__toString();
         }
 
@@ -61,8 +61,8 @@ class ProjectRepositoryType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be string or an instance of %s class.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value),
-                    ProjectRepository::class
+                    get_debug_type($value),
+                    ProjectRepositoryUrl::class
                 )
             );
         }

@@ -8,7 +8,7 @@ use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Projects\Domain\ValueObject\ProjectRepository;
+use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Contract\HttpClient;
@@ -97,13 +97,13 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 : null,
         );
 
-        $projectRepository = ProjectRepository::fromString($projectData['html_url']);
+        $projectRepositoryUrl = ProjectRepositoryUrl::fromString($projectData['html_url']);
         $homepage = !empty($projectData['homepage'])
             ? Url::fromString($projectData['homepage'])
             : null;
 
         $projectUrls = ProjectUrls::create(
-            repository: $projectRepository,
+            repository: $projectRepositoryUrl,
             homepage: $homepage,
         );
 

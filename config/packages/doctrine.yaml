@@ -15,7 +15,7 @@ doctrine:
         use_savepoints: true
     types:
       project_id: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectIdType
-      project_repository: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectRepositoryType
+      project_repository_url: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectRepositoryUrlType
       url: App\Shared\Infrastructure\Persistence\Doctrine\Type\UrlType
 
   orm:

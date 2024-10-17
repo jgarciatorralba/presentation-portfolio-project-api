@@ -6,7 +6,7 @@ namespace App\Projects\Domain\Exception;
 
 use App\Shared\Domain\DomainException;
 
-final class InvalidProjectRepositoryException extends DomainException
+final class InvalidProjectRepositoryUrlException extends DomainException
 {
     public function __construct(private readonly string $url)
     {
