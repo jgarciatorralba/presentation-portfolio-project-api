@@ -42,10 +42,11 @@ This repository contains a **Symfony** application aimed to provide an **API** s
 ## Scripts
 
 - Run *PHPUnit* tests: `php bin/phpunit`
-- Run *CodeSniffer* analysis: `php vendor/bin/phpcs <filename|foldername>`
-  - Correct detected coding standard violations: `php vendor/bin/phpcbf <filename|foldername>`
-- Run *PHPStan* analysis: `php vendor/bin/phpstan analyse <foldernames>`
+- Run *CodeSniffer* analysis: `php vendor/bin/phpcs [<filename|foldername>]`
+  - Correct detected coding standard violations: `php vendor/bin/phpcbf [<filename|foldername>]`
+- Run *PHPStan* analysis: `php vendor/bin/phpstan analyse [<foldernames>]`
 - Run *PHP Mess Detector* analysis: `php vendor/bin/phpmd <foldername> xml codesize --reportfile 'phpmd.results.xml'`
+- Run *Rector* code refactoring: `php vendor/bin/rector process [--dry-run]`
 - Delete existing database: `sf doctrine:database:drop --force`
 
 ---
