@@ -21,7 +21,7 @@ final readonly class ProjectRepositoryUrl extends Url implements Stringable
      * @throws \InvalidArgumentException
      * @throws InvalidProjectRepositoryUrlException
      */
-    public static function fromString(string $value): static
+    public static function fromString(string $value): self
     {
         $url = Url::fromString($value);
 
@@ -30,7 +30,7 @@ final readonly class ProjectRepositoryUrl extends Url implements Stringable
             throw new InvalidProjectRepositoryUrlException($value);
         }
 
-        return new static($url->value());
+        return new self($url->value());
     }
 
     public function __toString(): string

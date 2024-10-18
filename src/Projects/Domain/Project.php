@@ -35,8 +35,8 @@ final class Project extends AggregateRoot implements Comparable
         ProjectUrls $urls,
         bool $archived,
         \DateTimeImmutable $lastPushedAt
-    ): static {
-        return new static(
+    ): self {
+        return new self(
             id: $id,
             details: $details,
             urls: $urls,
