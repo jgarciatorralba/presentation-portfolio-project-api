@@ -70,7 +70,7 @@ enum HttpStatusCode: int
     case HTTP_NOT_EXTENDED = 510;
     case HTTP_NETWORK_AUTHENTICATION_REQUIRED = 511;
 
-    public function defaultReasonPhrase(): string
+    public function fromStatusCode(): string
     {
         $reasonPhrase = $this->name;
         $reasonPhrase = str_replace('HTTP_', '', $reasonPhrase);
