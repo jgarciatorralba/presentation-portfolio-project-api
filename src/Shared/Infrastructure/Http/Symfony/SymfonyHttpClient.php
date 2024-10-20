@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Http\Symfony;
 
 use App\Shared\Domain\Contract\Http\HttpClient as HttpClientContract;
+use App\Shared\Domain\Contract\Http\HttpResponse as HttpResponseContract;
 use App\Shared\Domain\ValueObject\Http\HttpHeader;
 use App\Shared\Domain\ValueObject\Http\HttpHeaders;
 use App\Shared\Domain\ValueObject\Http\HttpProtocolVersion;
@@ -36,7 +37,7 @@ final class SymfonyHttpClient implements HttpClientContract
      *      query?: QueryParams,
      * } $httpOptions
      */
-    public function fetch(string $url, array $httpOptions): HttpResponse
+    public function fetch(string $url, array $httpOptions): HttpResponseContract
     {
         try {
             $response = $this->client
