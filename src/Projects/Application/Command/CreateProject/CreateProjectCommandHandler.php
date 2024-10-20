@@ -30,11 +30,11 @@ final readonly class CreateProjectCommandHandler implements CommandHandler
             topics: $command->topics()
         );
 
-        $projectRepositoryUrl = ProjectRepositoryUrl::fromString($command->repository());
+        $repository = ProjectRepositoryUrl::fromString($command->repository());
         $homepage = $command->homepage() !== null ? Url::fromString($command->homepage()) : null;
 
         $projectUrls = ProjectUrls::create(
-            repository: $projectRepositoryUrl,
+            repository: $repository,
             homepage: $homepage
         );
 
