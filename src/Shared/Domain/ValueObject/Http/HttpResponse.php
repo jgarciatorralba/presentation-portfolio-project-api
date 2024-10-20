@@ -1,0 +1,203 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Shared\Domain\ValueObject\Http;
+
+use App\Shared\Domain\Contract\Http\HttpResponse as HttpResponseInterface;
+use App\Shared\Domain\Contract\Http\HttpStream;
+use Psr\Http\Message\StreamInterface;
+
+readonly class HttpResponse implements HttpResponseInterface
+{
+    /**
+     * @template T of HttpHeader
+     * @param HttpHeaders<T> $headers
+     */
+    final private function __construct(
+        private HttpHeaders $headers,
+        private HttpStream $body,
+        private HttpStatusCode $statusCode,
+        private string $reasonPhrase,
+        private HttpProtocolVersion $protocolVersion,
+    ) {
+    }
+
+    /**
+     * @template T of HttpHeader
+     * @param HttpHeaders<T> $headers
+     */
+    public static function create(
+        HttpStream $body,
+        HttpHeaders $headers = new HttpHeaders(),
+        HttpStatusCode $statusCode = HttpStatusCode::HTTP_OK,
+        string $reasonPhrase = '',
+        HttpProtocolVersion $protocolVersion = HttpProtocolVersion::HTTP_1_1,
+    ): static {
+        return new static(
+            headers: $headers,
+            body: $body,
+            statusCode: $statusCode,
+            reasonPhrase: empty($reasonPhrase)
+                ? $statusCode->defaultReasonPhrase()
+                : $reasonPhrase,
+            protocolVersion: $protocolVersion,
+        );
+    }
+
+    public function getStatusCode(): int
+    {
+        return $this->statusCode->value;
+    }
+
+    public function withStatus(int $code, string $reasonPhrase = ''): static
+    {
+        try {
+            $statusCode = HttpStatusCode::from($code);
+
+            return new static(
+                body: $this->body,
+                statusCode: $statusCode,
+                reasonPhrase: empty($reasonPhrase)
+                    ? $statusCode->defaultReasonPhrase()
+                    : $reasonPhrase,
+                headers: $this->headers,
+                protocolVersion: $this->protocolVersion,
+            );
+        } catch (\ValueError) {
+            throw new \InvalidArgumentException('Invalid status code value');
+        }
+    }
+
+    public function getReasonPhrase(): string
+    {
+        return $this->reasonPhrase;
+    }
+
+    public function getProtocolVersion(): string
+    {
+        return $this->protocolVersion->value;
+    }
+
+    public function withProtocolVersion(string $version): static
+    {
+        try {
+            $protocolVersion = HttpProtocolVersion::from($version);
+
+            return new static(
+                body: $this->body,
+                statusCode: $this->statusCode,
+                reasonPhrase: $this->reasonPhrase,
+                headers: $this->headers,
+                protocolVersion: $protocolVersion,
+            );
+        } catch (\ValueError) {
+            throw new \InvalidArgumentException('Invalid protocol version value');
+        }
+    }
+
+    /**
+     * @return array<string, string[]>
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers->toArray();
+    }
+
+    public function hasHeader(string $name): bool
+    {
+        return $this->headers->has($name);
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHeader(string $name): array
+    {
+        $foundHeader = $this->headers->get($name);
+
+        return $foundHeader ? $foundHeader->values() : [];
+    }
+
+    public function getHeaderLine(string $name): string
+    {
+        return implode(',', $this->getHeader($name));
+    }
+
+    /**
+     * @param string|string[] $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function withHeader(string $name, mixed $value): static
+    {
+        $newHeader = new HttpHeader($name, ...(array) $value);
+
+        $newHeaders = [];
+        foreach ($this->headers->all() as $header) {
+            if (strcasecmp($header->name(), $name) === 0) {
+                $newHeaders[] = $newHeader;
+            } else {
+                $newHeaders[] = $header;
+            }
+        }
+
+        return new static(
+            body: $this->body,
+            statusCode: $this->statusCode,
+            reasonPhrase: $this->reasonPhrase,
+            headers: new HttpHeaders(...$newHeaders),
+            protocolVersion: $this->protocolVersion,
+        );
+    }
+
+    /**
+     * @param string|string[] $value
+     *
+     * @throws \InvalidArgumentException
+     */
+    public function withAddedHeader(string $name, mixed $value): self
+    {
+        $newHeader = $this->hasHeader($name)
+            ? new HttpHeader($name, ...array_merge($this->getHeader($name), (array) $value))
+            : new HttpHeader($name, ...(array) $value);
+
+        return $this->withHeader($newHeader->name(), ...$newHeader->values());
+    }
+
+    public function withoutHeader(string $name): static
+    {
+        $newHeaders = [];
+        foreach ($this->headers->all() as $header) {
+            if (strcasecmp($header->name(), $name) !== 0) {
+                $newHeaders[] = $header;
+            }
+        }
+
+        return new static(
+            body: $this->body,
+            statusCode: $this->statusCode,
+            reasonPhrase: $this->reasonPhrase,
+            headers: new HttpHeaders(...$newHeaders),
+            protocolVersion: $this->protocolVersion,
+        );
+    }
+
+    public function getBody(): HttpStream
+    {
+        return $this->body;
+    }
+
+    public function withBody(StreamInterface $body): static
+    {
+        $temp = new TemporaryFileStream((string) $body);
+
+        return new static(
+            body: $temp,
+            statusCode: $this->statusCode,
+            reasonPhrase: $this->reasonPhrase,
+            headers: $this->headers,
+            protocolVersion: $this->protocolVersion,
+        );
+    }
+}

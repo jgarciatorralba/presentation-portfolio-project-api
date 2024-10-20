@@ -11,9 +11,13 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
-use App\Shared\Domain\Contract\HttpClient;
+use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Contract\Logger;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\ValueObject\Http\HttpHeader;
+use App\Shared\Domain\ValueObject\Http\HttpHeaders;
+use App\Shared\Domain\ValueObject\Http\QueryParam;
+use App\Shared\Domain\ValueObject\Http\QueryParams;
 use App\Shared\Domain\ValueObject\Url;
 
 final class GitHubProjectRetriever extends BaseProjectRetriever implements ExternalProjectRetriever
@@ -39,32 +43,38 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
         do {
             $this->logger->info('Retrieving projects from GitHub');
 
+            $headers = new HttpHeaders(
+                new HttpHeader('Authorization', "Bearer {$this->apiToken}"),
+                new HttpHeader('Accept', 'application/vnd.github+json'),
+            );
+
+            $queryParams = new QueryParams(
+                new QueryParam('per_page', (string) self::DEFAULT_RESULTS_PER_PAGE),
+                new QueryParam('page', (string) self::$page++),
+            );
+
             $response = $this->httpClient->fetch('/user/repos', [
-                'base_uri' => $this->baseUri,
-                'headers' => [
-                    'Authorization' => "Bearer {$this->apiToken}",
-                    'Accept' => 'application/vnd.github+json',
-                ],
-                'query' => [
-                    'per_page' => self::DEFAULT_RESULTS_PER_PAGE,
-                    'page' => self::$page++,
-                ]
+                'baseUri' => $this->baseUri->value(),
+                'headers' => $headers,
+                'query' => $queryParams
             ]);
 
-            if ($response->error()) {
+            $content = $response->getBody()->getContents();
+            $decodedResponse = json_decode($content, true);
+
+            if (!empty($decodedResponse['error'])) {
                 $this->logger->error('Error retrieving projects from GitHub', [
-                    'statusCode' => $response->statusCode(),
-                    'error' => $response->error(),
+                    'statusCode' => $response->getStatusCode(),
+                    'error' => $decodedResponse['error'],
                 ]);
             }
 
-            if ($response->content()) {
-                $decodedResponse = json_decode($response->content(), true);
-                $projectData = array_merge($projectData, $decodedResponse);
+            if (!empty($decodedResponse['content'])) {
+                $projectData = array_merge($projectData, $decodedResponse['content']);
             }
         } while (
-            !empty($response->headers()['link'])
-                && str_contains($response->headers()['link'][0], 'rel="next"')
+            $response->hasHeader('link')
+                && str_contains($response->getHeaderLine('link'), 'rel="next"')
         );
 
         return array_map(
