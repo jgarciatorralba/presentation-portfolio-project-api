@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject\Http;
 
+use App\Shared\Domain\Trait\EnumValuesProviderTrait;
+
 enum HttpStatusCode: int
 {
+    use EnumValuesProviderTrait;
+
     case HTTP_CONTINUE = 100;
     case HTTP_SWITCHING_PROTOCOLS = 101;
     case HTTP_PROCESSING = 102;
