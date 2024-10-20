@@ -32,7 +32,7 @@ readonly class HttpResponse implements HttpResponseInterface
         HttpHeaders $headers = new HttpHeaders(),
         HttpStatusCode $statusCode = HttpStatusCode::HTTP_OK,
         string $reasonPhrase = '',
-        HttpProtocolVersion $protocolVersion = HttpProtocolVersion::HTTP_1_1,
+        ?HttpProtocolVersion $protocolVersion = null,
     ): static {
         return new static(
             headers: $headers,
@@ -41,7 +41,7 @@ readonly class HttpResponse implements HttpResponseInterface
             reasonPhrase: empty($reasonPhrase)
                 ? $statusCode->fromStatusCode()
                 : $reasonPhrase,
-            protocolVersion: $protocolVersion,
+            protocolVersion: $protocolVersion ?? HttpProtocolVersion::fromServerEnvironment(),
         );
     }
 

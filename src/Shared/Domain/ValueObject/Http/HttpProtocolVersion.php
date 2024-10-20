@@ -12,7 +12,21 @@ enum HttpProtocolVersion: string
     case HTTP_2_0 = '2.0';
     case HTTP_3_0 = '3.0';
 
-    public static function default(): self
+    public static function fromServerEnvironment(): self
+    {
+        $serverProtocol = $_SERVER['SERVER_PROTOCOL'];
+
+        return match ($serverProtocol) {
+            'HTTP/0.9' => self::HTTP_0_9,
+            'HTTP/1.0' => self::HTTP_1_0,
+            'HTTP/1.1' => self::HTTP_1_1,
+            'HTTP/2.0' => self::HTTP_2_0,
+            'HTTP/3.0' => self::HTTP_3_0,
+            default => self::default(),
+        };
+    }
+
+    private static function default(): self
     {
         return self::HTTP_1_1;
     }
