@@ -87,7 +87,10 @@ final class SymfonyHttpClient implements HttpClientContract
                 ? HttpStatusCode::from($statusCodeValue)
                 : HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR;
 
-            if (!empty($version) && !empty($protocolVersion = HttpProtocolVersion::tryFrom((string) $version))) {
+            if (
+                !empty($version) &&
+                !empty($protocolVersion = HttpProtocolVersion::tryFrom(number_format($version, 1, '.', '')))
+            ) {
                 $httpResponseParams['protocolVersion'] = $protocolVersion;
             }
 
