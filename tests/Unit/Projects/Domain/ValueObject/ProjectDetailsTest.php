@@ -48,7 +48,7 @@ class ProjectDetailsTest extends TestCase
         $differentDetails = ProjectDetailsBuilder::any()->build();
 
         return [
-            'equal project details' => [$details, $sameDetails, true],
+            'same project details' => [$details, $sameDetails, true],
             'different project details' => [$details, $differentDetails, false],
         ];
     }
