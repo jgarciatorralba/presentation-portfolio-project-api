@@ -68,6 +68,19 @@ final class ProjectTest extends TestCase
         );
     }
 
+    public function testProjectIsComparable(): void
+    {
+        $actual = Project::create(
+            id: $this->expected->id(),
+            details: $this->expected->details(),
+            urls: $this->expected->urls(),
+            archived: $this->expected->archived(),
+            lastPushedAt: $this->expected->lastPushedAt()
+        );
+
+        $this->assertTrue($this->expected->equals($actual));
+    }
+
     private function assertProjectsAreEqual(Project $expected, Project $actual): void
     {
         $this->assertEquals(
