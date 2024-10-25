@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ProjectUrlsTest extends TestCase
@@ -20,5 +21,34 @@ class ProjectUrlsTest extends TestCase
         );
 
         $this->assertEquals($expected, $actual);
+    }
+
+    #[DataProvider('dataProjectUrls')]
+    public function testTheyAreComparable(
+        ProjectUrls $projectUrls,
+        ProjectUrls $otherProjectUrls,
+        bool $areEqual
+    ): void {
+        $this->assertEquals($areEqual, $projectUrls->equals($otherProjectUrls));
+    }
+
+    /**
+     * @return array<string, array{0: ProjectUrls, 1: ProjectUrls, 2: bool}>
+     */
+    public static function dataProjectUrls(): array
+    {
+        $projectUrls = ProjectUrlsBuilder::any()->build();
+
+        $sameProjectUrls = ProjectUrlsBuilder::any()
+            ->withRepository($projectUrls->repository())
+            ->withHomepage($projectUrls->homepage())
+            ->build();
+
+        $differentProjectUrls = ProjectUrlsBuilder::any()->build();
+
+        return [
+            'same project urls' => [$projectUrls, $sameProjectUrls, true],
+            'different project urls' => [$projectUrls, $differentProjectUrls, false],
+        ];
     }
 }
