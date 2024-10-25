@@ -56,4 +56,12 @@ final class ProjectIdTest extends TestCase
             'different project ids' => [$projectId, $differentProjectId, false],
         ];
     }
+
+    public function testProjectIdConvertsToString(): void
+    {
+        $projectId = ProjectIdBuilder::any()->build();
+
+        $this->assertEquals((string) $projectId->value(), (string) $projectId);
+        $this->assertEquals((string) $projectId->value(), $projectId->__toString());
+    }
 }
