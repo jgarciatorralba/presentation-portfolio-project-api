@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProjectDetailsTest extends TestCase
 {
-    public function testProjectDetailsAreCreated(): void
+    public function testTheyAreCreated(): void
     {
         $expected = ProjectDetailsBuilder::any()->build();
 
@@ -25,7 +25,7 @@ class ProjectDetailsTest extends TestCase
     }
 
     #[DataProvider('dataProjectDetails')]
-    public function testProjectDetailsAreComparable(
+    public function testTheyAreComparable(
         ProjectDetails $details,
         ProjectDetails $otherDetails,
         bool $areEqual

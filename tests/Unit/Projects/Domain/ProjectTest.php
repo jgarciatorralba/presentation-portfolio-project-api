@@ -28,7 +28,7 @@ final class ProjectTest extends TestCase
         $this->expected = null;
     }
 
-    public function testProjectIsCreated(): void
+    public function testItIsCreated(): void
     {
         $actual = Project::create(
             id: $this->expected->id(),
@@ -41,7 +41,7 @@ final class ProjectTest extends TestCase
         $this->assertProjectsAreEqual($this->expected, $actual);
     }
 
-    public function testProjectExtendsAggregateRoot(): void
+    public function testItExtendsAggregateRoot(): void
     {
         $this->assertInstanceOf(AggregateRoot::class, $this->expected);
 
@@ -49,7 +49,7 @@ final class ProjectTest extends TestCase
         $this->assertTrue(method_exists($this->expected, 'recordEvent'));
     }
 
-    public function testProjectIsConvertedToArray(): void
+    public function testItIsMappable(): void
     {
         $projectArray = $this->expected->toArray();
 
@@ -68,7 +68,7 @@ final class ProjectTest extends TestCase
         );
     }
 
-    public function testProjectIsComparable(): void
+    public function testItIsComparable(): void
     {
         $actual = Project::create(
             id: $this->expected->id(),

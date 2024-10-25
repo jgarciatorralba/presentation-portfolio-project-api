@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class UuidTest extends TestCase
 {
     #[DataProvider('dataIsCreated')]
-    public function testIsCreated(string $uuidValue, bool $expectException): void
+    public function testItIsCreated(string $uuidValue, bool $expectException): void
     {
         if ($expectException) {
             $this->expectException(InvalidArgumentException::class);
@@ -41,7 +41,7 @@ class UuidTest extends TestCase
         ];
     }
 
-    public function testIsCreatedFromString(): void
+    public function testItIsCreatedFromString(): void
     {
         $uuid = Uuid::random();
         $uuidFromString = Uuid::fromString($uuid->value());
@@ -49,7 +49,7 @@ class UuidTest extends TestCase
         $this->assertSame($uuid->value(), $uuidFromString->value());
     }
 
-    public function testIsCreatedRandom(): void
+    public function testItIsCreatedRandom(): void
     {
         $uuid = Uuid::random();
 
@@ -58,13 +58,13 @@ class UuidTest extends TestCase
         $this->assertNotSame($uuid->value(), Uuid::random()->value());
     }
 
-    public function testIsStringable(): void
+    public function testItIsStringable(): void
     {
         $uuid = Uuid::random();
         $this->assertSame($uuid->value(), (string) $uuid);
     }
 
-    public function testIsComparable(): void
+    public function testItIsComparable(): void
     {
         $uuid = Uuid::random();
         $this->assertTrue($uuid->equals($uuid));

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ProjectIdTest extends TestCase
 {
-    public function testProjectIdIsCreated(): void
+    public function testItIsCreated(): void
     {
         $expected = ProjectIdBuilder::any()->build();
 
@@ -23,7 +23,7 @@ final class ProjectIdTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testProjectIdThrowsExceptionWhenValueIsLessThanOne(): void
+    public function testItThrowsExceptionWhenValueIsLessThanOne(): void
     {
         $this->expectException(InvalidProjectIdException::class);
 
@@ -31,7 +31,7 @@ final class ProjectIdTest extends TestCase
     }
 
     #[DataProvider('dataProjectIds')]
-    public function testProjectIdsAreComparable(
+    public function testItIsComparable(
         ProjectId $projectId,
         ProjectId $otherProjectId,
         bool $areEqual
@@ -57,7 +57,7 @@ final class ProjectIdTest extends TestCase
         ];
     }
 
-    public function testProjectIdConvertsToString(): void
+    public function testItConvertsToString(): void
     {
         $projectId = ProjectIdBuilder::any()->build();
 

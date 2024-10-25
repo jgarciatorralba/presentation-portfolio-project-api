@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProjectUrlsTest extends TestCase
 {
-    public function testProjectUrlsAreCreated(): void
+    public function testTheyAreCreated(): void
     {
         $expected = ProjectUrlsBuilder::any()->build();
 
