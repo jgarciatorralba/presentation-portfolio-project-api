@@ -56,6 +56,9 @@ final readonly class ProjectDetails implements Comparable
         }
 
         if ($this->topics !== null && $details->topics !== null) {
+            if (count($this->topics) !== count($details->topics)) {
+                return false;
+            }
             foreach ($this->topics as $topic) {
                 if (!in_array($topic, $details->topics)) {
                     return false;

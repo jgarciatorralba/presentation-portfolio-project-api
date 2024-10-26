@@ -47,8 +47,19 @@ class ProjectDetailsTest extends TestCase
 
         $differentDetails = ProjectDetailsBuilder::any()->build();
 
+        $detailsWithNoTopics = ProjectDetailsBuilder::any()
+            ->withTopics(null)
+            ->build();
+
+        $sameDetailsWithNoTopics = ProjectDetailsBuilder::any()
+            ->withName($detailsWithNoTopics->name())
+            ->withDescription($detailsWithNoTopics->description())
+            ->withTopics($detailsWithNoTopics->topics())
+            ->build();
+
         return [
             'same project details' => [$details, $sameDetails, true],
+            'same project details with no topics' => [$detailsWithNoTopics, $sameDetailsWithNoTopics, true],
             'different project details' => [$details, $differentDetails, false],
         ];
     }
