@@ -6,7 +6,6 @@ namespace App\Shared\Domain\ValueObject;
 
 use App\Shared\Utils;
 use Stringable;
-use InvalidArgumentException;
 use Symfony\Component\Uid\Uuid as SymfonyUuid;
 
 final readonly class Uuid implements Stringable
@@ -32,11 +31,11 @@ final readonly class Uuid implements Stringable
         return $this->value();
     }
 
-    /** @throws InvalidArgumentException */
+    /** @throws \InvalidArgumentException */
     private function ensureIsValidUuid(string $id): void
     {
         if (!SymfonyUuid::isValid($id)) {
-            throw new InvalidArgumentException(sprintf(
+            throw new \InvalidArgumentException(sprintf(
                 "'%s' does not allow the value '%s'.",
                 Utils::extractClassName(Uuid::class),
                 $id

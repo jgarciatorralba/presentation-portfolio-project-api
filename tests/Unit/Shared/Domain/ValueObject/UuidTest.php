@@ -6,7 +6,6 @@ namespace App\Tests\Unit\Shared\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
-use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +15,7 @@ class UuidTest extends TestCase
     public function testItIsCreated(string $uuidValue, bool $expectException): void
     {
         if ($expectException) {
-            $this->expectException(InvalidArgumentException::class);
+            $this->expectException(\InvalidArgumentException::class);
             $this->expectExceptionMessage(
                 sprintf(
                     "'%s' does not allow the value '%s'.",
