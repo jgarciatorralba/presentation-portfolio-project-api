@@ -19,8 +19,15 @@
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
 
-        <unique-constraints>
-            <unique-constraint columns="id,deleted_at" name="unique_id_deleted_at_idx" />
-        </unique-constraints>
+		<!-- This column is a hack to be able to define a composite primary key using datetime: https://github.com/symfony/symfony/discussions/46333 -->
+		<id name="createdAtTimestamp" type="integer" column="created_at_timestamp" />
+
+        <indexes>
+            <index name="id_idx" columns="id"/>
+        </indexes>
+
+		<unique-constraints>
+			<unique-constraint name="unique_id_deleted_at_idx" columns="id,deleted_at" />
+		</unique-constraints>
     </entity>
 </doctrine-mapping>

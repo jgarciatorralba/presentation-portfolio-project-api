@@ -39,7 +39,9 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
 
     public function find(ProjectId $id): Project|null
     {
-        return $this->repository()->find($id->value());
+        return $this->repository()->findOneBy([
+            'id' => $id->value()
+        ]);
     }
 
     /** @return Project[] */

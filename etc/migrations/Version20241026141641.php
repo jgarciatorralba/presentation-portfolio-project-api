@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20241026094944 extends AbstractMigration
+final class Version20241026141641 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -31,9 +31,13 @@ final class Version20241026094944 extends AbstractMigration
 				last_pushed_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL
+				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
+				created_at_timestamp BIGINT NOT NULL,
+				PRIMARY KEY(id, created_at_timestamp)
 			)'
         );
+
+        $this->addSql('CREATE INDEX id_idx ON projects (id)');
         $this->addSql('CREATE UNIQUE INDEX unique_id_deleted_at_idx ON projects (id, deleted_at)');
 
         $this->addSql('COMMENT ON COLUMN projects.id IS \'(DC2Type:project_id)\'');
@@ -44,6 +48,7 @@ final class Version20241026094944 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN projects.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN projects.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN projects.deleted_at IS \'(DC2Type:datetime_immutable)\'');
+
     }
 
     public function down(Schema $schema): void

@@ -7,6 +7,7 @@ namespace App\Shared\Domain\Trait;
 trait TimestampableTrait
 {
     private \DateTimeImmutable $createdAt;
+    private int $createdAtTimestamp;
     private \DateTimeImmutable $updatedAt;
     private ?\DateTimeImmutable $deletedAt = null;
 
@@ -18,6 +19,7 @@ trait TimestampableTrait
     public function updateCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;
+        $this->createdAtTimestamp = $createdAt->getTimestamp();
     }
 
     public function updatedAt(): \DateTimeImmutable
