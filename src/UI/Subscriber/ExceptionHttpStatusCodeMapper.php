@@ -10,7 +10,7 @@ use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 
-final class ExceptionHttpStatusCodeMapper
+final readonly class ExceptionHttpStatusCodeMapper
 {
     private const EXCEPTIONS = [
         InvalidProjectIdException::class => HttpStatusCode::HTTP_BAD_REQUEST->value,
