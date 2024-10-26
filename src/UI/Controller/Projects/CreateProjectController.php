@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\UI\Controller\Projects;
 
 use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\UI\Controller\BaseController;
 use App\UI\Request\Projects\CreateProjectRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 final class CreateProjectController extends BaseController
 {
-    public function __invoke(CreateProjectRequest $request): Response
+    public function __invoke(CreateProjectRequest $request): JsonResponse
     {
         $data = $request->payload();
 
@@ -29,7 +29,7 @@ final class CreateProjectController extends BaseController
             )
         );
 
-        return new JsonResponse(null, Response::HTTP_CREATED, [
+        return new JsonResponse(null, HttpStatusCode::HTTP_CREATED->value, [
             'Location' => $this->getResourceUrl('projects', $data['id'])
         ]);
     }

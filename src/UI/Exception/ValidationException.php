@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Exception;
 
-use Symfony\Component\HttpFoundation\Response;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ValidationException extends HttpException
@@ -14,7 +14,7 @@ class ValidationException extends HttpException
         private readonly array $errors = []
     ) {
         parent::__construct(
-            Response::HTTP_BAD_REQUEST,
+            HttpStatusCode::HTTP_BAD_REQUEST->value,
             'Invalid request data.',
         );
     }

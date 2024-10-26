@@ -7,6 +7,7 @@ namespace App\Tests\Unit\UI\Controller\Projects;
 use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\CommandBusMock;
 use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\CreateProjectController;
@@ -16,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class CreateProjectControllerTest extends TestCase
 {
@@ -91,7 +91,7 @@ final class CreateProjectControllerTest extends TestCase
         $responseHeaders = $result->headers->all();
 
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertEquals($result->getStatusCode(), HttpResponse::HTTP_CREATED);
+        $this->assertEquals($result->getStatusCode(), HttpStatusCode::HTTP_CREATED->value);
         $this->assertEmpty(json_decode($result->getContent(), true));
         $this->assertEquals(
             $responseHeaders['location'][0],

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Subscriber;
 
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Tests\Unit\Shared\Domain\Testing\TestDomainException;
 use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
 use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
@@ -12,7 +13,6 @@ use App\UI\Subscriber\ApiExceptionListener;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 final class ApiExceptionListenerTest extends TestCase
 {
@@ -160,7 +160,7 @@ final class ApiExceptionListenerTest extends TestCase
 
         $statusCode = $method->invoke($this->sut, $exception);
         $this->assertEquals(
-            $exceptionStatusCode ?? Response::HTTP_INTERNAL_SERVER_ERROR,
+            $exceptionStatusCode ?? HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR->value,
             $statusCode
         );
     }
@@ -173,11 +173,11 @@ final class ApiExceptionListenerTest extends TestCase
         return [
             'generic exception and defined status code' => [
                 new \Exception('Exception message'),
-                Response::HTTP_NOT_FOUND
+                HttpStatusCode::HTTP_NOT_FOUND->value
             ],
             'validation exception and defined status code' => [
                 new ValidationException(['field' => 'error']),
-                Response::HTTP_BAD_REQUEST
+                HttpStatusCode::HTTP_BAD_REQUEST->value
             ],
             'undefined status code' => [
                 new \Exception('Exception message'),

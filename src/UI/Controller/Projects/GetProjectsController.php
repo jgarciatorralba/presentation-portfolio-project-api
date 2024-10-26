@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\UI\Controller\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\UI\Controller\BaseController;
 use App\UI\Request\Projects\GetProjectsRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 final class GetProjectsController extends BaseController
 {
-    public function __invoke(GetProjectsRequest $request): Response
+    public function __invoke(GetProjectsRequest $request): JsonResponse
     {
         $pageSize = $request->get('pageSize')
             ? intval($request->get('pageSize'))
@@ -29,6 +29,6 @@ final class GetProjectsController extends BaseController
             )
         );
 
-        return new JsonResponse($response->data(), Response::HTTP_OK);
+        return new JsonResponse($response->data(), HttpStatusCode::HTTP_OK->value);
     }
 }

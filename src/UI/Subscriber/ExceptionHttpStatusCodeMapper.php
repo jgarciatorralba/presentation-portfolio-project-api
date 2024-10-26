@@ -8,15 +8,15 @@ use App\Projects\Domain\Exception\InvalidProjectIdException;
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
-use Symfony\Component\HttpFoundation\Response;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 
 final class ExceptionHttpStatusCodeMapper
 {
     private const EXCEPTIONS = [
-        InvalidProjectIdException::class => Response::HTTP_BAD_REQUEST,
-        InvalidProjectRepositoryUrlException::class => Response::HTTP_BAD_REQUEST,
-        ProjectNotFoundException::class => Response::HTTP_NOT_FOUND,
-        ProjectAlreadyExistsException::class => Response::HTTP_CONFLICT,
+        InvalidProjectIdException::class => HttpStatusCode::HTTP_BAD_REQUEST->value,
+        InvalidProjectRepositoryUrlException::class => HttpStatusCode::HTTP_BAD_REQUEST->value,
+        ProjectNotFoundException::class => HttpStatusCode::HTTP_NOT_FOUND->value,
+        ProjectAlreadyExistsException::class => HttpStatusCode::HTTP_CONFLICT->value,
     ];
 
     public function getStatusCodeFor(string $exceptionClass): ?int

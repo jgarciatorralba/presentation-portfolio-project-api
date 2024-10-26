@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\UI\Subscriber;
 
 use App\Shared\Domain\DomainException;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\UI\Exception\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -53,7 +53,7 @@ final readonly class ApiExceptionListener
             $statusCode = $exception->getStatusCode();
         }
 
-        return $statusCode ?? Response::HTTP_INTERNAL_SERVER_ERROR;
+        return $statusCode ?? HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR->value;
     }
 
     private function getErrorCode(\Throwable $exception): string

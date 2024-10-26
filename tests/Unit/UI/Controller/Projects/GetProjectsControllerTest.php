@@ -7,6 +7,7 @@ namespace App\Tests\Unit\UI\Controller\Projects;
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\QueryBusMock;
 use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\GetProjectsController;
@@ -16,7 +17,6 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class GetProjectsControllerTest extends TestCase
 {
@@ -78,7 +78,7 @@ final class GetProjectsControllerTest extends TestCase
         $result = $sut->__invoke($this->getProjectsRequest);
 
         $this->assertInstanceOf(JsonResponse::class, $result);
-        $this->assertEquals($result->getStatusCode(), HttpResponse::HTTP_OK);
+        $this->assertEquals($result->getStatusCode(), HttpStatusCode::HTTP_OK->value);
         $this->assertIsArray(json_decode($result->getContent(), true));
     }
 

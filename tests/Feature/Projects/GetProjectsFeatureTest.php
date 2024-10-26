@@ -6,11 +6,11 @@ namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\HttpFoundation\Response;
 
 final class GetProjectsFeatureTest extends FeatureTestCase
 {
@@ -56,7 +56,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
         );
 
         $response = $this->client->getResponse();
-        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
+        $this->assertEquals(HttpStatusCode::HTTP_OK->value, $response->getStatusCode());
         $this->assertIsString($response->getContent());
 
         $decodedResponse = json_decode($response->getContent(), true);

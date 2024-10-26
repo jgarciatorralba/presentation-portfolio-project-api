@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\UI\Exception\ValidationException;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Symfony\Component\HttpFoundation\Response;
 
 final class CreateProjectFeatureTest extends FeatureTestCase
 {
@@ -43,7 +43,7 @@ final class CreateProjectFeatureTest extends FeatureTestCase
         );
 
         $response = $this->client->getResponse();
-        $this->assertEquals(Response::HTTP_CREATED, $response->getStatusCode());
+        $this->assertEquals(HttpStatusCode::HTTP_CREATED->value, $response->getStatusCode());
         $this->assertIsString($response->getContent());
 
         $decodedResponse = json_decode($response->getContent(), true);
@@ -86,7 +86,7 @@ final class CreateProjectFeatureTest extends FeatureTestCase
         );
 
         $response = $this->client->getResponse();
-        $this->assertEquals($response->getStatusCode(), Response::HTTP_BAD_REQUEST);
+        $this->assertEquals($response->getStatusCode(), HttpStatusCode::HTTP_BAD_REQUEST->value);
 
         $decodedResponse = json_decode($response->getContent(), true);
         $this->assertIsArray($decodedResponse);
