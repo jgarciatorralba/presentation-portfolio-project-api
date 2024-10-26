@@ -25,6 +25,8 @@ class DoctrineProjectRepository extends DoctrineRepository implements ProjectRep
 
     public function update(Project $project): void
     {
+        $project->updateUpdatedAt(new \DateTimeImmutable());
+
         $this->updateEntity();
     }
 

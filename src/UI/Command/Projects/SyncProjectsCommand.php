@@ -27,17 +27,17 @@ class SyncProjectsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $io = new SymfonyStyle($input, $output);
+        $commandStyle = new SymfonyStyle($input, $output);
 
         if (!$this->lock()) {
-            $io->warning('The command is already running in another process.');
+            $commandStyle->warning('The command is already running in another process.');
             return Command::SUCCESS;
         }
 
         $event = new SyncProjectsRequestedEvent();
         $this->eventBus->publish($event);
 
-        $io->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}.");
+        $commandStyle->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}.");
         return Command::SUCCESS;
     }
 }

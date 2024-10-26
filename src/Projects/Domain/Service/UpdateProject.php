@@ -8,7 +8,7 @@ use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\Project;
 
-final readonly class DeleteProject
+final readonly class UpdateProject
 {
     public function __construct(
         private ProjectRepository $projectRepository
@@ -22,6 +22,7 @@ final readonly class DeleteProject
             throw new ProjectNotFoundException($project->id());
         }
 
-        $this->projectRepository->delete($existingProject);
+        $existingProject->synchronizeWith($project);
+        $this->projectRepository->update($existingProject);
     }
 }

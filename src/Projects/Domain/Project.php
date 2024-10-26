@@ -18,10 +18,10 @@ final class Project extends AggregateRoot implements Comparable
 
     private function __construct(
         private readonly ProjectId $id,
-        private readonly ProjectDetails $details,
-        private readonly ProjectUrls $urls,
-        private readonly bool $archived,
-        private readonly \DateTimeImmutable $lastPushedAt
+        private ProjectDetails $details,
+        private ProjectUrls $urls,
+        private bool $archived,
+        private \DateTimeImmutable $lastPushedAt
     ) {
         $now = new \DateTimeImmutable();
 
@@ -68,6 +68,14 @@ final class Project extends AggregateRoot implements Comparable
     public function lastPushedAt(): \DateTimeImmutable
     {
         return $this->lastPushedAt;
+    }
+
+    public function synchronizeWith(Project $project): void
+    {
+        $this->details = $project->details;
+        $this->urls = $project->urls;
+        $this->archived = $project->archived;
+        $this->lastPushedAt = $project->lastPushedAt;
     }
 
     /** @return array{
