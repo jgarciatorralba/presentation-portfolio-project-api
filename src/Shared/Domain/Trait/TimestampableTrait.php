@@ -16,6 +16,11 @@ trait TimestampableTrait
         return $this->createdAt;
     }
 
+    public function createdAtTimestamp(): int
+    {
+        return $this->createdAtTimestamp;
+    }
+
     public function updateCreatedAt(\DateTimeImmutable $createdAt): void
     {
         $this->createdAt = $createdAt;

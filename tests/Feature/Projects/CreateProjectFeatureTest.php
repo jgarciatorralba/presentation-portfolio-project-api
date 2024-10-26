@@ -49,7 +49,10 @@ final class CreateProjectFeatureTest extends FeatureTestCase
         $decodedResponse = json_decode($response->getContent(), true);
         $this->assertEmpty($decodedResponse);
 
-        $project = $this->find(Project::class, $project->id());
+        $project = $this->findOneBy(Project::class, [
+            'id' => $project->id()->value(),
+            'createdAtTimestamp' => $project->createdAtTimestamp()
+        ]);
         if ($project) {
             $this->remove($project);
         }

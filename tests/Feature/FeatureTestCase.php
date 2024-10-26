@@ -37,10 +37,11 @@ abstract class FeatureTestCase extends WebTestCase
     /**
      * @template T of object
      * @param class-string<T> $className
+     * @param array<string, mixed> $criteria
      */
-    protected function find(string $className, mixed $id): ?object
+    protected function findOneBy(string $className, array $criteria): ?object
     {
-        return $this->entityManager->find($className, $id);
+        return $this->repository($className)->findOneBy($criteria);
     }
 
     protected function persist(object ...$entities): void
@@ -59,9 +60,9 @@ abstract class FeatureTestCase extends WebTestCase
     }
 
     /**
-     * @template T of EntityRepository
+     * @template T of object
      * @param class-string<T> $className
-     * @return T
+     * @return EntityRepository<T>
      */
     protected function repository(string $className): EntityRepository
     {
