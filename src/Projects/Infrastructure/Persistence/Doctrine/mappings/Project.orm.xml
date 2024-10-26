@@ -18,5 +18,9 @@
         <field name="createdAt" type="datetime_immutable" column="created_at" />
         <field name="updatedAt" type="datetime_immutable" column="updated_at" />
         <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
+
+        <unique-constraints>
+            <unique-constraint columns="id,deleted_at" name="unique_id_deleted_at_idx" />
+        </unique-constraints>
     </entity>
 </doctrine-mapping>

@@ -7,7 +7,7 @@ namespace DoctrineMigrations;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 
-final class Version20241006163726 extends AbstractMigration
+final class Version20241026094944 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -31,10 +31,11 @@ final class Version20241006163726 extends AbstractMigration
 				last_pushed_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
 				updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
-				PRIMARY KEY(id)
+				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL
 			)'
         );
+        $this->addSql('CREATE UNIQUE INDEX unique_id_deleted_at_idx ON projects (id, deleted_at)');
+
         $this->addSql('COMMENT ON COLUMN projects.id IS \'(DC2Type:project_id)\'');
         $this->addSql('COMMENT ON COLUMN projects.repository IS \'(DC2Type:project_repository_url)\'');
         $this->addSql('COMMENT ON COLUMN projects.homepage IS \'(DC2Type:url)\'');
