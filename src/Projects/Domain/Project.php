@@ -72,6 +72,10 @@ final class Project extends AggregateRoot implements Comparable
 
     public function synchronizeWith(Project $project): void
     {
+        if (!$this->id()->equals($project->id())) {
+            throw new \InvalidArgumentException('Projects must have the same ID to be synchronized');
+        }
+
         $this->details = $project->details;
         $this->urls = $project->urls;
         $this->archived = $project->archived;

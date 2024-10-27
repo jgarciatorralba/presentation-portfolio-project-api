@@ -81,6 +81,27 @@ final class ProjectTest extends TestCase
         $this->assertTrue($this->expected->equals($actual));
     }
 
+    public function testItSynchronizesWithAnotherProject(): void
+    {
+        $project = ProjectBuilder::any()
+            ->withId($this->expected->id())
+            ->build();
+
+        $project->synchronizeWith($this->expected);
+
+        $this->assertTrue($project->equals($this->expected));
+    }
+
+    public function testItThrowsExceptionWhenSynchronizingWithDifferentProjectId(): void
+    {
+        $project = ProjectBuilder::any()
+            ->build();
+
+        $this->expectException(\InvalidArgumentException::class);
+
+        $project->synchronizeWith($this->expected);
+    }
+
     private function assertProjectsAreEqual(Project $expected, Project $actual): void
     {
         $this->assertEquals(

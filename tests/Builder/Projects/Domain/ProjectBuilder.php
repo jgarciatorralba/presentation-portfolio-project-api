@@ -63,6 +63,13 @@ final class ProjectBuilder implements BuilderInterface
         return array_values($projects);
     }
 
+    public function withId(ProjectId $id): self
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function withCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
