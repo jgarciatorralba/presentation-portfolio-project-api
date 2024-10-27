@@ -2,10 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\ValueObject\Http;
+namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Contract\Http\HttpResponse as HttpResponseInterface;
 use App\Shared\Domain\Contract\Http\HttpStream;
+use App\Shared\Domain\ValueObject\Http\HttpHeader;
+use App\Shared\Domain\ValueObject\Http\HttpHeaders;
+use App\Shared\Domain\ValueObject\Http\HttpProtocolVersion;
+use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
 use Psr\Http\Message\StreamInterface;
 
 readonly class HttpResponse implements HttpResponseInterface

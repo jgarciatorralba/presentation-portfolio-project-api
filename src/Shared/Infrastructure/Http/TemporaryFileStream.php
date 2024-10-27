@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\ValueObject\Http;
+namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Contract\Http\HttpStream;
 
