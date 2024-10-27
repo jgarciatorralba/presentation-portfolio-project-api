@@ -6,6 +6,7 @@ namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\ValueObject\Url;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
@@ -32,7 +33,7 @@ final class CreateProjectFeatureTest extends FeatureTestCase
         if (null !== $project->details()->topics()) {
             $content['topics'] = $project->details()->topics();
         }
-        if (null !== $project->urls()->homepage()) {
+        if ($project->urls()->homepage() instanceof Url) {
             $content['homepage'] = $project->urls()->homepage()->value();
         }
 

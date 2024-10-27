@@ -41,7 +41,7 @@ final class GetProjectsRequestTest extends TestCase
             errors: $errors
         );
 
-        if (!empty($errors)) {
+        if ($errors !== []) {
             $this->expectException(ValidationException::class);
             $this->expectExceptionMessage('Invalid request data.');
         }
