@@ -28,7 +28,8 @@ final class GetProjectsFeatureTest extends FeatureTestCase
 
         usort(
             $projects,
-            fn (Project $a, Project $b): int => $b->lastPushedAt()->getTimestamp() <=> $a->lastPushedAt()->getTimestamp()
+            fn (Project $a, Project $b): int =>
+                $b->lastPushedAt()->getTimestamp() <=> $a->lastPushedAt()->getTimestamp()
         );
 
         $this->projects = $projects;
