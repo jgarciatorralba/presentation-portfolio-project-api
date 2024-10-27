@@ -63,7 +63,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
         $this->assertEquals(CompositeExpression::TYPE_AND, $type);
 
         $this->assertCount(1, $orderings);
-        $this->assertEquals('updatedAt', array_key_first($orderings));
+        $this->assertEquals('lastPushedAt', array_key_first($orderings));
         $this->assertEquals(Order::Descending, $orderings[array_key_first($orderings)]);
     }
 

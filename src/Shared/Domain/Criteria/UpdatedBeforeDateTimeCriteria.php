@@ -20,7 +20,7 @@ final class UpdatedBeforeDateTimeCriteria extends Criteria
             filters: new Filters([
                 new SimpleFilter('updatedAt', $maxUpdatedAt, FilterOperatorEnum::LOWER_THAN)
             ]),
-            orderBy: [new Order('updatedAt', OrderEnum::DESCENDING)],
+            orderBy: [new Order('lastPushedAt', OrderEnum::DESCENDING)],
             limit: $limit
         );
     }
