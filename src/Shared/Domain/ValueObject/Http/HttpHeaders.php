@@ -28,7 +28,7 @@ final readonly class HttpHeaders implements Collection, Mappable
             foreach ($mergedHeaders as $existingHeader) {
                 if (strcasecmp($existingHeader->name(), $header->name()) === 0) {
                     $mergedHeader = new HttpHeader(
-                        $header->name(),
+                        $existingHeader->name(),
                         ...array_merge($existingHeader->values(), $header->values())
                     );
 
@@ -36,7 +36,7 @@ final readonly class HttpHeaders implements Collection, Mappable
                 }
             }
 
-            $mergedHeaders[$header->name()] = $mergedHeader;
+            $mergedHeaders[$mergedHeader->name()] = $mergedHeader;
         }
 
         $this->headers = array_values($mergedHeaders);
