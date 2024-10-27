@@ -27,9 +27,7 @@ final readonly class HttpHeader
         return $this->name;
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     public function values(): array
     {
         return $this->values;

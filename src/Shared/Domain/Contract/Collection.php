@@ -14,8 +14,6 @@ interface Collection
 
     public function has(string $key): bool;
 
-    /**
-     * @return T|null
-     */
+    /** @return T|null */
     public function get(string $key): mixed;
 }

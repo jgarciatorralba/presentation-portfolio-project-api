@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidProjectIdException;
 use App\Shared\Domain\Contract\Comparable;
 use Stringable;
 
@@ -15,11 +14,16 @@ final readonly class ProjectId implements Stringable, Comparable
     ) {
     }
 
-    /** @throws InvalidProjectIdException */
+    /** @throws \InvalidArgumentException */
     public static function create(int $value): self
     {
         if ($value < 1) {
-            throw new InvalidProjectIdException($value);
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value for project id: '%s'. Must be a positive integer.",
+                    $value
+                )
+            );
         }
 
         return new self($value);

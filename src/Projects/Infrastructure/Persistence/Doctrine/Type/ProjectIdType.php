@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Projects\Infrastructure\Persistence\Doctrine\Type;
 
-use App\Projects\Domain\Exception\InvalidProjectIdException;
 use App\Projects\Domain\ValueObject\ProjectId;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
@@ -40,7 +39,7 @@ class ProjectIdType extends Type
 
         try {
             return ProjectId::create($value);
-        } catch (\InvalidArgumentException | InvalidProjectIdException $e) {
+        } catch (\InvalidArgumentException $e) {
             throw new ConversionException(
                 sprintf(
                     "Conversion failed: %s",

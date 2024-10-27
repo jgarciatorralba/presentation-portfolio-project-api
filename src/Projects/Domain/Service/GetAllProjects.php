@@ -16,7 +16,7 @@ final readonly class GetAllProjects
 
     /**
      * @return array<int, Project>
-     * */
+     */
     public function __invoke(): array
     {
         $projects = $this->projectRepository->findAll();

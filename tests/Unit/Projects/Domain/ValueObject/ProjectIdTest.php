@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidProjectIdException;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -25,7 +24,7 @@ final class ProjectIdTest extends TestCase
 
     public function testItThrowsExceptionWhenValueIsLessThanOne(): void
     {
-        $this->expectException(InvalidProjectIdException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         ProjectId::create(value: 0);
     }

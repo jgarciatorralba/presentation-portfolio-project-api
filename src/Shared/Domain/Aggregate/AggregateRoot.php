@@ -9,14 +9,10 @@ use App\Shared\Domain\Contract\Mappable;
 
 abstract class AggregateRoot implements Mappable
 {
-    /**
-     * @var DomainEvent[]
-     */
+    /** @var DomainEvent[] */
     private array $events = [];
 
-    /**
-     * @return DomainEvent[]
-     */
+    /** @return DomainEvent[] */
     final public function pullEvents(): array
     {
         $events = $this->events;
@@ -30,8 +26,6 @@ abstract class AggregateRoot implements Mappable
         $this->events[] = $event;
     }
 
-    /**
-     * @return array<mixed>
-     */
+    /** @return array<mixed> */
     abstract public function toArray(): array;
 }

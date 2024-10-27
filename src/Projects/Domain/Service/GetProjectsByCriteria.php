@@ -17,7 +17,7 @@ final readonly class GetProjectsByCriteria
 
     /**
      * @return Project[]
-     * */
+     */
     public function __invoke(Criteria $criteria): array
     {
         return $this->projectRepository->matching($criteria);
