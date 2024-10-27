@@ -59,7 +59,6 @@ final class FakeValueGenerator
 
     /**
      * @param array<mixed> $options
-     * @return mixed
      */
     public static function randomElement(array $options): mixed
     {

@@ -120,7 +120,9 @@ readonly class HttpResponse implements HttpResponseInterface
     {
         $foundHeader = $this->headers->get($name);
 
-        return $foundHeader ? $foundHeader->values() : [];
+        return $foundHeader instanceof HttpHeader
+            ? $foundHeader->values()
+            : [];
     }
 
     public function getHeaderLine(string $name): string
@@ -139,11 +141,7 @@ readonly class HttpResponse implements HttpResponseInterface
 
         $newHeaders = [];
         foreach ($this->headers->all() as $header) {
-            if (strcasecmp($header->name(), $name) === 0) {
-                $newHeaders[] = $newHeader;
-            } else {
-                $newHeaders[] = $header;
-            }
+            $newHeaders[] = strcasecmp($header->name(), $name) === 0 ? $newHeader : $header;
         }
 
         return new static(

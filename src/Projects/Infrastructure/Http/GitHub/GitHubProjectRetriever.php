@@ -99,18 +99,18 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
     {
         $projectDetails = ProjectDetails::create(
             name: $projectData['name'],
-            description: !empty($projectData['description'])
-                ? $projectData['description']
-                : null,
-            topics: !empty($projectData['topics'])
-                ? $projectData['topics']
-                : null,
+            description: empty($projectData['description'])
+                ? null
+                : $projectData['description'],
+            topics: empty($projectData['topics'])
+                ? null
+                : $projectData['topics'],
         );
 
         $projectRepositoryUrl = ProjectRepositoryUrl::fromString($projectData['html_url']);
-        $homepage = !empty($projectData['homepage'])
-            ? Url::fromString($projectData['homepage'])
-            : null;
+        $homepage = empty($projectData['homepage'])
+            ? null
+            : Url::fromString($projectData['homepage']);
 
         $projectUrls = ProjectUrls::create(
             repository: $projectRepositoryUrl,

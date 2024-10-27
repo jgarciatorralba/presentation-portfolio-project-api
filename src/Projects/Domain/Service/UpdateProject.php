@@ -18,7 +18,7 @@ final readonly class UpdateProject
     public function __invoke(Project $project): void
     {
         $existingProject = $this->projectRepository->find($project->id());
-        if ($existingProject === null) {
+        if (!$existingProject instanceof Project) {
             throw new ProjectNotFoundException($project->id());
         }
 

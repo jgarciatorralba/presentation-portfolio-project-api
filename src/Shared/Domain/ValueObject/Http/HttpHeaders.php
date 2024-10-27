@@ -59,9 +59,6 @@ final readonly class HttpHeaders implements Collection, Mappable
         return false;
     }
 
-    /**
-     * @return HttpHeader|null
-     */
     public function get(string $key): ?HttpHeader
     {
         foreach ($this->headers as $header) {

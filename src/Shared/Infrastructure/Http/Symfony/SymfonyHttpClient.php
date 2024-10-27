@@ -47,9 +47,9 @@ final class SymfonyHttpClient implements HttpClientContract
                     options: (new HttpOptions())
                         ->setBaseUri($httpOptions['baseUri'])
                         ->setQuery(
-                            !empty($httpOptions['query'])
-                                ? $httpOptions['query']->toArray()
-                                : []
+                            empty($httpOptions['query'])
+                                ? []
+                                : $httpOptions['query']->toArray()
                         )
                         ->setHeaders($httpOptions['headers']->toArray())
                         ->toArray()

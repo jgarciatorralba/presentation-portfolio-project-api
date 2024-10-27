@@ -21,7 +21,7 @@ class ProjectDetailsTest extends TestCase
             topics: $expected->topics()
         );
 
-        $this->assertEquals($expected, $expected);
+        $this->assertEquals($expected, $actual);
     }
 
     #[DataProvider('dataProjectDetails')]
