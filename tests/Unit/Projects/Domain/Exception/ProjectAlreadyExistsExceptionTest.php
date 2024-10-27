@@ -12,14 +12,14 @@ final class ProjectAlreadyExistsExceptionTest extends TestCase
 {
     public function testExceptionIsCreated(): void
     {
-        $id = ProjectIdBuilder::any()->build();
-        $exception = new ProjectAlreadyExistsException($id);
+        $projectId = ProjectIdBuilder::any()->build();
+        $exception = new ProjectAlreadyExistsException($projectId);
 
         $this->assertEquals('project_already_exists', $exception->errorCode());
         $this->assertEquals(
             sprintf(
                 "Project with id '%s' already exists.",
-                $id->value()
+                $projectId->value()
             ),
             $exception->errorMessage()
         );
