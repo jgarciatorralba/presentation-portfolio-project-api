@@ -43,7 +43,7 @@ readonly class HttpResponse implements HttpResponseInterface
             body: $body,
             statusCode: $statusCode,
             reasonPhrase: empty($reasonPhrase)
-                ? $statusCode->fromStatusCode()
+                ? $statusCode->getReasonPhraseFromCode()
                 : $reasonPhrase,
             protocolVersion: $protocolVersion ?? HttpProtocolVersion::fromServerEnvironment(),
         );
@@ -63,7 +63,7 @@ readonly class HttpResponse implements HttpResponseInterface
                 body: $this->body,
                 statusCode: $statusCode,
                 reasonPhrase: empty($reasonPhrase)
-                    ? $statusCode->fromStatusCode()
+                    ? $statusCode->getReasonPhraseFromCode()
                     : $reasonPhrase,
                 headers: $this->headers,
                 protocolVersion: $this->protocolVersion,
