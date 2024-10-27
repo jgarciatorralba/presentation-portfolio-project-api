@@ -19,11 +19,19 @@ final readonly class ProjectRemovedSubscriber implements EventSubscriber
 
     public function __invoke(ProjectRemovedEvent $event): void
     {
-        $this->deleteProject->__invoke($event->project());
+        try {
+            $this->deleteProject->__invoke($event->project());
 
-        $this->logger->info('ProjectRemovedEvent handled.', [
-            'eventId' => $event->eventId(),
-            'projectId' => (string) $event->project()->id(),
-        ]);
+            $this->logger->info('ProjectRemovedEvent handled.', [
+                'projectId' => (string) $event->project()->id(),
+            ]);
+        } catch (\Throwable $e) {
+            $this->logger->error('ProjectRemovedEvent failed.', [
+                'projectId' => (string) $event->project()->id(),
+                'error' => $e->getMessage(),
+            ]);
+
+            throw $e;
+        }
     }
 }

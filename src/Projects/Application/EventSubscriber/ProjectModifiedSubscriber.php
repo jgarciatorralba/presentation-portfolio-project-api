@@ -19,11 +19,19 @@ final readonly class ProjectModifiedSubscriber implements EventSubscriber
 
     public function __invoke(ProjectModifiedEvent $event): void
     {
-        $this->updateProject->__invoke($event->project());
+        try {
+            $this->updateProject->__invoke($event->project());
 
-        $this->logger->info('ProjectModifiedEvent handled.', [
-            'eventId' => $event->eventId(),
-            'projectId' => (string) $event->project()->id(),
-        ]);
+            $this->logger->info('ProjectModifiedEvent handled.', [
+                'projectId' => (string) $event->project()->id(),
+            ]);
+        } catch (\Throwable $e) {
+            $this->logger->error('ProjectModifiedEvent failed.', [
+                'projectId' => (string) $event->project()->id(),
+                'error' => $e->getMessage(),
+            ]);
+
+            throw $e;
+        }
     }
 }

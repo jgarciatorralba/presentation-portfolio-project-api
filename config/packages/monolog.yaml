@@ -33,7 +33,7 @@ when@test:
         channels: ["!event"]
       nested:
         type: stream
-        path: "%kernel.logs_dir%/%kernel.environment%.log"
+        path: "%kernel.logs_dir%/%kernel.environment%/main.log"
         level: debug
 
 when@prod:
@@ -46,22 +46,25 @@ when@prod:
         excluded_http_codes: [404, 405]
         buffer_size: 50
       nested:
-        type: stream
-        path: php://stderr
+        type: rotating_file
+        path: "%kernel.logs_dir%/%kernel.environment%/main.log"
         level: debug
+        max_files: 15
         formatter: monolog.formatter.json
       console:
         type: console
         process_psr_3_messages: false
         channels: ["!event", "!doctrine"]
       deprecation:
-        type: stream
+        type: rotating_file
         channels: [deprecation]
-        path: php://stderr
+        path: "%kernel.logs_dir%/%kernel.environment%/deprecation.log"
+        max_files: 15
         formatter: monolog.formatter.json
       project:
-        type: stream
+        type: rotating_file
         path: "%kernel.logs_dir%/%kernel.environment%/project.log"
         level: info
         channels: [project]
+        max_files: 15
         formatter: monolog.formatter.json
