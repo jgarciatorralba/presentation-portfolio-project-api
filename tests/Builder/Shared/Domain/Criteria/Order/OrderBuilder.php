@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Builder\Shared\Domain\Criteria\Order;
 
 use App\Shared\Domain\Criteria\Order\Order;
-use App\Shared\Domain\Criteria\Order\OrderEnum;
+use App\Shared\Domain\Criteria\Order\OrderType;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
@@ -13,7 +13,7 @@ final class OrderBuilder implements BuilderInterface
 {
     private function __construct(
         private string $orderBy,
-        private OrderEnum $orderType
+        private OrderType $orderType
     ) {
     }
 
@@ -21,8 +21,8 @@ final class OrderBuilder implements BuilderInterface
     {
         return new self(
             orderBy: FakeValueGenerator::text(),
-            orderType: OrderEnum::from(
-                FakeValueGenerator::randomElement(OrderEnum::values())
+            orderType: OrderType::from(
+                FakeValueGenerator::randomElement(OrderType::values())
             )
         );
     }

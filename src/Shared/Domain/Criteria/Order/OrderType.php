@@ -6,7 +6,7 @@ namespace App\Shared\Domain\Criteria\Order;
 
 use App\Shared\Domain\Trait\EnumValuesProviderTrait;
 
-enum OrderEnum: string
+enum OrderType: string
 {
     use EnumValuesProviderTrait;
 
