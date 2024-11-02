@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Subscriber;
 
 use App\Shared\Domain\DomainException;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\UI\Exception\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;

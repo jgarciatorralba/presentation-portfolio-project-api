@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Controller\Projects;
 
 use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\UI\Controller\BaseController;
 use App\UI\Request\Projects\CreateProjectRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;

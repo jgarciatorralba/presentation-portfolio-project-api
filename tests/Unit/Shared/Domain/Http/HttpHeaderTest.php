@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Domain\ValueObject\Http;
 
-use App\Shared\Domain\ValueObject\Http\HttpHeader;
+use App\Shared\Domain\Http\HttpHeader;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 

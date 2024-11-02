@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UI\Exception;
 
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class ValidationException extends HttpException

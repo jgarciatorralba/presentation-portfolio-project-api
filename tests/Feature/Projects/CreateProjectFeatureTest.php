@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Domain\ValueObject\Url;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;

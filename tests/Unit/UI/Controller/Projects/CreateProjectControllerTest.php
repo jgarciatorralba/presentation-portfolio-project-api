@@ -7,7 +7,7 @@ namespace App\Tests\Unit\UI\Controller\Projects;
 use App\Projects\Application\Command\CreateProject\CreateProjectCommand;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\CommandBusMock;
 use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\CreateProjectController;

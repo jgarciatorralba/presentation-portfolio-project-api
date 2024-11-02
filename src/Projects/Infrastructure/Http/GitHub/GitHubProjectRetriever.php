@@ -14,10 +14,10 @@ use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Contract\Logger;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
-use App\Shared\Domain\ValueObject\Http\HttpHeader;
-use App\Shared\Domain\ValueObject\Http\HttpHeaders;
-use App\Shared\Domain\ValueObject\Http\QueryParam;
-use App\Shared\Domain\ValueObject\Http\QueryParams;
+use App\Shared\Domain\Http\HttpHeader;
+use App\Shared\Domain\Http\HttpHeaders;
+use App\Shared\Domain\Http\QueryParam;
+use App\Shared\Domain\Http\QueryParams;
 use App\Shared\Domain\ValueObject\Url;
 
 final class GitHubProjectRetriever extends BaseProjectRetriever implements ExternalProjectRetriever

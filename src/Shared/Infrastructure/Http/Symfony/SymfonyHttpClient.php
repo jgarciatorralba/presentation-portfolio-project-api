@@ -6,11 +6,11 @@ namespace App\Shared\Infrastructure\Http\Symfony;
 
 use App\Shared\Domain\Contract\Http\HttpClient as HttpClientContract;
 use App\Shared\Domain\Contract\Http\HttpResponse as HttpResponseContract;
-use App\Shared\Domain\ValueObject\Http\HttpHeader;
-use App\Shared\Domain\ValueObject\Http\HttpHeaders;
-use App\Shared\Domain\ValueObject\Http\HttpProtocolVersion;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
-use App\Shared\Domain\ValueObject\Http\QueryParams;
+use App\Shared\Domain\Http\HttpHeader;
+use App\Shared\Domain\Http\HttpHeaders;
+use App\Shared\Domain\Http\HttpProtocolVersion;
+use App\Shared\Domain\Http\HttpStatusCode;
+use App\Shared\Domain\Http\QueryParams;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;

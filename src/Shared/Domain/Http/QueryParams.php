@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Domain\ValueObject\Http;
+namespace App\Shared\Domain\Http;
 
 use App\Shared\Domain\Contract\Mappable;
 use Stringable;

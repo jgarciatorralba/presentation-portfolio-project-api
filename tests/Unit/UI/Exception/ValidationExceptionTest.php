@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Exception;
 
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\UI\Exception\ValidationException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;

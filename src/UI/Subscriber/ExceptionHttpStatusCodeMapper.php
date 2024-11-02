@@ -7,7 +7,7 @@ namespace App\UI\Subscriber;
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 
 final readonly class ExceptionHttpStatusCodeMapper
 {

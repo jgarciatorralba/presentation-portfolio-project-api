@@ -6,7 +6,7 @@ namespace App\Tests\Feature\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;

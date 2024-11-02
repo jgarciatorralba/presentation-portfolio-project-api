@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\UI\Subscriber;
 
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\Shared\Domain\Testing\TestDomainException;
 use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
 use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;

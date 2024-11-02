@@ -7,7 +7,7 @@ namespace App\Tests\Unit\UI\Controller\Projects;
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
-use App\Shared\Domain\ValueObject\Http\HttpStatusCode;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\QueryBusMock;
 use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\GetProjectsController;
