@@ -9,7 +9,7 @@ final readonly class Filters
     /** @param Filter[] $filters */
     public function __construct(
         private array $filters = [],
-        private FilterConditionEnum $condition = FilterConditionEnum::AND
+        private FilterCondition $condition = FilterCondition::AND
     ) {
     }
 
@@ -19,7 +19,7 @@ final readonly class Filters
         return $this->filters;
     }
 
-    public function condition(): FilterConditionEnum
+    public function condition(): FilterCondition
     {
         return $this->condition;
     }

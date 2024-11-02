@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Shared\Domain\Criteria\Filter;
 
-use App\Shared\Domain\Criteria\Filter\FilterOperatorEnum;
+use App\Shared\Domain\Criteria\Filter\FilterOperator;
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
@@ -14,7 +14,7 @@ final class SimpleFilterBuilder implements BuilderInterface
     private function __construct(
         private string $field,
         private mixed $value,
-        private FilterOperatorEnum $operator
+        private FilterOperator $operator
     ) {
     }
 
@@ -28,9 +28,9 @@ final class SimpleFilterBuilder implements BuilderInterface
                 FakeValueGenerator::float(),
                 FakeValueGenerator::boolean(),
             ]),
-            operator: FilterOperatorEnum::from(
+            operator: FilterOperator::from(
                 FakeValueGenerator::randomElement(
-                    FilterOperatorEnum::values()
+                    FilterOperator::values()
                 )
             ),
         );

@@ -6,7 +6,7 @@ namespace App\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Trait\EnumValuesProviderTrait;
 
-enum FilterOperatorEnum: string
+enum FilterOperator: string
 {
     use EnumValuesProviderTrait;
 

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Builder\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\CompositeFilter;
-use App\Shared\Domain\Criteria\Filter\FilterConditionEnum;
+use App\Shared\Domain\Criteria\Filter\FilterCondition;
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
@@ -17,7 +17,7 @@ final class CompositeFilterBuilder implements BuilderInterface
      */
     private function __construct(
         private array $filters,
-        private FilterConditionEnum $condition
+        private FilterCondition $condition
     ) {
     }
 
@@ -25,9 +25,9 @@ final class CompositeFilterBuilder implements BuilderInterface
     {
         return new self(
             filters: SimpleFilterBuilder::buildMany(),
-            condition: FilterConditionEnum::from(
+            condition: FilterCondition::from(
                 FakeValueGenerator::randomElement(
-                    FilterConditionEnum::values()
+                    FilterCondition::values()
                 )
             ),
         );

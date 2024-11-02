@@ -9,7 +9,7 @@ final readonly class SimpleFilter implements Filter
     public function __construct(
         private string $field,
         private mixed $value,
-        private FilterOperatorEnum $operator = FilterOperatorEnum::EQUAL
+        private FilterOperator $operator = FilterOperator::EQUAL
     ) {
     }
 
@@ -23,7 +23,7 @@ final readonly class SimpleFilter implements Filter
         return $this->value;
     }
 
-    public function operator(): FilterOperatorEnum
+    public function operator(): FilterOperator
     {
         return $this->operator;
     }
