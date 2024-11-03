@@ -23,11 +23,11 @@ final class HttpHeaderTest extends TestCase
 
     public function testItThrowsExceptionWhenHeaderNameIsInvalid(): void
     {
+        $header = HttpHeaderBuilder::any()->build();
+
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid header name');
 
-        $header = HttpHeaderBuilder::any()
-            ->withName('invalid_header')
-            ->build();
+        new HttpHeader('invalid_header', ...$header->values());
     }
 }
