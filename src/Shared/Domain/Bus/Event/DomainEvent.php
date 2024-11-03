@@ -8,8 +8,8 @@ abstract class DomainEvent extends Event
 {
     public function __construct(
         private readonly string $aggregateId,
-        string $eventId = null,
-        string $occurredOn = null
+        ?string $eventId = null,
+        ?string $occurredOn = null
     ) {
         parent::__construct($eventId, $occurredOn);
     }
