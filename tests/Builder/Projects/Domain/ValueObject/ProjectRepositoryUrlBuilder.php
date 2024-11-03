@@ -10,6 +10,8 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectRepositoryUrlBuilder implements BuilderInterface
 {
+    private const string GITHUB_DOMAIN = 'https://github.com/';
+
     private function __construct(
         private string $value
     ) {
@@ -17,7 +19,7 @@ final class ProjectRepositoryUrlBuilder implements BuilderInterface
 
     public static function any(): self
     {
-        return new self(value: 'https://github.com/' . FakeValueGenerator::string());
+        return new self(value: self::GITHUB_DOMAIN . FakeValueGenerator::string());
     }
 
     public function withValue(string $value): self

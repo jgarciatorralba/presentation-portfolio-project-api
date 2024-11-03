@@ -15,8 +15,8 @@ class OrderTest extends TestCase
         $expected = OrderBuilder::any()->build();
 
         $actual = new Order(
-            orderBy: $expected->orderBy(),
-            orderType: $expected->orderType()
+            field: $expected->field(),
+            type: $expected->type()
         );
 
         $this->assertEquals($expected, $actual);
@@ -27,8 +27,8 @@ class OrderTest extends TestCase
         $expected = OrderBuilder::any()->build();
 
         $actual = Order::fromValues(
-            $expected->orderBy(),
-            $expected->orderType()->value
+            $expected->field(),
+            $expected->type()->value
         );
 
         $this->assertEquals($expected, $actual);

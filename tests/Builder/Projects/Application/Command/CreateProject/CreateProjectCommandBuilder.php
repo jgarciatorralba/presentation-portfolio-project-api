@@ -10,9 +10,12 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CreateProjectCommandBuilder implements BuilderInterface
 {
-    /**
-     * @param string[]|null $topics
-     */
+    private const int MIN_PROJECT_COMMANDS = 1;
+    private const int MAX_PROJECT_COMMANDS = 50;
+    private const int MIN_TOPICS = 1;
+    private const int MAX_TOPICS = 20;
+
+    /** @param string[]|null $topics */
     private function __construct(
         private int $id,
         private string $name,
@@ -128,8 +131,8 @@ final class CreateProjectCommandBuilder implements BuilderInterface
     {
         if ($amount === null) {
             $amount = FakeValueGenerator::integer(
-                min: 1,
-                max: 50
+                min: self::MIN_PROJECT_COMMANDS,
+                max: self::MAX_PROJECT_COMMANDS
             );
         }
 
@@ -146,8 +149,8 @@ final class CreateProjectCommandBuilder implements BuilderInterface
     {
         if ($numTopics === null) {
             $numTopics = FakeValueGenerator::integer(
-                min: 1,
-                max: 20
+                min: self::MIN_TOPICS,
+                max: self::MAX_TOPICS
             );
         }
 

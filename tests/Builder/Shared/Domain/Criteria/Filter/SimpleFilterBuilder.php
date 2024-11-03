@@ -11,6 +11,9 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class SimpleFilterBuilder implements BuilderInterface
 {
+    private const int MIN_FILTERS = 1;
+    private const int MAX_FILTERS = 10;
+
     private function __construct(
         private string $field,
         private mixed $value,
@@ -49,7 +52,10 @@ final class SimpleFilterBuilder implements BuilderInterface
     public static function buildMany(?int $numFilters = null): array
     {
         if ($numFilters === null) {
-            $numFilters = FakeValueGenerator::integer(1, 10);
+            $numFilters = FakeValueGenerator::integer(
+                self::MIN_FILTERS,
+                self::MAX_FILTERS
+            );
         }
 
         $filters = [];

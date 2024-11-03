@@ -7,27 +7,27 @@ namespace App\Shared\Domain\Criteria\Order;
 final readonly class Order
 {
     public function __construct(
-        private string $orderBy,
-        private OrderType $orderType
+        private string $field,
+        private OrderType $type
     ) {
     }
 
-    public static function fromValues(?string $orderBy, ?string $order): ?self
+    public static function fromValues(?string $field, ?string $type): ?self
     {
-        if ($orderBy === null || $order === null || OrderType::tryFrom($order) === null) {
+        if ($field === null || $type === null || OrderType::tryFrom($type) === null) {
             return null;
         }
 
-        return new self($orderBy, OrderType::from($order));
+        return new self($field, OrderType::from($type));
     }
 
-    public function orderBy(): string
+    public function field(): string
     {
-        return $this->orderBy;
+        return $this->field;
     }
 
-    public function orderType(): OrderType
+    public function type(): OrderType
     {
-        return $this->orderType;
+        return $this->type;
     }
 }

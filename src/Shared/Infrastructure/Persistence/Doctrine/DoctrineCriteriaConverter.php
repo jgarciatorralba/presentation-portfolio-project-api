@@ -40,17 +40,17 @@ final readonly class DoctrineCriteriaConverter
 
     private function buildExpression(Criteria $criteria): ?CompositeExpression
     {
-        if ($criteria->hasFilters()) {
-            return new CompositeExpression(
-                $criteria->filters()->condition()->value,
-                array_map(
-                    $this->buildComparison(),
-                    $criteria->filters()->plainFilters()
-                )
-            );
+        if (!$criteria->hasFilters()) {
+            return null;
         }
 
-        return null;
+        return new CompositeExpression(
+            $criteria->filters()->condition()->value,
+            array_map(
+                $this->buildComparison(),
+                $criteria->filters()->filterGroup()
+            )
+        );
     }
 
     private function buildComparison(): callable
@@ -77,19 +77,19 @@ final readonly class DoctrineCriteriaConverter
     /** @return array<string, DoctrineCriteriaOrder>|null */
     private function formatOrder(Criteria $criteria): ?array
     {
-        if ($criteria->hasOrder()) {
-            $order = [];
-
-            /** @var Order $orderItem */
-            foreach ($criteria->orderBy() as $orderItem) {
-                $order[$orderItem->orderBy()] = DoctrineCriteriaOrder::from(
-                    $orderItem->orderType()->value
-                );
-            }
-
-            return $order;
+        if (!$criteria->hasOrder()) {
+            return null;
         }
 
-        return null;
+        $orderArray = [];
+
+        /** @var Order $order */
+        foreach ($criteria->orderBy()->orderings() as $order) {
+            $orderArray[$order->field()] = DoctrineCriteriaOrder::from(
+                $order->type()->value
+            );
+        }
+
+        return $orderArray;
     }
 }

@@ -12,32 +12,36 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class FiltersBuilder implements BuilderInterface
 {
-    /**
-     * @param Filter[] $filters
-     */
+    private const int MIN_FILTERS = 1;
+    private const int MAX_FILTERS = 10;
+
+    /** @var Filter[] $filters */
+    private array $filters;
+
     private function __construct(
-        private array $filters,
-        private FilterCondition $condition
+        private FilterCondition $condition,
+        Filter ...$filters,
     ) {
+        $this->filters = $filters;
     }
 
     public static function any(): self
     {
         return new self(
-            filters: self::randomFilters(),
-            condition: FilterCondition::from(
+            FilterCondition::from(
                 FakeValueGenerator::randomElement(
                     FilterCondition::values()
                 )
-            )
+            ),
+            ...self::randomFilters(),
         );
     }
 
     public function build(): Filters
     {
         return new Filters(
-            filters: $this->filters,
-            condition: $this->condition
+            $this->condition,
+            ...$this->filters,
         );
     }
 
@@ -45,7 +49,10 @@ final class FiltersBuilder implements BuilderInterface
     private static function randomFilters(?int $numFilters = null): array
     {
         if ($numFilters === null) {
-            $numFilters = FakeValueGenerator::integer(1, 10);
+            $numFilters = FakeValueGenerator::integer(
+                self::MIN_FILTERS,
+                self::MAX_FILTERS
+            );
         }
 
         $filters = [];

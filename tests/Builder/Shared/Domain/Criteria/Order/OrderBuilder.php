@@ -11,17 +11,20 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class OrderBuilder implements BuilderInterface
 {
+    private const int MIN_ORDERS = 1;
+    private const int MAX_ORDERS = 10;
+
     private function __construct(
-        private string $orderBy,
-        private OrderType $orderType
+        private string $field,
+        private OrderType $type
     ) {
     }
 
     public static function any(): self
     {
         return new self(
-            orderBy: FakeValueGenerator::text(),
-            orderType: OrderType::from(
+            field: FakeValueGenerator::text(),
+            type: OrderType::from(
                 FakeValueGenerator::randomElement(OrderType::values())
             )
         );
@@ -30,8 +33,8 @@ final class OrderBuilder implements BuilderInterface
     public function build(): Order
     {
         return new Order(
-            orderBy: $this->orderBy,
-            orderType: $this->orderType
+            field: $this->field,
+            type: $this->type
         );
     }
 
@@ -41,7 +44,10 @@ final class OrderBuilder implements BuilderInterface
     public static function buildMany(?int $numOrders = null): array
     {
         if ($numOrders === null) {
-            $numOrders = FakeValueGenerator::integer(1, 10);
+            $numOrders = FakeValueGenerator::integer(
+                self::MIN_ORDERS,
+                self::MAX_ORDERS
+            );
         }
 
         $orders = [];

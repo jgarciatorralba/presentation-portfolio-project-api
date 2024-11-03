@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\Filter\Filters;
-use App\Shared\Domain\Criteria\Order\Order;
+use App\Shared\Domain\Criteria\Order\OrderBy;
 
 class Criteria
 {
@@ -13,10 +13,9 @@ class Criteria
 
     private readonly int $limit;
 
-    /** @param Order[] $orderBy */
     public function __construct(
         private readonly ?Filters $filters = null,
-        private readonly ?array $orderBy = null,
+        private readonly ?OrderBy $orderBy = null,
         ?int $limit = null,
         private readonly ?int $offset = null
     ) {
@@ -30,8 +29,7 @@ class Criteria
         return $this->filters;
     }
 
-    /** @return Order[] */
-    public function orderBy(): ?array
+    public function orderBy(): ?OrderBy
     {
         return $this->orderBy;
     }
@@ -48,11 +46,13 @@ class Criteria
 
     public function hasFilters(): bool
     {
-        return !is_null($this->filters()) && !empty($this->filters()->plainFilters());
+        return !is_null($this->filters())
+            && !empty($this->filters()->filterGroup());
     }
 
     public function hasOrder(): bool
     {
-        return !empty($this->orderBy());
+        return !is_null($this->orderBy())
+            && !empty($this->orderBy()->orderings());
     }
 }

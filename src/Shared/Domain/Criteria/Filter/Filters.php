@@ -6,21 +6,24 @@ namespace App\Shared\Domain\Criteria\Filter;
 
 final readonly class Filters
 {
-    /** @param Filter[] $filters */
-    public function __construct(
-        private array $filters = [],
-        private FilterCondition $condition = FilterCondition::AND
-    ) {
-    }
+    /** @var list<Filter> */
+    private array $filterGroup;
 
-    /** @return Filter[] */
-    public function plainFilters(): array
-    {
-        return $this->filters;
+    public function __construct(
+        private FilterCondition $condition = FilterCondition::AND,
+        Filter ...$filterGroup
+    ) {
+        $this->filterGroup = $filterGroup;
     }
 
     public function condition(): FilterCondition
     {
         return $this->condition;
+    }
+
+    /** @return list<Filter> */
+    public function filterGroup(): array
+    {
+        return $this->filterGroup;
     }
 }

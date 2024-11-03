@@ -6,21 +6,24 @@ namespace App\Shared\Domain\Criteria\Filter;
 
 final readonly class CompositeFilter implements Filter
 {
-    /** @param SimpleFilter[] $filters */
+    /** @var list<SimpleFilter> */
+    private array $filters;
+
     public function __construct(
-        private array $filters = [],
-        private FilterCondition $condition = FilterCondition::AND
+        private FilterCondition $condition = FilterCondition::AND,
+        SimpleFilter ...$filters
     ) {
+        $this->filters = $filters;
+    }
+
+    public function condition(): FilterCondition
+    {
+        return $this->condition;
     }
 
     /** @return SimpleFilter[] */
     public function filters(): array
     {
         return $this->filters;
-    }
-
-    public function condition(): FilterCondition
-    {
-        return $this->condition;
     }
 }

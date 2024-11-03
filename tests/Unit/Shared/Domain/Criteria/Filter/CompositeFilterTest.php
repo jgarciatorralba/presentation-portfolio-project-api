@@ -15,8 +15,8 @@ class CompositeFilterTest extends TestCase
         $expected = CompositeFilterBuilder::any()->build();
 
         $actual = new CompositeFilter(
-            filters: $expected->filters(),
-            condition: $expected->condition()
+            $expected->condition(),
+            ...$expected->filters(),
         );
 
         $this->assertEquals($expected, $actual);

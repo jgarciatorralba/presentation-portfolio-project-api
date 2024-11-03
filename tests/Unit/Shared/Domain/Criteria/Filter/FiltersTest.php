@@ -12,13 +12,13 @@ class FiltersTest extends TestCase
 {
     public function testFiltersAreCreated(): void
     {
-        $filtersCreated = FiltersBuilder::any()->build();
+        $expected = FiltersBuilder::any()->build();
 
-        $filtersAsserted = new Filters(
-            filters: $filtersCreated->plainFilters(),
-            condition: $filtersCreated->condition()
+        $actual = new Filters(
+            $expected->condition(),
+            ...$expected->filterGroup()
         );
 
-        $this->assertEquals($filtersCreated, $filtersAsserted);
+        $this->assertEquals($expected, $actual);
     }
 }

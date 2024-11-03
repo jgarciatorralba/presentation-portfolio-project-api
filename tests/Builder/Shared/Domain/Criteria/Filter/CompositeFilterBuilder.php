@@ -12,32 +12,33 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CompositeFilterBuilder implements BuilderInterface
 {
-    /**
-     * @param SimpleFilter[] $filters
-     */
+    /** @var SimpleFilter[] $filters */
+    private array $filters;
+
     private function __construct(
-        private array $filters,
-        private FilterCondition $condition
+        private FilterCondition $condition,
+        SimpleFilter ...$filters
     ) {
+        $this->filters = $filters;
     }
 
     public static function any(): self
     {
         return new self(
-            filters: SimpleFilterBuilder::buildMany(),
-            condition: FilterCondition::from(
+            FilterCondition::from(
                 FakeValueGenerator::randomElement(
                     FilterCondition::values()
                 )
             ),
+            ...SimpleFilterBuilder::buildMany(),
         );
     }
 
     public function build(): CompositeFilter
     {
         return new CompositeFilter(
-            filters: $this->filters,
-            condition: $this->condition
+            $this->condition,
+            ...$this->filters,
         );
     }
 }

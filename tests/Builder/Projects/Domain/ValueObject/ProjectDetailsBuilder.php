@@ -10,6 +10,9 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectDetailsBuilder implements BuilderInterface
 {
+    private const int MIN_TOPICS = 1;
+    private const int MAX_TOPICS = 20;
+
     /**
      * @param list<string>|null $topics
      */
@@ -72,7 +75,10 @@ final class ProjectDetailsBuilder implements BuilderInterface
     private static function generateRandomTopics(?int $numTopics = null): array
     {
         if ($numTopics === null) {
-            $numTopics = FakeValueGenerator::integer(1, 20);
+            $numTopics = FakeValueGenerator::integer(
+                self::MIN_TOPICS,
+                self::MAX_TOPICS
+            );
         }
 
         $topics = [];
