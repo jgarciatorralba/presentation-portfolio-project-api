@@ -22,7 +22,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
         parent::setUp();
 
         $projects = ProjectBuilder::buildMany();
-        if (!empty($projects)) {
+        if ($projects !== []) {
             $this->persist(...$projects);
         }
 
