@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\ValueObject\Http;
 
 use App\Shared\Domain\Http\HttpHeader;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use App\Tests\Builder\Shared\Domain\Http\HttpHeaderBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class HttpHeaderTest extends TestCase
 {
     public function testItIsCreated(): void
     {
-        $name = 'Content-Type';
-        $values = ['application/json'];
+        $expected = HttpHeaderBuilder::any()->build();
 
-        $header = new HttpHeader($name, ...$values);
+        $actual = new HttpHeader($expected->name(), ...$expected->values());
 
-        $this->assertInstanceOf(HttpHeader::class, $header);
-        $this->assertSame($name, $header->name());
-        $this->assertSame($values, $header->values());
+        $this->assertInstanceOf(HttpHeader::class, $actual);
+        $this->assertSame($expected->name(), $actual->name());
+        $this->assertSame($expected->values(), $actual->values());
     }
 
     public function testItThrowsExceptionWhenHeaderNameIsInvalid(): void
@@ -27,9 +26,8 @@ final class HttpHeaderTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid header name');
 
-        $name = 'invalid_header';
-        $values = [FakeValueGenerator::string()];
-
-        new HttpHeader($name, ...$values);
+        $header = HttpHeaderBuilder::any()
+            ->withName('invalid_header')
+            ->build();
     }
 }
