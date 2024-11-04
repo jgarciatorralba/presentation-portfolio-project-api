@@ -8,9 +8,7 @@ use Stringable;
 
 final readonly class QueryParam implements Stringable
 {
-    /**
-     * @param string|string[] $value
-     */
+    /** @param string|string[] $value */
     public function __construct(
         private string $field,
         private string|array $value
@@ -22,7 +20,8 @@ final readonly class QueryParam implements Stringable
         return $this->field;
     }
 
-    public function value(): string
+    /** @return string|string[] */
+    public function value(): string|array
     {
         return $this->value;
     }
