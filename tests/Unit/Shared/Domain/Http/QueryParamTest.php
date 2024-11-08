@@ -19,7 +19,7 @@ final class QueryParamTest extends TestCase
             value: $expected->value()
         );
 
-        self::assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testItConvertsToString(): void
@@ -40,6 +40,6 @@ final class QueryParamTest extends TestCase
 
         $actual = (string) $param;
 
-        self::assertEquals($expected, $actual);
+        $this->assertEquals($expected, $actual);
     }
 }

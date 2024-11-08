@@ -15,7 +15,12 @@ final readonly class QueryParams implements Mappable, Stringable
     public function __construct(
         QueryParam ...$params
     ) {
-        $this->params = $params;
+        $mappedParams = [];
+        foreach ($params as $param) {
+            $mappedParams[$param->field()] = $param;
+        }
+
+        $this->params = array_values($mappedParams);
     }
 
     public function __toString(): string
