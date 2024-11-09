@@ -57,7 +57,7 @@ class UuidTest extends TestCase
         $this->assertNotSame($uuid->value(), Uuid::random()->value());
     }
 
-    public function testItIsStringable(): void
+    public function testItConvertsToString(): void
     {
         $uuid = Uuid::random();
         $this->assertSame($uuid->value(), (string) $uuid);
