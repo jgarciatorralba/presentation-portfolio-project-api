@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Http;
 
-use App\Shared\Domain\Contract\Http\HttpStream;
+use App\Shared\Domain\Contract\Http\DataStream;
 
-final class TemporaryFileStream implements HttpStream
+final class TemporaryFileStream implements DataStream
 {
     /** @var resource|null */
     private $resource;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Contract\Http\HttpResponse as HttpResponseInterface;
-use App\Shared\Domain\Contract\Http\HttpStream;
+use App\Shared\Domain\Contract\Http\DataStream;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
 use App\Shared\Domain\Http\HttpProtocolVersion;
@@ -20,7 +20,7 @@ readonly class HttpResponse implements HttpResponseInterface
      */
     final private function __construct(
         private HttpHeaders $headers,
-        private HttpStream $body,
+        private DataStream $body,
         private HttpStatusCode $statusCode,
         private string $reasonPhrase,
         private HttpProtocolVersion $protocolVersion,
@@ -32,7 +32,7 @@ readonly class HttpResponse implements HttpResponseInterface
      * @param HttpHeaders<T> $headers
      */
     public static function create(
-        HttpStream $body,
+        DataStream $body,
         HttpHeaders $headers = new HttpHeaders(),
         HttpStatusCode $statusCode = HttpStatusCode::HTTP_OK,
         string $reasonPhrase = '',
@@ -185,7 +185,7 @@ readonly class HttpResponse implements HttpResponseInterface
         );
     }
 
-    public function getBody(): HttpStream
+    public function getBody(): DataStream
     {
         return $this->body;
     }

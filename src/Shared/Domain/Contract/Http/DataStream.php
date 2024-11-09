@@ -6,6 +6,6 @@ namespace App\Shared\Domain\Contract\Http;
 
 use Psr\Http\Message\StreamInterface;
 
-interface HttpStream extends StreamInterface
+interface DataStream extends StreamInterface
 {
 }
