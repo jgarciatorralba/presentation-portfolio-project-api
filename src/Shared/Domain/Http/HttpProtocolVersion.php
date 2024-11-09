@@ -18,7 +18,7 @@ enum HttpProtocolVersion: string
 
     public static function fromServerEnvironment(): self
     {
-        $serverProtocol = $_SERVER['SERVER_PROTOCOL'];
+        $serverProtocol = $_SERVER['SERVER_PROTOCOL'] ?? '';
 
         return match ($serverProtocol) {
             'HTTP/0.9' => self::HTTP_0_9,
