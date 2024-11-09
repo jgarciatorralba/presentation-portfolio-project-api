@@ -11,6 +11,15 @@ use PHPUnit\Framework\Attributes\DataProvider;
 
 final class TemporaryFileStreamTest extends TestCase
 {
+    private const array METADATA_KEYS = [
+        'wrapper_type',
+        'stream_type',
+        'mode',
+        'unread_bytes',
+        'uri',
+        'seekable',
+    ];
+
     #[DataProvider('dataCreateStream')]
     public function testItCreatesAStream(
         string $content
@@ -166,8 +175,7 @@ final class TemporaryFileStreamTest extends TestCase
 
         $this->assertIsArray($metadata);
 
-        $keys = ['wrapper_type', 'stream_type', 'mode', 'unread_bytes', 'uri', 'seekable'];
-        foreach ($keys as $key) {
+        foreach (self::METADATA_KEYS as $key) {
             $this->assertArrayHasKey($key, $metadata);
         }
     }
@@ -176,8 +184,7 @@ final class TemporaryFileStreamTest extends TestCase
     {
         $stream = new TemporaryFileStream();
 
-        $keys = ['wrapper_type', 'stream_type', 'mode', 'unread_bytes', 'uri', 'seekable'];
-        foreach ($keys as $key) {
+        foreach (self::METADATA_KEYS as $key) {
             $metadata = $stream->getMetadata($key);
 
             $this->assertNotNull($metadata);
