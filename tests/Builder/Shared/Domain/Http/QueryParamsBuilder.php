@@ -17,9 +17,8 @@ final class QueryParamsBuilder implements BuilderInterface
     /** @var QueryParam[] $params */
     private array $params;
 
-    private function __construct(
-        QueryParam ...$params
-    ) {
+    private function __construct(QueryParam ...$params)
+    {
         $this->params = $params;
     }
 
@@ -42,8 +41,8 @@ final class QueryParamsBuilder implements BuilderInterface
     {
         if ($numParams === null) {
             $numParams = FakeValueGenerator::integer(
-                self::MIN_PARAMS,
-                self::MAX_PARAMS
+                min: self::MIN_PARAMS,
+                max: self::MAX_PARAMS
             );
         }
 

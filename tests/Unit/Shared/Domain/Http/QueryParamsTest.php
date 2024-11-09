@@ -11,36 +11,40 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryParamsTest extends TestCase
 {
-    public function testTheyAreCreated(): void
-    {
-        $expected = QueryParamsBuilder::any()->build();
+    private QueryParams $expected;
 
-        $reflection = new \ReflectionClass($expected);
+    /** @var list<QueryParam> $params */
+    private array $params;
+
+    protected function setUp(): void
+    {
+        $this->expected = QueryParamsBuilder::any()->build();
+
+        $reflection = new \ReflectionClass($this->expected);
         $params = $reflection->getProperty('params');
 
-        $actual = new QueryParams(
-            ...$params->getValue($expected)
-        );
+        $this->params = $params->getValue($this->expected);
+    }
+
+    public function testTheyAreCreated(): void
+    {
+        $actual = new QueryParams(...$this->params);
 
         $this->assertInstanceOf(QueryParams::class, $actual);
-        $this->assertNotEmpty($params->getValue($actual));
-        $this->assertEquals($expected, $actual);
+        $this->assertEquals($this->expected, $actual);
     }
 
     public function testTheyConvertToString(): void
     {
-        $queryParams = QueryParamsBuilder::any()->build();
+        $actual = new QueryParams(...$this->params);
 
-        $reflection = new \ReflectionClass($queryParams);
-        $params = $reflection->getProperty('params');
-
-        $this->assertStringContainsString('=', (string) $queryParams);
-        if (count($params->getValue($queryParams)) > 1) {
-            $this->assertStringContainsString('&', (string) $queryParams);
+        $this->assertStringContainsString('=', (string) $actual);
+        if (count($this->params) > 1) {
+            $this->assertStringContainsString('&', (string) $actual);
         }
 
         $hasArrayParam = false;
-        foreach ($params->getValue($queryParams) as $param) {
+        foreach ($this->params as $param) {
             if (is_array($param->value())) {
                 $hasArrayParam = true;
                 break;
@@ -48,28 +52,26 @@ final class QueryParamsTest extends TestCase
         }
 
         if ($hasArrayParam) {
-            $this->assertStringContainsString('[]=', (string) $queryParams);
+            $this->assertStringContainsString('[]=', (string) $actual);
         }
     }
 
     public function testTheyAreMappable(): void
     {
-        $queryParams = QueryParamsBuilder::any()->build();
+        $actual = new QueryParams(...$this->params);
 
-        $reflection = new \ReflectionClass($queryParams);
-        $params = $reflection->getProperty('params');
         $paramFields = array_map(
             fn (QueryParam $param): string => $param->field(),
-            $params->getValue($queryParams)
+            $this->params
         );
         $paramValues = array_map(
             fn (QueryParam $param): string|array => $param->value(),
-            $params->getValue($queryParams)
+            $this->params
         );
 
-        $this->assertIsArray($queryParams->toArray());
-        $this->assertCount(count($params->getValue($queryParams)), $queryParams->toArray());
-        $this->assertEquals($paramFields, array_keys($queryParams->toArray()));
-        $this->assertEquals($paramValues, array_values($queryParams->toArray()));
+        $this->assertIsArray($actual->toArray());
+        $this->assertCount(count($this->params), $actual->toArray());
+        $this->assertEquals($paramFields, array_keys($actual->toArray()));
+        $this->assertEquals($paramValues, array_values($actual->toArray()));
     }
 }
