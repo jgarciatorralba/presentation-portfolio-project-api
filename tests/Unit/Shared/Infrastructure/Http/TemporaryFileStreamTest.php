@@ -100,10 +100,10 @@ final class TemporaryFileStreamTest extends TestCase
         $position = FakeValueGenerator::integer(
             max: strlen($content)
         );
-        $result = $stream->seek($position);
+        $stream->seek($position);
 
         $this->assertEquals($position, $stream->tell());
-        $this->assertEmpty($result);
+        $this->assertEquals(substr($content, $position), $stream->getContents());
     }
 
     public function testItRewindsTheStream(): void
