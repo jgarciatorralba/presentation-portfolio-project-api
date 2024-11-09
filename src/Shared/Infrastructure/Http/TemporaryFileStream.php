@@ -27,8 +27,12 @@ final class TemporaryFileStream implements DataStream
 
     public function __toString(): string
     {
-        $readString = stream_get_contents($this->resource, -1, 0);
-        return $readString !== false ? $readString : '';
+        try {
+            $readString = stream_get_contents($this->resource, -1, 0);
+            return $readString !== false ? $readString : '';
+        } catch (\Throwable) {
+            return '';
+        }
     }
 
     public function close(): void
