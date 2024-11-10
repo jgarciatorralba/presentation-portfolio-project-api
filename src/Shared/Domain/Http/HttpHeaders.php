@@ -13,10 +13,9 @@ use App\Shared\Domain\Contract\Mappable;
  */
 final readonly class HttpHeaders implements Collection, Mappable
 {
-    /** @var HttpHeader[] */
+    /** @var list<HttpHeader> */
     private array $headers;
 
-    /** @param T ...$headers */
     public function __construct(HttpHeader ...$headers)
     {
         $mergedHeaders = [];

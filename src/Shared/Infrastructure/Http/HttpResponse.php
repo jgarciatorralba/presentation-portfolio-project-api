@@ -137,11 +137,11 @@ readonly class HttpResponse implements HttpResponseInterface
      */
     public function withHeader(string $name, mixed $value): static
     {
-        $newHeader = new HttpHeader($name, ...(array) $value);
-
         $newHeaders = [];
         foreach ($this->headers->all() as $header) {
-            $newHeaders[] = strcasecmp($header->name(), $name) === 0 ? $newHeader : $header;
+            $newHeaders[] = strcasecmp($header->name(), $name) === 0
+                ? new HttpHeader($header->name(), ...(array) $value)
+                : $header;
         }
 
         return new static(
@@ -160,11 +160,30 @@ readonly class HttpResponse implements HttpResponseInterface
      */
     public function withAddedHeader(string $name, mixed $value): self
     {
-        $newHeader = $this->hasHeader($name)
-            ? new HttpHeader($name, ...array_merge($this->getHeader($name), (array) $value))
-            : new HttpHeader($name, ...(array) $value);
+        if (!$this->hasHeader($name)) {
+            $headers = [
+                ...$this->headers->all(),
+                new HttpHeader($name, ...(array) $value),
+            ];
 
-        return $this->withHeader($newHeader->name(), ...$newHeader->values());
+            return new static(
+                body: $this->body,
+                statusCode: $this->statusCode,
+                reasonPhrase: $this->reasonPhrase,
+                headers: new HttpHeaders(...$headers),
+                protocolVersion: $this->protocolVersion,
+            );
+        }
+
+        $header = $this->headers->get($name);
+        if (!$header instanceof HttpHeader) {
+            throw new \InvalidArgumentException('Invalid header value');
+        }
+
+        return $this->withHeader(
+            $header->name(),
+            array_merge($header->values(), (array) $value)
+        );
     }
 
     public function withoutHeader(string $name): static
