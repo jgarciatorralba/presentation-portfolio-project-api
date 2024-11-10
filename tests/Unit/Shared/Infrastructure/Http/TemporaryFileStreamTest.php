@@ -121,6 +121,7 @@ final class TemporaryFileStreamTest extends TestCase
         $stream = new TemporaryFileStream($content);
 
         $position = FakeValueGenerator::integer(
+            min: 1,
             max: strlen($content)
         );
 
