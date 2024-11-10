@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
+use App\Tests\Builder\Shared\Domain\ValueObject\UrlBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -44,7 +45,9 @@ class ProjectUrlsTest extends TestCase
             ->withHomepage($projectUrls->homepage())
             ->build();
 
-        $differentProjectUrls = ProjectUrlsBuilder::any()->build();
+        $differentProjectUrls = ProjectUrlsBuilder::any()
+            ->withHomepage(UrlBuilder::any()->build())
+            ->build();
 
         return [
             'same project urls' => [$projectUrls, $sameProjectUrls, true],
