@@ -79,7 +79,7 @@
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "fakerphp/faker": "^1.23",
         "phpmd/phpmd": "^2.15",
-        "phpstan/phpstan": "^1.11",
+        "phpstan/phpstan": "^1.12",
         "phpunit/php-code-coverage": "^11.0",
         "phpunit/phpunit": "^11.0",
         "rector/rector": "^1.2",
