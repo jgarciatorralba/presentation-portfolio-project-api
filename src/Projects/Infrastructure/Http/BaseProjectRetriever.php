@@ -13,6 +13,7 @@ abstract class BaseProjectRetriever
 {
     protected readonly Url $baseUri;
 
+    /** @throws \InvalidArgumentException */
     public function __construct(
         protected readonly string $apiToken,
         string $baseUri,

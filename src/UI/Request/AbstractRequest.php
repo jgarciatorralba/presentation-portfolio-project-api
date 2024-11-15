@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class AbstractRequest
 {
+    /** @throws ValidationException */
     public function __construct(
         private readonly Validator $validator,
         protected readonly RequestStack $request
@@ -18,6 +19,7 @@ abstract class AbstractRequest
         $this->validate();
     }
 
+    /** @throws ValidationException */
     final protected function validate(): void
     {
         $errors = $this->validator->validate($this->payload(), $this->validationRules());

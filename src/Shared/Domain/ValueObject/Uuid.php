@@ -10,6 +10,7 @@ use Symfony\Component\Uid\Uuid as SymfonyUuid;
 
 final readonly class Uuid implements Stringable
 {
+    /** @throws \InvalidArgumentException */
     public function __construct(
         private string $value
     ) {
@@ -43,13 +44,15 @@ final readonly class Uuid implements Stringable
         }
     }
 
+    /** @throws \InvalidArgumentException */
     public static function fromString(string $value): self
     {
         return new self($value);
     }
 
+    /** @throws \InvalidArgumentException */
     public static function random(): self
     {
-        return new Uuid(SymfonyUuid::v4()->toRfc4122());
+        return new self(SymfonyUuid::v4()->toRfc4122());
     }
 }

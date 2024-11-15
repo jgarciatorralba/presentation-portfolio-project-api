@@ -7,5 +7,9 @@ parameters:
         - src/
         - tests/
 
+    exceptions:
+        check:
+            missingCheckedExceptionInThrows: true
+
     excludePaths:
         - tests/**/**Test.php

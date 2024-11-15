@@ -15,6 +15,10 @@ final readonly class UpdateProject
     ) {
     }
 
+    /**
+     * @throws ProjectNotFoundException
+     * @throws \InvalidArgumentException
+     */
     public function __invoke(Project $project): void
     {
         $existingProject = $this->projectRepository->find($project->id());

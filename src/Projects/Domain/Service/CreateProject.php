@@ -15,6 +15,7 @@ final readonly class CreateProject
     ) {
     }
 
+    /** @throws ProjectAlreadyExistsException */
     public function __invoke(Project $project): void
     {
         $existingProject = $this->projectRepository->find($project->id());

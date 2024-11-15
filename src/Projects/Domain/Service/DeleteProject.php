@@ -15,6 +15,7 @@ final readonly class DeleteProject
     ) {
     }
 
+    /** @throws ProjectNotFoundException */
     public function __invoke(Project $project): void
     {
         $existingProject = $this->projectRepository->find($project->id());

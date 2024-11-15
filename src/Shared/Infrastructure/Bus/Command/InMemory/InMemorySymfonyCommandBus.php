@@ -8,8 +8,9 @@ use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Command\CommandBus;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
+use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
 final readonly class InMemorySymfonyCommandBus implements CommandBus
 {
@@ -18,6 +19,10 @@ final readonly class InMemorySymfonyCommandBus implements CommandBus
     ) {
     }
 
+    /**
+     * @throws CommandNotRegisteredException
+     * @throws ExceptionInterface
+     */
     public function dispatch(Command $command): void
     {
         try {

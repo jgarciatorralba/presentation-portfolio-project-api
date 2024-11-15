@@ -36,6 +36,11 @@ final class SymfonyHttpClient implements HttpClientContract
      *      headers: HttpHeaders<T>,
      *      query?: QueryParams,
      * } $httpOptions
+     *
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \ValueError
+     * @throws \TypeError
      */
     public function fetch(string $url, array $httpOptions): HttpResponseContract
     {

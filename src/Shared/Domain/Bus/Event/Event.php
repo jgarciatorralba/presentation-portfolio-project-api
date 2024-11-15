@@ -13,6 +13,7 @@ abstract class Event implements Mappable
     protected readonly string $eventId;
     protected readonly string $occurredOn;
 
+    /** @throws \InvalidArgumentException */
     public function __construct(
         ?string $eventId = null,
         ?string $occurredOn = null

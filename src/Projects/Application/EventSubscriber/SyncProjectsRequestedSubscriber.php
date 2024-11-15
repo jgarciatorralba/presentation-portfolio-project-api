@@ -22,6 +22,7 @@ final readonly class SyncProjectsRequestedSubscriber implements EventSubscriber
     ) {
     }
 
+    /** @throws \InvalidArgumentException */
     public function __invoke(SyncProjectsRequestedEvent $event): void
     {
         $storedProjects = $this->getAllProjects->__invoke();

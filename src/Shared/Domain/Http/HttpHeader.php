@@ -11,6 +11,7 @@ final readonly class HttpHeader
     /** @var string[] */
     private array $values;
 
+    /** @throws \InvalidArgumentException */
     public function __construct(
         private string $name,
         string ...$values,

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Projects\Application\Command\CreateProject;
 
 use App\Projects\Domain\Project;
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
+use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Domain\Service\CreateProject;
@@ -22,6 +24,12 @@ final readonly class CreateProjectCommandHandler implements CommandHandler
     ) {
     }
 
+    /**
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws ProjectAlreadyExistsException
+     * @throws \InvalidArgumentException
+     * @throws \DateInvalidTimeZoneException
+     */
     public function __invoke(CreateProjectCommand $command): void
     {
         $projectDetails = ProjectDetails::create(

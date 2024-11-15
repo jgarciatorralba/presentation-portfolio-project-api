@@ -21,6 +21,11 @@ final readonly class DoctrineCriteriaConverter
     ) {
     }
 
+    /**
+     * @throws \TypeError
+     * @throws \ValueError
+     * @throws \RuntimeException
+     */
     public static function convert(Criteria $criteria): DoctrineCriteria
     {
         $converter = new self($criteria);
@@ -28,6 +33,11 @@ final readonly class DoctrineCriteriaConverter
         return $converter->convertToDoctrineCriteria();
     }
 
+    /**
+     * @throws \TypeError
+     * @throws \ValueError
+     * @throws \RuntimeException
+     */
     private function convertToDoctrineCriteria(): DoctrineCriteria
     {
         return new DoctrineCriteria(
@@ -38,6 +48,7 @@ final readonly class DoctrineCriteriaConverter
         );
     }
 
+    /** @throws \RuntimeException */
     private function buildExpression(Criteria $criteria): ?CompositeExpression
     {
         if (!$criteria->hasFilters()) {
@@ -53,6 +64,7 @@ final readonly class DoctrineCriteriaConverter
         );
     }
 
+    /** @throws \RuntimeException */
     private function buildComparison(): callable
     {
         return function (SimpleFilter|CompositeFilter $filter): Expression {
@@ -74,7 +86,12 @@ final readonly class DoctrineCriteriaConverter
         };
     }
 
-    /** @return array<string, DoctrineCriteriaOrder>|null */
+    /**
+     * @return array<string, DoctrineCriteriaOrder>|null
+     *
+     * @throws \TypeError
+     * @throws \ValueError
+     */
     private function formatOrder(Criteria $criteria): ?array
     {
         if (!$criteria->hasOrder()) {

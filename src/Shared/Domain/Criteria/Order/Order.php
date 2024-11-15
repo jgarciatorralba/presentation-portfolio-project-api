@@ -12,6 +12,10 @@ final readonly class Order
     ) {
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function fromValues(?string $field, ?string $type): ?self
     {
         if ($field === null || $type === null || OrderType::tryFrom($type) === null) {

@@ -12,6 +12,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class CreateProjectController extends BaseController
 {
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \DateMalformedStringException
+     */
     public function __invoke(CreateProjectRequest $request): JsonResponse
     {
         $data = $request->payload();

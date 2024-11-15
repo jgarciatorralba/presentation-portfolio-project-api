@@ -6,6 +6,7 @@ namespace App\Shared\Infrastructure\Bus\Event\InMemory;
 
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Domain\Bus\Event\EventBus;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
@@ -16,6 +17,7 @@ final readonly class InMemorySymfonyEventBus implements EventBus
     ) {
     }
 
+    /** @throws ExceptionInterface */
     public function publish(Event ...$events): void
     {
         foreach ($events as $event) {

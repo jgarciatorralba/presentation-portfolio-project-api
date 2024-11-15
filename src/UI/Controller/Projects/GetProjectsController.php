@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 final class GetProjectsController extends BaseController
 {
+    /** @throws \InvalidArgumentException */
     public function __invoke(GetProjectsRequest $request): JsonResponse
     {
         $pageSize = $request->get('pageSize')

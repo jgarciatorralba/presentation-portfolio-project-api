@@ -70,6 +70,7 @@ final class Project extends AggregateRoot implements Comparable
         return $this->lastPushedAt;
     }
 
+    /** @throws \InvalidArgumentException */
     public function synchronizeWith(Project $project): void
     {
         if (!$this->id()->equals($project->id())) {

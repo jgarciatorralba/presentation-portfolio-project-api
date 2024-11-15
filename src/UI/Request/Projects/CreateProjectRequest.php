@@ -10,6 +10,9 @@ use App\UI\Validation\Validator;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
+use Symfony\Component\Validator\Exception\InvalidOptionsException;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 
 final class CreateProjectRequest extends AbstractRequest
 {
@@ -21,6 +24,12 @@ final class CreateProjectRequest extends AbstractRequest
         parent::__construct($validator, $request);
     }
 
+    /**
+     * @throws InvalidOptionsException
+     * @throws MissingOptionsException
+     * @throws ConstraintDefinitionException
+     * @throws \DateInvalidTimeZoneException
+     */
     protected function validationRules(): Assert\Collection
     {
         return new Assert\Collection([
@@ -76,6 +85,7 @@ final class CreateProjectRequest extends AbstractRequest
         ]);
     }
 
+    /** @throws \DateInvalidTimeZoneException */
     public function validateDateTimeIsInThePast(
         string $lastPushedAt,
         ExecutionContextInterface $context

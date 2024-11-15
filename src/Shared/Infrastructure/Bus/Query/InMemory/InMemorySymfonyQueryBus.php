@@ -10,6 +10,7 @@ use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Bus\Query\Response;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 use Symfony\Component\Messenger\MessageBusInterface;
+use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
@@ -20,6 +21,10 @@ final readonly class InMemorySymfonyQueryBus implements QueryBus
     ) {
     }
 
+    /**
+     * @throws QueryNotRegisteredException
+     * @throws ExceptionInterface
+     */
     public function ask(Query $query): ?Response
     {
         try {

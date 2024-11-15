@@ -10,11 +10,16 @@ use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Bus\Query\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 abstract class BaseController
 {
     private readonly string $baseUrl;
 
+    /**
+     * @throws ParameterNotFoundException
+     * @throws \TypeError
+     */
     public function __construct(
         private readonly QueryBus $queryBus,
         private readonly CommandBus $commandBus,

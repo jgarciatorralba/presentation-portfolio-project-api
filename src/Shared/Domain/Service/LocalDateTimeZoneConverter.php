@@ -13,6 +13,7 @@ final readonly class LocalDateTimeZoneConverter
         $this->localTimeZone = date_default_timezone_get();
     }
 
+    /** @throws \DateInvalidTimeZoneException */
     public function convert(\DateTimeImmutable $dateTime): \DateTimeImmutable
     {
         return $dateTime->setTimezone(new \DateTimeZone($this->localTimeZone));

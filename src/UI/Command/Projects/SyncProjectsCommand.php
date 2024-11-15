@@ -25,6 +25,7 @@ class SyncProjectsCommand extends Command
         parent::__construct();
     }
 
+    /** @throws \InvalidArgumentException */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $commandStyle = new SymfonyStyle($input, $output);

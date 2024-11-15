@@ -6,6 +6,7 @@ namespace App\Projects\Infrastructure\Http\GitHub;
 
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
@@ -35,7 +36,15 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
         parent::__construct($apiToken, $baseUri, $httpClient, $logger);
     }
 
-    /** @return list<Project> */
+    /**
+     * @return list<Project>
+     *
+     * @throws \RuntimeException
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     * @throws \DateMalformedStringException
+     * @throws \DateInvalidTimeZoneException
+     */
     public function retrieve(): array
     {
         $projectData = [];
@@ -94,6 +103,11 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
      *      archived: bool,
      *      pushed_at: string
      * } $projectData
+     *
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     * @throws \DateMalformedStringException
+     * @throws \DateInvalidTimeZoneException
      */
     protected function createProjectFromData(array $projectData): Project
     {

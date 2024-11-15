@@ -19,6 +19,7 @@ final readonly class ApiExceptionListener
     ) {
     }
 
+    /** @throws \InvalidArgumentException */
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
@@ -31,6 +32,7 @@ final readonly class ApiExceptionListener
         $event->setResponse($response);
     }
 
+    /** @throws \InvalidArgumentException */
     private function buildResponse(\Throwable $exception): JsonResponse
     {
         $content = [

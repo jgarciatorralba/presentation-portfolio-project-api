@@ -16,6 +16,7 @@ final readonly class HttpHeaders implements Collection, Mappable
     /** @var list<HttpHeader> */
     private array $headers;
 
+    /** @throws \InvalidArgumentException */
     public function __construct(HttpHeader ...$headers)
     {
         $mergedHeaders = [];
@@ -39,9 +40,7 @@ final readonly class HttpHeaders implements Collection, Mappable
         $this->headers = array_values($mergedHeaders);
     }
 
-    /**
-     * @return HttpHeader[]
-     */
+    /** @return HttpHeader[] */
     public function all(): array
     {
         return $this->headers;
@@ -69,9 +68,7 @@ final readonly class HttpHeaders implements Collection, Mappable
         return null;
     }
 
-    /**
-     * @return array<string, string[]>
-     */
+    /** @return array<string, string[]> */
     public function toArray(): array
     {
         $headersArray = [];

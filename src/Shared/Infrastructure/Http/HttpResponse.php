@@ -54,6 +54,7 @@ readonly class HttpResponse implements HttpResponseInterface
         return $this->statusCode->value;
     }
 
+    /** @throws \InvalidArgumentException */
     public function withStatus(int $code, string $reasonPhrase = ''): static
     {
         try {
@@ -68,7 +69,7 @@ readonly class HttpResponse implements HttpResponseInterface
                 headers: $this->headers,
                 protocolVersion: $this->protocolVersion,
             );
-        } catch (\ValueError) {
+        } catch (\ValueError | \TypeError) {
             throw new \InvalidArgumentException('Invalid status code value');
         }
     }
@@ -83,6 +84,7 @@ readonly class HttpResponse implements HttpResponseInterface
         return $this->protocolVersion->value;
     }
 
+    /** @throws \InvalidArgumentException */
     public function withProtocolVersion(string $version): static
     {
         try {
@@ -95,14 +97,12 @@ readonly class HttpResponse implements HttpResponseInterface
                 headers: $this->headers,
                 protocolVersion: $protocolVersion,
             );
-        } catch (\ValueError) {
+        } catch (\ValueError | \TypeError) {
             throw new \InvalidArgumentException('Invalid protocol version value');
         }
     }
 
-    /**
-     * @return array<string, string[]>
-     */
+    /** @return array<string, string[]> */
     public function getHeaders(): array
     {
         return $this->headers->toArray();
@@ -113,9 +113,7 @@ readonly class HttpResponse implements HttpResponseInterface
         return $this->headers->has($name);
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     public function getHeader(string $name): array
     {
         $foundHeader = $this->headers->get($name);
@@ -186,6 +184,7 @@ readonly class HttpResponse implements HttpResponseInterface
         );
     }
 
+    /** @throws \InvalidArgumentException */
     public function withoutHeader(string $name): static
     {
         $newHeaders = [];
@@ -209,6 +208,7 @@ readonly class HttpResponse implements HttpResponseInterface
         return $this->body;
     }
 
+    /** @throws \RuntimeException */
     public function withBody(StreamInterface $body): static
     {
         $temp = new TemporaryFileStream((string) $body);

@@ -11,6 +11,7 @@ final class TemporaryFileStream implements DataStream
     /** @var resource|null */
     private $resource;
 
+    /** @throws \RuntimeException */
     public function __construct(string $content = '')
     {
         $handle = fopen('php://temp', 'r+');
@@ -35,6 +36,7 @@ final class TemporaryFileStream implements DataStream
         }
     }
 
+    /** @throws \RuntimeException */
     public function close(): void
     {
         $result = fclose($this->resource);
@@ -44,9 +46,7 @@ final class TemporaryFileStream implements DataStream
         }
     }
 
-    /**
-     * @return resource
-     */
+    /** @return resource */
     public function detach()
     {
         $oldResource = $this->resource;
@@ -60,6 +60,7 @@ final class TemporaryFileStream implements DataStream
         return $stat['size'] ?? null;
     }
 
+    /** @throws \RuntimeException */
     public function tell(): int
     {
         $position = ftell($this->resource);
@@ -80,6 +81,7 @@ final class TemporaryFileStream implements DataStream
         return true;
     }
 
+    /** @throws \RuntimeException */
     public function seek(int $offset, int $whence = SEEK_SET): void
     {
         $result = fseek($this->resource, $offset, $whence);
@@ -89,6 +91,7 @@ final class TemporaryFileStream implements DataStream
         }
     }
 
+    /** @throws \RuntimeException */
     public function rewind(): void
     {
         $result = rewind($this->resource);
@@ -103,6 +106,7 @@ final class TemporaryFileStream implements DataStream
         return true;
     }
 
+    /** @throws \RuntimeException */
     public function write(string $string): int
     {
         $bytes = fwrite($this->resource, $string);
@@ -119,6 +123,7 @@ final class TemporaryFileStream implements DataStream
         return true;
     }
 
+    /** @throws \RuntimeException */
     public function read(int $length): string
     {
         $string = fread($this->resource, $length);
@@ -130,6 +135,7 @@ final class TemporaryFileStream implements DataStream
         return $string;
     }
 
+    /** @throws \RuntimeException */
     public function getContents(): string
     {
         $contents = stream_get_contents($this->resource);
