@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Feature;
 
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
+use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\HttpKernelBrowser;
 
 abstract class FeatureTestCase extends WebTestCase
@@ -16,6 +19,11 @@ abstract class FeatureTestCase extends WebTestCase
     private ?EntityManagerInterface $entityManager = null;
     protected ?HttpKernelBrowser $client = null;
 
+    /**
+     * @throws ServiceCircularReferenceException
+     * @throws ServiceNotFoundException
+     * @throws \TypeError
+     */
     protected function setUp(): void
     {
         parent::setUp();
@@ -69,6 +77,7 @@ abstract class FeatureTestCase extends WebTestCase
         return $this->entityManager->getRepository($className);
     }
 
+    /** @throws DBALException */
     protected function clearDatabase(): void
     {
         $connection = $this->entityManager->getConnection();
@@ -82,6 +91,8 @@ abstract class FeatureTestCase extends WebTestCase
     }
 
     /**
+     * @throws DBALException
+     *
      * @return string[]
      */
     private function tables(): array
@@ -115,6 +126,8 @@ abstract class FeatureTestCase extends WebTestCase
     }
 
     /**
+     * @throws DBALException
+     *
      * @return AbstractSchemaManager<AbstractPlatform>
      */
     private function schemaManager(): AbstractSchemaManager

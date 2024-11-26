@@ -31,6 +31,7 @@ final class HttpHeaderBuilder implements BuilderInterface
         );
     }
 
+    /** @throws \InvalidArgumentException */
     public function build(): HttpHeader
     {
         return new HttpHeader(

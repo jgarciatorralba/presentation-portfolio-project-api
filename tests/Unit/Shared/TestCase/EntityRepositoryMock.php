@@ -8,6 +8,13 @@ use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use App\Tests\Unit\Shared\Infrastructure\Testing\DoctrineTestCollection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
+use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
+use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 
 final class EntityRepositoryMock extends AbstractMock
 {
@@ -16,6 +23,15 @@ final class EntityRepositoryMock extends AbstractMock
         return EntityRepository::class;
     }
 
+    /**
+     * @throws Exception
+     * @throws IncompatibleReturnValueException
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
     public function shouldFindEntity(mixed $id, ?object $entity): void
     {
         $entityId = is_object($entity) && method_exists($entity, 'id')
@@ -33,6 +49,14 @@ final class EntityRepositoryMock extends AbstractMock
             ->willReturn($entityId === $id ? $entity : null);
     }
 
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
     public function shouldFindEntitiesMatchingCriteria(
         Criteria $criteria,
         object ...$entities

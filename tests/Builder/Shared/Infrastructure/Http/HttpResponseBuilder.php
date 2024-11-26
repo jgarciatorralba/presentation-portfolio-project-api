@@ -30,6 +30,12 @@ final class HttpResponseBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \TypeError
+     * @throws \ValueError
+     */
     public static function any(): self
     {
         return new self(

@@ -23,6 +23,10 @@ final class OrderByBuilder implements BuilderInterface
         $this->orderings = $orderings;
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(
@@ -37,7 +41,12 @@ final class OrderByBuilder implements BuilderInterface
         );
     }
 
-    /** @return Order[] */
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     *
+     * @return Order[]
+     */
     public static function randomOrderings(?int $numOrders = null): array
     {
         if ($numOrders === null) {

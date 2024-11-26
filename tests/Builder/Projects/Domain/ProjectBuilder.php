@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain;
 
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
@@ -29,6 +30,10 @@ final class ProjectBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     */
     public static function any(): self
     {
         return new self(
@@ -43,6 +48,9 @@ final class ProjectBuilder implements BuilderInterface
     }
 
     /**
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     *
      * @return Project[]
      */
     public static function buildMany(?int $amount = null): array

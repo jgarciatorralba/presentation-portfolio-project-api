@@ -27,6 +27,7 @@ final class UrlBuilder implements BuilderInterface
         return $this;
     }
 
+    /** @throws \InvalidArgumentException */
     public function build(): Url
     {
         return Url::fromString($this->value);

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\ValueObject\Url;
@@ -19,6 +20,10 @@ final class ProjectUrlsBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     */
     public static function any(): self
     {
         return new self(

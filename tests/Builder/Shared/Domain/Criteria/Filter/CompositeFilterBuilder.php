@@ -22,6 +22,10 @@ final class CompositeFilterBuilder implements BuilderInterface
         $this->filters = $filters;
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(

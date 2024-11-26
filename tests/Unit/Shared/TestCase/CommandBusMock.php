@@ -6,6 +6,12 @@ namespace App\Tests\Unit\Shared\TestCase;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
+use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class CommandBusMock extends AbstractMock
@@ -15,6 +21,14 @@ final class CommandBusMock extends AbstractMock
         return MessageBusInterface::class;
     }
 
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
     public function shouldDispatchCommand(Command $command): void
     {
         $this->mock
@@ -23,6 +37,11 @@ final class CommandBusMock extends AbstractMock
             ->with($command);
     }
 
+    /**
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     */
     public function willThrowException(\Throwable $exception): void
     {
         $this->mock

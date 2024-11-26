@@ -20,6 +20,10 @@ final class OrderBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(
@@ -39,6 +43,9 @@ final class OrderBuilder implements BuilderInterface
     }
 
     /**
+     * @throws \ValueError
+     * @throws \TypeError
+     *
      * @return Order[]
      */
     public static function buildMany(?int $numOrders = null): array

@@ -17,6 +17,10 @@ final class FakeValueGenerator
         return self::$faker ??= Factory::create();
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \OverflowException
+     */
     public static function uuid(): Uuid
     {
         return Uuid::fromString(self::generator()->unique()->uuid());

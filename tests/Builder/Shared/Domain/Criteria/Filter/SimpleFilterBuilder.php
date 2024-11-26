@@ -21,6 +21,10 @@ final class SimpleFilterBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(
@@ -48,7 +52,12 @@ final class SimpleFilterBuilder implements BuilderInterface
         );
     }
 
-    /** @return SimpleFilter[] */
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     *
+     * @return SimpleFilter[]
+     */
     public static function buildMany(?int $numFilters = null): array
     {
         if ($numFilters === null) {

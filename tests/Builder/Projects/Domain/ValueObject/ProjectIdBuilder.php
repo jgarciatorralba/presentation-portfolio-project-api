@@ -27,6 +27,7 @@ final class ProjectIdBuilder implements BuilderInterface
         return $this;
     }
 
+    /** @throws \InvalidArgumentException */
     public function build(): ProjectId
     {
         return ProjectId::create($this->value);

@@ -6,6 +6,13 @@ namespace App\Tests\Unit\UI\TestCase;
 
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use App\UI\Subscriber\ExceptionHttpStatusCodeMapper;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
+use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
+use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 
 final class ExceptionHttpStatusCodeMapperMock extends AbstractMock
 {
@@ -14,6 +21,15 @@ final class ExceptionHttpStatusCodeMapperMock extends AbstractMock
         return ExceptionHttpStatusCodeMapper::class;
     }
 
+    /**
+     * @throws Exception
+     * @throws IncompatibleReturnValueException
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
     public function shouldGetStatusCodeFor(
         string $exceptionClassName,
         ?int $statusCode

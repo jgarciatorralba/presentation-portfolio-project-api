@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Projects\Domain\ValueObject;
 
+use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
@@ -29,6 +30,10 @@ final class ProjectRepositoryUrlBuilder implements BuilderInterface
         return $this;
     }
 
+    /**
+     * @throws InvalidProjectRepositoryUrlException
+     * @throws \InvalidArgumentException
+     */
     public function build(): ProjectRepositoryUrl
     {
         return ProjectRepositoryUrl::fromString($this->value);

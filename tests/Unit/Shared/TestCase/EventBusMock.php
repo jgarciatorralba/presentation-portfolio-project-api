@@ -6,6 +6,12 @@ namespace App\Tests\Unit\Shared\TestCase;
 
 use App\Shared\Domain\Bus\Event\Event;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use PHPUnit\Framework\Exception;
+use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
+use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
+use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 use Symfony\Component\Messenger\MessageBusInterface;
 
 final class EventBusMock extends AbstractMock
@@ -24,6 +30,13 @@ final class EventBusMock extends AbstractMock
     }
 
     /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     *
      * @param list<array{
      *      event: Event,
      *      exception: \Throwable|null

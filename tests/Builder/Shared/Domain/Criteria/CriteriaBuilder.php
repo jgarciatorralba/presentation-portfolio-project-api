@@ -22,6 +22,10 @@ final class CriteriaBuilder implements BuilderInterface
     ) {
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(

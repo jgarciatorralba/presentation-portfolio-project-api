@@ -23,6 +23,7 @@ final class HttpHeadersBuilder implements BuilderInterface
         $this->headers = $headers;
     }
 
+    /** @throws \InvalidArgumentException */
     public static function any(): self
     {
         return new self(
@@ -30,7 +31,11 @@ final class HttpHeadersBuilder implements BuilderInterface
         );
     }
 
-    /** @return HttpHeaders<HttpHeader> */
+    /**
+     * @throws \InvalidArgumentException
+     *
+     * @return HttpHeaders<HttpHeader>
+     */
     public function build(): HttpHeaders
     {
         return new HttpHeaders(
@@ -38,7 +43,11 @@ final class HttpHeadersBuilder implements BuilderInterface
         );
     }
 
-    /** @return HttpHeader[] */
+    /**
+     * @throws \InvalidArgumentException
+     *
+     * @return HttpHeader[]
+     */
     private static function randomHeaders(?int $numHeaders = null): array
     {
         if ($numHeaders === null) {

@@ -25,6 +25,10 @@ final class FiltersBuilder implements BuilderInterface
         $this->filters = $filters;
     }
 
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     */
     public static function any(): self
     {
         return new self(
@@ -45,7 +49,12 @@ final class FiltersBuilder implements BuilderInterface
         );
     }
 
-    /** @return Filter[] */
+    /**
+     * @throws \ValueError
+     * @throws \TypeError
+     *
+     * @return Filter[]
+     */
     private static function randomFilters(?int $numFilters = null): array
     {
         if ($numFilters === null) {
