@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class UpdatedBeforeDateTimeCriteriaTest extends TestCase
 {
     #[DataProvider('dataUpdatedBeforeDateTimeCriteria')]
-    public function testCriteriaIsCreated(
+    public function testItIsCreated(
         \DateTimeImmutable $maxUpdatedAt,
         ?int $limit
     ): void {

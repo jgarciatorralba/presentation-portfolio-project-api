@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ProjectNotFoundExceptionTest extends TestCase
 {
-    public function testExceptionIsCreated(): void
+    public function testItIsCreated(): void
     {
         $id = ProjectIdBuilder::any()->build();
         $exception = new ProjectNotFoundException($id);

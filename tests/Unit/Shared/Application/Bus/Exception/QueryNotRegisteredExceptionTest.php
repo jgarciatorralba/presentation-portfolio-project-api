@@ -23,7 +23,7 @@ final class QueryNotRegisteredExceptionTest extends TestCase
         $this->query = null;
     }
 
-    public function testExceptionIsCreated(): void
+    public function testItIsCreated(): void
     {
         $exception = new QueryNotRegisteredException($this->query);
         $queryClass = $this->query !== null ? $this->query::class : self::class;

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class InvalidProjectRepositoryUrlExceptionTest extends TestCase
 {
-    public function testExceptionIsCreated(): void
+    public function testItIsCreated(): void
     {
         $urlString = 'invalid-url';
         $exception = new InvalidProjectRepositoryUrlException($urlString);

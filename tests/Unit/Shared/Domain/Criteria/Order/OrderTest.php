@@ -10,7 +10,7 @@ use App\Tests\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
 
 class OrderTest extends TestCase
 {
-    public function testOrderIsCreated(): void
+    public function testItIsCreated(): void
     {
         $expected = OrderBuilder::any()->build();
 

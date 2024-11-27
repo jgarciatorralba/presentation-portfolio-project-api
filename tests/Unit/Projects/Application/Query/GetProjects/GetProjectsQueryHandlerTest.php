@@ -32,7 +32,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
         $this->sut = null;
     }
 
-    public function testGetProjects(): void
+    public function testItGetsProjects(): void
     {
         $projects = ProjectBuilder::buildMany(10);
 

@@ -43,7 +43,7 @@ final class CreateProjectCommandHandlerTest extends TestCase
         $this->sut = null;
     }
 
-    public function testCreateProject(): void
+    public function testItCreatesAProject(): void
     {
         $command = CreateProjectCommandBuilder::any()
             ->withId($this->project->id()->value())

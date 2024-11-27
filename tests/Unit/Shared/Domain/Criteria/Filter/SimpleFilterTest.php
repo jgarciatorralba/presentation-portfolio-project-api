@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class SimpleFilterTest extends TestCase
 {
-    public function testSimpleFilterIsCreated(): void
+    public function testItIsCreated(): void
     {
         $simpleFilterCreated = SimpleFilterBuilder::any()->build();
 

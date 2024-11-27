@@ -23,7 +23,7 @@ final class LocalDateTimeZoneConverterTest extends TestCase
     }
 
     #[DataProvider('datesToConvert')]
-    public function testConvert(
+    public function testItConvertsDateTimeToLocalTimeZone(
         string $receivedDateTimeString,
         string $localDateTimeString
     ): void {

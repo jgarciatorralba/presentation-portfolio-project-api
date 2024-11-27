@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class CompositeFilterTest extends TestCase
 {
-    public function testCompositeFilterIsCreated(): void
+    public function testItIsCreated(): void
     {
         $expected = CompositeFilterBuilder::any()->build();
 

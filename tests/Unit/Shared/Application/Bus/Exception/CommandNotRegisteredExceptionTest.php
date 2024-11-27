@@ -23,7 +23,7 @@ final class CommandNotRegisteredExceptionTest extends TestCase
         $this->command = null;
     }
 
-    public function testExceptionIsCreated(): void
+    public function testItIsCreated(): void
     {
         $exception = new CommandNotRegisteredException($this->command);
         $commandClass = $this->command !== null ? $this->command::class : self::class;

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ProjectAlreadyExistsExceptionTest extends TestCase
 {
-    public function testExceptionIsCreated(): void
+    public function testItIsCreated(): void
     {
         $projectId = ProjectIdBuilder::any()->build();
         $exception = new ProjectAlreadyExistsException($projectId);

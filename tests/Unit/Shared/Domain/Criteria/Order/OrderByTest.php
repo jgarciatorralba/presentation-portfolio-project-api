@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class OrderByTest extends TestCase
 {
-    public function testOrderByIsCreated(): void
+    public function testItIsCreated(): void
     {
         $expected = OrderByBuilder::any()->build();
 
