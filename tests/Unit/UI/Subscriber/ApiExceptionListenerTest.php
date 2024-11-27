@@ -37,7 +37,7 @@ final class ApiExceptionListenerTest extends TestCase
     }
 
     #[DataProvider('dataIsMainRequest')]
-    public function testOnKernelException(bool $isMainRequest): void
+    public function testItHandlesKernelException(bool $isMainRequest): void
     {
         $this->exceptionEventMock
             ->shouldGetThrowable(new \Exception('Exception message'));
@@ -71,7 +71,7 @@ final class ApiExceptionListenerTest extends TestCase
      *      errors?: array<string, string>
      * } $exceptionContent
      */
-    public function testBuildResponse(\Throwable $exception, array $exceptionContent): void
+    public function testItBuildsResponse(\Throwable $exception, array $exceptionContent): void
     {
         $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('buildResponse');
@@ -121,7 +121,7 @@ final class ApiExceptionListenerTest extends TestCase
     }
 
     #[DataProvider('dataGetErrorCode')]
-    public function testGetErrorCode(\Throwable $exception, string $errorCode): void
+    public function testItGetsErrorCode(\Throwable $exception, string $errorCode): void
     {
         $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('getErrorCode');
@@ -149,7 +149,7 @@ final class ApiExceptionListenerTest extends TestCase
     }
 
     #[DataProvider('dataStatusCodes')]
-    public function testGetStatusCode(\Throwable $exception, ?int $exceptionStatusCode): void
+    public function testItGetsStatusCode(\Throwable $exception, ?int $exceptionStatusCode): void
     {
         $this->exceptionHttpStatusCodeMapperMock
             ->shouldGetStatusCodeFor($exception::class, $exceptionStatusCode);

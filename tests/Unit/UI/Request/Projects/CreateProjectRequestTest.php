@@ -35,7 +35,7 @@ final class CreateProjectRequestTest extends TestCase
      * @param array<string, mixed> $data
      * @param array<string, string> $errors
      */
-    public function testItCreatesRequest(array $data, array $errors): void
+    public function testItIsCreated(array $data, array $errors): void
     {
         $this->validatorMock->shouldValidate(
             data: $data,

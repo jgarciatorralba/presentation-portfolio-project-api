@@ -15,7 +15,7 @@ class ValidationExceptionTest extends TestCase
     /**
      * @param array<string, string> $errors
      */
-    public function testExceptionIsCreated(array $errors): void
+    public function testItIsCreated(array $errors): void
     {
         $exception = new ValidationException($errors);
 
