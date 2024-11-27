@@ -45,9 +45,12 @@ final class ProjectAddedSubscriberTest extends TestCase
     public function testItHandlesProjectAddedEvent(): void
     {
         $this->createProject->shouldCreateProject($this->event->project());
-        $this->logger->shouldLogInfo('ProjectAddedEvent handled.', [
-            'projectId' => $this->event->project()->id()->value(),
-        ]);
+        $this->logger->shouldLogInfo(
+            'ProjectAddedEvent handled.',
+            [
+                'projectId' => $this->event->project()->id()->value(),
+            ]
+        );
 
         $this->sut->__invoke($this->event);
     }
@@ -55,13 +58,16 @@ final class ProjectAddedSubscriberTest extends TestCase
     public function testItLogsErrorWhenProjectCreationFails(): void
     {
         $this->createProject->shouldThrowException($this->event->project());
-        $this->logger->shouldLogError('ProjectAddedEvent failed.', [
-            'projectId' => $this->event->project()->id()->value(),
-            'error' => sprintf(
-                "Project with id '%s' already exists.",
-                $this->event->project()->id()->value()
-            ),
-        ]);
+        $this->logger->shouldLogError(
+            'ProjectAddedEvent failed.',
+            [
+                'projectId' => $this->event->project()->id()->value(),
+                'error' => sprintf(
+                    "Project with id '%s' already exists.",
+                    $this->event->project()->id()->value()
+                ),
+            ]
+        );
 
         $this->expectException(ProjectAlreadyExistsException::class);
         $this->sut->__invoke($this->event);
