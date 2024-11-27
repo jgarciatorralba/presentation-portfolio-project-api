@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class UtilsTest extends TestCase
 {
-    public function testDateToString(): void
+    public function testItConvertsDateToString(): void
     {
         $date = new \DateTimeImmutable();
         $dateToString = Utils::dateToString($date);
@@ -23,7 +23,7 @@ final class UtilsTest extends TestCase
     }
 
     #[DataProvider('dataStringToDate')]
-    public function testStringToDate(
+    public function testItConvertsStringToDate(
         string $stringToConvert,
         \DateTimeInterface $expectedResult
     ): void {
@@ -33,14 +33,14 @@ final class UtilsTest extends TestCase
         $this->assertGreaterThanOrEqual($expectedResult->getTimestamp(), $date->getTimestamp());
     }
 
-    public function testExtractClassName(): void
+    public function testItExtractsClassName(): void
     {
         $className = Utils::extractClassName(Utils::class);
         $this->assertEquals('Utils', $className);
     }
 
     #[DataProvider('dataToSnakeCase')]
-    public function testToSnakeCase(
+    public function testItConvertsToSnakeCase(
         string $stringToConvert,
         string $expectedResult
     ): void {

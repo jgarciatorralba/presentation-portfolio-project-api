@@ -22,7 +22,7 @@ class OrderTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testOrderIsCreatedFromValues(): void
+    public function testItIsCreatedFromValues(): void
     {
         $expected = OrderBuilder::any()->build();
 
