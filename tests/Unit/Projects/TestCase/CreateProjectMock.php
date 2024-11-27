@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Projects\TestCase;
 
+use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\CreateProject;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
@@ -41,6 +42,26 @@ final class CreateProjectMock extends AbstractMock
                     return true;
                 }
             ));
+    }
+
+    /**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
+    public function shouldThrowException(
+        Project $expected
+    ): void {
+        $this->mock
+            ->expects($this->once())
+            ->method('__invoke')
+            ->with($expected)
+            ->willThrowException(
+                new ProjectAlreadyExistsException($expected->id())
+            );
     }
 
     /** @throws ExpectationFailedException */
