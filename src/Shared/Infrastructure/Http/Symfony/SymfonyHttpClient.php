@@ -26,7 +26,7 @@ final class SymfonyHttpClient implements HttpClientContract
     public function __construct(
         private ?HttpClientInterface $client = null
     ) {
-        $this->client = new RetryableHttpClient(HttpClient::create());
+        $this->client = $client ?? new RetryableHttpClient(HttpClient::create());
     }
 
     /**

@@ -14,16 +14,34 @@ use App\Shared\Domain\Http\QueryParams;
 use App\Shared\Infrastructure\Http\Symfony\SymfonyHttpClient;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\MockHttpClient;
+use Symfony\Component\HttpClient\Response\MockResponse;
 
 final class SymfonyHttpClientTest extends TestCase
 {
     private const string BASE_URI = 'https://jsonplaceholder.typicode.com';
+    private const string RESPONSE_BODY = '
+		[
+			{
+				"userId": 1,
+				"id": 1,
+				"title": "delectus aut autem",
+				"body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem"
+			}
+		]
+	';
 
     private HttpClient $httpClient;
 
     protected function setUp(): void
     {
-        $this->httpClient = new SymfonyHttpClient();
+        $mockResponse = new MockResponse(self::RESPONSE_BODY, [
+            'http_code' => 200,
+            'response_headers' => ['Content-Type' => 'application/json']
+        ]);
+        $mockHttpClient = new MockHttpClient($mockResponse, self::BASE_URI);
+
+        $this->httpClient = new SymfonyHttpClient($mockHttpClient);
     }
 
     public function testItFetchesUrl(): void
