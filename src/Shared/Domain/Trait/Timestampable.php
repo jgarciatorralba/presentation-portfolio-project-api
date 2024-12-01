@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Trait;
 
-trait TimestampableTrait
+trait Timestampable
 {
     private \DateTimeImmutable $createdAt;
     private int $createdAtTimestamp;

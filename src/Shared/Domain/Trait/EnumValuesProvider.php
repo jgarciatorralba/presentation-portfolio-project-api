@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Trait;
 
-trait EnumValuesProviderTrait
+trait EnumValuesProvider
 {
     /** @return string[]|int[] */
     public static function values(): array

@@ -9,12 +9,12 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Contract\Comparable;
-use App\Shared\Domain\Trait\TimestampableTrait;
+use App\Shared\Domain\Trait\Timestampable;
 use App\Shared\Utils;
 
 final class Project extends AggregateRoot implements Comparable
 {
-    use TimestampableTrait;
+    use Timestampable;
 
     private function __construct(
         private readonly ProjectId $id,

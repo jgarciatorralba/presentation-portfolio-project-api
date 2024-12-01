@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Http;
 
-use App\Shared\Domain\Trait\EnumValuesProviderTrait;
+use App\Shared\Domain\Trait\EnumValuesProvider;
 
 enum HttpProtocolVersion: string
 {
-    use EnumValuesProviderTrait;
+    use EnumValuesProvider;
 
     case HTTP_0_9 = '0.9';
     case HTTP_1_0 = '1.0';
