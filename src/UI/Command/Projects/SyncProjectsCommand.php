@@ -38,7 +38,7 @@ class SyncProjectsCommand extends Command
         $event = new SyncProjectsRequestedEvent();
         $this->eventBus->publish($event);
 
-        $commandStyle->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}.");
+        $commandStyle->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}");
         return Command::SUCCESS;
     }
 }
