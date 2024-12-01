@@ -26,7 +26,7 @@ final class SymfonyHttpClientTest extends TestCase
 				"userId": 1,
 				"id": 1,
 				"title": "delectus aut autem",
-				"body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem"
+				"body": "quia et suscipit\nsuscipit recusandae consequuntur expedita"
 			}
 		]
 	';
