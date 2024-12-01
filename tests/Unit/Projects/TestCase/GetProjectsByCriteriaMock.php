@@ -10,6 +10,7 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
 use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
@@ -24,6 +25,7 @@ final class GetProjectsByCriteriaMock extends AbstractMock
 
     /**
      * @throws Exception
+     * @throws IncompatibleReturnValueException
      * @throws InvalidArgumentException
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
