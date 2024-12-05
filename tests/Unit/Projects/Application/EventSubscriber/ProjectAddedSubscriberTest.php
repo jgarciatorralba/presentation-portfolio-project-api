@@ -25,8 +25,8 @@ final class ProjectAddedSubscriberTest extends TestCase
             ProjectBuilder::any()->build()
         );
 
-        $this->createProject = new CreateProjectMock($this);
-        $this->logger = new LoggerMock($this);
+        $this->createProject = new CreateProjectMock();
+        $this->logger = new LoggerMock();
         $this->sut = new ProjectAddedSubscriber(
             createProject: $this->createProject->getMock(),
             logger: $this->logger->getMock()

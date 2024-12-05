@@ -26,8 +26,8 @@ final class DoctrineProjectRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManagerMock = new EntityManagerMock($this);
-        $this->entityRepositoryMock = new EntityRepositoryMock($this);
+        $this->entityManagerMock = new EntityManagerMock();
+        $this->entityRepositoryMock = new EntityRepositoryMock();
         $this->sut = new DoctrineProjectRepository(
             entityManager: $this->entityManagerMock->getMock()
         );

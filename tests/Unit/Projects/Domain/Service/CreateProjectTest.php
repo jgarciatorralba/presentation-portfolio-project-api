@@ -20,7 +20,7 @@ final class CreateProjectTest extends TestCase
     protected function setUp(): void
     {
         $this->project = ProjectBuilder::any()->build();
-        $this->projectRepositoryMock = new ProjectRepositoryMock($this);
+        $this->projectRepositoryMock = new ProjectRepositoryMock();
         $this->sut = new CreateProject(
             projectRepository: $this->projectRepositoryMock->getMock()
         );

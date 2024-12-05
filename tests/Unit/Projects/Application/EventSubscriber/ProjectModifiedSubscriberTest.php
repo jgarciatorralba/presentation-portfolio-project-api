@@ -25,8 +25,8 @@ final class ProjectModifiedSubscriberTest extends TestCase
             ProjectBuilder::any()->build()
         );
 
-        $this->updateProject = new UpdateProjectMock($this);
-        $this->logger = new LoggerMock($this);
+        $this->updateProject = new UpdateProjectMock();
+        $this->logger = new LoggerMock();
         $this->sut = new ProjectModifiedSubscriber(
             updateProject: $this->updateProject->getMock(),
             logger: $this->logger->getMock()
