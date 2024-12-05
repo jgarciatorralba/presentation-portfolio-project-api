@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Shared\Infrastructure\Bus\Event\InMemory;
 
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus;
-use App\Tests\Unit\Shared\TestCase\EventBusMock;
+use App\Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as EventBusMock;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
