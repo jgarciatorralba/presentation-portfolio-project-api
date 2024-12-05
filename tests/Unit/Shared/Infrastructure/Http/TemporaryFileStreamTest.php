@@ -77,6 +77,7 @@ final class TemporaryFileStreamTest extends TestCase
         $stream = new TemporaryFileStream($content);
 
         $charsToRead = FakeValueGenerator::integer(
+            min: 1,
             max: strlen($content)
         );
         $result = $stream->read($charsToRead);
@@ -161,6 +162,7 @@ final class TemporaryFileStreamTest extends TestCase
         $stream = new TemporaryFileStream($content);
 
         $charsToRead = FakeValueGenerator::integer(
+            min: 1,
             max: strlen($content)
         );
         $result = $stream->read($charsToRead);
