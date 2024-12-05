@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\TestCase;
 
+use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
+use App\Shared\Domain\Bus\Event\DomainEvent;
 use App\Shared\Domain\Bus\Event\Event;
+use App\Shared\Domain\Bus\Event\EventBus;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\InvalidArgumentException;
@@ -12,7 +15,6 @@ use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
 use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 final class EventBusMock extends AbstractMock
 {
@@ -26,7 +28,7 @@ final class EventBusMock extends AbstractMock
 
     protected function getClassName(): string
     {
-        return MessageBusInterface::class;
+        return EventBus::class;
     }
 
     /**
@@ -36,24 +38,26 @@ final class EventBusMock extends AbstractMock
      * @throws MethodNameAlreadyConfiguredException
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
-     *
-     * @param list<array{
-     *      event: Event,
-     *      exception: \Throwable|null
-     * }> $events
      */
-    public function shouldDispatchEventsOrThrowExceptions(array $events): void
+    public function shouldPublishEvents(Event ...$events): void
     {
         $this->mock
             ->expects($this->exactly(count($events)))
-            ->method('dispatch')
+            ->method('publish')
             ->with(
                 $this->callback(
                     function (Event $event) use ($events): bool {
-                        if ($events[self::$callIndex]['exception'] !== null) {
-                            throw $events[self::$callIndex++]['exception'];
+                        $expectedEvent = $events[self::$callIndex++];
+
+                        if (get_class($event) !== get_class($expectedEvent)) {
+                            return false;
                         }
-                        return $event === $events[self::$callIndex++]['event'];
+
+                        if ($expectedEvent instanceof DomainEvent && $event instanceof DomainEvent) {
+                            return $event->aggregateId() === $expectedEvent->aggregateId();
+                        }
+
+                        return true;
                     }
                 )
             );
