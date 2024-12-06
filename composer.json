@@ -76,7 +76,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.8",
-        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "doctrine/doctrine-fixtures-bundle": "^4.0",
         "fakerphp/faker": "^1.23",
         "phpmd/phpmd": "^2.15",
         "phpstan/phpstan": "^1.12",
