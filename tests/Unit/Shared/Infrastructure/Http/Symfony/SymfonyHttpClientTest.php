@@ -57,6 +57,8 @@ final class SymfonyHttpClientTest extends TestCase
         ];
 
         $response = $this->httpClient->fetch('/posts', $httpOptions);
+		$content = $response->getBody()->getContents();
+		$decodedContent = json_decode($content, true);
 
         $this->assertInstanceOf(HttpResponse::class, $response);
         $this->assertSame(
@@ -72,7 +74,12 @@ final class SymfonyHttpClientTest extends TestCase
             $response->getProtocolVersion()
         );
         $this->assertInstanceOf(TemporaryFileStream::class, $response->getBody());
-        $this->assertNotEmpty($content = $response->getBody()->getContents());
-        $this->assertIsArray(json_decode($content, true));
+        $this->assertNotEmpty($content);
+        $this->assertIsArray($decodedContent);
+		$this->assertEquals(
+			json_decode(self::RESPONSE_BODY, true),
+			$decodedContent['content']
+		);
+		$this->assertNull($decodedContent['error']);
     }
 }
