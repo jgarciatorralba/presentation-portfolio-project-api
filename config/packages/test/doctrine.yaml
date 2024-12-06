@@ -3,7 +3,7 @@ doctrine:
     default_connection: postgres
     connections:
       postgres:
-        dbname: "%env(resolve:DATABASE_TEST_NAME)%"
+        dbname: "%env(resolve:TEST_DATABASE_NAME)%"
         host: "%env(resolve:DATABASE_HOST)%"
         port: "%env(resolve:DATABASE_PORT)%"
         user: "%env(resolve:DATABASE_USER)%"
