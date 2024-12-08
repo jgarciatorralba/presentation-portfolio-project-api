@@ -12,46 +12,46 @@ use PHPUnit\Framework\TestCase;
 
 final class GetAllProjectsTest extends TestCase
 {
-	/** @var Project[] $projects */
-	private ?array $projects;
-	private ?ProjectRepositoryMock $projectRepositoryMock;
-	private ?GetAllProjects $sut;
+    /** @var Project[] $projects */
+    private ?array $projects;
+    private ?ProjectRepositoryMock $projectRepositoryMock;
+    private ?GetAllProjects $sut;
 
-	protected function setUp(): void
-	{
-		$this->projects = ProjectBuilder::buildMany();
-		$this->projectRepositoryMock = new ProjectRepositoryMock();
-		$this->sut = new GetAllProjects(
-			projectRepository: $this->projectRepositoryMock->getMock()
-		);
-	}
+    protected function setUp(): void
+    {
+        $this->projects = ProjectBuilder::buildMany();
+        $this->projectRepositoryMock = new ProjectRepositoryMock();
+        $this->sut = new GetAllProjects(
+            projectRepository: $this->projectRepositoryMock->getMock()
+        );
+    }
 
-	protected function tearDown(): void
-	{
-		$this->projects = null;
-		$this->projectRepositoryMock = null;
-		$this->sut = null;
-	}
+    protected function tearDown(): void
+    {
+        $this->projects = null;
+        $this->projectRepositoryMock = null;
+        $this->sut = null;
+    }
 
-	public function testItGetsAllProjectsMapped(): void
-	{
-		$this->projectRepositoryMock
-			->shouldFindAllProjects(...$this->projects);
+    public function testItGetsAllProjectsMapped(): void
+    {
+        $this->projectRepositoryMock
+            ->shouldFindAllProjects(...$this->projects);
 
-		$result = $this->sut->__invoke();
+        $result = $this->sut->__invoke();
 
-		$mappedProjects = array_reduce(
-			$this->projects,
-			static function (array $carry, Project $project): array {
-				$carry[$project->id()->value()] = $project;
-				return $carry;
-			},
-			[]
-		);
+        $mappedProjects = array_reduce(
+            $this->projects,
+            static function (array $carry, Project $project): array {
+                $carry[$project->id()->value()] = $project;
+                return $carry;
+            },
+            []
+        );
 
-		$this->assertEquals(
-			$mappedProjects,
-			$result
-		);
-	}
+        $this->assertEquals(
+            $mappedProjects,
+            $result
+        );
+    }
 }

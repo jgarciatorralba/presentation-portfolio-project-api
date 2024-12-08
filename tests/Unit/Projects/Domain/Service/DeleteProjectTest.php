@@ -13,51 +13,51 @@ use PHPUnit\Framework\TestCase;
 
 final class DeleteProjectTest extends TestCase
 {
-	private ?Project $project;
-	private ?ProjectRepositoryMock $projectRepositoryMock;
-	private ?DeleteProject $sut;
+    private ?Project $project;
+    private ?ProjectRepositoryMock $projectRepositoryMock;
+    private ?DeleteProject $sut;
 
-	protected function setUp(): void
-	{
-		$this->project = ProjectBuilder::any()->build();
-		$this->projectRepositoryMock = new ProjectRepositoryMock();
-		$this->sut = new DeleteProject(
-			projectRepository: $this->projectRepositoryMock->getMock()
-		);
-	}
+    protected function setUp(): void
+    {
+        $this->project = ProjectBuilder::any()->build();
+        $this->projectRepositoryMock = new ProjectRepositoryMock();
+        $this->sut = new DeleteProject(
+            projectRepository: $this->projectRepositoryMock->getMock()
+        );
+    }
 
-	protected function tearDown(): void
-	{
-		$this->project = null;
-		$this->projectRepositoryMock = null;
-		$this->sut = null;
-	}
+    protected function tearDown(): void
+    {
+        $this->project = null;
+        $this->projectRepositoryMock = null;
+        $this->sut = null;
+    }
 
-	public function testItDeletesAProject(): void
-	{
-		$this->projectRepositoryMock
-			->shouldFindProject($this->project);
-		$this->projectRepositoryMock
-			->shouldDeleteProject($this->project);
+    public function testItDeletesAProject(): void
+    {
+        $this->projectRepositoryMock
+            ->shouldFindProject($this->project);
+        $this->projectRepositoryMock
+            ->shouldDeleteProject($this->project);
 
-		$result = $this->sut->__invoke($this->project);
+        $result = $this->sut->__invoke($this->project);
 
-		$this->assertNull($result);
-	}
+        $this->assertNull($result);
+    }
 
-	public function testItThrowsAnExceptionIfProjectDoesNotExist(): void
-	{
-		$this->projectRepositoryMock
-			->shouldNotFindProject($this->project);
+    public function testItThrowsAnExceptionIfProjectDoesNotExist(): void
+    {
+        $this->projectRepositoryMock
+            ->shouldNotFindProject($this->project);
 
-		$this->expectException(ProjectNotFoundException::class);
-		$this->expectExceptionMessage(
-			sprintf(
-				"Project with id '%s' could not be found.",
-				$this->project->id()
-			)
-		);
+        $this->expectException(ProjectNotFoundException::class);
+        $this->expectExceptionMessage(
+            sprintf(
+                "Project with id '%s' could not be found.",
+                $this->project->id()
+            )
+        );
 
-		$this->sut->__invoke($this->project);
-	}
+        $this->sut->__invoke($this->project);
+    }
 }

@@ -12,46 +12,46 @@ use PHPUnit\Framework\TestCase;
 
 final class RequestExternalProjectsTest extends TestCase
 {
-	/** @var Project[] $projects */
-	private ?array $projects;
-	private ?ExternalProjectRetrieverMock $externalProjectRetrieverMock;
-	private ?RequestExternalProjects $sut;
+    /** @var Project[] $projects */
+    private ?array $projects;
+    private ?ExternalProjectRetrieverMock $externalProjectRetrieverMock;
+    private ?RequestExternalProjects $sut;
 
-	protected function setUp(): void
-	{
-		$this->projects = ProjectBuilder::buildMany();
-		$this->externalProjectRetrieverMock = new ExternalProjectRetrieverMock();
-		$this->sut = new RequestExternalProjects(
-			externalProjectRetriever: $this->externalProjectRetrieverMock->getMock()
-		);
-	}
+    protected function setUp(): void
+    {
+        $this->projects = ProjectBuilder::buildMany();
+        $this->externalProjectRetrieverMock = new ExternalProjectRetrieverMock();
+        $this->sut = new RequestExternalProjects(
+            externalProjectRetriever: $this->externalProjectRetrieverMock->getMock()
+        );
+    }
 
-	protected function tearDown(): void
-	{
-		$this->projects = null;
-		$this->externalProjectRetrieverMock = null;
-		$this->sut = null;
-	}
+    protected function tearDown(): void
+    {
+        $this->projects = null;
+        $this->externalProjectRetrieverMock = null;
+        $this->sut = null;
+    }
 
-	public function testItRequestsExternalProjects(): void
-	{
-		$this->externalProjectRetrieverMock
-			->shouldRetrieveProjects(...$this->projects);
+    public function testItRequestsExternalProjects(): void
+    {
+        $this->externalProjectRetrieverMock
+            ->shouldRetrieveProjects(...$this->projects);
 
-		$result = $this->sut->__invoke();
+        $result = $this->sut->__invoke();
 
-		$mappedProjects = array_reduce(
-			$this->projects,
-			static function (array $carry, Project $project): array {
-				$carry[$project->id()->value()] = $project;
-				return $carry;
-			},
-			[]
-		);
+        $mappedProjects = array_reduce(
+            $this->projects,
+            static function (array $carry, Project $project): array {
+                $carry[$project->id()->value()] = $project;
+                return $carry;
+            },
+            []
+        );
 
-		$this->assertEquals(
-			$mappedProjects,
-			$result
-		);
-	}
+        $this->assertEquals(
+            $mappedProjects,
+            $result
+        );
+    }
 }

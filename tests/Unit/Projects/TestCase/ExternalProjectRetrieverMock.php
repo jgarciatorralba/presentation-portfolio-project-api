@@ -14,22 +14,22 @@ use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 
 final class ExternalProjectRetrieverMock extends AbstractMock
 {
-	protected function getClassName(): string
-	{
-		return ExternalProjectRetriever::class;
-	}
+    protected function getClassName(): string
+    {
+        return ExternalProjectRetriever::class;
+    }
 
-	/**
-	 * @throws IncompatibleReturnValueException
-	 * @throws InvalidArgumentException
-	 * @throws MethodCannotBeConfiguredException
-	 * @throws MethodNameAlreadyConfiguredException
-	 */
-	public function shouldRetrieveProjects(Project ...$projects): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('retrieve')
-			->willReturn($projects);
-	}
+    /**
+     * @throws IncompatibleReturnValueException
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     */
+    public function shouldRetrieveProjects(Project ...$projects): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('retrieve')
+            ->willReturn($projects);
+    }
 }

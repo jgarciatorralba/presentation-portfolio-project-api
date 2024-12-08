@@ -95,7 +95,7 @@ final class ProjectRepositoryMock extends AbstractMock
             ->willReturn($projects);
     }
 
-	/**
+    /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws MethodCannotBeConfiguredException
@@ -103,13 +103,13 @@ final class ProjectRepositoryMock extends AbstractMock
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      */
-	public function shouldDeleteProject(Project $project): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('delete')
-			->with($project);
-	}
+    public function shouldDeleteProject(Project $project): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('delete')
+            ->with($project);
+    }
 
     /**
      * @throws IncompatibleReturnValueException
@@ -117,15 +117,15 @@ final class ProjectRepositoryMock extends AbstractMock
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      */
-	public function shouldFindAllProjects(Project ...$projects): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('findAll')
-			->willReturn($projects);
-	}
+    public function shouldFindAllProjects(Project ...$projects): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('findAll')
+            ->willReturn($projects);
+    }
 
-	/**
+    /**
      * @throws Exception
      * @throws InvalidArgumentException
      * @throws MethodCannotBeConfiguredException
@@ -133,11 +133,11 @@ final class ProjectRepositoryMock extends AbstractMock
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      */
-	public function shouldUpdateProject(Project $project): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('update')
-			->with($project);
-	}
+    public function shouldUpdateProject(Project $project): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('update')
+            ->with($project);
+    }
 }
