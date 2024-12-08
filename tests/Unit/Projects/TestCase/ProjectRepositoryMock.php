@@ -95,4 +95,20 @@ final class ProjectRepositoryMock extends AbstractMock
             ->with($criteria)
             ->willReturn($projects);
     }
+
+	/**
+     * @throws Exception
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     * @throws MethodNameNotConfiguredException
+     * @throws MethodParametersAlreadyConfiguredException
+     */
+	public function shouldDeleteProject(Project $project): void
+	{
+		$this->mock
+			->expects($this->once())
+			->method('delete')
+			->with($project);
+	}
 }
