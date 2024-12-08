@@ -17,6 +17,7 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectBuilder implements BuilderInterface
 {
+	private const int MIN_PROJECTS = 1;
     private const int MAX_PROJECTS = 100;
 
     private function __construct(
@@ -56,7 +57,10 @@ final class ProjectBuilder implements BuilderInterface
     public static function buildMany(?int $amount = null): array
     {
         if ($amount === null) {
-            $amount = FakeValueGenerator::integer(max: self::MAX_PROJECTS);
+            $amount = FakeValueGenerator::integer(
+				min: self::MIN_PROJECTS,
+				max: self::MAX_PROJECTS
+			);
         }
 
         $projects = [];
