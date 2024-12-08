@@ -23,35 +23,35 @@ final class HttpClientMock extends AbstractMock
     }
 
     /**
-	 * @param array<string, mixed> $content
+     * @param array<string, mixed> $content
      *
-	 * @throws \RuntimeException
-	 * @throws \InvalidArgumentException
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
      * @throws IncompatibleReturnValueException
      * @throws InvalidArgumentException
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      */
     public function shouldFetchSuccessfully(
-		int $times,
-		array $content
-	): void {
+        int $times,
+        array $content
+    ): void {
         $temporaryFileStream = new TemporaryFileStream(json_encode([
-			'content' => $content,
-			'error' => null,
-		]));
+            'content' => $content,
+            'error' => null,
+        ]));
 
-		$httpHeaders = $times > 1
-			? new HttpHeaders(
-				new HttpHeader('Content-Type', 'application/json'),
-				new HttpHeader(
-					'Link',
-					'<https://projects.com/user?page=2>; rel="next", <https://projects.com/user?page=2>; rel="last"'
-				)
-			)
-			: new HttpHeaders(
-				new HttpHeader('Content-Type', 'application/json'),
-			);
+        $httpHeaders = $times > 1
+            ? new HttpHeaders(
+                new HttpHeader('Content-Type', 'application/json'),
+                new HttpHeader(
+                    'Link',
+                    '<https://projects.com/user?page=2>; rel="next", <https://projects.com/user?page=2>; rel="last"'
+                )
+            )
+            : new HttpHeaders(
+                new HttpHeader('Content-Type', 'application/json'),
+            );
 
         $httpResponse = HttpResponse::create(
             body: $temporaryFileStream,
