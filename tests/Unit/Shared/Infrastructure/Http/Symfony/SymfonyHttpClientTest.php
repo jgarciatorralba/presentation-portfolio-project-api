@@ -20,19 +20,19 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 final class SymfonyHttpClientTest extends TestCase
 {
     private const string BASE_URI = 'https://jsonplaceholder.typicode.com';
-	private const string FILE_PATH = '/Simulations/JSONPlaceholder/posts.json';
+    private const string FILE_PATH = '/Simulations/JSONPlaceholder/user-posts.json';
 
     private HttpClient $httpClient;
 
     protected function setUp(): void
     {
         $mockResponse = new MockResponse(
-			file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
-			[
-				'http_code' => 200,
-				'response_headers' => ['Content-Type' => 'application/json']
-			]
-		);
+            file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
+            [
+                'http_code' => 200,
+                'response_headers' => ['Content-Type' => 'application/json']
+            ]
+        );
         $mockHttpClient = new MockHttpClient($mockResponse, self::BASE_URI);
 
         $this->httpClient = new SymfonyHttpClient($mockHttpClient);
@@ -72,9 +72,9 @@ final class SymfonyHttpClientTest extends TestCase
         $this->assertIsArray($decodedContent);
         $this->assertEquals(
             json_decode(
-				file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
-				true
-			),
+                file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
+                true
+            ),
             $decodedContent['content']
         );
         $this->assertNull($decodedContent['error']);
