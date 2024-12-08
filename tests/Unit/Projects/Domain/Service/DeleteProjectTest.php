@@ -48,7 +48,7 @@ final class DeleteProjectTest extends TestCase
 	public function testItThrowsAnExceptionIfProjectDoesNotExist(): void
 	{
 		$this->projectRepositoryMock
-			->shouldNotFindProject($this->project->id());
+			->shouldNotFindProject($this->project);
 
 		$this->expectException(ProjectNotFoundException::class);
 		$this->expectExceptionMessage(

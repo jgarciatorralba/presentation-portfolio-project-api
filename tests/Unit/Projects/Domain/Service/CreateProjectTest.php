@@ -36,7 +36,7 @@ final class CreateProjectTest extends TestCase
     public function testItCreatesAProject(): void
     {
         $this->projectRepositoryMock
-            ->shouldNotFindProject($this->project->id());
+            ->shouldNotFindProject($this->project);
         $this->projectRepositoryMock
             ->shouldCreateProject($this->project);
 

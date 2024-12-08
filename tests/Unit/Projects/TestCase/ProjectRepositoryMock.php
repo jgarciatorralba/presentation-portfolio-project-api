@@ -6,7 +6,6 @@ namespace App\Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
-use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\Exception;
@@ -51,12 +50,12 @@ final class ProjectRepositoryMock extends AbstractMock
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      */
-    public function shouldNotFindProject(ProjectId $id): void
+    public function shouldNotFindProject(Project $project): void
     {
         $this->mock
             ->expects($this->once())
             ->method('find')
-            ->with($id)
+            ->with($project->id())
             ->willReturn(null);
     }
 
@@ -110,5 +109,19 @@ final class ProjectRepositoryMock extends AbstractMock
 			->expects($this->once())
 			->method('delete')
 			->with($project);
+	}
+
+    /**
+     * @throws IncompatibleReturnValueException
+     * @throws InvalidArgumentException
+     * @throws MethodCannotBeConfiguredException
+     * @throws MethodNameAlreadyConfiguredException
+     */
+	public function shouldFindAllProjects(Project ...$projects): void
+	{
+		$this->mock
+			->expects($this->once())
+			->method('findAll')
+			->willReturn($projects);
 	}
 }
