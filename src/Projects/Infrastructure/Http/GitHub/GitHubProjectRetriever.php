@@ -111,7 +111,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
      */
     protected function createProjectFromData(array $projectData): Project
     {
-        $projectDetails = ProjectDetails::create(
+        $details = ProjectDetails::create(
             name: $projectData['name'],
             description: empty($projectData['description'])
                 ? null
@@ -121,19 +121,19 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 : $projectData['topics'],
         );
 
-        $projectRepositoryUrl = ProjectRepositoryUrl::fromString($projectData['html_url']);
+        $repository = ProjectRepositoryUrl::fromString($projectData['html_url']);
         $homepage = empty($projectData['homepage'])
             ? null
             : Url::fromString($projectData['homepage']);
 
         $projectUrls = ProjectUrls::create(
-            repository: $projectRepositoryUrl,
+            repository: $repository,
             homepage: $homepage,
         );
 
         return Project::create(
             id: ProjectId::create($projectData['id']),
-            details: $projectDetails,
+            details: $details,
             urls: $projectUrls,
             archived: $projectData['archived'],
             lastPushedAt: $this->dateTimeConverter->convert(
