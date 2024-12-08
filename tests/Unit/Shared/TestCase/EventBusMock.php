@@ -48,7 +48,7 @@ final class EventBusMock extends AbstractMock
                     function (Event $event) use ($events): bool {
                         $expectedEvent = $events[self::$callIndex++];
 
-                        if (get_class($event) !== get_class($expectedEvent)) {
+                        if ($event::class !== $expectedEvent::class) {
                             return false;
                         }
 
