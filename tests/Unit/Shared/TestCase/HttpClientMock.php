@@ -23,7 +23,10 @@ final class HttpClientMock extends AbstractMock
     }
 
     /**
-     * @param array<string, mixed> $content
+     * @param list<array{
+     *      content: string,
+     *      headers: list<HttpHeader>,
+     * }> $chunks
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
@@ -32,35 +35,20 @@ final class HttpClientMock extends AbstractMock
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      */
-    public function shouldFetchSuccessfully(
-        int $times,
-        array $content
-    ): void {
-        $temporaryFileStream = new TemporaryFileStream(json_encode([
-            'content' => $content,
-            'error' => null,
-        ]));
-
-        $httpHeaders = $times > 1
-            ? new HttpHeaders(
-                new HttpHeader('Content-Type', 'application/json'),
-                new HttpHeader(
-                    'Link',
-                    '<https://projects.com/user?page=2>; rel="next", <https://projects.com/user?page=2>; rel="last"'
-                )
-            )
-            : new HttpHeaders(
-                new HttpHeader('Content-Type', 'application/json'),
-            );
-
-        $httpResponse = HttpResponse::create(
-            body: $temporaryFileStream,
-            headers: $httpHeaders
-        );
-
+    public function shouldFetchSuccessfully(array $chunks): void
+    {
         $this->mock
-            ->expects($this->exactly($times))
+            ->expects($this->exactly(count($chunks)))
             ->method('fetch')
-            ->willReturn($httpResponse);
+            ->willReturnCallback(
+                function () use (&$chunks): HttpResponse {
+                    $chunk = array_shift($chunks);
+
+                    return HttpResponse::create(
+                        body: new TemporaryFileStream(json_encode($chunk['content'])),
+                        headers: new HttpHeaders(...$chunk['headers']),
+                    );
+                }
+            );
     }
 }

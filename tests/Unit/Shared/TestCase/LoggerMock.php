@@ -30,10 +30,13 @@ final class LoggerMock extends AbstractMock
      *
      * @param array<string, mixed> $context
      */
-    public function shouldLogInfo(string $message, array $context = []): void
-    {
+    public function shouldLogInfo(
+        string $message,
+        array $context = [],
+        int $times = 1
+    ): void {
         $this->mock
-            ->expects($this->once())
+            ->expects($this->exactly($times))
             ->method('info')
             ->with($message, $context);
     }

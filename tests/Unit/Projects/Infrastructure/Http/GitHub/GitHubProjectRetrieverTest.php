@@ -7,9 +7,11 @@ namespace App\Tests\Unit\Projects\Infrastructure\Http\GitHub;
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever;
+use App\Shared\Domain\Http\HttpHeader;
 use App\Tests\Unit\Shared\TestCase\HttpClientMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
 use App\Tests\Unit\Shared\TestCase\LocalDateTimeZoneConverterMock;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class GitHubProjectRetrieverTest extends TestCase
@@ -51,28 +53,77 @@ final class GitHubProjectRetrieverTest extends TestCase
         self::assertInstanceOf(ExternalProjectRetriever::class, $this->sut);
     }
 
-    public function testItRetrievesProjects(): void
-    {
-        $externalRequests = 1;
-
-        for ($i = 0; $i < $externalRequests; $i++) {
-            $this->loggerMock
-                ->shouldLogInfo('Retrieving projects from GitHub');
-        }
+    #[DataProvider('dataProjectsRetrieved')]
+    /**
+     * @param list<array{
+     *      content: array,
+     *      headers: list<HttpHeader>,
+     * }> $chunks
+     */
+    public function testItRetrievesProjects(
+        array $chunks
+    ): void {
+        $this->loggerMock
+            ->shouldLogInfo(
+                message: 'Retrieving projects from GitHub',
+                times: count($chunks)
+            );
 
         $this->httpClientMock
-            ->shouldFetchSuccessfully(
-                times: $externalRequests,
-                content: json_decode(
-                    file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
-                    true
-                )
-            );
+            ->shouldFetchSuccessfully($chunks);
 
         $projects = $this->sut->retrieve();
 
         $this->assertIsArray($projects);
-        $this->assertCount(3, $projects);
-        $this->assertInstanceof(Project::class, $projects[0]);
+        foreach ($projects as $project) {
+            $this->assertInstanceof(Project::class, $project);
+        }
+    }
+
+    /**
+     * return array<string, array<list<array{
+     *      content: array,
+     *      headers: list<HttpHeader>,
+     * }>>>
+     */
+    public static function dataProjectsRetrieved(): array
+    {
+        $results = json_decode(
+            file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
+            true
+        );
+
+        return [
+            'one chunk' => [[
+                [
+                    'content' => $results,
+                    'headers' => [
+                        new HttpHeader('Content-Type', 'application/json')
+                    ]
+                ]
+            ]],
+            'multiple chunks' => [[
+                [
+                    'content' => array_slice($results, 0, 1),
+                    'headers' => [
+                        new HttpHeader('Content-Type', 'application/json'),
+                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=2>;')
+                    ]
+                ],
+                [
+                    'content' => array_slice($results, 1, 1),
+                    'headers' => [
+                        new HttpHeader('Content-Type', 'application/json'),
+                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=3>; rel="last"')
+                    ]
+                ],
+                [
+                    'content' => array_slice($results, 2, 1),
+                    'headers' => [
+                        new HttpHeader('Content-Type', 'application/json')
+                    ]
+                ],
+            ]]
+        ];
     }
 }
