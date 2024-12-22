@@ -8,6 +8,7 @@ use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever;
 use App\Shared\Domain\Http\HttpHeader;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\Shared\TestCase\HttpClientMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
 use App\Tests\Unit\Shared\TestCase\LocalDateTimeZoneConverterMock;
@@ -70,11 +71,29 @@ final class GitHubProjectRetrieverTest extends TestCase
             );
 
         $this->httpClientMock
-            ->shouldFetchSuccessfully($chunks);
+            ->shouldFetchChunks($chunks);
+
+        $error = array_find(
+            $chunks,
+            fn($chunk): bool => $chunk['error'] !== null
+        );
+
+        if ($error) {
+            $this->loggerMock
+                ->shouldLogError(
+                    message: 'Error retrieving projects from GitHub',
+                    times: 1,
+                    context: [
+                        'statusCode' => $error['statusCode']->value,
+                        'error' => $error['error']
+                    ]
+                );
+        }
 
         $projects = $this->sut->retrieve();
 
         $this->assertIsArray($projects);
+        $this->assertNotEmpty($projects);
         foreach ($projects as $project) {
             $this->assertInstanceof(Project::class, $project);
         }
@@ -97,6 +116,7 @@ final class GitHubProjectRetrieverTest extends TestCase
             'one chunk' => [[
                 [
                     'content' => $results,
+                    'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json')
                     ]
@@ -105,6 +125,7 @@ final class GitHubProjectRetrieverTest extends TestCase
             'multiple chunks' => [[
                 [
                     'content' => array_slice($results, 0, 1),
+                    'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json'),
                         new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=2>;')
@@ -112,6 +133,7 @@ final class GitHubProjectRetrieverTest extends TestCase
                 ],
                 [
                     'content' => array_slice($results, 1, 1),
+                    'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json'),
                         new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=3>; rel="last"')
@@ -119,9 +141,26 @@ final class GitHubProjectRetrieverTest extends TestCase
                 ],
                 [
                     'content' => array_slice($results, 2, 1),
+                    'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json')
                     ]
+                ],
+            ]],
+            'multiple chunks with error' => [[
+                [
+                    'content' => array_slice($results, 0, 1),
+                    'error' => null,
+                    'headers' => [
+                        new HttpHeader('Content-Type', 'application/json'),
+                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=2>;')
+                    ]
+                ],
+                [
+                    'content' => null,
+                    'error' => 'error message',
+                    'statusCode' => HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR,
+                    'headers' => []
                 ],
             ]]
         ];

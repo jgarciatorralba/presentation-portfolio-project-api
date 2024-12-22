@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Shared\TestCase;
 use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
+use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
@@ -24,8 +25,10 @@ final class HttpClientMock extends AbstractMock
 
     /**
      * @param list<array{
-     *      content: string,
+     *      content: array<string, mixed>,
+     *      error: string,
      *      headers: list<HttpHeader>,
+     *      statusCode?: HttpStatusCode,
      * }> $chunks
      *
      * @throws \RuntimeException
@@ -35,7 +38,7 @@ final class HttpClientMock extends AbstractMock
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      */
-    public function shouldFetchSuccessfully(array $chunks): void
+    public function shouldFetchChunks(array $chunks): void
     {
         $this->mock
             ->expects($this->exactly(count($chunks)))
@@ -45,8 +48,12 @@ final class HttpClientMock extends AbstractMock
                     $chunk = array_shift($chunks);
 
                     return HttpResponse::create(
-                        body: new TemporaryFileStream(json_encode($chunk['content'])),
+                        body: new TemporaryFileStream(json_encode([
+                            'content' => $chunk['content'],
+                            'error' => $chunk['error'],
+                        ])),
                         headers: new HttpHeaders(...$chunk['headers']),
+                        statusCode: $chunk['statusCode'] ?? HttpStatusCode::HTTP_OK
                     );
                 }
             );
