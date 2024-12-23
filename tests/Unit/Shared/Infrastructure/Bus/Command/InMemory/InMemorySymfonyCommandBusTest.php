@@ -22,7 +22,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->commandBusMock = new CommandBusMock();
+        $this->commandBusMock = new CommandBusMock($this);
         $this->sut = new InMemorySymfonyCommandBus(
             commandBus: $this->commandBusMock->getMock()
         );

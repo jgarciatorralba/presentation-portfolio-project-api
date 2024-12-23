@@ -15,6 +15,7 @@ use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
 use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
@@ -23,9 +24,9 @@ final class SymfonyMessageBusMock extends AbstractMock
 {
     private static int $callIndex;
 
-    public function __construct()
+    public function __construct(TestCase $testCase)
     {
-        parent::__construct();
+        parent::__construct($testCase);
         self::$callIndex = 0;
     }
 
@@ -53,14 +54,24 @@ final class SymfonyMessageBusMock extends AbstractMock
             ->expects($this->exactly(count($events)))
             ->method('dispatch')
             ->with(
-                $this->callback(
+                $this->testCase->callback(
                     function (Event $event) use ($events): bool {
-                        if ($events[self::$callIndex]['exception'] !== null) {
-                            throw $events[self::$callIndex++]['exception'];
+                        if (!isset($events[self::$callIndex])) {
+                            return false;
                         }
-                        return $event === $events[self::$callIndex++]['event'];
+
+                        return $event->eventId() === ($events[self::$callIndex]['event'])->eventId();
                     }
                 )
+            )
+            ->willReturnCallback(
+                function (Event $event) use ($events): Envelope {
+                    if ($events[self::$callIndex++]['exception'] === null) {
+                        return new Envelope($event);
+                    }
+
+                    throw $events[self::$callIndex - 1]['exception'];
+                }
             );
     }
 

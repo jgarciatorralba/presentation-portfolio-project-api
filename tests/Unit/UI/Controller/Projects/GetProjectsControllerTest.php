@@ -27,8 +27,8 @@ final class GetProjectsControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->queryBusMock = new QueryBusMock();
-        $this->parameterBagMock = new ParameterBagMock();
+        $this->queryBusMock = new QueryBusMock($this);
+        $this->parameterBagMock = new ParameterBagMock($this);
 
         $this->requestStack = new RequestStack();
         $this->requestStack->push(new Request());

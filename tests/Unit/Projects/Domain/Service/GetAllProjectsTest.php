@@ -20,7 +20,7 @@ final class GetAllProjectsTest extends TestCase
     protected function setUp(): void
     {
         $this->projects = ProjectBuilder::buildMany();
-        $this->projectRepositoryMock = new ProjectRepositoryMock();
+        $this->projectRepositoryMock = new ProjectRepositoryMock($this);
         $this->sut = new GetAllProjects(
             projectRepository: $this->projectRepositoryMock->getMock()
         );

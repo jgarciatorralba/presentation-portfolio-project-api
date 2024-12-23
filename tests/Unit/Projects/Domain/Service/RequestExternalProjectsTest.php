@@ -20,7 +20,7 @@ final class RequestExternalProjectsTest extends TestCase
     protected function setUp(): void
     {
         $this->projects = ProjectBuilder::buildMany();
-        $this->externalProjectRetrieverMock = new ExternalProjectRetrieverMock();
+        $this->externalProjectRetrieverMock = new ExternalProjectRetrieverMock($this);
         $this->sut = new RequestExternalProjects(
             externalProjectRetriever: $this->externalProjectRetrieverMock->getMock()
         );

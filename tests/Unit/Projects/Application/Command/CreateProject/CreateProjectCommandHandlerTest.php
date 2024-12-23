@@ -27,8 +27,8 @@ final class CreateProjectCommandHandlerTest extends TestCase
             ->withUpdatedAt($now)
             ->build();
 
-        $this->createProject = new CreateProjectMock();
-        $this->dateTimeConverter = new LocalDateTimeZoneConverterMock();
+        $this->createProject = new CreateProjectMock($this);
+        $this->dateTimeConverter = new LocalDateTimeZoneConverterMock($this);
         $this->sut = new CreateProjectCommandHandler(
             createProject: $this->createProject->getMock(),
             dateTimeConverter: $this->dateTimeConverter->getMock()

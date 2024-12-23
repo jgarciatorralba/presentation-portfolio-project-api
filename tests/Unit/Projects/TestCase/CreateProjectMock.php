@@ -34,7 +34,7 @@ final class CreateProjectMock extends ProjectRepositoryServiceMock
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->with($this->callback(
+            ->with($this->testCase->callback(
                 function (Project $actual) use ($expected): true {
                     $this->assertProjectsAreEqual($expected, $actual);
                     return true;

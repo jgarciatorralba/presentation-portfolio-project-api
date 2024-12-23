@@ -22,8 +22,8 @@ final class ApiExceptionListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->exceptionHttpStatusCodeMapperMock = new ExceptionHttpStatusCodeMapperMock();
-        $this->exceptionEventMock = new ExceptionEventMock();
+        $this->exceptionHttpStatusCodeMapperMock = new ExceptionHttpStatusCodeMapperMock($this);
+        $this->exceptionEventMock = new ExceptionEventMock($this);
         $this->sut = new ApiExceptionListener(
             exceptionHttpStatusCodeMapper: $this->exceptionHttpStatusCodeMapperMock->getMock()
         );

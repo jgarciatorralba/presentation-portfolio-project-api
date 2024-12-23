@@ -16,7 +16,7 @@ class GetProjectsByCriteriaTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->projectRepositoryMock = new ProjectRepositoryMock();
+        $this->projectRepositoryMock = new ProjectRepositoryMock($this);
     }
 
     protected function tearDown(): void

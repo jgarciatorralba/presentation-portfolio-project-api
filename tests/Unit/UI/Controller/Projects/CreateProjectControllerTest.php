@@ -27,8 +27,8 @@ final class CreateProjectControllerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->commandBusMock = new CommandBusMock();
-        $this->parameterBagMock = new ParameterBagMock();
+        $this->commandBusMock = new CommandBusMock($this);
+        $this->parameterBagMock = new ParameterBagMock($this);
 
         $this->requestStack = new RequestStack();
         $this->requestStack->push(new Request(

@@ -26,7 +26,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->queryBusMock = new QueryBusMock();
+        $this->queryBusMock = new QueryBusMock($this);
         $this->sut = new InMemorySymfonyQueryBus(
             queryBus: $this->queryBusMock->getMock()
         );

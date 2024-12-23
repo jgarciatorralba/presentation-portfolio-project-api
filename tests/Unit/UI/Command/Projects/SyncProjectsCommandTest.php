@@ -19,7 +19,7 @@ class SyncProjectsCommandTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventBusMock = new EventBusMock();
+        $this->eventBusMock = new EventBusMock($this);
         $this->sut = new SyncProjectsCommand(
             eventBus: $this->eventBusMock->getMock()
         );

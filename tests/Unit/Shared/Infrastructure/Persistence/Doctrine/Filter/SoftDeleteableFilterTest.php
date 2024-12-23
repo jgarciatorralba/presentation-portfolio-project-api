@@ -16,7 +16,7 @@ final class SoftDeleteableFilterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->entityManager = new EntityManagerMock();
+        $this->entityManager = new EntityManagerMock($this);
         $this->tableAlias = 'alias';
     }
 

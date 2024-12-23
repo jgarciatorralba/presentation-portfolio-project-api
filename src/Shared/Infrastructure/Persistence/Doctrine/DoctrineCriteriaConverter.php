@@ -64,7 +64,6 @@ final readonly class DoctrineCriteriaConverter
         );
     }
 
-    /** @throws \RuntimeException */
     private function buildComparison(): callable
     {
         return function (SimpleFilter|CompositeFilter $filter): Expression {

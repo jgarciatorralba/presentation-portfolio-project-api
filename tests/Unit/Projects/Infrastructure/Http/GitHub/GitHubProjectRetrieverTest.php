@@ -28,9 +28,9 @@ final class GitHubProjectRetrieverTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->httpClientMock = new HttpClientMock();
-        $this->loggerMock = new LoggerMock();
-        $this->dateTimeConverterMock = new LocalDateTimeZoneConverterMock();
+        $this->httpClientMock = new HttpClientMock($this);
+        $this->loggerMock = new LoggerMock($this);
+        $this->dateTimeConverterMock = new LocalDateTimeZoneConverterMock($this);
 
         $this->sut = new GitHubProjectRetriever(
             dateTimeConverter: $this->dateTimeConverterMock->getMock(),

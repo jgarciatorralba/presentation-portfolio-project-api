@@ -27,9 +27,9 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
     {
         $this->event = new SyncProjectsRequestedEvent();
 
-        $this->getAllProjects = new GetAllProjectsMock();
-        $this->requestExternalProjects = new RequestExternalProjectsMock();
-        $this->eventBus = new EventBusMock();
+        $this->getAllProjects = new GetAllProjectsMock($this);
+        $this->requestExternalProjects = new RequestExternalProjectsMock($this);
+        $this->eventBus = new EventBusMock($this);
 
         $this->sut = new SyncProjectsRequestedSubscriber(
             requestExternalProjects: $this->requestExternalProjects->getMock(),

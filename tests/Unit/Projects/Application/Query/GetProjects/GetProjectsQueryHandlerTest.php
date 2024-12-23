@@ -20,7 +20,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->getProjectsByCriteria = new GetProjectsByCriteriaMock();
+        $this->getProjectsByCriteria = new GetProjectsByCriteriaMock($this);
         $this->sut = new GetProjectsQueryHandler(
             getProjectsByCriteria: $this->getProjectsByCriteria->getMock()
         );

@@ -17,7 +17,7 @@ final class InMemorySymfonyEventBusTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->eventBusMock = new EventBusMock();
+        $this->eventBusMock = new EventBusMock($this);
         $this->sut = new InMemorySymfonyEventBus(
             eventBus: $this->eventBusMock->getMock()
         );
@@ -31,13 +31,19 @@ final class InMemorySymfonyEventBusTest extends TestCase
 
     public function testItPublishesEventsOrCatchesExceptions(): void
     {
+        $firstMockedEvent = $this->createMock(Event::class);
+        $firstMockedEvent->method('eventId')->willReturn('first-event-id');
+
+        $secondMockedEvent = $this->createMock(Event::class);
+        $secondMockedEvent->method('eventId')->willReturn('second-event-id');
+
         $events = [
             [
-                'event' => $this->createMock(Event::class),
+                'event' => $firstMockedEvent,
                 'exception' => null
             ],
             [
-                'event' => $this->createMock(Event::class),
+                'event' => $secondMockedEvent,
                 'exception' => new NoHandlerForMessageException()
             ]
         ];

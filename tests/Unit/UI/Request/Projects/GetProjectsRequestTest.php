@@ -19,7 +19,7 @@ final class GetProjectsRequestTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->validatorMock = new ValidatorMock();
+        $this->validatorMock = new ValidatorMock($this);
         $this->requestStack = new RequestStack();
     }
 

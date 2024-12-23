@@ -15,37 +15,37 @@ abstract class ProjectRepositoryServiceMock extends AbstractMock
         Project $expected,
         Project $actual
     ): void {
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->id(),
             $actual->id()
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->details(),
             $actual->details()
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->urls(),
             $actual->urls()
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->archived(),
             $actual->archived()
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->lastPushedAt(),
             $actual->lastPushedAt()
         );
-        $this->assertEquals(
+        $this->testCase->assertEquals(
             $expected->deletedAt(),
             $actual->deletedAt()
         );
 
         $diffCreatedAt = $actual->createdAt()->getTimestamp()
             - $expected->createdAt()->getTimestamp();
-        $this->assertLessThanOrEqual(1, $diffCreatedAt);
+        $this->testCase->assertLessThanOrEqual(1, $diffCreatedAt);
 
         $diffUpdatedAt = $actual->updatedAt()->getTimestamp()
             - $expected->updatedAt()->getTimestamp();
-        $this->assertLessThanOrEqual(1, $diffUpdatedAt);
+        $this->testCase->assertLessThanOrEqual(1, $diffUpdatedAt);
     }
 }

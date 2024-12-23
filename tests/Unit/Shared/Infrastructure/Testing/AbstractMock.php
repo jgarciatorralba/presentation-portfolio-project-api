@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Testing;
 
+use PHPUnit\Framework\Constraint\IsAnything;
 use PHPUnit\Framework\InvalidArgumentException;
 use PHPUnit\Framework\MockObject\Generator\ClassIsEnumerationException;
 use PHPUnit\Framework\MockObject\Generator\ClassIsFinalException;
@@ -14,10 +15,12 @@ use PHPUnit\Framework\MockObject\Generator\OriginalConstructorInvocationRequired
 use PHPUnit\Framework\MockObject\Generator\ReflectionException;
 use PHPUnit\Framework\MockObject\Generator\RuntimeException;
 use PHPUnit\Framework\MockObject\Generator\UnknownTypeException;
+use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Rule\InvokedCount as InvokedCountMatcher;
 use PHPUnit\Framework\TestCase;
 
-abstract class AbstractMock extends TestCase
+abstract class AbstractMock
 {
     protected MockObject $mock;
 
@@ -33,11 +36,13 @@ abstract class AbstractMock extends TestCase
      * @throws RuntimeException
      * @throws UnknownTypeException
      */
-    public function __construct()
+    public function __construct(protected readonly TestCase $testCase)
     {
         /** @var class-string $className */
         $className = $this->getClassName();
-        $this->mock = $this->getMockBuilder($className)
+        $mockBuilder = new MockBuilder($testCase, $className);
+
+        $this->mock = $mockBuilder
             ->disableOriginalConstructor()
             ->getMock();
     }
@@ -45,6 +50,21 @@ abstract class AbstractMock extends TestCase
     public function getMock(): MockObject
     {
         return $this->mock;
+    }
+
+    final public function anything(): IsAnything
+    {
+        return new IsAnything();
+    }
+
+    final protected function once(): InvokedCountMatcher
+    {
+        return new InvokedCountMatcher(1);
+    }
+
+    final protected function exactly(int $count): InvokedCountMatcher
+    {
+        return new InvokedCountMatcher($count);
     }
 
     abstract protected function getClassName(): string;

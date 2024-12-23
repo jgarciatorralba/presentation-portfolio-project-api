@@ -20,7 +20,7 @@ final class UpdateProjectTest extends TestCase
     protected function setUp(): void
     {
         $this->project = ProjectBuilder::any()->build();
-        $this->projectRepositoryMock = new ProjectRepositoryMock();
+        $this->projectRepositoryMock = new ProjectRepositoryMock($this);
         $this->sut = new UpdateProject(
             projectRepository: $this->projectRepositoryMock->getMock()
         );

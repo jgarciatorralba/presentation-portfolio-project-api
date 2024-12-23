@@ -25,8 +25,8 @@ final class ProjectRemovedSubscriberTest extends TestCase
             ProjectBuilder::any()->build()
         );
 
-        $this->deleteProject = new DeleteProjectMock();
-        $this->logger = new LoggerMock();
+        $this->deleteProject = new DeleteProjectMock($this);
+        $this->logger = new LoggerMock($this);
         $this->sut = new ProjectRemovedSubscriber(
             deleteProject: $this->deleteProject->getMock(),
             logger: $this->logger->getMock()

@@ -28,7 +28,6 @@ final class CreateProjectRequest extends AbstractRequest
      * @throws InvalidOptionsException
      * @throws MissingOptionsException
      * @throws ConstraintDefinitionException
-     * @throws \DateInvalidTimeZoneException
      */
     protected function validationRules(): Assert\Collection
     {
