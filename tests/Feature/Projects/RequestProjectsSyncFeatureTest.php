@@ -92,87 +92,87 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         }
     }
 
-	public function testItSyncsByDeletingOldProjects(): void
-	{
-		$projects = ProjectBuilder::buildMany(10);
+    public function testItSyncsByDeletingOldProjects(): void
+    {
+        $projects = ProjectBuilder::buildMany(10);
 
-		$this->persist(...$projects);
+        $this->persist(...$projects);
 
-		$this->commandTester->execute(input: []);
+        $this->commandTester->execute(input: []);
 
-		$this->assertLogContains(
-			message: '"message":"Retrieving projects from GitHub"'
-		);
+        $this->assertLogContains(
+            message: '"message":"Retrieving projects from GitHub"'
+        );
 
-		foreach ($projects as $project) {
-			$this->assertLogContains(
-				message: sprintf(
-					'"message":"ProjectRemovedEvent handled.","context":{"projectId":"%s"}',
-					$project->id()->value()
-				)
-			);
+        foreach ($projects as $project) {
+            $this->assertLogContains(
+                message: sprintf(
+                    '"message":"ProjectRemovedEvent handled.","context":{"projectId":"%s"}',
+                    $project->id()->value()
+                )
+            );
 
-			$projectFound = $this->findOneBy(
-				className: Project::class,
-				criteria: ['id' => $project->id()->value()]
-			);
+            $projectFound = $this->findOneBy(
+                className: Project::class,
+                criteria: ['id' => $project->id()->value()]
+            );
 
-			$this->assertNull($projectFound);
-		}
-	}
+            $this->assertNull($projectFound);
+        }
+    }
 
-	public function testItSyncsByUpdatingExistingProjects(): void
-	{
-		$firstProjectId = ProjectIdBuilder::any()
-			->withValue($this->projectData[0]['id'])
-			->build();
+    public function testItSyncsByUpdatingExistingProjects(): void
+    {
+        $firstProjectId = ProjectIdBuilder::any()
+            ->withValue($this->projectData[0]['id'])
+            ->build();
 
-		$secondProjectId = ProjectIdBuilder::any()
-			->withValue($this->projectData[1]['id'])
-			->build();
+        $secondProjectId = ProjectIdBuilder::any()
+            ->withValue($this->projectData[1]['id'])
+            ->build();
 
-		$thirdProjectId = ProjectIdBuilder::any()
-			->withValue($this->projectData[2]['id'])
-			->build();
+        $thirdProjectId = ProjectIdBuilder::any()
+            ->withValue($this->projectData[2]['id'])
+            ->build();
 
-		$firstProject = ProjectBuilder::any()
-			->withId($firstProjectId)
-			->build();
+        $firstProject = ProjectBuilder::any()
+            ->withId($firstProjectId)
+            ->build();
 
-		$secondProject = ProjectBuilder::any()
-			->withId($secondProjectId)
-			->build();
+        $secondProject = ProjectBuilder::any()
+            ->withId($secondProjectId)
+            ->build();
 
-		$thirdProject = ProjectBuilder::any()
-			->withId($thirdProjectId)
-			->build();
+        $thirdProject = ProjectBuilder::any()
+            ->withId($thirdProjectId)
+            ->build();
 
-		$this->persist($firstProject, $secondProject, $thirdProject);
+        $this->persist($firstProject, $secondProject, $thirdProject);
 
-		$this->commandTester->execute(input: []);
+        $this->commandTester->execute(input: []);
 
-		$this->assertLogContains(
-			message: '"message":"Retrieving projects from GitHub"'
-		);
+        $this->assertLogContains(
+            message: '"message":"Retrieving projects from GitHub"'
+        );
 
-		foreach ([$firstProject, $secondProject, $thirdProject] as $key => $project) {
-			$this->assertLogContains(
-				message: sprintf(
-					'"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
-					$project->id()->value()
-				)
-			);
+        foreach ([$firstProject, $secondProject, $thirdProject] as $key => $project) {
+            $this->assertLogContains(
+                message: sprintf(
+                    '"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
+                    $project->id()->value()
+                )
+            );
 
-			$foundProject = $this->findOneBy(
-				className: Project::class,
-				criteria: ['id' => $project->id()->value()]
-			);
+            $foundProject = $this->findOneBy(
+                className: Project::class,
+                criteria: ['id' => $project->id()->value()]
+            );
 
-			$this->assertNotNull($foundProject);
-			$this->assertInstanceOf(Project::class, $foundProject);
-			$this->assertProjectContainsProjectData($foundProject, $this->projectData[$key]);
-		}
-	}
+            $this->assertNotNull($foundProject);
+            $this->assertInstanceOf(Project::class, $foundProject);
+            $this->assertProjectContainsProjectData($foundProject, $this->projectData[$key]);
+        }
+    }
 
     /** @param array<string, mixed> $projectData */
     private function assertProjectContainsProjectData(

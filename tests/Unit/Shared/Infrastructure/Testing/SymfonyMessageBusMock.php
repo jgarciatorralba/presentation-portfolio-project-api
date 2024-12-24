@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Testing;
 
-use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Domain\Bus\Query\Query;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
@@ -73,22 +72,6 @@ final class SymfonyMessageBusMock extends AbstractMock
                     throw $events[self::$callIndex - 1]['exception'];
                 }
             );
-    }
-
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
-    public function shouldDispatchCommand(Command $command): void
-    {
-        $this->mock
-            ->expects($this->once())
-            ->method('dispatch')
-            ->with($command);
     }
 
     /**

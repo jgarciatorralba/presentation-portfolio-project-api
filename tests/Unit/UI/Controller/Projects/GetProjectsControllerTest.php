@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\UI\Controller\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
-use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\QueryBusMock;
@@ -60,7 +59,6 @@ final class GetProjectsControllerTest extends TestCase
 
         $sut = new GetProjectsController(
             queryBus: $this->queryBusMock->getMock(),
-            commandBus: $this->createMock(CommandBus::class),
             params: $this->parameterBagMock->getMock()
         );
 
@@ -96,7 +94,6 @@ final class GetProjectsControllerTest extends TestCase
 
         $sut = new GetProjectsController(
             queryBus: $this->queryBusMock->getMock(),
-            commandBus: $this->createMock(CommandBus::class),
             params: $this->parameterBagMock->getMock()
         );
 

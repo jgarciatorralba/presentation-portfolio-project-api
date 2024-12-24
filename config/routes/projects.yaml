@@ -2,8 +2,3 @@ projects_get:
   path: /projects
   controller: App\UI\Controller\Projects\GetProjectsController
   methods: GET
-
-projects_create:
-  path: /projects
-  controller: App\UI\Controller\Projects\CreateProjectController
-  methods: POST
