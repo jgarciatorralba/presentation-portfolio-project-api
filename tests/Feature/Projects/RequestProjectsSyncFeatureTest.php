@@ -94,9 +94,9 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 
 	public function testItSyncsByDeletingOldProjects(): void
 	{
-		$project = ProjectBuilder::any()->build();
+		$projects = ProjectBuilder::buildMany(10);
 
-		$this->persist($project);
+		$this->persist(...$projects);
 
 		$this->commandTester->execute(input: []);
 
@@ -104,32 +104,50 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 			message: '"message":"Retrieving projects from GitHub"'
 		);
 
-		$this->assertLogContains(
-			message: sprintf(
-				'"message":"ProjectRemovedEvent handled.","context":{"projectId":"%s"}',
-				$project->id()->value()
-			)
-		);
+		foreach ($projects as $project) {
+			$this->assertLogContains(
+				message: sprintf(
+					'"message":"ProjectRemovedEvent handled.","context":{"projectId":"%s"}',
+					$project->id()->value()
+				)
+			);
 
-		$project = $this->findOneBy(
-			className: Project::class,
-			criteria: ['id' => $project->id()->value()]
-		);
+			$projectFound = $this->findOneBy(
+				className: Project::class,
+				criteria: ['id' => $project->id()->value()]
+			);
 
-		$this->assertNull($project);
+			$this->assertNull($projectFound);
+		}
 	}
 
 	public function testItSyncsByUpdatingExistingProjects(): void
 	{
-		$projectId = ProjectIdBuilder::any()
+		$firstProjectId = ProjectIdBuilder::any()
 			->withValue($this->projectData[0]['id'])
 			->build();
 
-		$project = ProjectBuilder::any()
-			->withId($projectId)
+		$secondProjectId = ProjectIdBuilder::any()
+			->withValue($this->projectData[1]['id'])
 			->build();
 
-		$this->persist($project);
+		$thirdProjectId = ProjectIdBuilder::any()
+			->withValue($this->projectData[2]['id'])
+			->build();
+
+		$firstProject = ProjectBuilder::any()
+			->withId($firstProjectId)
+			->build();
+
+		$secondProject = ProjectBuilder::any()
+			->withId($secondProjectId)
+			->build();
+
+		$thirdProject = ProjectBuilder::any()
+			->withId($thirdProjectId)
+			->build();
+
+		$this->persist($firstProject, $secondProject, $thirdProject);
 
 		$this->commandTester->execute(input: []);
 
@@ -137,21 +155,23 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 			message: '"message":"Retrieving projects from GitHub"'
 		);
 
-		$this->assertLogContains(
-			message: sprintf(
-				'"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
-				$project->id()->value()
-			)
-		);
+		foreach ([$firstProject, $secondProject, $thirdProject] as $key => $project) {
+			$this->assertLogContains(
+				message: sprintf(
+					'"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
+					$project->id()->value()
+				)
+			);
 
-		$project = $this->findOneBy(
-			className: Project::class,
-			criteria: ['id' => $project->id()->value()]
-		);
+			$foundProject = $this->findOneBy(
+				className: Project::class,
+				criteria: ['id' => $project->id()->value()]
+			);
 
-		$this->assertNotNull($project);
-		$this->assertInstanceOf(Project::class, $project);
-		$this->assertProjectContainsProjectData($project, $this->projectData[0]);
+			$this->assertNotNull($foundProject);
+			$this->assertInstanceOf(Project::class, $foundProject);
+			$this->assertProjectContainsProjectData($foundProject, $this->projectData[$key]);
+		}
 	}
 
     /** @param array<string, mixed> $projectData */
