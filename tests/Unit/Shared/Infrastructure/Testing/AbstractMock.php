@@ -52,7 +52,7 @@ abstract class AbstractMock
         return $this->mock;
     }
 
-    final public function anything(): IsAnything
+    final protected function anything(): IsAnything
     {
         return new IsAnything();
     }
