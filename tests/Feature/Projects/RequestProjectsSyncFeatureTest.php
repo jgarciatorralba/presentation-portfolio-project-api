@@ -7,6 +7,8 @@ namespace App\Tests\Feature\Projects;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\Http\HttpStatusCode;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Feature\FeatureTestCase;
 use App\Tests\Feature\Trait\CanAccessLogs;
 use App\UI\Command\Projects\SyncProjectsCommand;
@@ -63,7 +65,7 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         parent::tearDown();
     }
 
-    public function testItSyncsWithNewProjects(): void
+    public function testItSyncsByAddingNewProjects(): void
     {
         $this->commandTester->execute(input: []);
 
@@ -89,6 +91,68 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
             $this->assertProjectContainsProjectData($project, $projectDatum);
         }
     }
+
+	public function testItSyncsByDeletingOldProjects(): void
+	{
+		$project = ProjectBuilder::any()->build();
+
+		$this->persist($project);
+
+		$this->commandTester->execute(input: []);
+
+		$this->assertLogContains(
+			message: '"message":"Retrieving projects from GitHub"'
+		);
+
+		$this->assertLogContains(
+			message: sprintf(
+				'"message":"ProjectRemovedEvent handled.","context":{"projectId":"%s"}',
+				$project->id()->value()
+			)
+		);
+
+		$project = $this->findOneBy(
+			className: Project::class,
+			criteria: ['id' => $project->id()->value()]
+		);
+
+		$this->assertNull($project);
+	}
+
+	public function testItSyncsByUpdatingExistingProjects(): void
+	{
+		$projectId = ProjectIdBuilder::any()
+			->withValue($this->projectData[0]['id'])
+			->build();
+
+		$project = ProjectBuilder::any()
+			->withId($projectId)
+			->build();
+
+		$this->persist($project);
+
+		$this->commandTester->execute(input: []);
+
+		$this->assertLogContains(
+			message: '"message":"Retrieving projects from GitHub"'
+		);
+
+		$this->assertLogContains(
+			message: sprintf(
+				'"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
+				$project->id()->value()
+			)
+		);
+
+		$project = $this->findOneBy(
+			className: Project::class,
+			criteria: ['id' => $project->id()->value()]
+		);
+
+		$this->assertNotNull($project);
+		$this->assertInstanceOf(Project::class, $project);
+		$this->assertProjectContainsProjectData($project, $this->projectData[0]);
+	}
 
     /** @param array<string, mixed> $projectData */
     private function assertProjectContainsProjectData(
