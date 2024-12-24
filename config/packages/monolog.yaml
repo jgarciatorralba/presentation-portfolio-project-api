@@ -35,6 +35,12 @@ when@test:
         type: stream
         path: "%kernel.logs_dir%/%kernel.environment%/main.log"
         level: debug
+      project:
+        type: stream
+        path: "%kernel.logs_dir%/%kernel.environment%/project.log"
+        level: info
+        channels: [project]
+        formatter: monolog.formatter.json
 
 when@prod:
   monolog:
