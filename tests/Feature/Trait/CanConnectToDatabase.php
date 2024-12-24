@@ -17,6 +17,16 @@ trait CanConnectToDatabase
     /**
      * @template T of object
      * @param class-string<T> $className
+     * @return EntityRepository<T>
+     */
+    protected function repository(string $className): EntityRepository
+    {
+        return $this->entityManager->getRepository($className);
+    }
+
+    /**
+     * @template T of object
+     * @param class-string<T> $className
      * @param array<string, mixed> $criteria
      */
     protected function findOneBy(string $className, array $criteria): ?object
@@ -37,16 +47,6 @@ trait CanConnectToDatabase
     {
         $this->entityManager->remove($entity);
         $this->entityManager->flush();
-    }
-
-    /**
-     * @template T of object
-     * @param class-string<T> $className
-     * @return EntityRepository<T>
-     */
-    protected function repository(string $className): EntityRepository
-    {
-        return $this->entityManager->getRepository($className);
     }
 
     /** @throws DBALException */
