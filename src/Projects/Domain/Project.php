@@ -84,7 +84,7 @@ final class Project extends AggregateRoot implements Comparable
     }
 
     /**
-	 * @return array{
+     * @return array{
      *    id: int,
      *    name: string,
      *    description: string|null,
