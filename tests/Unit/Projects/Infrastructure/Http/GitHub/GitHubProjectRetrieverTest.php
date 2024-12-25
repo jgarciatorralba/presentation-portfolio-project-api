@@ -63,9 +63,8 @@ final class GitHubProjectRetrieverTest extends TestCase
      * }> $chunks
      */
 	#[DataProvider('dataProjectsRetrieved')]
-    public function testItRetrievesProjects(
-        array $chunks
-    ): void {
+    public function testItRetrievesProjects(array $chunks): void
+	{
         $this->loggerMock
             ->shouldLogInfo(
                 message: 'Retrieving projects from GitHub',
