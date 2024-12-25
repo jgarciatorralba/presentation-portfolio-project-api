@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Feature;
 
+use App\Tests\Feature\Trait\CanAccessLogs;
 use App\Tests\Feature\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpKernel\HttpKernelBrowser;
 
 abstract class FeatureTestCase extends WebTestCase
 {
+    use CanAccessLogs;
     use CanConnectToDatabase;
 
     protected ?HttpKernelBrowser $client = null;

@@ -10,7 +10,6 @@ use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Feature\FeatureTestCase;
-use App\Tests\Feature\Trait\CanAccessLogs;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpClient\MockHttpClient;
@@ -19,8 +18,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 {
-    use CanAccessLogs;
-
     private const string BASE_URI = 'https://api.github.com';
     private const string FILE_PATH = '/Simulations/GitHub/user-projects.json';
 
