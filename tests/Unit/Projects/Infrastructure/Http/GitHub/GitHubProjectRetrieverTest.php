@@ -57,7 +57,9 @@ final class GitHubProjectRetrieverTest extends TestCase
     /**
      * @param list<array{
      *      content: array,
+	 * 		error: string|null,
      *      headers: list<HttpHeader>,
+	 * 		statusCode?: HttpStatusCode,
      * }> $chunks
      */
 	#[DataProvider('dataProjectsRetrieved')]
@@ -75,7 +77,7 @@ final class GitHubProjectRetrieverTest extends TestCase
 
         $error = array_find(
             $chunks,
-            fn($chunk): bool => $chunk['error'] !== null
+            fn(array $chunk): bool => $chunk['error'] !== null
         );
 
         if ($error) {
@@ -102,7 +104,9 @@ final class GitHubProjectRetrieverTest extends TestCase
     /**
      * return array<string, array<list<array{
      *      content: array,
+	 * 		error: string|null,
      *      headers: list<HttpHeader>,
+	 * 		statusCode?: HttpStatusCode,
      * }>>>
      */
     public static function dataProjectsRetrieved(): array
