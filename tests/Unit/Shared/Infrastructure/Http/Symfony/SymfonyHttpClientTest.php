@@ -30,7 +30,8 @@ final class SymfonyHttpClientTest extends TestCase
             file_get_contents(dirname(__DIR__, 5) . self::FILE_PATH),
             [
                 'http_code' => HttpStatusCode::HTTP_OK->value,
-                'response_headers' => ['Content-Type' => 'application/json']
+                'response_headers' => ['Content-Type' => 'application/json'],
+				'http_version' => 1.1,
             ]
         );
         $mockHttpClient = new MockHttpClient($mockResponse, self::BASE_URI);
