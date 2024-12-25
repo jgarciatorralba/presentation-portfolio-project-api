@@ -72,7 +72,7 @@ final class GitHubProjectRetrieverTest extends TestCase
             );
 
         $this->httpClientMock
-            ->shouldFetchChunks($chunks);
+            ->shouldFetchByChunks($chunks);
 
         $error = array_find(
             $chunks,

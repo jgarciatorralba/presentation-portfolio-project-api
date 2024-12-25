@@ -26,7 +26,7 @@ final class HttpClientMock extends AbstractMock
     /**
      * @param list<array{
      *      content: array<string, mixed>,
-     *      error: string,
+     *      error: string|null,
      *      headers: list<HttpHeader>,
      *      statusCode?: HttpStatusCode,
      * }> $chunks
@@ -38,7 +38,7 @@ final class HttpClientMock extends AbstractMock
      * @throws MethodCannotBeConfiguredException
      * @throws MethodNameAlreadyConfiguredException
      */
-    public function shouldFetchChunks(array $chunks): void
+    public function shouldFetchByChunks(array $chunks): void
     {
         $this->mock
             ->expects($this->exactly(count($chunks)))
