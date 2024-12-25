@@ -25,7 +25,8 @@
         "editorconfig.editorconfig",
         "swordev.phpstan",
         "obliviousharmony.vscode-php-codesniffer",
-        "ecodes.vscode-phpmd"
+        "ecodes.vscode-phpmd",
+        "ritwickdey.liveserver"
       ]
     }
   }
