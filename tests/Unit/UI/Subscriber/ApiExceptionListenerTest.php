@@ -70,7 +70,7 @@ final class ApiExceptionListenerTest extends TestCase
      *      errors?: array<string, string>
      * } $exceptionContent
      */
-	#[DataProvider('dataBuildResponse')]
+    #[DataProvider('dataBuildResponse')]
     public function testItBuildsResponse(\Throwable $exception, array $exceptionContent): void
     {
         $reflection = new \ReflectionClass($this->sut);

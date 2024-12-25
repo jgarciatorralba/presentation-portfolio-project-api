@@ -14,6 +14,7 @@ use App\Shared\Domain\Http\QueryParams;
 use App\Shared\Infrastructure\Http\Symfony\SymfonyHttpClient;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpClient\Exception\TransportException;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
@@ -31,7 +32,7 @@ final class SymfonyHttpClientTest extends TestCase
             [
                 'http_code' => HttpStatusCode::HTTP_OK->value,
                 'response_headers' => ['Content-Type' => 'application/json'],
-				'http_version' => 1.1,
+                'http_version' => 1.1,
             ]
         );
         $mockHttpClient = new MockHttpClient($mockResponse, self::BASE_URI);
@@ -79,5 +80,44 @@ final class SymfonyHttpClientTest extends TestCase
             $decodedContent['content']
         );
         $this->assertNull($decodedContent['error']);
+    }
+
+    public function testItReturnsResponseWhenRequestFails(): void
+    {
+        $httpOptions = [
+            'baseUri' => self::BASE_URI,
+            'headers' => new HttpHeaders(
+                new HttpHeader('Content-Type', 'application/json'),
+            ),
+        ];
+
+        $this->httpClient = new SymfonyHttpClient(
+            new MockHttpClient(
+                fn (): never => throw new TransportException('Request failed'),
+                self::BASE_URI
+            )
+        );
+
+        $response = $this->httpClient->fetch('/posts', $httpOptions);
+        $content = $response->getBody()->getContents();
+        $decodedContent = json_decode($content, true);
+
+        $this->assertInstanceOf(HttpResponse::class, $response);
+        $this->assertSame(
+            HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR->value,
+            $response->getStatusCode()
+        );
+        $this->assertSame(
+            (HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR)->getReasonPhraseFromCode(),
+            $response->getReasonPhrase()
+        );
+        $this->assertEmpty($response->getHeaders());
+        $this->assertNotEmpty(
+            $response->getProtocolVersion()
+        );
+        $this->assertInstanceOf(TemporaryFileStream::class, $response->getBody());
+        $this->assertNotEmpty($content);
+        $this->assertNull($decodedContent['content']);
+        $this->assertEquals('Request failed', $decodedContent['error']);
     }
 }

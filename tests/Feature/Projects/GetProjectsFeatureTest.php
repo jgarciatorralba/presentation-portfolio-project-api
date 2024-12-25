@@ -46,7 +46,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     /**
      * @param array<string, int|string> $params
      */
-	#[DataProvider('dataParameters')]
+    #[DataProvider('dataParameters')]
     public function testItGetsProjects(array $params, ?int $maxExpectedCount): void
     {
         $this->client->request(

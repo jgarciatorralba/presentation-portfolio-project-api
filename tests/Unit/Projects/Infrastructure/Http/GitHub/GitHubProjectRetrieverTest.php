@@ -57,14 +57,14 @@ final class GitHubProjectRetrieverTest extends TestCase
     /**
      * @param list<array{
      *      content: array,
-	 * 		error: string|null,
+     *      error: string|null,
      *      headers: list<HttpHeader>,
-	 * 		statusCode?: HttpStatusCode,
+     *      statusCode?: HttpStatusCode,
      * }> $chunks
      */
-	#[DataProvider('dataProjectsRetrieved')]
+    #[DataProvider('dataProjectsRetrieved')]
     public function testItRetrievesProjects(array $chunks): void
-	{
+    {
         $this->loggerMock
             ->shouldLogInfo(
                 message: 'Retrieving projects from GitHub',
@@ -103,9 +103,9 @@ final class GitHubProjectRetrieverTest extends TestCase
     /**
      * return array<string, array<list<array{
      *      content: array,
-	 * 		error: string|null,
+     *      error: string|null,
      *      headers: list<HttpHeader>,
-	 * 		statusCode?: HttpStatusCode,
+     *      statusCode?: HttpStatusCode,
      * }>>>
      */
     public static function dataProjectsRetrieved(): array

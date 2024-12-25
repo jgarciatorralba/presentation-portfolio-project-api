@@ -62,8 +62,8 @@ final class SymfonyHttpClient implements HttpClientContract
 
             $statusCodeValue = $response->getStatusCode();
             $version = is_numeric($response->getInfo('http_version'))
-				? (float) $response->getInfo('http_version')
-				: null;
+                ? (float) $response->getInfo('http_version')
+                : null;
 
             $headers = [];
             foreach ($response->getHeaders() as $name => $values) {

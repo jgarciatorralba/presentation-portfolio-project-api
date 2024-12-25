@@ -27,7 +27,7 @@ final class ValidatorTest extends TestCase
      * @param array<string, mixed> $data
      * @param array<string, string> $errors
      */
-	#[DataProvider('dataValidate')]
+    #[DataProvider('dataValidate')]
     public function testItValidatesData(array $data, Assert\Collection $rules, array $errors): void
     {
         $result = $this->sut->validate($data, $rules);
