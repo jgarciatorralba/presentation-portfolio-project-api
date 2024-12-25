@@ -38,12 +38,6 @@ abstract class DoctrineRepository
         $this->entityManager()->flush();
     }
 
-    protected function remove(AggregateRoot $entity): void
-    {
-        $this->entityManager()->remove($entity);
-        $this->entityManager()->flush();
-    }
-
     protected function updateEntity(): void
     {
         $this->entityManager()->flush();
