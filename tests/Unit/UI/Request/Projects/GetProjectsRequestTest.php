@@ -29,11 +29,11 @@ final class GetProjectsRequestTest extends TestCase
         $this->requestStack = null;
     }
 
-    #[DataProvider('dataGetProjectsRequest')]
     /**
      * @param array<string, mixed> $data
      * @param array<string, string> $errors
      */
+	#[DataProvider('dataGetProjectsRequest')]
     public function testItIsCreated(array $data, array $errors): void
     {
         $this->validatorMock->shouldValidate(

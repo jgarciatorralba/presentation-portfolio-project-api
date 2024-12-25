@@ -43,11 +43,10 @@ final class GetProjectsFeatureTest extends FeatureTestCase
         parent::tearDown();
     }
 
-    #[DataProvider('dataParameters')]
     /**
      * @param array<string, int|string> $params
-     * @param int|null $maxExpectedCount
      */
+	#[DataProvider('dataParameters')]
     public function testItGetsProjects(array $params, ?int $maxExpectedCount): void
     {
         $this->client->request(

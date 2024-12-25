@@ -11,10 +11,10 @@ use PHPUnit\Framework\TestCase;
 
 class ValidationExceptionTest extends TestCase
 {
-    #[DataProvider('dataIsCreated')]
     /**
      * @param array<string, string> $errors
      */
+	#[DataProvider('dataIsCreated')]
     public function testItIsCreated(array $errors): void
     {
         $exception = new ValidationException($errors);

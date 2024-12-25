@@ -54,13 +54,13 @@ final class GitHubProjectRetrieverTest extends TestCase
         self::assertInstanceOf(ExternalProjectRetriever::class, $this->sut);
     }
 
-    #[DataProvider('dataProjectsRetrieved')]
     /**
      * @param list<array{
      *      content: array,
      *      headers: list<HttpHeader>,
      * }> $chunks
      */
+	#[DataProvider('dataProjectsRetrieved')]
     public function testItRetrievesProjects(
         array $chunks
     ): void {
