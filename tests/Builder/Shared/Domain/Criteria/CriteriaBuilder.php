@@ -42,19 +42,19 @@ final class CriteriaBuilder implements BuilderInterface
         );
     }
 
-	public function withFilters(?Filters $filters): self
-	{
-		$this->filters = $filters;
+    public function withFilters(?Filters $filters): self
+    {
+        $this->filters = $filters;
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function withOrderBy(?OrderBy $orderBy): self
-	{
-		$this->orderBy = $orderBy;
+    public function withOrderBy(?OrderBy $orderBy): self
+    {
+        $this->orderBy = $orderBy;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function build(): Criteria
     {

@@ -18,11 +18,10 @@ use PHPUnit\Framework\TestCase;
 
 final class DoctrineCriteriaConverterTest extends TestCase
 {
-	#[DataProvider('dataCriteria')]
+    #[DataProvider('dataCriteria')]
     public function testItConvertsCriteria(
-		Criteria $criteria
-	): void
-    {
+        Criteria $criteria
+    ): void {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
 
         $this->assertInstanceof(DoctrineCriteria::class, $doctrineCriteria);
@@ -30,23 +29,23 @@ final class DoctrineCriteriaConverterTest extends TestCase
         $this->assertEquals($criteria->offset(), $doctrineCriteria->getFirstResult());
     }
 
-	/**
-	 * @return array<string, array<Criteria>>
-	 */
-	public static function dataCriteria(): array
-	{
-		return [
-			'no order' => [
-				CriteriaBuilder::any()->withOrderBy(null)->build()
-			],
-			'no filters' => [
-				CriteriaBuilder::any()->withFilters(null)->build()
-			],
-			'random criteria' => [
-				CriteriaBuilder::any()->build()
-			]
-		];
-	}
+    /**
+     * @return array<string, array<Criteria>>
+     */
+    public static function dataCriteria(): array
+    {
+        return [
+            'no order' => [
+                CriteriaBuilder::any()->withOrderBy(null)->build()
+            ],
+            'no filters' => [
+                CriteriaBuilder::any()->withFilters(null)->build()
+            ],
+            'random criteria' => [
+                CriteriaBuilder::any()->build()
+            ]
+        ];
+    }
 
     #[DataProvider('dataUpdatedBeforeDateTimeCriteria')]
     public function testItConvertsUpdatedBeforeDateTimeCriteria(
