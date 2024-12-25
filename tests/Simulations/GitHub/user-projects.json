@@ -267,7 +267,6 @@
             "site_admin": false
         },
         "html_url": "https://github.com/randomuser/random-project-3",
-        "description": "A randomly generated project for testing purposes.",
         "fork": false,
         "url": "https://api.github.com/repos/randomuser/random-project-3",
         "forks_url": "https://api.github.com/repos/randomuser/random-project-3/forks",

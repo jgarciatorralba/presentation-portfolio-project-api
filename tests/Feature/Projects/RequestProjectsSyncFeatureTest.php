@@ -167,10 +167,10 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
     ): void {
         $this->assertEquals($projectData['id'], $project->id()->value());
         $this->assertEquals($projectData['name'], $project->details()->name());
-        $this->assertEquals($projectData['description'], $project->details()->description());
-        $this->assertEquals($projectData['topics'], $project->details()->topics());
+        $this->assertEquals($projectData['description'] ?? null, $project->details()->description());
+        $this->assertEquals($projectData['topics'] ?? null, $project->details()->topics());
         $this->assertEquals($projectData['html_url'], $project->urls()->repository());
-        $this->assertEquals($projectData['homepage'], $project->urls()->homepage());
+        $this->assertEquals($projectData['homepage'] ?? null, $project->urls()->homepage());
         $this->assertEquals($projectData['archived'], $project->archived());
         $this->assertEquals(
             \DateTimeImmutable::createFromFormat(
