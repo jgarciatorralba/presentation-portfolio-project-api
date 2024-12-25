@@ -123,31 +123,20 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 
     public function testItSyncsByUpdatingExistingProjects(): void
     {
-        $firstProjectId = ProjectIdBuilder::any()
-            ->withValue($this->projectData[0]['id'])
-            ->build();
+        $projects = array_map(
+            function (array $projectData): Project {
+                $projectId = ProjectIdBuilder::any()
+                    ->withValue($projectData['id'])
+                    ->build();
 
-        $secondProjectId = ProjectIdBuilder::any()
-            ->withValue($this->projectData[1]['id'])
-            ->build();
+                return ProjectBuilder::any()
+                    ->withId($projectId)
+                    ->build();
+            },
+            $this->projectData
+        );
 
-        $thirdProjectId = ProjectIdBuilder::any()
-            ->withValue($this->projectData[2]['id'])
-            ->build();
-
-        $firstProject = ProjectBuilder::any()
-            ->withId($firstProjectId)
-            ->build();
-
-        $secondProject = ProjectBuilder::any()
-            ->withId($secondProjectId)
-            ->build();
-
-        $thirdProject = ProjectBuilder::any()
-            ->withId($thirdProjectId)
-            ->build();
-
-        $this->persist($firstProject, $secondProject, $thirdProject);
+        $this->persist(...$projects);
 
         $this->commandTester->execute(input: []);
 
@@ -155,7 +144,7 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
             message: '"message":"Retrieving projects from GitHub"'
         );
 
-        foreach ([$firstProject, $secondProject, $thirdProject] as $key => $project) {
+        foreach ($projects as $key => $project) {
             $this->assertLogContains(
                 message: sprintf(
                     '"message":"ProjectModifiedEvent handled.","context":{"projectId":"%s"}',
