@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 
+use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
@@ -17,16 +18,35 @@ use PHPUnit\Framework\TestCase;
 
 final class DoctrineCriteriaConverterTest extends TestCase
 {
-    public function testItConvertsRandomCriteria(): void
+	#[DataProvider('dataCriteria')]
+    public function testItConvertsCriteria(
+		Criteria $criteria
+	): void
     {
-        $criteria = CriteriaBuilder::any()->build();
-
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
 
         $this->assertInstanceof(DoctrineCriteria::class, $doctrineCriteria);
         $this->assertEquals($criteria->limit(), $doctrineCriteria->getMaxResults());
         $this->assertEquals($criteria->offset(), $doctrineCriteria->getFirstResult());
     }
+
+	/**
+	 * @return array<string, array<Criteria>>
+	 */
+	public static function dataCriteria(): array
+	{
+		return [
+			'no order' => [
+				CriteriaBuilder::any()->withOrderBy(null)->build()
+			],
+			'no filters' => [
+				CriteriaBuilder::any()->withFilters(null)->build()
+			],
+			'random criteria' => [
+				CriteriaBuilder::any()->build()
+			]
+		];
+	}
 
     #[DataProvider('dataUpdatedBeforeDateTimeCriteria')]
     public function testItConvertsUpdatedBeforeDateTimeCriteria(

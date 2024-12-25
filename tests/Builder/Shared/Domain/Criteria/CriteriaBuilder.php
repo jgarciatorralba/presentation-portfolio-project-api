@@ -29,14 +29,8 @@ final class CriteriaBuilder implements BuilderInterface
     public static function any(): self
     {
         return new self(
-            filters: FakeValueGenerator::randomElement([
-                null,
-                FiltersBuilder::any()->build()
-            ]),
-            orderBy: FakeValueGenerator::randomElement([
-                null,
-                OrderByBuilder::any()->build()
-            ]),
+            filters: FiltersBuilder::any()->build(),
+            orderBy: OrderByBuilder::any()->build(),
             limit: FakeValueGenerator::randomElement([
                 null,
                 FakeValueGenerator::integer()
@@ -47,6 +41,20 @@ final class CriteriaBuilder implements BuilderInterface
             ])
         );
     }
+
+	public function withFilters(?Filters $filters): self
+	{
+		$this->filters = $filters;
+
+		return $this;
+	}
+
+	public function withOrderBy(?OrderBy $orderBy): self
+	{
+		$this->orderBy = $orderBy;
+
+		return $this;
+	}
 
     public function build(): Criteria
     {
