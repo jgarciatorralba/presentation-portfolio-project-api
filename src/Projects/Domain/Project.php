@@ -83,7 +83,8 @@ final class Project extends AggregateRoot implements Comparable
         $this->lastPushedAt = $project->lastPushedAt;
     }
 
-    /** @return array{
+    /**
+	 * @return array{
      *    id: int,
      *    name: string,
      *    description: string|null,
@@ -92,7 +93,7 @@ final class Project extends AggregateRoot implements Comparable
      *    topics: string[]|null,
      *    archived: bool,
      *    lastPushedAt: string
-     *  }
+     * }
      */
     public function toArray(): array
     {
