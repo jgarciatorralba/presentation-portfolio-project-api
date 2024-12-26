@@ -99,13 +99,7 @@
         "allow_forking": true,
         "is_template": false,
         "web_commit_signoff_required": false,
-        "topics": [
-            "python",
-            "flask",
-            "heroku",
-            "api",
-            "testing"
-        ],
+        "topics": [],
         "visibility": "public",
         "forks": 10,
         "open_issues": 5,
