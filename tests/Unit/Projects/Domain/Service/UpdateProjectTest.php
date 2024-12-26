@@ -33,7 +33,7 @@ final class UpdateProjectTest extends TestCase
         $this->sut = null;
     }
 
-    public function testItSynchronizesWithAProjectAndUpdatesIt(): void
+    public function testItUpdatesProject(): void
     {
         $existingProject = $this->createMock(Project::class);
         $existingProject
@@ -42,11 +42,6 @@ final class UpdateProjectTest extends TestCase
 
         $this->projectRepositoryMock
             ->shouldFindProject($existingProject);
-
-        $existingProject
-            ->expects($this->once())
-            ->method('synchronizeWith')
-            ->with($this->project);
 
         $this->projectRepositoryMock
             ->shouldUpdateProject($existingProject);

@@ -24,5 +24,5 @@ abstract class BaseProjectRetriever
     }
 
     /** @param array<string, mixed> $data */
-    abstract protected function createProjectFromData(array $data): Project;
+    abstract protected function recreateProjectFromData(array $data): Project;
 }

@@ -100,7 +100,7 @@ final class ProjectBuilder implements BuilderInterface
 
     public function build(): Project
     {
-        $project = Project::create(
+        $project = Project::recreate(
             id: $this->id,
             details: $this->details,
             urls: $this->urls,

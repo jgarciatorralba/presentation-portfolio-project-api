@@ -26,7 +26,6 @@ final readonly class UpdateProject
             throw new ProjectNotFoundException($project->id());
         }
 
-        $existingProject->synchronizeWith($project);
         $this->projectRepository->update($existingProject);
     }
 }

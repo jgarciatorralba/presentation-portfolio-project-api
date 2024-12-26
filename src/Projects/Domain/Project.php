@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain;
 
+use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
+use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
+use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectUrls;
@@ -29,7 +32,7 @@ final class Project extends AggregateRoot implements Comparable
         $this->updateUpdatedAt($now);
     }
 
-    public static function create(
+    public static function recreate(
         ProjectId $id,
         ProjectDetails $details,
         ProjectUrls $urls,
@@ -71,6 +74,12 @@ final class Project extends AggregateRoot implements Comparable
     }
 
     /** @throws \InvalidArgumentException */
+    public function create(): void
+    {
+        $this->recordEvent(new ProjectAddedEvent($this));
+    }
+
+    /** @throws \InvalidArgumentException */
     public function synchronizeWith(Project $project): void
     {
         if (!$this->id()->equals($project->id())) {
@@ -81,6 +90,14 @@ final class Project extends AggregateRoot implements Comparable
         $this->urls = $project->urls;
         $this->archived = $project->archived;
         $this->lastPushedAt = $project->lastPushedAt;
+
+        $this->recordEvent(new ProjectModifiedEvent($this));
+    }
+
+    /** @throws \InvalidArgumentException */
+    public function erase(): void
+    {
+        $this->recordEvent(new ProjectRemovedEvent($this));
     }
 
     /**

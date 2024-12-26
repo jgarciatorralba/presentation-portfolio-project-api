@@ -87,7 +87,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
         );
 
         return array_map(
-            [$this, 'createProjectFromData'],
+            [$this, 'recreateProjectFromData'],
             $projectData
         );
     }
@@ -109,7 +109,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
      * @throws \DateMalformedStringException
      * @throws \DateInvalidTimeZoneException
      */
-    protected function createProjectFromData(array $projectData): Project
+    protected function recreateProjectFromData(array $projectData): Project
     {
         $details = ProjectDetails::create(
             name: $projectData['name'],
@@ -131,7 +131,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
             homepage: $homepage,
         );
 
-        return Project::create(
+        return Project::recreate(
             id: ProjectId::create($projectData['id']),
             details: $details,
             urls: $projectUrls,

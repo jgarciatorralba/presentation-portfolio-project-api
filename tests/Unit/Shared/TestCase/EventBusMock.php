@@ -42,14 +42,14 @@ final class EventBusMock extends AbstractMock
     public function shouldPublishEvents(Event ...$events): void
     {
         $this->mock
-            ->expects($this->exactly(count($events)))
+            ->expects($this->once())
             ->method('publish')
             ->with(
                 $this->testCase->callback(
                     function (Event $event) use ($events): bool {
-                        $expectedEvent = $events[self::$callIndex++];
+                        $expectedEvent = $events[self::$callIndex++] ?? null;
 
-                        if ($event::class !== $expectedEvent::class) {
+                        if ($expectedEvent === null || $expectedEvent::class !== $event::class) {
                             return false;
                         }
 
@@ -57,7 +57,7 @@ final class EventBusMock extends AbstractMock
                             return $event->aggregateId() === $expectedEvent->aggregateId();
                         }
 
-                        return true;
+                        return false;
                     }
                 )
             );

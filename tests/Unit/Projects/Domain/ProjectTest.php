@@ -28,9 +28,9 @@ final class ProjectTest extends TestCase
         $this->expected = null;
     }
 
-    public function testItIsCreated(): void
+    public function testItIsRecreated(): void
     {
-        $actual = Project::create(
+        $actual = Project::recreate(
             id: $this->expected->id(),
             details: $this->expected->details(),
             urls: $this->expected->urls(),
@@ -70,7 +70,7 @@ final class ProjectTest extends TestCase
 
     public function testItIsComparable(): void
     {
-        $actual = Project::create(
+        $actual = Project::recreate(
             id: $this->expected->id(),
             details: $this->expected->details(),
             urls: $this->expected->urls(),
