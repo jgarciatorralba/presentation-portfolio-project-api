@@ -169,7 +169,7 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         $this->assertEquals($projectData['name'], $project->details()->name());
         $this->assertEquals($projectData['description'] ?? null, $project->details()->description());
         $this->assertEquals(
-            !empty($projectData['topics']) ? $projectData['topics'] : null,
+            empty($projectData['topics']) ? null : $projectData['topics'],
             $project->details()->topics()
         );
         $this->assertEquals($projectData['html_url'], $project->urls()->repository());

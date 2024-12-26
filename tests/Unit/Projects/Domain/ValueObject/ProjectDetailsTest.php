@@ -48,7 +48,7 @@ class ProjectDetailsTest extends TestCase
             ->build();
 
         $differentTopics = array_map(
-            fn (string $topic) => $topic . '_different',
+            fn (string $topic): string => $topic . '_different',
             $details->topics()
         );
 
