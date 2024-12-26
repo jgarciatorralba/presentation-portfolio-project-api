@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectId;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -54,6 +55,14 @@ final class ProjectIdTest extends TestCase
             'same project ids' => [$projectId, $sameProjectId, true],
             'different project ids' => [$projectId, $differentProjectId, false],
         ];
+    }
+
+    public function testItIsComparableToDifferentClass(): void
+    {
+        $project = ProjectBuilder::any()->build();
+        $projectId = ProjectIdBuilder::any()->build();
+
+        $this->assertFalse($projectId->equals($project));
     }
 
     public function testItConvertsToString(): void

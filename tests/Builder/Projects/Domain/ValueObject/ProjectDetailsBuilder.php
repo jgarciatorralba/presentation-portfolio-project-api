@@ -31,10 +31,7 @@ final class ProjectDetailsBuilder implements BuilderInterface
                 null,
                 FakeValueGenerator::text()
             ]),
-            topics: FakeValueGenerator::randomElement([
-                null,
-                self::generateRandomTopics()
-            ])
+            topics: self::generateRandomTopics()
         );
     }
 

@@ -81,6 +81,14 @@ final class ProjectTest extends TestCase
         $this->assertTrue($this->expected->equals($actual));
     }
 
+    public function testItIsComparableToDifferentClass(): void
+    {
+        $project = ProjectBuilder::any()->build();
+        $details = $project->details();
+
+        $this->assertFalse($this->expected->equals($details));
+    }
+
     public function testItSynchronizesWithAnotherProject(): void
     {
         $project = ProjectBuilder::any()

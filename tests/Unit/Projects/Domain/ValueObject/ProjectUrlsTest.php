@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectUrls;
+use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
 use App\Tests\Builder\Shared\Domain\ValueObject\UrlBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -53,5 +54,13 @@ class ProjectUrlsTest extends TestCase
             'same project urls' => [$projectUrls, $sameProjectUrls, true],
             'different project urls' => [$projectUrls, $differentProjectUrls, false],
         ];
+    }
+
+    public function testTheyAreComparableToDifferentClass(): void
+    {
+        $project = ProjectBuilder::any()->build();
+        $projectUrls = ProjectUrlsBuilder::any()->build();
+
+        $this->assertFalse($projectUrls->equals($project));
     }
 }
