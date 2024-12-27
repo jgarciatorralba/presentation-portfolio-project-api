@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Tests\Unit\UI\Command\Projects;
 
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
-use App\Shared\Domain\Bus\Event\EventBus;
 use App\Tests\Unit\UI\TestCase\EventBusMock;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use PHPUnit\Framework\TestCase;
@@ -43,7 +42,7 @@ class SyncProjectsCommandTest extends TestCase
         $output = $this->commandTester->getDisplay();
         $uuidPattern = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
         $dateTimePattern = '\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\+\d{2}:\d{2}';
-        $pattern = "/\s*\[OK\] Event $uuidPattern published successfully on $dateTimePattern\s*/";
+        $pattern = "/\s*\[OK\] Event $uuidPattern published successfully on \s*$dateTimePattern\s*/";
 
         $this->assertMatchesRegularExpression($pattern, $output);
     }
