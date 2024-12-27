@@ -6,6 +6,7 @@ namespace App\Projects\Application\EventSubscriber;
 
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\Service\DeleteProject;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Bus\Event\EventSubscriber;
 use App\Shared\Domain\Contract\Logger;
 
@@ -20,14 +21,16 @@ final readonly class ProjectRemovedSubscriber implements EventSubscriber
     public function __invoke(ProjectRemovedEvent $event): void
     {
         try {
-            $this->deleteProject->__invoke($event->project());
+            $this->deleteProject->__invoke(
+                ProjectId::create((int) $event->aggregateId())
+            );
 
             $this->logger->info('ProjectRemovedEvent handled.', [
-                'projectId' => (string) $event->project()->id(),
+                'projectId' => $event->aggregateId(),
             ]);
         } catch (\Throwable $e) {
             $this->logger->error('ProjectRemovedEvent failed.', [
-                'projectId' => (string) $event->project()->id(),
+                'projectId' => $event->aggregateId(),
                 'error' => $e->getMessage(),
             ]);
 

@@ -40,7 +40,7 @@ final class DeleteProjectTest extends TestCase
         $this->projectRepositoryMock
             ->shouldDeleteProject($this->project);
 
-        $result = $this->sut->__invoke($this->project);
+        $result = $this->sut->__invoke($this->project->id());
 
         $this->assertNull($result);
     }
@@ -58,6 +58,6 @@ final class DeleteProjectTest extends TestCase
             )
         );
 
-        $this->sut->__invoke($this->project);
+        $this->sut->__invoke($this->project->id());
     }
 }

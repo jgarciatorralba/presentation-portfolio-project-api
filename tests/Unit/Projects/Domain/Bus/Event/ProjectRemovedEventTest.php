@@ -25,9 +25,12 @@ final class ProjectRemovedEventTest extends TestCase
 
     public function testItIsCreated(): void
     {
-        $event = new ProjectRemovedEvent($this->project);
+        $event = new ProjectRemovedEvent($this->project->id());
 
-        self::assertSame($this->project, $event->project());
+        self::assertSame(
+            (string) $this->project->id(),
+            $event->aggregateId()
+        );
         self::assertSame('projects.domain.project_removed', $event::eventType());
     }
 }

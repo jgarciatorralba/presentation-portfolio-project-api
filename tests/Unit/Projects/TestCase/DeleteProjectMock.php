@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\Exception\ProjectNotFoundException;
-use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\Service\DeleteProject;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\InvalidArgumentException;
@@ -29,15 +29,14 @@ final class DeleteProjectMock extends ProjectRepositoryServiceMock
      * @throws MethodNameNotConfiguredException
      * @throws MethodParametersAlreadyConfiguredException
      */
-    public function shouldDeleteProject(Project $expected): void
+    public function shouldDeleteProject(ProjectId $expected): void
     {
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
             ->with($this->testCase->callback(
-                function (Project $actual) use ($expected): true {
-                    $this->assertProjectsAreEqual($expected, $actual);
-                    return true;
+                function (ProjectId $actual) use ($expected): bool {
+                    return $actual->equals($expected);
                 }
             ));
     }
@@ -51,14 +50,14 @@ final class DeleteProjectMock extends ProjectRepositoryServiceMock
      * @throws MethodParametersAlreadyConfiguredException
      */
     public function shouldThrowException(
-        Project $expected
+        ProjectId $expected
     ): void {
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
             ->with($expected)
             ->willThrowException(
-                new ProjectNotFoundException($expected->id())
+                new ProjectNotFoundException($expected)
             );
     }
 }

@@ -7,6 +7,7 @@ namespace App\Projects\Domain\Service;
 use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 
 final readonly class UpdateProject
 {
@@ -17,13 +18,12 @@ final readonly class UpdateProject
 
     /**
      * @throws ProjectNotFoundException
-     * @throws \InvalidArgumentException
      */
-    public function __invoke(Project $project): void
+    public function __invoke(ProjectId $id): void
     {
-        $existingProject = $this->projectRepository->find($project->id());
+        $existingProject = $this->projectRepository->find($id);
         if (!$existingProject instanceof Project) {
-            throw new ProjectNotFoundException($project->id());
+            throw new ProjectNotFoundException($id);
         }
 
         $this->projectRepository->update($existingProject);

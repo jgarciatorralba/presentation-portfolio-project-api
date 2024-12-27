@@ -80,7 +80,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
         $this->requestExternalProjects->shouldRequestExternalProjects(...$externalProjects);
 
         $this->eventBus->shouldPublishEvents(
-            new ProjectRemovedEvent($storedProjects[0])
+            new ProjectRemovedEvent($storedProjects[0]->id())
         );
 
         $result = $this->sut->__invoke($this->event);
@@ -98,7 +98,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
         $this->requestExternalProjects->shouldRequestExternalProjects($externalProject);
 
         $this->eventBus->shouldPublishEvents(
-            new ProjectModifiedEvent($externalProject)
+            new ProjectModifiedEvent($externalProject->id())
         );
 
         $result = $this->sut->__invoke($this->event);

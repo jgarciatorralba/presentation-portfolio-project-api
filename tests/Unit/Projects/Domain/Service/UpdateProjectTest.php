@@ -46,7 +46,7 @@ final class UpdateProjectTest extends TestCase
         $this->projectRepositoryMock
             ->shouldUpdateProject($existingProject);
 
-        $result = $this->sut->__invoke($this->project);
+        $result = $this->sut->__invoke($this->project->id());
 
         $this->assertNull($result);
     }
@@ -64,6 +64,6 @@ final class UpdateProjectTest extends TestCase
             )
         );
 
-        $this->sut->__invoke($this->project);
+        $this->sut->__invoke($this->project->id());
     }
 }

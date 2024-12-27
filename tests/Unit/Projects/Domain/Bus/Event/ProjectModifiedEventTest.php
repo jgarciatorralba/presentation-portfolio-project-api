@@ -25,9 +25,12 @@ final class ProjectModifiedEventTest extends TestCase
 
     public function testItIsCreated(): void
     {
-        $event = new ProjectModifiedEvent($this->project);
+        $event = new ProjectModifiedEvent($this->project->id());
 
-        self::assertSame($this->project, $event->project());
+        self::assertSame(
+            (string) $this->project->id(),
+            $event->aggregateId()
+        );
         self::assertSame('projects.domain.project_modified', $event::eventType());
     }
 }

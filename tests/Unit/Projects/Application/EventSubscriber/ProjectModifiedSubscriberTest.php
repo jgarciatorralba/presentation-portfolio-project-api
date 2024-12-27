@@ -7,6 +7,7 @@ namespace App\Tests\Unit\Projects\Application\EventSubscriber;
 use App\Projects\Application\EventSubscriber\ProjectModifiedSubscriber;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\UpdateProjectMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
@@ -21,8 +22,10 @@ final class ProjectModifiedSubscriberTest extends TestCase
 
     protected function setUp(): void
     {
+        $project = ProjectBuilder::any()->build();
+
         $this->event = new ProjectModifiedEvent(
-            ProjectBuilder::any()->build()
+            $project->id()
         );
 
         $this->updateProject = new UpdateProjectMock($this);
@@ -43,11 +46,13 @@ final class ProjectModifiedSubscriberTest extends TestCase
 
     public function testItHandlesProjectModifiedEvent(): void
     {
-        $this->updateProject->shouldUpdateProject($this->event->project());
+        $this->updateProject->shouldUpdateProject(
+            ProjectId::create((int) $this->event->aggregateId())
+        );
         $this->logger->shouldLogInfo(
             'ProjectModifiedEvent handled.',
             [
-                'projectId' => $this->event->project()->id()->value(),
+                'projectId' => $this->event->aggregateId(),
             ]
         );
 
@@ -56,14 +61,16 @@ final class ProjectModifiedSubscriberTest extends TestCase
 
     public function testItLogsErrorWhenProjectModificationFails(): void
     {
-        $this->updateProject->shouldThrowException($this->event->project());
+        $this->updateProject->shouldThrowException(
+            ProjectId::create((int) $this->event->aggregateId())
+        );
         $this->logger->shouldLogError(
             'ProjectModifiedEvent failed.',
             [
-                'projectId' => $this->event->project()->id()->value(),
+                'projectId' => $this->event->aggregateId(),
                 'error' => sprintf(
                     "Project with id '%s' could not be found.",
-                    $this->event->project()->id()->value()
+                    $this->event->aggregateId()
                 ),
             ]
         );

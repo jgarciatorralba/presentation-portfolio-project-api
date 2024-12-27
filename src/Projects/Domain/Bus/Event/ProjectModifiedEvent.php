@@ -4,20 +4,14 @@ declare(strict_types=1);
 
 namespace App\Projects\Domain\Bus\Event;
 
-use App\Projects\Domain\Project;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Bus\Event\DomainEvent;
 
 final class ProjectModifiedEvent extends DomainEvent
 {
-    public function __construct(
-        private readonly Project $project
-    ) {
-        parent::__construct($project->id()->__toString());
-    }
-
-    public function project(): Project
+    public function __construct(ProjectId $id)
     {
-        return $this->project;
+        parent::__construct($id->__toString());
     }
 
     public static function eventType(): string

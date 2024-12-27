@@ -6,6 +6,7 @@ namespace App\Projects\Application\EventSubscriber;
 
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Service\UpdateProject;
+use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Bus\Event\EventSubscriber;
 use App\Shared\Domain\Contract\Logger;
 
@@ -20,14 +21,16 @@ final readonly class ProjectModifiedSubscriber implements EventSubscriber
     public function __invoke(ProjectModifiedEvent $event): void
     {
         try {
-            $this->updateProject->__invoke($event->project());
+            $this->updateProject->__invoke(
+                ProjectId::create((int) $event->aggregateId())
+            );
 
             $this->logger->info('ProjectModifiedEvent handled.', [
-                'projectId' => (string) $event->project()->id(),
+                'projectId' => $event->aggregateId(),
             ]);
         } catch (\Throwable $e) {
             $this->logger->error('ProjectModifiedEvent failed.', [
-                'projectId' => (string) $event->project()->id(),
+                'projectId' => $event->aggregateId(),
                 'error' => $e->getMessage(),
             ]);
 

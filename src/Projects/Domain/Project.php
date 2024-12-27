@@ -91,13 +91,13 @@ final class Project extends AggregateRoot implements Comparable
         $this->archived = $project->archived;
         $this->lastPushedAt = $project->lastPushedAt;
 
-        $this->recordEvent(new ProjectModifiedEvent($this));
+        $this->recordEvent(new ProjectModifiedEvent($this->id()));
     }
 
     /** @throws \InvalidArgumentException */
     public function erase(): void
     {
-        $this->recordEvent(new ProjectRemovedEvent($this));
+        $this->recordEvent(new ProjectRemovedEvent($this->id()));
     }
 
     /**
