@@ -173,14 +173,10 @@ readonly class HttpResponse implements HttpResponseInterface
             );
         }
 
-        $header = $this->headers->get($name);
-        if (!$header instanceof HttpHeader) {
-            throw new \InvalidArgumentException('Invalid header value');
-        }
-
+        $headerValues = $this->getHeader($name);
         return $this->withHeader(
-            $header->name(),
-            array_merge($header->values(), (array) $value)
+            $name,
+            array_merge($headerValues, (array) $value)
         );
     }
 

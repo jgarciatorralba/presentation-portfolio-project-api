@@ -53,6 +53,15 @@ final class HttpResponseTest extends TestCase
         $this->assertEquals($statusCode->getReasonPhraseFromCode(), $actual->getReasonPhrase());
     }
 
+	public function testItThrowsExceptionWhenStatusIsInvalid(): void
+	{
+		$expected = HttpResponseBuilder::any()->build();
+
+		$this->expectException(\InvalidArgumentException::class);
+
+        $actual = $expected->withStatus(0);
+	}
+
     public function testItIsCreatedWithProtocolVersion(): void
     {
         $expected = HttpResponseBuilder::any()->build();
@@ -64,6 +73,15 @@ final class HttpResponseTest extends TestCase
         $this->assertEquals($protocolVersion->value, $actual->getProtocolVersion());
         $this->assertEquals($expected->getStatusCode(), $actual->getStatusCode());
     }
+
+	public function testItThrowsExceptionWhenProtocolVersionIsInvalid(): void
+	{
+		$expected = HttpResponseBuilder::any()->build();
+
+		$this->expectException(\InvalidArgumentException::class);
+
+		$actual = $expected->withProtocolVersion('invalid-version');
+	}
 
     public function testItIsCreatedWithHeader(): void
     {
@@ -97,6 +115,15 @@ final class HttpResponseTest extends TestCase
             $actual->getHeader($header->name())
         );
     }
+
+	public function testItThrowsExceptionWhenAddedHeaderNameIsInvalid(): void
+	{
+		$expected = HttpResponseBuilder::any()->build();
+
+		$this->expectException(\InvalidArgumentException::class);
+
+		$actual = $expected->withAddedHeader('invalid_header', []);
+	}
 
     public function testItIsCreatedWithoutHeader(): void
     {
