@@ -22,7 +22,6 @@ services:
       - app_var:/var/www/portfolio-api/var
       - app_vendor:/var/www/portfolio-api/vendor
     environment:
-      BASE_URL: ${SERVER_SCHEMA}://${SERVER_NAME}:${SERVER_MAPPED_PORT}
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_NAME: ${DATABASE_NAME}

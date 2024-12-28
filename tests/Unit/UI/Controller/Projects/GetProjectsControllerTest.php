@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\UI\Controller\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
-use App\Shared\Domain\Bus\Command\CommandBus;
 use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\UI\TestCase\QueryBusMock;
-use App\Tests\Unit\UI\TestCase\ParameterBagMock;
 use App\UI\Controller\Projects\GetProjectsController;
 use App\UI\Request\Projects\GetProjectsRequest;
 use App\UI\Validation\Validator;
@@ -21,17 +19,16 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class GetProjectsControllerTest extends TestCase
 {
     private ?QueryBusMock $queryBusMock;
-    private ?ParameterBagMock $parameterBagMock;
     private ?RequestStack $requestStack;
     private ?GetProjectsRequest $getProjectsRequest;
 
     protected function setUp(): void
     {
         $this->queryBusMock = new QueryBusMock($this);
-        $this->parameterBagMock = new ParameterBagMock($this);
 
         $this->requestStack = new RequestStack();
         $this->requestStack->push(new Request());
+
         $this->getProjectsRequest = new GetProjectsRequest(
             validator: $this->createMock(Validator::class),
             request: $this->requestStack
@@ -41,7 +38,6 @@ final class GetProjectsControllerTest extends TestCase
     protected function tearDown(): void
     {
         $this->queryBusMock = null;
-        $this->parameterBagMock = null;
         $this->requestStack = null;
         $this->getProjectsRequest = null;
     }
@@ -52,16 +48,9 @@ final class GetProjectsControllerTest extends TestCase
             $this->requestStack->getCurrentRequest()->getContent(),
             true
         );
-        $baseUrl = 'http://localhost:8000';
-
-        $this->parameterBagMock
-            ->shouldGetBaseUrl($baseUrl)
-            ->getMock();
 
         $sut = new GetProjectsController(
-            queryBus: $this->queryBusMock->getMock(),
-            commandBus: $this->createMock(CommandBus::class),
-            params: $this->parameterBagMock->getMock()
+            queryBus: $this->queryBusMock->getMock()
         );
 
         $this->queryBusMock
@@ -88,16 +77,9 @@ final class GetProjectsControllerTest extends TestCase
             $this->requestStack->getCurrentRequest()->getContent(),
             true
         );
-        $baseUrl = 'http://localhost:8000';
-
-        $this->parameterBagMock
-            ->shouldGetBaseUrl($baseUrl)
-            ->getMock();
 
         $sut = new GetProjectsController(
-            queryBus: $this->queryBusMock->getMock(),
-            commandBus: $this->createMock(CommandBus::class),
-            params: $this->parameterBagMock->getMock()
+            queryBus: $this->queryBusMock->getMock()
         );
 
         $this->queryBusMock
