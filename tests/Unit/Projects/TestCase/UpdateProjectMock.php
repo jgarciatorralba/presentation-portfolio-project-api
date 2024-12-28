@@ -35,9 +35,7 @@ final class UpdateProjectMock extends ProjectRepositoryServiceMock
             ->expects($this->once())
             ->method('__invoke')
             ->with($this->testCase->callback(
-                function (ProjectId $actual) use ($expected): bool {
-                    return $actual->equals($expected);
-                }
+                fn(ProjectId $actual): bool => $actual->equals($expected)
             ));
     }
 

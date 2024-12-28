@@ -59,7 +59,7 @@ final class HttpResponseTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $actual = $expected->withStatus(0);
+        $expected->withStatus(0);
     }
 
     public function testItIsCreatedWithProtocolVersion(): void
@@ -80,7 +80,7 @@ final class HttpResponseTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $actual = $expected->withProtocolVersion('invalid-version');
+        $expected->withProtocolVersion('invalid-version');
     }
 
     public function testItIsCreatedWithHeader(): void
@@ -122,7 +122,7 @@ final class HttpResponseTest extends TestCase
 
         $this->expectException(\InvalidArgumentException::class);
 
-        $actual = $expected->withAddedHeader('invalid_header', []);
+        $expected->withAddedHeader('invalid_header', []);
     }
 
     public function testItIsCreatedWithoutHeader(): void
