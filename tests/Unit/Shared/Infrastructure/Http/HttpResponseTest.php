@@ -53,14 +53,14 @@ final class HttpResponseTest extends TestCase
         $this->assertEquals($statusCode->getReasonPhraseFromCode(), $actual->getReasonPhrase());
     }
 
-	public function testItThrowsExceptionWhenStatusIsInvalid(): void
-	{
-		$expected = HttpResponseBuilder::any()->build();
+    public function testItThrowsExceptionWhenStatusIsInvalid(): void
+    {
+        $expected = HttpResponseBuilder::any()->build();
 
-		$this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $actual = $expected->withStatus(0);
-	}
+    }
 
     public function testItIsCreatedWithProtocolVersion(): void
     {
@@ -74,14 +74,14 @@ final class HttpResponseTest extends TestCase
         $this->assertEquals($expected->getStatusCode(), $actual->getStatusCode());
     }
 
-	public function testItThrowsExceptionWhenProtocolVersionIsInvalid(): void
-	{
-		$expected = HttpResponseBuilder::any()->build();
+    public function testItThrowsExceptionWhenProtocolVersionIsInvalid(): void
+    {
+        $expected = HttpResponseBuilder::any()->build();
 
-		$this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
-		$actual = $expected->withProtocolVersion('invalid-version');
-	}
+        $actual = $expected->withProtocolVersion('invalid-version');
+    }
 
     public function testItIsCreatedWithHeader(): void
     {
@@ -116,14 +116,14 @@ final class HttpResponseTest extends TestCase
         );
     }
 
-	public function testItThrowsExceptionWhenAddedHeaderNameIsInvalid(): void
-	{
-		$expected = HttpResponseBuilder::any()->build();
+    public function testItThrowsExceptionWhenAddedHeaderNameIsInvalid(): void
+    {
+        $expected = HttpResponseBuilder::any()->build();
 
-		$this->expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
-		$actual = $expected->withAddedHeader('invalid_header', []);
-	}
+        $actual = $expected->withAddedHeader('invalid_header', []);
+    }
 
     public function testItIsCreatedWithoutHeader(): void
     {

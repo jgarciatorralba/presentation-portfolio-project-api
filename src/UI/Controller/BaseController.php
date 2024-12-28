@@ -11,7 +11,7 @@ use App\Shared\Domain\Bus\Query\Response;
 abstract class BaseController
 {
     public function __construct(private readonly QueryBus $queryBus)
-	{
+    {
     }
 
     protected function ask(Query $query): ?Response
