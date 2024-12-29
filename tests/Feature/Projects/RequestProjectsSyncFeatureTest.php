@@ -12,9 +12,9 @@ use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Feature\FeatureTestCase;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 {
@@ -48,8 +48,8 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         );
 
         $eventBus = $this->getContainer()->get(EventBus::class);
-        $command = new SyncProjectsCommand($eventBus);
-        $this->commandTester = new CommandTester($command);
+        $cliCommand = new SyncProjectsCommand($eventBus);
+        $this->commandTester = new CommandTester($cliCommand);
     }
 
     protected function tearDown(): void
@@ -92,7 +92,6 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
     public function testItSyncsByDeletingOldProjects(): void
     {
         $projects = ProjectBuilder::buildMany(10);
-
         $this->persist(...$projects);
 
         $this->commandTester->execute(input: []);
@@ -132,7 +131,6 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
             },
             $this->projectData
         );
-
         $this->persist(...$projects);
 
         $this->commandTester->execute(input: []);
