@@ -8,7 +8,7 @@ use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\Service\DeleteProject;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Bus\Event\EventSubscriber;
-use App\Shared\Domain\Contract\Logger;
+use App\Shared\Domain\Contract\Log\Logger;
 
 final readonly class ProjectRemovedSubscriber implements EventSubscriber
 {

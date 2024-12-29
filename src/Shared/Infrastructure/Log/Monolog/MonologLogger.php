@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infrastructure\Log\Monolog;
 
-use App\Shared\Domain\Contract\Logger;
+use App\Shared\Domain\Contract\Log\Logger;
 use Psr\Log\LoggerInterface;
 
 abstract class MonologLogger implements Logger

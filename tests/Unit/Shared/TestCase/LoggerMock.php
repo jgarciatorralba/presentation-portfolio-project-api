@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Shared\TestCase;
 
-use App\Shared\Domain\Contract\Logger;
+use App\Shared\Domain\Contract\Log\Logger;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\Exception;
 use PHPUnit\Framework\InvalidArgumentException;

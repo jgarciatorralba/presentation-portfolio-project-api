@@ -6,7 +6,7 @@ namespace App\Projects\Infrastructure\Http;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Contract\Http\HttpClient;
-use App\Shared\Domain\Contract\Logger;
+use App\Shared\Domain\Contract\Log\Logger;
 use App\Shared\Domain\ValueObject\Url;
 
 abstract class BaseProjectRetriever

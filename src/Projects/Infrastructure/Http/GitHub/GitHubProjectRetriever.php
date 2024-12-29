@@ -13,7 +13,7 @@ use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Contract\Http\HttpClient;
-use App\Shared\Domain\Contract\Logger;
+use App\Shared\Domain\Contract\Log\Logger;
 use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
