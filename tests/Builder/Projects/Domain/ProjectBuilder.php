@@ -17,9 +17,6 @@ use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectBuilder implements BuilderInterface
 {
-    private const int MIN_PROJECTS = 1;
-    private const int MAX_PROJECTS = 100;
-
     private function __construct(
         private ProjectId $id,
         private ProjectDetails $details,
@@ -46,35 +43,6 @@ final class ProjectBuilder implements BuilderInterface
             createdAt: FakeValueGenerator::dateTime(),
             updatedAt: FakeValueGenerator::dateTime()
         );
-    }
-
-    /**
-     * @throws InvalidProjectRepositoryUrlException
-     * @throws \InvalidArgumentException
-     *
-     * @return Project[]
-     */
-    public static function buildMany(?int $amount = null): array
-    {
-        if ($amount === null) {
-            $amount = FakeValueGenerator::integer(
-                min: self::MIN_PROJECTS,
-                max: self::MAX_PROJECTS
-            );
-        }
-
-        $projects = [];
-
-        $i = 0;
-        while ($i < $amount) {
-            $project = self::any()->build();
-            if (!in_array($project->id()->value(), array_keys($projects))) {
-                $projects[$project->id()->value()] = $project;
-                $i++;
-            }
-        }
-
-        return array_values($projects);
     }
 
     public function withId(ProjectId $id): self

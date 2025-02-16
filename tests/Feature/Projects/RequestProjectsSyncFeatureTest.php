@@ -7,6 +7,7 @@ namespace App\Tests\Feature\Projects;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\Http\HttpStatusCode;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Feature\FeatureTestCase;
@@ -91,7 +92,7 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 
     public function testItSyncsByDeletingOldProjects(): void
     {
-        $projects = ProjectBuilder::buildMany(10);
+        $projects = MappedProjectsBuilder::any()->build()->all();
         $this->persist(...$projects);
 
         $this->commandTester->execute(input: []);

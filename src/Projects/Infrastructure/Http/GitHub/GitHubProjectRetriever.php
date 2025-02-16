@@ -7,6 +7,7 @@ namespace App\Projects\Infrastructure\Http\GitHub;
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
@@ -37,15 +38,13 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
     }
 
     /**
-     * @return list<Project>
-     *
      * @throws \RuntimeException
      * @throws InvalidProjectRepositoryUrlException
      * @throws \InvalidArgumentException
      * @throws \DateMalformedStringException
      * @throws \DateInvalidTimeZoneException
      */
-    public function retrieve(): array
+    public function retrieve(): MappedProjects
     {
         $projectData = [];
 
@@ -86,9 +85,11 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 && str_contains($response->getHeaderLine('link'), 'rel="next"')
         );
 
-        return array_map(
-            [$this, 'recreateProjectFromData'],
-            $projectData
+        return new MappedProjects(
+            ...array_map(
+                [$this, 'recreateProjectFromData'],
+                $projectData
+            )
         );
     }
 

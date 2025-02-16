@@ -93,9 +93,9 @@ final class GitHubProjectRetrieverTest extends TestCase
 
         $projects = $this->sut->retrieve();
 
-        $this->assertIsArray($projects);
-        $this->assertNotEmpty($projects);
-        foreach ($projects as $project) {
+        $this->assertIsArray($projects->all());
+        $this->assertNotEmpty($projects->all());
+        foreach ($projects->all() as $project) {
             $this->assertInstanceof(Project::class, $project);
         }
     }

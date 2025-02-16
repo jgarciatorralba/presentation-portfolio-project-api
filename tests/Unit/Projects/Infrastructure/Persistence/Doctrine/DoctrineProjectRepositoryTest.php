@@ -9,6 +9,7 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
@@ -102,7 +103,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
     {
         $criteria = CriteriaBuilder::any()->build();
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
-        $projects = ProjectBuilder::buildMany();
+        $projects = MappedProjectsBuilder::any()->build()->all();
 
         $this->entityRepositoryMock
             ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, ...$projects);
