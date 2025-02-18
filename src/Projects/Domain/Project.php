@@ -122,7 +122,8 @@ final class Project extends AggregateRoot implements Comparable
             'repository' => $this->urls()->repository()->value(),
             'homepage' => $this->urls()->homepage()?->value() ?? null,
             'archived' => $this->archived(),
-            'lastPushedAt' => Utils::dateToString($this->lastPushedAt())
+            'lastPushedAt' => Utils::dateToString($this->lastPushedAt()),
+			'updatedAt' => Utils::dateToString($this->updatedAt()),
         ];
     }
 
