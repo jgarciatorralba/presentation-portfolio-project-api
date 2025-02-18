@@ -8,7 +8,7 @@ use App\Projects\Application\Query\GetProjects\GetProjectsQueryHandler;
 use App\Projects\Application\Query\GetProjects\GetProjectsResponse;
 use App\Projects\Domain\Project;
 use App\Tests\Builder\Projects\Application\Query\GetProjects\GetProjectsQueryBuilder;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Builder\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteriaBuilder;
 use App\Tests\Unit\Projects\TestCase\GetProjectsByCriteriaMock;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +34,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
 
     public function testItGetsProjects(): void
     {
-        $projects = ProjectBuilder::buildMany(10);
+        $projects = MappedProjectsBuilder::any()->build()->all();
 
         $this->getProjectsByCriteria->shouldGetProjects(
             UpdatedBeforeDateTimeCriteriaBuilder::any()->build(),
@@ -53,6 +53,6 @@ final class GetProjectsQueryHandlerTest extends TestCase
             ),
             $result->data()['projects']
         );
-        $this->assertEquals(10, $result->data()['count']);
+        $this->assertEquals(count($projects), $result->data()['count']);
     }
 }

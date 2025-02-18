@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Projects\TestCase;
 
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\GetAllProjects;
 use PHPUnit\Framework\InvalidArgumentException;
@@ -26,14 +27,9 @@ final class GetAllProjectsMock extends ProjectRepositoryServiceMock
      */
     public function shouldGetAllStoredProjects(Project ...$projects): void
     {
-        $mappedProjects = [];
-        foreach ($projects as $project) {
-            $mappedProjects[$project->id()->value()] = $project;
-        }
-
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->willReturn($mappedProjects);
+            ->willReturn(new MappedProjects(...$projects));
     }
 }

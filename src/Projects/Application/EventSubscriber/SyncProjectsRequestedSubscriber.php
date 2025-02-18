@@ -26,18 +26,18 @@ final readonly class SyncProjectsRequestedSubscriber implements EventSubscriber
         $externalProjects = $this->requestExternalProjects->__invoke();
         $events = [];
 
-        foreach ($externalProjects as $projectId => $project) {
-            if (!isset($storedProjects[$projectId])) {
+        foreach ($externalProjects->all() as $project) {
+            if (!$storedProjects->has((string) $project->id())) {
                 $project->create();
-            } elseif (!$project->equals($storedProjects[$projectId])) {
-                $storedProjects[$projectId]->synchronizeWith($project);
+            } elseif (!$project->equals($storedProjects->get((string) $project->id()))) {
+                $storedProjects->get((string) $project->id())->synchronizeWith($project);
             }
 
             $events = [...$events, ...$project->pullEvents()];
         }
 
-        foreach ($storedProjects as $projectId => $project) {
-            if (!isset($externalProjects[$projectId])) {
+        foreach ($storedProjects->all() as $project) {
+            if (!$externalProjects->has((string) $project->id())) {
                 $project->erase();
             }
 

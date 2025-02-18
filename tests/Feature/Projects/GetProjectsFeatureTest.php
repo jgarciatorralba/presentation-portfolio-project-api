@@ -8,8 +8,8 @@ use App\Projects\Domain\Project;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Feature\FeatureTestCase;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 final class GetProjectsFeatureTest extends FeatureTestCase
@@ -21,7 +21,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     {
         parent::setUp();
 
-        $projects = ProjectBuilder::buildMany();
+        $projects = MappedProjectsBuilder::any()->build()->all();
         if ($projects !== []) {
             $this->persist(...$projects);
         }

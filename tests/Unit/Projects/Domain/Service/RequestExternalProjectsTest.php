@@ -4,22 +4,21 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Projects\Domain\Service;
 
-use App\Projects\Domain\Project;
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Service\RequestExternalProjects;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Unit\Projects\TestCase\ExternalProjectRetrieverMock;
 use PHPUnit\Framework\TestCase;
 
 final class RequestExternalProjectsTest extends TestCase
 {
-    /** @var Project[] $projects */
-    private ?array $projects;
+    private ?MappedProjects $projects;
     private ?ExternalProjectRetrieverMock $externalProjectRetrieverMock;
     private ?RequestExternalProjects $sut;
 
     protected function setUp(): void
     {
-        $this->projects = ProjectBuilder::buildMany();
+        $this->projects = MappedProjectsBuilder::any()->build();
         $this->externalProjectRetrieverMock = new ExternalProjectRetrieverMock($this);
         $this->sut = new RequestExternalProjects(
             externalProjectRetriever: $this->externalProjectRetrieverMock->getMock()
@@ -36,21 +35,12 @@ final class RequestExternalProjectsTest extends TestCase
     public function testItRequestsExternalProjects(): void
     {
         $this->externalProjectRetrieverMock
-            ->shouldRetrieveProjects(...$this->projects);
+            ->shouldRetrieveProjects(...$this->projects->all());
 
         $result = $this->sut->__invoke();
 
-        $mappedProjects = array_reduce(
-            $this->projects,
-            static function (array $carry, Project $project): array {
-                $carry[$project->id()->value()] = $project;
-                return $carry;
-            },
-            []
-        );
-
         $this->assertEquals(
-            $mappedProjects,
+            $this->projects,
             $result
         );
     }

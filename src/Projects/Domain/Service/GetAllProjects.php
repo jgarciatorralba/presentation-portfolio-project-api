@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projects\Domain\Service;
 
 use App\Projects\Domain\Contract\ProjectRepository;
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 
 final readonly class GetAllProjects
@@ -14,18 +15,11 @@ final readonly class GetAllProjects
     ) {
     }
 
-    /**
-     * @return array<int, Project>
-     */
-    public function __invoke(): array
+    /** @return MappedProjects<Project> */
+    public function __invoke(): MappedProjects
     {
         $projects = $this->projectRepository->findAll();
 
-        $mappedProjects = [];
-        foreach ($projects as $project) {
-            $mappedProjects[$project->id()->value()] = $project;
-        }
-
-        return $mappedProjects;
+        return new MappedProjects(...$projects);
     }
 }

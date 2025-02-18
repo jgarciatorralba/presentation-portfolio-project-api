@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Projects\Domain\Service;
 
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 
 final readonly class RequestExternalProjects
@@ -14,18 +15,9 @@ final readonly class RequestExternalProjects
     ) {
     }
 
-    /**
-     * @return array<int, Project>
-     */
-    public function __invoke(): array
+    /** @return MappedProjects<Project> */
+    public function __invoke(): MappedProjects
     {
-        $projects = $this->externalProjectRetriever->retrieve();
-
-        $mappedProjects = [];
-        foreach ($projects as $project) {
-            $mappedProjects[$project->id()->value()] = $project;
-        }
-
-        return $mappedProjects;
+        return $this->externalProjectRetriever->retrieve();
     }
 }

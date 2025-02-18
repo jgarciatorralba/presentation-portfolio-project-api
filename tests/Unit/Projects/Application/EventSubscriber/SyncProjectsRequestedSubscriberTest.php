@@ -9,6 +9,7 @@ use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
+use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\GetAllProjectsMock;
 use App\Tests\Unit\Projects\TestCase\RequestExternalProjectsMock;
@@ -49,7 +50,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
 
     public function testItPublishesProjectAddedEventWhenProjectIsNotStored(): void
     {
-        $externalProjects = ProjectBuilder::buildMany();
+        $externalProjects = MappedProjectsBuilder::any()->build()->all();
         $storedProjects = array_filter(
             $externalProjects,
             fn (int $key): bool => $key !== 0,
@@ -69,7 +70,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
 
     public function testItPublishesProjectRemovedEventWhenProjectIsNotFetched(): void
     {
-        $storedProjects = ProjectBuilder::buildMany();
+        $storedProjects = MappedProjectsBuilder::any()->build()->all();
         $externalProjects = array_filter(
             $storedProjects,
             fn (int $key): bool => $key !== 0,

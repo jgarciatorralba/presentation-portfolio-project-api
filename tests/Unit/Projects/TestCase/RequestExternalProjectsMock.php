@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Projects\TestCase;
 
+use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\RequestExternalProjects;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
@@ -27,14 +28,9 @@ final class RequestExternalProjectsMock extends AbstractMock
      */
     public function shouldRequestExternalProjects(Project ...$projects): void
     {
-        $mappedProjects = [];
-        foreach ($projects as $project) {
-            $mappedProjects[$project->id()->value()] = $project;
-        }
-
         $this->mock
             ->expects($this->once())
             ->method('__invoke')
-            ->willReturn($mappedProjects);
+            ->willReturn(new MappedProjects(...$projects));
     }
 }
