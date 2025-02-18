@@ -12,7 +12,7 @@ use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderBy;
 use App\Shared\Domain\Criteria\Order\OrderType;
 
-final class UpdatedBeforeDateTimeCriteria extends Criteria
+final readonly class UpdatedBeforeDateTimeCriteria extends Criteria
 {
     public function __construct(
         \DateTimeImmutable $maxUpdatedAt,

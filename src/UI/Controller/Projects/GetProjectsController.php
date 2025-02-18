@@ -11,7 +11,7 @@ use App\UI\Controller\BaseController;
 use App\UI\Request\Projects\GetProjectsRequest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-final class GetProjectsController extends BaseController
+final readonly class GetProjectsController extends BaseController
 {
     /** @throws \InvalidArgumentException */
     public function __invoke(GetProjectsRequest $request): JsonResponse

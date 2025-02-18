@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Bus\Event;
 
-abstract class DomainEvent extends Event
+abstract readonly class DomainEvent extends Event
 {
     public function __construct(
-        private readonly string $aggregateId,
+        private string $aggregateId,
         ?string $eventId = null,
         ?string $occurredOn = null
     ) {

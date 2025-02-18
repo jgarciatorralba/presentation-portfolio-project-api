@@ -8,10 +8,10 @@ use App\Shared\Domain\Contract\Mappable;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
 
-abstract class Event implements Mappable
+abstract readonly class Event implements Mappable
 {
-    protected readonly string $eventId;
-    protected readonly string $occurredOn;
+    protected string $eventId;
+    protected string $occurredOn;
 
     /** @throws \InvalidArgumentException */
     public function __construct(

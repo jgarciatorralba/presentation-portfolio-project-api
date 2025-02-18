@@ -7,7 +7,7 @@ namespace App\Projects\Domain\Bus\Event;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Bus\Event\DomainEvent;
 
-final class ProjectRemovedEvent extends DomainEvent
+final readonly class ProjectRemovedEvent extends DomainEvent
 {
     public function __construct(ProjectId $id)
     {

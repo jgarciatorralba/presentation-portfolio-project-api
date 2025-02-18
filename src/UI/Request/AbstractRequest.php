@@ -9,12 +9,12 @@ use App\UI\Validation\Validator;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class AbstractRequest
+abstract readonly class AbstractRequest
 {
     /** @throws ValidationException */
     public function __construct(
-        private readonly Validator $validator,
-        protected readonly RequestStack $request
+        private Validator $validator,
+        protected RequestStack $request
     ) {
         $this->validate();
     }

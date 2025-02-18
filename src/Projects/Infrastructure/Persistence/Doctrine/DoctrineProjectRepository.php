@@ -11,7 +11,7 @@ use App\Projects\Domain\Contract\ProjectRepository;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectId;
 
-class DoctrineProjectRepository extends DoctrineRepository implements ProjectRepository
+readonly class DoctrineProjectRepository extends DoctrineRepository implements ProjectRepository
 {
     protected function entityClass(): string
     {

@@ -8,9 +8,9 @@ use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Domain\Bus\Query\QueryBus;
 use App\Shared\Domain\Bus\Query\Response;
 
-abstract class BaseController
+abstract readonly class BaseController
 {
-    public function __construct(private readonly QueryBus $queryBus)
+    public function __construct(private QueryBus $queryBus)
     {
     }
 

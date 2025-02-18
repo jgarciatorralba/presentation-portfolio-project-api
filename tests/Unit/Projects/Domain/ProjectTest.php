@@ -66,10 +66,10 @@ final class ProjectTest extends TestCase
             $this->expected->lastPushedAt()->format(\DateTimeInterface::ATOM),
             $projectArray['lastPushedAt']
         );
-		$this->assertEquals(
-			$this->expected->updatedAt()->format(\DateTimeInterface::ATOM),
-			$projectArray['updatedAt']
-		);
+        $this->assertEquals(
+            $this->expected->updatedAt()->format(\DateTimeInterface::ATOM),
+            $projectArray['updatedAt']
+        );
     }
 
     public function testItIsComparable(): void

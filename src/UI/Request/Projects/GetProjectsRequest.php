@@ -10,7 +10,7 @@ use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Exception\MissingOptionsException;
 
-final class GetProjectsRequest extends AbstractRequest
+final readonly class GetProjectsRequest extends AbstractRequest
 {
     /**
      * @throws InvalidOptionsException

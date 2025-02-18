@@ -123,7 +123,7 @@ final class Project extends AggregateRoot implements Comparable
             'homepage' => $this->urls()->homepage()?->value() ?? null,
             'archived' => $this->archived(),
             'lastPushedAt' => Utils::dateToString($this->lastPushedAt()),
-			'updatedAt' => Utils::dateToString($this->updatedAt()),
+            'updatedAt' => Utils::dateToString($this->updatedAt()),
         ];
     }
 

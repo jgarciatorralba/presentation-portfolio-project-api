@@ -7,17 +7,17 @@ namespace App\Shared\Domain\Criteria;
 use App\Shared\Domain\Criteria\Filter\Filters;
 use App\Shared\Domain\Criteria\Order\OrderBy;
 
-class Criteria
+readonly class Criteria
 {
     private const MAX_PAGE_SIZE = 50;
 
-    private readonly int $limit;
+    private int $limit;
 
     public function __construct(
-        private readonly ?Filters $filters = null,
-        private readonly ?OrderBy $orderBy = null,
+        private ?Filters $filters = null,
+        private ?OrderBy $orderBy = null,
         ?int $limit = null,
-        private readonly ?int $offset = null
+        private ?int $offset = null
     ) {
         $this->limit = ($limit === null || $limit > self::MAX_PAGE_SIZE)
             ? self::MAX_PAGE_SIZE

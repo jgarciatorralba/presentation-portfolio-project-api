@@ -6,6 +6,6 @@ namespace App\Shared\Application\Bus\Event;
 
 use App\Shared\Domain\Bus\Event\Event;
 
-abstract class ApplicationEvent extends Event
+abstract readonly class ApplicationEvent extends Event
 {
 }
