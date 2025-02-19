@@ -9,19 +9,12 @@ use App\Shared\Domain\Criteria\Order\OrderBy;
 
 readonly class Criteria
 {
-    private const MAX_PAGE_SIZE = 50;
-
-    private int $limit;
-
     public function __construct(
         private ?Filters $filters = null,
         private ?OrderBy $orderBy = null,
-        ?int $limit = null,
+        private ?int $limit = null,
         private ?int $offset = null
     ) {
-        $this->limit = ($limit === null || $limit > self::MAX_PAGE_SIZE)
-            ? self::MAX_PAGE_SIZE
-            : $limit;
     }
 
     public function filters(): ?Filters

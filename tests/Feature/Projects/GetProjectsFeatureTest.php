@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Feature\Projects;
 
+use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Projects\Domain\Project;
-use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
@@ -83,7 +83,7 @@ final class GetProjectsFeatureTest extends FeatureTestCase
 
     private function getMaxPageSize(): int
     {
-        $reflectionClass = new \ReflectionClass(Criteria::class);
+        $reflectionClass = new \ReflectionClass(GetProjectsQuery::class);
         $constants = $reflectionClass->getConstants();
         return $constants['MAX_PAGE_SIZE'];
     }
@@ -98,15 +98,15 @@ final class GetProjectsFeatureTest extends FeatureTestCase
                 [],
                 null,
             ],
-            'defined pageSize and no maxUpdatedAt' => [
+            'defined pageSize and no maxPushedAt' => [
                 [
                     'pageSize' => 10
                 ],
                 10,
             ],
-            'defined maxUpdatedAt and no pageSize' => [
+            'defined maxPushedAt and no pageSize' => [
                 [
-                    'maxUpdatedAt' => Utils::dateToString(
+                    'maxPushedAt' => Utils::dateToString(
                         \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
                     )
                 ],

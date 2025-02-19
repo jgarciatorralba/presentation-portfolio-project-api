@@ -19,14 +19,14 @@ final readonly class GetProjectsController extends BaseController
         $pageSize = $request->get('pageSize')
             ? intval($request->get('pageSize'))
             : null;
-        $maxUpdatedAt = $request->get('maxUpdatedAt')
-            ? Utils::stringToDate($request->get('maxUpdatedAt'))
+        $maxPushedAt = $request->get('maxPushedAt')
+            ? Utils::stringToDate($request->get('maxPushedAt'))
             : null;
 
         $response = $this->ask(
             new GetProjectsQuery(
                 pageSize: $pageSize,
-                maxUpdatedAt: $maxUpdatedAt
+                maxPushedAt: $maxPushedAt
             )
         );
 

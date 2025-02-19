@@ -8,19 +8,26 @@ use App\Shared\Domain\Bus\Query\Query;
 
 final readonly class GetProjectsQuery implements Query
 {
+	private const int MAX_PAGE_SIZE = 50;
+
+	private int $pageSize;
+
     public function __construct(
-        private ?int $pageSize = null,
-        private ?\DateTimeImmutable $maxUpdatedAt = null
+        ?int $pageSize = null,
+        private ?\DateTimeImmutable $maxPushedAt = null
     ) {
+		$this->pageSize = ($pageSize === null || $pageSize > self::MAX_PAGE_SIZE)
+            ? self::MAX_PAGE_SIZE
+            : $pageSize;
     }
 
-    public function pageSize(): ?int
+    public function pageSize(): int
     {
         return $this->pageSize;
     }
 
-    public function maxUpdatedAt(): ?\DateTimeImmutable
+    public function maxPushedAt(): ?\DateTimeImmutable
     {
-        return $this->maxUpdatedAt;
+        return $this->maxPushedAt;
     }
 }

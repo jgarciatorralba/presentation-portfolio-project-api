@@ -12,16 +12,16 @@ use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderBy;
 use App\Shared\Domain\Criteria\Order\OrderType;
 
-final readonly class UpdatedBeforeDateTimeCriteria extends Criteria
+final readonly class PushedBeforeDateTimeCriteria extends Criteria
 {
     public function __construct(
-        \DateTimeImmutable $maxUpdatedAt,
+        \DateTimeImmutable $maxPushedAt,
         ?int $limit = null
     ) {
         parent::__construct(
             filters: new Filters(
                 FilterCondition::AND,
-                new SimpleFilter('updatedAt', $maxUpdatedAt, FilterOperator::LOWER_THAN)
+                new SimpleFilter('lastPushedAt', $maxPushedAt, FilterOperator::LOWER_THAN)
             ),
             orderBy: new OrderBy(
                 new Order('lastPushedAt', OrderType::DESCENDING)

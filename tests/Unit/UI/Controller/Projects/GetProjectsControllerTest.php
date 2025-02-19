@@ -57,8 +57,8 @@ final class GetProjectsControllerTest extends TestCase
             ->shouldAskQuery(
                 new GetProjectsQuery(
                     pageSize: $requestContent['pageSize'] ?? null,
-                    maxUpdatedAt: isset($requestContent['maxUpdatedAt'])
-                        ? new \DateTimeImmutable($requestContent['maxUpdatedAt'])
+                    maxPushedAt: isset($requestContent['maxPushedAt'])
+                        ? new \DateTimeImmutable($requestContent['maxPushedAt'])
                         : null
                 ),
                 $this->createMock(Response::class)
@@ -86,8 +86,8 @@ final class GetProjectsControllerTest extends TestCase
             ->willThrowException(
                 new GetProjectsQuery(
                     pageSize: $requestContent['pageSize'] ?? null,
-                    maxUpdatedAt: isset($requestContent['maxUpdatedAt'])
-                        ? new \DateTimeImmutable($requestContent['maxUpdatedAt'])
+                    maxPushedAt: isset($requestContent['maxPushedAt'])
+                        ? new \DateTimeImmutable($requestContent['maxPushedAt'])
                         : null
                 ),
                 $this->createMock(\Exception::class)

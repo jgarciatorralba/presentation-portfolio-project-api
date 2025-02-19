@@ -12,7 +12,7 @@ final class GetProjectsQueryBuilder implements BuilderInterface
 {
     private function __construct(
         private ?int $pageSize,
-        private ?\DateTimeImmutable $maxUpdatedAt
+        private ?\DateTimeImmutable $maxPushedAt
     ) {
     }
 
@@ -23,7 +23,7 @@ final class GetProjectsQueryBuilder implements BuilderInterface
                 null,
                 FakeValueGenerator::integer()
             ]),
-            maxUpdatedAt: FakeValueGenerator::randomElement([
+            maxPushedAt: FakeValueGenerator::randomElement([
                 null,
                 FakeValueGenerator::dateTime()
             ]),
@@ -34,7 +34,7 @@ final class GetProjectsQueryBuilder implements BuilderInterface
     {
         return new GetProjectsQuery(
             pageSize: $this->pageSize,
-            maxUpdatedAt:$this->maxUpdatedAt
+            maxPushedAt:$this->maxPushedAt
         );
     }
 }

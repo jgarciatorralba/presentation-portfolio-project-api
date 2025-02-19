@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Projects\Application\Query\GetProjects;
 
 use App\Projects\Domain\Service\GetProjectsByCriteria;
-use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Bus\Query\QueryHandler;
-use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
+use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
 
 final readonly class GetProjectsQueryHandler implements QueryHandler
 {
@@ -19,20 +18,12 @@ final readonly class GetProjectsQueryHandler implements QueryHandler
     public function __invoke(GetProjectsQuery $query): GetProjectsResponse
     {
         $limit = $query->pageSize() > 0 ? $query->pageSize() : null;
-        $maxUpdatedAt = $query->maxUpdatedAt() ?? new \DateTimeImmutable();
+        $maxPushedAt = $query->maxPushedAt() ?? new \DateTimeImmutable();
 
         $projects = $this->getProjectsByCriteria->__invoke(
-            new UpdatedBeforeDateTimeCriteria($maxUpdatedAt, $limit)
+            new PushedBeforeDateTimeCriteria($maxPushedAt, $limit)
         );
 
-        $projects = array_map(
-            fn (AggregateRoot $project): array => $project->toArray(),
-            $projects
-        );
-
-        return new GetProjectsResponse([
-            'projects' => $projects,
-            'count' => count($projects)
-        ]);
+        return new GetProjectsResponse(...$projects);
     }
 }

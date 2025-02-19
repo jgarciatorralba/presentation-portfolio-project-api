@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Builder\Shared\Domain\Criteria;
 
-use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
+use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
 use App\Tests\Builder\BuilderInterface;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
-final class UpdatedBeforeDateTimeCriteriaBuilder implements BuilderInterface
+final class PushedBeforeDateTimeCriteriaBuilder implements BuilderInterface
 {
     private function __construct(
-        private \DateTimeImmutable $maxUpdatedAt,
+        private \DateTimeImmutable $maxPushedAt,
         private ?int $limit
     ) {
     }
@@ -19,7 +19,7 @@ final class UpdatedBeforeDateTimeCriteriaBuilder implements BuilderInterface
     public static function any(): self
     {
         return new self(
-            maxUpdatedAt: FakeValueGenerator::dateTime(),
+            maxPushedAt: FakeValueGenerator::dateTime(),
             limit: FakeValueGenerator::randomElement([
                 null,
                 FakeValueGenerator::integer()
@@ -27,17 +27,17 @@ final class UpdatedBeforeDateTimeCriteriaBuilder implements BuilderInterface
         );
     }
 
-    public function build(): UpdatedBeforeDateTimeCriteria
+    public function build(): PushedBeforeDateTimeCriteria
     {
-        return new UpdatedBeforeDateTimeCriteria(
-            $this->maxUpdatedAt,
+        return new PushedBeforeDateTimeCriteria(
+            $this->maxPushedAt,
             $this->limit
         );
     }
 
-    public function withMaxUpdatedAt(\DateTimeImmutable $maxUpdatedAt): self
+    public function withMaxPushedAt(\DateTimeImmutable $maxPushedAt): self
     {
-        $this->maxUpdatedAt = $maxUpdatedAt;
+        $this->maxPushedAt = $maxPushedAt;
 
         return $this;
     }

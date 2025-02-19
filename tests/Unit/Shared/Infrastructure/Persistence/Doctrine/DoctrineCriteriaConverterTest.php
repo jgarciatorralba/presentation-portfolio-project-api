@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 
 use App\Shared\Domain\Criteria\Criteria;
-use App\Shared\Domain\Criteria\UpdatedBeforeDateTimeCriteria;
+use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
@@ -47,13 +47,13 @@ final class DoctrineCriteriaConverterTest extends TestCase
         ];
     }
 
-    #[DataProvider('dataUpdatedBeforeDateTimeCriteria')]
-    public function testItConvertsUpdatedBeforeDateTimeCriteria(
-        \DateTimeImmutable $maxUpdatedAt,
+    #[DataProvider('dataPushedBeforeDateTimeCriteria')]
+    public function testItConvertsPushedBeforeDateTimeCriteria(
+        \DateTimeImmutable $maxPushedAt,
         ?int $limit
     ): void {
-        $criteria = new UpdatedBeforeDateTimeCriteria(
-            maxUpdatedAt: $maxUpdatedAt,
+        $criteria = new PushedBeforeDateTimeCriteria(
+            maxPushedAt: $maxPushedAt,
             limit: $limit
         );
 
@@ -67,7 +67,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
 
         $this->assertCount(1, $comparisons);
         $this->assertEquals(
-            'updatedAt',
+            'lastPushedAt',
             $comparisons[array_key_first($comparisons)]->getField()
         );
         $this->assertEquals(
@@ -75,7 +75,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
             $comparisons[array_key_first($comparisons)]->getOperator()
         );
         $this->assertEquals(
-            $maxUpdatedAt,
+            $maxPushedAt,
             $comparisons[array_key_first($comparisons)]->getValue()->getValue()
         );
 
@@ -89,22 +89,22 @@ final class DoctrineCriteriaConverterTest extends TestCase
     /**
      * @return array<string, array<DateTimeImmutable, int|null>>
      */
-    public static function dataUpdatedBeforeDateTimeCriteria(): array
+    public static function dataPushedBeforeDateTimeCriteria(): array
     {
         return [
-            'default maxUpdatedAt and no limit' => [
+            'default maxPushedAt and no limit' => [
                 new \DateTimeImmutable(),
                 null
             ],
-            'default maxUpdatedAt and limit' => [
+            'default maxPushedAt and limit' => [
                 new \DateTimeImmutable(),
                 FakeValueGenerator::integer()
             ],
-            'maxUpdatedAt and no limit' => [
+            'maxPushedAt and no limit' => [
                 FakeValueGenerator::dateTime(),
                 null
             ],
-            'maxUpdatedAt and limit' => [
+            'maxPushedAt and limit' => [
                 FakeValueGenerator::dateTime(),
                 FakeValueGenerator::integer()
             ]
