@@ -19,7 +19,7 @@ final readonly class GetProjectsQueryHandler implements QueryHandler
 
     public function __invoke(GetProjectsQuery $query): GetProjectsResponse
     {
-        $limit = $query->pageSize() > 0 ? $query->pageSize() : null;
+        $limit = $query->pageSize();
         $maxPushedAt = $query->maxPushedAt() ?? new \DateTimeImmutable();
 
         $projects = $this->getProjectsByCriteria->__invoke(
