@@ -23,4 +23,6 @@ interface ProjectRepository
 
     /** @return Project[] */
     public function matching(Criteria $criteria): array;
+
+	public function countMatching(Criteria $criteria): int;
 }

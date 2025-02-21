@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UI\Controller\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
+use App\Projects\Application\Query\GetProjects\GetProjectsResponse;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\UI\Controller\BaseController;
@@ -30,6 +31,13 @@ final readonly class GetProjectsController extends BaseController
             )
         );
 
-        return new JsonResponse($response->data(), HttpStatusCode::HTTP_OK->value);
+        return new JsonResponse(
+			data: $response->data(),
+			status: HttpStatusCode::HTTP_OK->value,
+			headers: [
+				'Content-Type' => 'application/json',
+				'Next' => $response instanceof GetProjectsResponse && $response->totalCount() > $response->count()
+			]
+		);
     }
 }

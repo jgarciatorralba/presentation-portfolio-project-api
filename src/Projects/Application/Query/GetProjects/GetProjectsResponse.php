@@ -12,9 +12,22 @@ final readonly class GetProjectsResponse implements Response
 	/** @var Project[] */
 	private array $projects;
 
-    public function __construct(Project ...$projects) {
+    public function __construct(
+		private int $totalCount,
+		Project ...$projects
+	) {
 		$this->projects = $projects;
     }
+
+	public function count(): int
+	{
+		return count($this->projects);
+	}
+
+	public function totalCount(): int
+	{
+		return $this->totalCount;
+	}
 
 	/** @return array<string, mixed> */
     public function data(): array
@@ -24,7 +37,7 @@ final readonly class GetProjectsResponse implements Response
 				fn (Project $project): array => $project->toArray(),
 				$this->projects
 			),
-			'count' => count($this->projects)
+			'count' => $this->count(),
 		];
     }
 }
