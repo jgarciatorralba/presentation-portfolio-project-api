@@ -32,7 +32,7 @@ class UrlType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be null or a string.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value)
+                    get_debug_type($value)
                 )
             );
         }
@@ -64,7 +64,7 @@ class UrlType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be string, null or an instance of %s class.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value),
+                    get_debug_type($value),
                     Url::class
                 )
             );

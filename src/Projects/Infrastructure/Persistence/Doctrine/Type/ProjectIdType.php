@@ -32,7 +32,7 @@ class ProjectIdType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be a positive integer.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value)
+                    get_debug_type($value)
                 )
             );
         }
@@ -60,7 +60,7 @@ class ProjectIdType extends Type
                 sprintf(
                     "Invalid %s value: %s. Must be a positive integer or an instance of %s class.",
                     $this->getName(),
-                    is_object($value) ? get_class($value) : gettype($value),
+                    get_debug_type($value),
                     ProjectId::class
                 )
             );
