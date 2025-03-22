@@ -66,17 +66,17 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
             ->toArray();
     }
 
-	/**
+    /**
      * @throws \TypeError
      * @throws \ValueError
      * @throws \RuntimeException
      */
-	public function countMatching(Criteria $criteria): int
-	{
-		$doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
+    public function countMatching(Criteria $criteria): int
+    {
+        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
 
-		return $this->repository()
-			->matching($doctrineCriteria)
-			->count();
-	}
+        return $this->repository()
+            ->matching($doctrineCriteria)
+            ->count();
+    }
 }

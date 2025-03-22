@@ -13,7 +13,7 @@ final readonly class GetProjectsQueryHandler implements QueryHandler
 {
     public function __construct(
         private GetProjectsByCriteria $getProjectsByCriteria,
-		private GetProjectCountByCriteria $getProjectCountByCriteria
+        private GetProjectCountByCriteria $getProjectCountByCriteria
     ) {
     }
 
@@ -26,9 +26,9 @@ final readonly class GetProjectsQueryHandler implements QueryHandler
             new PushedBeforeDateTimeCriteria($maxPushedAt, $limit)
         );
 
-		$total = $this->getProjectCountByCriteria->__invoke(
-			new PushedBeforeDateTimeCriteria($maxPushedAt)
-		);
+        $total = $this->getProjectCountByCriteria->__invoke(
+            new PushedBeforeDateTimeCriteria($maxPushedAt)
+        );
 
         return new GetProjectsResponse($total, ...$projects);
     }

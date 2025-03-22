@@ -32,12 +32,12 @@ final readonly class GetProjectsController extends BaseController
         );
 
         return new JsonResponse(
-			data: $response->data(),
-			status: HttpStatusCode::HTTP_OK->value,
-			headers: [
-				'Content-Type' => 'application/json',
-				'Next' => $response instanceof GetProjectsResponse && $response->totalCount() > $response->count()
-			]
-		);
+            data: $response->data(),
+            status: HttpStatusCode::HTTP_OK->value,
+            headers: [
+                'Content-Type' => 'application/json',
+                'Next' => $response instanceof GetProjectsResponse && $response->totalCount() > $response->count()
+            ]
+        );
     }
 }

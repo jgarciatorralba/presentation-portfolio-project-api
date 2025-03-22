@@ -18,40 +18,40 @@ use PHPUnit\Framework\TestCase;
 final class GetProjectsQueryHandlerTest extends TestCase
 {
     private ?GetProjectsByCriteriaMock $getProjectsByCriteria;
-	private ?GetProjectCountByCriteriaMock $getProjectCountByCriteria;
+    private ?GetProjectCountByCriteriaMock $getProjectCountByCriteria;
     private ?GetProjectsQueryHandler $sut;
 
     protected function setUp(): void
     {
         $this->getProjectsByCriteria = new GetProjectsByCriteriaMock($this);
-		$this->getProjectCountByCriteria = new GetProjectCountByCriteriaMock($this);
+        $this->getProjectCountByCriteria = new GetProjectCountByCriteriaMock($this);
         $this->sut = new GetProjectsQueryHandler(
             getProjectsByCriteria: $this->getProjectsByCriteria->getMock(),
-			getProjectCountByCriteria: $this->getProjectCountByCriteria->getMock()
+            getProjectCountByCriteria: $this->getProjectCountByCriteria->getMock()
         );
     }
 
     protected function tearDown(): void
     {
         $this->getProjectsByCriteria = null;
-		$this->getProjectCountByCriteria = null;
+        $this->getProjectCountByCriteria = null;
         $this->sut = null;
     }
 
     public function testItGetsProjects(): void
     {
         $projects = MappedProjectsBuilder::any()->build()->all();
-		$totalProjects = FakeValueGenerator::integer(min: count($projects));
+        $totalProjects = FakeValueGenerator::integer(min: count($projects));
 
         $this->getProjectsByCriteria->shouldGetProjects(
             PushedBeforeDateTimeCriteriaBuilder::any()->build(),
             ...$projects
         );
 
-		$this->getProjectCountByCriteria->shouldGetProjectCount(
-			PushedBeforeDateTimeCriteriaBuilder::any()->build(),
-			$totalProjects
-		);
+        $this->getProjectCountByCriteria->shouldGetProjectCount(
+            PushedBeforeDateTimeCriteriaBuilder::any()->build(),
+            $totalProjects
+        );
 
         $result = $this->sut->__invoke(
             query: GetProjectsQueryBuilder::any()->build()
@@ -65,7 +65,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
             ),
             $result->data()['projects']
         );
-		$this->assertEquals(count($projects), $result->count());
-		$this->assertEquals($totalProjects, $result->totalCount());
+        $this->assertEquals(count($projects), $result->count());
+        $this->assertEquals($totalProjects, $result->totalCount());
     }
 }
