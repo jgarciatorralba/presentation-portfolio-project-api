@@ -50,7 +50,7 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         );
 
         $eventBus = $this->getContainer()->get(EventBus::class);
-		$lockFactory = $this->getContainer()->get(LockFactory::class);
+        $lockFactory = $this->getContainer()->get(LockFactory::class);
         $cliCommand = new SyncProjectsCommand($eventBus, $lockFactory);
         $this->commandTester = new CommandTester($cliCommand);
     }

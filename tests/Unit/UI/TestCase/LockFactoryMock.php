@@ -10,16 +10,16 @@ use Symfony\Component\Lock\SharedLockInterface;
 
 final class LockFactoryMock extends AbstractMock
 {
-	protected function getClassName(): string
+    protected function getClassName(): string
     {
         return LockFactory::class;
     }
 
-	public function shouldCreateLock(SharedLockInterface $lock): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('createLock')
-			->willReturn($lock);
-	}
+    public function shouldCreateLock(SharedLockInterface $lock): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('createLock')
+            ->willReturn($lock);
+    }
 }

@@ -48,8 +48,8 @@ final class InMemorySymfonyCommandBusTest extends TestCase
     public function testItThrowsCommandNotRegisteredException(): void
     {
         $commandClass = $this->command instanceof MockObject
-			? $this->command::class
-			: self::class;
+            ? $this->command::class
+            : self::class;
 
         $this->commandBusMock
             ->willThrowException(new NoHandlerForMessageException());

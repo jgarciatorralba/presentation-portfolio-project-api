@@ -22,37 +22,37 @@ class SyncProjectsCommand extends Command
 {
     public function __construct(
         private readonly EventBus $eventBus,
-		private readonly LockFactory $lockFactory,
+        private readonly LockFactory $lockFactory,
     ) {
         parent::__construct();
     }
 
     /**
-	 * @throws \InvalidArgumentException
-	 * @throws LockAcquiringException
-	 * @throws LockConflictedException
-	 * @throws LockReleasingException
-	 */
+     * @throws \InvalidArgumentException
+     * @throws LockAcquiringException
+     * @throws LockConflictedException
+     * @throws LockReleasingException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $commandStyle = new SymfonyStyle($input, $output);
 
-		$lock = $this->lockFactory->createLock('sync_projects_command');
+        $lock = $this->lockFactory->createLock('sync_projects_command');
 
         if (!$lock->acquire()) {
             $commandStyle->warning('The command is already running in another process.');
             return Command::FAILURE;
         }
 
-		try {
-			$event = new SyncProjectsRequestedEvent();
-			$this->eventBus->publish($event);
+        try {
+            $event = new SyncProjectsRequestedEvent();
+            $this->eventBus->publish($event);
 
-			$commandStyle->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}");
+            $commandStyle->success("Event {$event->eventId()} published successfully on {$event->occurredOn()}");
 
-			return Command::SUCCESS;
-		} finally {
-			$lock->release();
-		}
+            return Command::SUCCESS;
+        } finally {
+            $lock->release();
+        }
     }
 }

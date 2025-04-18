@@ -9,16 +9,16 @@ use Symfony\Component\Lock\SharedLockInterface;
 
 final class LockMock extends AbstractMock
 {
-	protected function getClassName(): string
-	{
-		return SharedLockInterface::class;
-	}
+    protected function getClassName(): string
+    {
+        return SharedLockInterface::class;
+    }
 
-	public function shouldAcquireWithResult(bool $result): void
-	{
-		$this->mock
-			->expects($this->once())
-			->method('acquire')
-			->willReturn($result);
-	}
+    public function shouldAcquireWithResult(bool $result): void
+    {
+        $this->mock
+            ->expects($this->once())
+            ->method('acquire')
+            ->willReturn($result);
+    }
 }

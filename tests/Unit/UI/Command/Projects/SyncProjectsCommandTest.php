@@ -15,16 +15,16 @@ use Symfony\Component\Console\Tester\CommandTester;
 class SyncProjectsCommandTest extends TestCase
 {
     private ?EventBusMock $eventBusMock;
-	private ?LockFactoryMock $lockFactoryMock;
-	private ?LockMock $lockMock;
+    private ?LockFactoryMock $lockFactoryMock;
+    private ?LockMock $lockMock;
     private ?SyncProjectsCommand $sut;
     private ?CommandTester $commandTester;
 
     protected function setUp(): void
     {
         $this->eventBusMock = new EventBusMock($this);
-		$this->lockFactoryMock = new LockFactoryMock($this);
-		$this->lockMock = new LockMock($this);
+        $this->lockFactoryMock = new LockFactoryMock($this);
+        $this->lockMock = new LockMock($this);
 
         $this->sut = new SyncProjectsCommand(
             eventBus: $this->eventBusMock->getMock(),
@@ -37,8 +37,8 @@ class SyncProjectsCommandTest extends TestCase
     protected function tearDown(): void
     {
         $this->eventBusMock = null;
-		$this->lockFactoryMock = null;
-		$this->lockMock = null;
+        $this->lockFactoryMock = null;
+        $this->lockMock = null;
         $this->sut = null;
         $this->commandTester = null;
     }
@@ -46,10 +46,10 @@ class SyncProjectsCommandTest extends TestCase
     public function testItIsExecutedSuccessfully(): void
     {
         $this->lockMock
-			->shouldAcquireWithResult(true);
+            ->shouldAcquireWithResult(true);
 
-		$this->lockFactoryMock
-			->shouldCreateLock($this->lockMock->getMock());
+        $this->lockFactoryMock
+            ->shouldCreateLock($this->lockMock->getMock());
 
         $this->eventBusMock
             ->shouldPublishEvents(SyncProjectsRequestedEvent::eventType());
@@ -64,19 +64,19 @@ class SyncProjectsCommandTest extends TestCase
         $this->assertMatchesRegularExpression($pattern, $output);
     }
 
-	public function testItOutputsAWarningIfItIsAlreadyBeingExecuted(): void
-	{
+    public function testItOutputsAWarningIfItIsAlreadyBeingExecuted(): void
+    {
         $this->lockMock
-			->shouldAcquireWithResult(false);
+            ->shouldAcquireWithResult(false);
 
-		$this->lockFactoryMock
-			->shouldCreateLock($this->lockMock->getMock());
+        $this->lockFactoryMock
+            ->shouldCreateLock($this->lockMock->getMock());
 
-		$this->commandTester->execute(input: []);
+        $this->commandTester->execute(input: []);
 
-		$output = $this->commandTester->getDisplay();
-		$pattern = "/\s*\[WARNING\] The command is already running in another process.\s*/";
+        $output = $this->commandTester->getDisplay();
+        $pattern = "/\s*\[WARNING\] The command is already running in another process.\s*/";
 
-		$this->assertMatchesRegularExpression($pattern, $output);
-	}
+        $this->assertMatchesRegularExpression($pattern, $output);
+    }
 }

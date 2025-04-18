@@ -27,8 +27,8 @@ final class CommandNotRegisteredExceptionTest extends TestCase
     {
         $exception = new CommandNotRegisteredException($this->command);
         $commandClass = $this->command instanceof MockObject
-			? $this->command::class
-			: self::class;
+            ? $this->command::class
+            : self::class;
 
         $this->assertEquals(
             "Command with class {$commandClass} has no handler registered",
