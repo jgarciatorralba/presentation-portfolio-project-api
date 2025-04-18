@@ -16,6 +16,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
+use Symfony\Component\Lock\LockFactory;
 
 final class RequestProjectsSyncFeatureTest extends FeatureTestCase
 {
@@ -49,7 +50,8 @@ final class RequestProjectsSyncFeatureTest extends FeatureTestCase
         );
 
         $eventBus = $this->getContainer()->get(EventBus::class);
-        $cliCommand = new SyncProjectsCommand($eventBus);
+		$lockFactory = $this->getContainer()->get(LockFactory::class);
+        $cliCommand = new SyncProjectsCommand($eventBus, $lockFactory);
         $this->commandTester = new CommandTester($cliCommand);
     }
 
