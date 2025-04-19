@@ -43,4 +43,12 @@ final class EntityRepositoryMock extends AbstractMock
             ->with($criteria)
             ->willReturnCallback(fn (): DoctrineTestCollection => new DoctrineTestCollection($entities));
     }
+
+	public function shouldFindAllEntities(object ...$entities): void
+	{
+		$this->mock
+			->expects($this->once())
+			->method('findAll')
+			->willReturn([...$entities]);
+	}
 }
