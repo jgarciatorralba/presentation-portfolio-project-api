@@ -8,10 +8,6 @@ use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\RequestExternalProjects;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 
 final class RequestExternalProjectsMock extends AbstractMock
 {
@@ -20,12 +16,6 @@ final class RequestExternalProjectsMock extends AbstractMock
         return RequestExternalProjects::class;
     }
 
-    /**
-     * @throws IncompatibleReturnValueException
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     */
     public function shouldRequestExternalProjects(Project ...$projects): void
     {
         $this->mock

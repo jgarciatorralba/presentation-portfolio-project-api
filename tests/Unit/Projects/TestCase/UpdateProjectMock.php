@@ -7,12 +7,6 @@ namespace App\Tests\Unit\Projects\TestCase;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\Service\UpdateProject;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
-use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 
 final class UpdateProjectMock extends ProjectRepositoryServiceMock
 {
@@ -21,14 +15,6 @@ final class UpdateProjectMock extends ProjectRepositoryServiceMock
         return UpdateProject::class;
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldUpdateProject(ProjectId $expected): void
     {
         $this->mock
@@ -39,14 +25,6 @@ final class UpdateProjectMock extends ProjectRepositoryServiceMock
             ));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldThrowException(
         ProjectId $expected
     ): void {

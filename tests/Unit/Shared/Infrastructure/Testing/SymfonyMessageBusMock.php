@@ -8,13 +8,6 @@ use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Domain\Bus\Query\Query;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
-use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -36,13 +29,6 @@ final class SymfonyMessageBusMock extends AbstractMock
     }
 
     /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     *
      * @param list<array{
      *      event: Event,
      *      exception: \Throwable|null
@@ -75,14 +61,6 @@ final class SymfonyMessageBusMock extends AbstractMock
             );
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldDispatchCommand(Command $command): void
     {
         $this->mock
@@ -91,15 +69,6 @@ final class SymfonyMessageBusMock extends AbstractMock
             ->with($command);
     }
 
-    /**
-     * @throws Exception
-     * @throws IncompatibleReturnValueException
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldDispatchQuery(Query $query, HandledStamp $stamp): void
     {
         $envelope = new Envelope($query, [$stamp]);
@@ -111,11 +80,6 @@ final class SymfonyMessageBusMock extends AbstractMock
             ->willReturn($envelope);
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     */
     public function willThrowException(\Throwable $exception): void
     {
         $this->mock

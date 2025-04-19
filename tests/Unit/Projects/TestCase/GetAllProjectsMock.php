@@ -7,10 +7,6 @@ namespace App\Tests\Unit\Projects\TestCase;
 use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\GetAllProjects;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 
 final class GetAllProjectsMock extends ProjectRepositoryServiceMock
 {
@@ -19,12 +15,6 @@ final class GetAllProjectsMock extends ProjectRepositoryServiceMock
         return GetAllProjects::class;
     }
 
-    /**
-     * @throws IncompatibleReturnValueException
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     */
     public function shouldGetAllStoredProjects(Project ...$projects): void
     {
         $this->mock

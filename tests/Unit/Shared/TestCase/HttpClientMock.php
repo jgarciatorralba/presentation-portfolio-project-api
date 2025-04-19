@@ -11,10 +11,6 @@ use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
 
 final class HttpClientMock extends AbstractMock
 {
@@ -33,10 +29,6 @@ final class HttpClientMock extends AbstractMock
      *
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
-     * @throws IncompatibleReturnValueException
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
      */
     public function shouldFetchByChunks(array $chunks): void
     {

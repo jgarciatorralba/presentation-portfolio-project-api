@@ -6,13 +6,6 @@ namespace App\Tests\Unit\UI\TestCase;
 
 use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use App\UI\Validation\Validator;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\IncompatibleReturnValueException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
-use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 
 final class ValidatorMock extends AbstractMock
 {
@@ -22,14 +15,6 @@ final class ValidatorMock extends AbstractMock
     }
 
     /**
-     * @throws Exception
-     * @throws IncompatibleReturnValueException
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     *
      * @param array<string, mixed> $data
      * @param array<string, string> $errors
      */

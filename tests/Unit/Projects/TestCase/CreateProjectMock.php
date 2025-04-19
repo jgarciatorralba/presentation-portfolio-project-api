@@ -7,12 +7,6 @@ namespace App\Tests\Unit\Projects\TestCase;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\CreateProject;
-use PHPUnit\Framework\Exception;
-use PHPUnit\Framework\InvalidArgumentException;
-use PHPUnit\Framework\MockObject\MethodCannotBeConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameAlreadyConfiguredException;
-use PHPUnit\Framework\MockObject\MethodNameNotConfiguredException;
-use PHPUnit\Framework\MockObject\MethodParametersAlreadyConfiguredException;
 
 final class CreateProjectMock extends ProjectRepositoryServiceMock
 {
@@ -21,14 +15,6 @@ final class CreateProjectMock extends ProjectRepositoryServiceMock
         return CreateProject::class;
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldCreateProject(Project $expected): void
     {
         $this->mock
@@ -42,14 +28,6 @@ final class CreateProjectMock extends ProjectRepositoryServiceMock
             ));
     }
 
-    /**
-     * @throws Exception
-     * @throws InvalidArgumentException
-     * @throws MethodCannotBeConfiguredException
-     * @throws MethodNameAlreadyConfiguredException
-     * @throws MethodNameNotConfiguredException
-     * @throws MethodParametersAlreadyConfiguredException
-     */
     public function shouldThrowException(
         Project $expected
     ): void {
