@@ -140,4 +140,15 @@ final class ProjectRepositoryMock extends AbstractMock
             ->method('update')
             ->with($project);
     }
+
+	public function shouldCountProjectsMatchingCriteria(
+		Criteria $criteria,
+		int $expectedCount
+	): void {
+		$this->mock
+			->expects($this->once())
+			->method('countMatching')
+			->with($criteria)
+			->willReturn($expectedCount);
+	}
 }
