@@ -77,14 +77,14 @@ final class ProjectRepositoryMock extends AbstractMock
             ->with($project);
     }
 
-	public function shouldCountProjectsMatchingCriteria(
-		Criteria $criteria,
-		int $expectedCount
-	): void {
-		$this->mock
-			->expects($this->once())
-			->method('countMatching')
-			->with($criteria)
-			->willReturn($expectedCount);
-	}
+    public function shouldCountProjectsMatchingCriteria(
+        Criteria $criteria,
+        int $expectedCount
+    ): void {
+        $this->mock
+            ->expects($this->once())
+            ->method('countMatching')
+            ->with($criteria)
+            ->willReturn($expectedCount);
+    }
 }

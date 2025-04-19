@@ -70,8 +70,8 @@ final class GetProjectsControllerTest extends TestCase
         $this->assertEquals($result->getStatusCode(), HttpStatusCode::HTTP_OK->value);
         $this->assertIsArray(json_decode($result->getContent(), true));
 
-		$this->assertEquals($result->headers->get('Content-Type'), 'application/json');
-		$this->assertEquals($result->headers->get('Next'), '');
+        $this->assertEquals($result->headers->get('Content-Type'), 'application/json');
+        $this->assertEquals($result->headers->get('Next'), '');
     }
 
     public function testItThrowsException(): void

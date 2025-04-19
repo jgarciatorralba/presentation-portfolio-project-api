@@ -112,27 +112,27 @@ final class DoctrineProjectRepositoryTest extends TestCase
         $this->assertEquals($projects, $result);
     }
 
-	public function testItCountsProjectsMatchingCriteria(): void
-	{
-		$criteria = CriteriaBuilder::any()->build();
-		$doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
-		$projects = MappedProjectsBuilder::any()->build()->all();
+    public function testItCountsProjectsMatchingCriteria(): void
+    {
+        $criteria = CriteriaBuilder::any()->build();
+        $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
+        $projects = MappedProjectsBuilder::any()->build()->all();
 
-		$this->entityRepositoryMock
+        $this->entityRepositoryMock
             ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, ...$projects);
 
-		$result = $this->sut->countMatching($criteria);
-		$this->assertEquals(count($projects), $result);
-	}
+        $result = $this->sut->countMatching($criteria);
+        $this->assertEquals(count($projects), $result);
+    }
 
-	public function testItFindsAllProjects(): void
-	{
-		$projects = MappedProjectsBuilder::any()->build()->all();
+    public function testItFindsAllProjects(): void
+    {
+        $projects = MappedProjectsBuilder::any()->build()->all();
 
-		$this->entityRepositoryMock
-			->shouldFindAllEntities(...$projects);
+        $this->entityRepositoryMock
+            ->shouldFindAllEntities(...$projects);
 
-		$result = $this->sut->findAll();
-		$this->assertEquals($projects, $result);
-	}
+        $result = $this->sut->findAll();
+        $this->assertEquals($projects, $result);
+    }
 }

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class GetProjectCountByCriteriaTest extends TestCase
 {
-	private ?ProjectRepositoryMock $projectRepositoryMock;
+    private ?ProjectRepositoryMock $projectRepositoryMock;
 
     protected function setUp(): void
     {
@@ -24,25 +24,25 @@ final class GetProjectCountByCriteriaTest extends TestCase
         $this->projectRepositoryMock = null;
     }
 
-	public function testItReturnsProjectCountMatchingCriteria(): void
-	{
-		$mappedProjects = MappedProjectsBuilder::any()->build();
+    public function testItReturnsProjectCountMatchingCriteria(): void
+    {
+        $mappedProjects = MappedProjectsBuilder::any()->build();
 
         $criteria = CriteriaBuilder::any()->build();
-		$expectedCount = count($mappedProjects->all());
+        $expectedCount = count($mappedProjects->all());
 
-		$this->projectRepositoryMock
-			->shouldCountProjectsMatchingCriteria(
-				$criteria,
-				$expectedCount
-			);
+        $this->projectRepositoryMock
+            ->shouldCountProjectsMatchingCriteria(
+                $criteria,
+                $expectedCount
+            );
 
-		$sut = new GetProjectCountByCriteria(
-			projectRepository: $this->projectRepositoryMock->getMock()
-		);
+        $sut = new GetProjectCountByCriteria(
+            projectRepository: $this->projectRepositoryMock->getMock()
+        );
 
-		$result = $sut->__invoke($criteria);
+        $result = $sut->__invoke($criteria);
 
-		$this->assertEquals($expectedCount, $result);
-	}
+        $this->assertEquals($expectedCount, $result);
+    }
 }
