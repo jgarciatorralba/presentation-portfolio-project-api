@@ -79,6 +79,14 @@ final class GetProjectsFeatureTest extends FeatureTestCase
 
         $this->assertEquals($expectedCount, $decodedResponse['count']);
         $this->assertEquals($expectedProjects, $decodedResponse['projects']);
+
+		$nextHeaderValue = '';
+		if (count($this->projects) > ($maxExpectedCount ?? $this->getMaxPageSize())) {
+			$nextHeaderValue = $maxExpectedCount === 0 ? '' : '1';
+		}
+
+		$this->assertEquals($response->headers->get('Content-Type'), 'application/json');
+		$this->assertEquals($response->headers->get('Next'), $nextHeaderValue);
     }
 
     private function getMaxPageSize(): int
