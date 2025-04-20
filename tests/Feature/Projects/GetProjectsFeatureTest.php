@@ -97,28 +97,31 @@ final class GetProjectsFeatureTest extends FeatureTestCase
     }
 
     /**
-     * @return array<string, array<array<string, int|string>|int|null>>
+     * @return array<string, array{
+     *   params: array<string, int|string>,
+     *   maxExpectedCount: int|null
+     * }>
      */
     public static function dataParameters(): array
     {
         return [
             'no query parameters' => [
-                [],
-                null,
+                'params' => [],
+                'maxExpectedCount' => null,
             ],
             'defined pageSize and no maxPushedAt' => [
-                [
+                'params' => [
                     'pageSize' => 10
                 ],
-                10,
+                'maxExpectedCount' => 10,
             ],
             'defined maxPushedAt and no pageSize' => [
-                [
+                'params' => [
                     'maxPushedAt' => Utils::dateToString(
                         \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
                     )
                 ],
-                0,
+                'maxExpectedCount' => 0,
             ],
         ];
     }
