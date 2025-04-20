@@ -17,4 +17,4 @@ return RectorConfig::configure()
         codeQuality: true,
         typeDeclarations: true
     )
-    ->withPhpSets(php83: true);
+    ->withPhpSets(php84: true);

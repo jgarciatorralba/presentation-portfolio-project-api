@@ -23,7 +23,7 @@ abstract readonly class AbstractRequest
     final protected function validate(): void
     {
         $errors = $this->validator->validate($this->payload(), $this->validationRules());
-        if (!empty($errors)) {
+        if ($errors !== []) {
             throw new ValidationException($errors);
         }
     }
