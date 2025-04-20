@@ -9,30 +9,30 @@ use App\Shared\Domain\Bus\Event\DomainEvent;
 
 final class DomainEventTest extends TestCase
 {
-	public function testItIsMappable(): void
-	{
-		$testAggregateId = 'abc123';
+    public function testItIsMappable(): void
+    {
+        $testAggregateId = 'abc123';
 
-		$event = new class($testAggregateId) extends DomainEvent {
-			public function __construct(
-				private string $aggregateId,
-			) {
-				parent::__construct($aggregateId);
-			}
+        $event = new class ($testAggregateId) extends DomainEvent {
+            public function __construct(
+                private string $aggregateId,
+            ) {
+                parent::__construct($aggregateId);
+            }
 
-			public static function eventType(): string
-			{
-				return 'test.event';
-			}
-		};
+            public static function eventType(): string
+            {
+                return 'test.event';
+            }
+        };
 
-		$this->assertEquals([
-			'id' => $event->eventId(),
-			'eventType' => 'test.event',
-			'occurredOn' => $event->occurredOn(),
-			'attributes' => [
-				'aggregateId' => $testAggregateId,
-			],
-		], $event->toArray());
-	}
+        $this->assertEquals([
+            'id' => $event->eventId(),
+            'eventType' => 'test.event',
+            'occurredOn' => $event->occurredOn(),
+            'attributes' => [
+                'aggregateId' => $testAggregateId,
+            ],
+        ], $event->toArray());
+    }
 }
