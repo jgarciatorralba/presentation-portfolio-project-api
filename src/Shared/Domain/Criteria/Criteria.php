@@ -40,12 +40,12 @@ readonly class Criteria
     public function hasFilters(): bool
     {
         return !is_null($this->filters())
-            && !empty($this->filters()->filterGroup());
+            && $this->filters()->filterGroup() !== [];
     }
 
     public function hasOrder(): bool
     {
         return !is_null($this->orderBy())
-            && !empty($this->orderBy()->orderings());
+            && $this->orderBy()->orderings() !== [];
     }
 }
