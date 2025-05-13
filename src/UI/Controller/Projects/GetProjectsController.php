@@ -35,7 +35,7 @@ final readonly class GetProjectsController extends BaseController
             data: $response->data(),
             status: HttpStatusCode::HTTP_OK->value,
             headers: [
-				'Access-Control-Expose-Headers' => 'Next',
+                'Access-Control-Expose-Headers' => 'Next',
                 'Content-Type' => 'application/json',
                 'Next' => $response instanceof GetProjectsResponse && $response->totalCount() > $response->count()
             ]
