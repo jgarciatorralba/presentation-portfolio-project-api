@@ -126,7 +126,7 @@ final class TemporaryFileStream implements DataStream
     /** @throws \RuntimeException */
     public function read(int $length): string
     {
-        $string = fread($this->resource, $length);
+        $string = $length > 0 ? fread($this->resource, $length) : '';
 
         if ($string === false) {
             throw new \RuntimeException('Unable to read from stream');

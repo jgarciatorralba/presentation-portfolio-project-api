@@ -71,11 +71,16 @@ final class SymfonyHttpClient implements HttpClientContract
             }
             $httpHeaders = new HttpHeaders(...$headers);
 
+			$bodyString = json_encode([
+				'content' => $response->toArray(),
+				'error' => null
+			]);
+			if (false === $bodyString) {
+				throw new \RuntimeException('Failed to encode response body');
+			}
+
             $httpResponseParams = [
-                'body' => new TemporaryFileStream(json_encode([
-                    'content' => $response->toArray(),
-                    'error' => null
-                ])),
+                'body' => new TemporaryFileStream($bodyString),
                 'headers' => $httpHeaders,
             ];
         } catch (
@@ -83,24 +88,29 @@ final class SymfonyHttpClient implements HttpClientContract
             | DecodingExceptionInterface
             | HttpExceptionInterface $e
         ) {
+			$bodyString = json_encode([
+				'content' => null,
+				'error' => $e->getMessage()
+			]);
+			if (false === $bodyString) {
+				throw new \RuntimeException('Failed to encode response body');
+			}
+
             $httpResponseParams = [
-                'body' => new TemporaryFileStream(json_encode([
-                    'content' => null,
-                    'error' => $e->getMessage()
-                ])),
+                'body' => new TemporaryFileStream($bodyString),
                 'headers' => $httpHeaders ?? new HttpHeaders()
             ];
-        } finally {
-            $httpResponseParams['statusCode'] = isset($statusCodeValue)
-                ? HttpStatusCode::from($statusCodeValue)
-                : HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR;
-
-            $protocolVersion = HttpProtocolVersion::tryFrom(number_format($version ?? 0, 1, '.', ''));
-            if ($protocolVersion instanceof HttpProtocolVersion) {
-                $httpResponseParams['protocolVersion'] = $protocolVersion;
-            }
-
-            return HttpResponse::create(...$httpResponseParams);
         }
+
+		$httpResponseParams['statusCode'] = isset($statusCodeValue)
+			? HttpStatusCode::from($statusCodeValue)
+			: HttpStatusCode::HTTP_INTERNAL_SERVER_ERROR;
+
+		$protocolVersion = HttpProtocolVersion::tryFrom(number_format($version ?? 0, 1, '.', ''));
+		if ($protocolVersion instanceof HttpProtocolVersion) {
+			$httpResponseParams['protocolVersion'] = $protocolVersion;
+		}
+
+		return HttpResponse::create(...$httpResponseParams);
     }
 }

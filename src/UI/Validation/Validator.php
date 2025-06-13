@@ -30,7 +30,7 @@ final readonly class Validator
             /** @var ConstraintViolationInterface $violation */
             foreach ($violations as $violation) {
                 $fieldName = $this->parsePropertyPath($violation->getPropertyPath());
-                $errors[$fieldName] = $violation->getMessage();
+                $errors[$fieldName] = (string) $violation->getMessage();
             }
         }
 

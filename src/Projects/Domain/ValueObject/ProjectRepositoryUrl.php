@@ -26,7 +26,7 @@ final readonly class ProjectRepositoryUrl extends Url implements Stringable
         $url = Url::fromString($value);
 
         $host = parse_url($url->value(), PHP_URL_HOST);
-        if (!str_contains($host, self::GITHUB_DOMAIN)) {
+        if (!is_string($host) || !str_contains($host, self::GITHUB_DOMAIN)) {
             throw new InvalidProjectRepositoryUrlException($value);
         }
 

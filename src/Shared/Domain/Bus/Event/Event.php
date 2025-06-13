@@ -46,7 +46,7 @@ abstract readonly class Event implements Mappable
     }
 
     /**
-     * @return array<empty>
+     * @return array{}
      */
     protected function toPrimitives(): array
     {

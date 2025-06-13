@@ -21,7 +21,7 @@ final class MappedProjectsBuilder implements BuilderInterface
     private function __construct(
         Project ...$projects
     ) {
-        $this->projects = $projects;
+        $this->projects = array_values($projects);
     }
 
     /**

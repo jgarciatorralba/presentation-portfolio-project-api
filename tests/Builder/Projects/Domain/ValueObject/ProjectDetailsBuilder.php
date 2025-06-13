@@ -68,7 +68,7 @@ final class ProjectDetailsBuilder implements BuilderInterface
         );
     }
 
-    /** @return string[] */
+    /** @return list<string> */
     private static function generateRandomTopics(?int $numTopics = null): array
     {
         if ($numTopics === null) {

@@ -33,6 +33,7 @@ final class MappedProjects implements Collection
         return isset($this->projects[$key]);
     }
 
+	/** @return Project|null */
     public function get(string $key): ?Project
     {
         return $this->projects[$key] ?? null;

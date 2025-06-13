@@ -20,12 +20,17 @@ trait CanAccessLogs
 
     /**
      * @throws ExpectationFailedException
+     * @throws \RuntimeException
      */
     protected function assertLogContains(string $message): void
     {
         $logs = file_get_contents(
             dirname(__DIR__, 3) . self::LOGS_PATH
         );
+
+		if (false === $logs) {
+			throw new \RuntimeException('Failed to read logs');
+		}
 
         $this->assertStringContainsString(
             $message,

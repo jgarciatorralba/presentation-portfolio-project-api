@@ -11,7 +11,7 @@ final readonly class OrderBy
 
     public function __construct(Order ...$orderings)
     {
-        $this->orderings = $orderings;
+        $this->orderings = array_values($orderings);
     }
 
     /** @return list<Order> */

@@ -13,7 +13,7 @@ final readonly class Filters
         private FilterCondition $condition = FilterCondition::AND,
         Filter ...$filterGroup
     ) {
-        $this->filterGroup = $filterGroup;
+        $this->filterGroup = array_values($filterGroup);
     }
 
     public function condition(): FilterCondition

@@ -8,14 +8,17 @@ use App\Shared\Domain\Aggregate\AggregateRoot;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
+/**
+ * @template T of object
+ */
 abstract readonly class DoctrineRepository
 {
-    /** @var EntityRepository<object> $repository */
+    /** @var EntityRepository<T> $repository */
     private EntityRepository $repository;
 
     public function __construct(private EntityManagerInterface $entityManager)
     {
-        /** @var class-string $className */
+        /** @var class-string<T> $className */
         $className = $this->entityClass();
         $this->repository = $entityManager->getRepository($className);
     }
@@ -25,7 +28,7 @@ abstract readonly class DoctrineRepository
         return $this->entityManager;
     }
 
-    /** @return EntityRepository<object> */
+    /** @return EntityRepository<T> */
     protected function repository(): EntityRepository
     {
         return $this->repository;

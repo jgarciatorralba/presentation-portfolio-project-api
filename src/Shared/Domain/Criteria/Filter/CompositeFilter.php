@@ -13,7 +13,7 @@ final readonly class CompositeFilter implements Filter
         private FilterCondition $condition = FilterCondition::AND,
         SimpleFilter ...$filters
     ) {
-        $this->filters = $filters;
+        $this->filters = array_values($filters);
     }
 
     public function condition(): FilterCondition
