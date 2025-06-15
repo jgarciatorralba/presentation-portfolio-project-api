@@ -1,4 +1,4 @@
-FROM nginx:1.27.3-alpine
+FROM nginx:1.28.0-alpine
 
 COPY nginx.conf /etc/nginx/
 COPY templates /etc/nginx/templates/
