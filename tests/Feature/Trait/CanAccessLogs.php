@@ -28,9 +28,9 @@ trait CanAccessLogs
             dirname(__DIR__, 3) . self::LOGS_PATH
         );
 
-		if (false === $logs) {
-			throw new \RuntimeException('Failed to read logs');
-		}
+        if (false === $logs) {
+            throw new \RuntimeException('Failed to read logs');
+        }
 
         $this->assertStringContainsString(
             $message,

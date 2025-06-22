@@ -39,14 +39,14 @@ final class HttpClientMock extends AbstractMock
                 function () use (&$chunks): HttpResponse {
                     $chunk = array_shift($chunks);
 
-					$bodyString = json_encode([
-						'content' => $chunk['content'],
-						'error' => $chunk['error'],
-					]);
+                    $bodyString = json_encode([
+                        'content' => $chunk['content'],
+                        'error' => $chunk['error'],
+                    ]);
 
-					if (false === $bodyString) {
-						throw new \RuntimeException('Failed to encode response body');
-					}
+                    if (false === $bodyString) {
+                        throw new \RuntimeException('Failed to encode response body');
+                    }
 
                     return HttpResponse::create(
                         body: new TemporaryFileStream($bodyString),

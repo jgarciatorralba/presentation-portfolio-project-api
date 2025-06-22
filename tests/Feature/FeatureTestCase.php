@@ -30,13 +30,13 @@ abstract class FeatureTestCase extends WebTestCase
 
         $this->client = static::createClient();
 
-		/** @var EntityManagerInterface|null $entityManager */
-		$entityManager = $this->getContainer()
-			->get(EntityManagerInterface::class);
+        /** @var EntityManagerInterface|null $entityManager */
+        $entityManager = $this->getContainer()
+            ->get(EntityManagerInterface::class);
 
         $this->entityManager = $entityManager instanceof EntityManagerInterface
-			? $entityManager
-			: null;
+            ? $entityManager
+            : null;
     }
 
     protected function tearDown(): void

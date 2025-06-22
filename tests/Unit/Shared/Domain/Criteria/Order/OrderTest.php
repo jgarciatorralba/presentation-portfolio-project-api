@@ -34,10 +34,10 @@ class OrderTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-	public function testItIsNotCreatedFromNullValues(): void
-	{
-		$actual = Order::fromValues(null, null);
+    public function testItIsNotCreatedFromNullValues(): void
+    {
+        $actual = Order::fromValues(null, null);
 
-		$this->assertNull($actual);
-	}
+        $this->assertNull($actual);
+    }
 }
