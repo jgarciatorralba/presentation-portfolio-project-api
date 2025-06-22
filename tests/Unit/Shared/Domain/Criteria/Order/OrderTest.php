@@ -22,7 +22,7 @@ class OrderTest extends TestCase
         $this->assertEquals($expected, $actual);
     }
 
-    public function testItIsCreatedFromValues(): void
+    public function testItIsCreatedFromValidValues(): void
     {
         $expected = OrderBuilder::any()->build();
 
@@ -33,4 +33,11 @@ class OrderTest extends TestCase
 
         $this->assertEquals($expected, $actual);
     }
+
+	public function testItIsNotCreatedFromNullValues(): void
+	{
+		$actual = Order::fromValues(null, null);
+
+		$this->assertNull($actual);
+	}
 }
