@@ -15,7 +15,7 @@ use App\Shared\Domain\Contract\Comparable;
 use App\Shared\Domain\Trait\Timestampable;
 use App\Shared\Utils;
 
-final class Project extends AggregateRoot implements Comparable
+class Project extends AggregateRoot implements Comparable
 {
     use Timestampable;
 
