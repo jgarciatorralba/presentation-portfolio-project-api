@@ -10,11 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 final class HttpProtocolVersionTest extends TestCase
 {
-    public static function tearDownAfterClass(): void
+    protected function tearDown(): void
     {
         unset($_SERVER['SERVER_PROTOCOL']);
 
-        parent::tearDownAfterClass();
+        parent::tearDown();
     }
 
     #[DataProvider('protocolProvider')]
