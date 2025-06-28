@@ -94,10 +94,10 @@ final class SymfonyHttpClient implements HttpClientContract
             ]);
             if (false === $bodyString) {
                 throw new \RuntimeException(
-					message: 'Failed to encode response body',
-					code: $e->getCode(),
-					previous: $e
-				);
+                    message: 'Failed to encode response body',
+                    code: $e->getCode(),
+                    previous: $e
+                );
             }
 
             $httpResponseParams = [

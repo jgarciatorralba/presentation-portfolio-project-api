@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectUrls;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
-use App\Tests\Builder\Shared\Domain\ValueObject\UrlBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
+use App\Tests\Support\Builder\Shared\Domain\ValueObject\UrlBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

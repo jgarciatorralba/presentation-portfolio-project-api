@@ -8,7 +8,7 @@ use App\Projects\Application\EventSubscriber\ProjectRemovedSubscriber;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\DeleteProjectMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
 use PHPUnit\Framework\TestCase;

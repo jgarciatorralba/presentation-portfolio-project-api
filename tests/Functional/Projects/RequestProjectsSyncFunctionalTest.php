@@ -7,9 +7,9 @@ namespace App\Tests\Functional\Projects;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\Http\HttpStatusCode;
-use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use App\Tests\Functional\FunctionalTestCase;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -21,7 +21,7 @@ use Symfony\Component\Lock\LockFactory;
 final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
 {
     private const string BASE_URI = 'https://api.github.com';
-    private const string FILE_PATH = '/Simulations/GitHub/user-projects.json';
+    private const string FILE_PATH = '/Support/Simulations/GitHub/user-projects.json';
 
     /** @var list<array<string, mixed>> $projectData */
     private ?array $projectData;

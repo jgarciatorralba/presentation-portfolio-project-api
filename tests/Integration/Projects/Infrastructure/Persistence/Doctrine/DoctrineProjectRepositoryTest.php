@@ -7,8 +7,8 @@ namespace App\Tests\Integration\Projects\Infrastructure\Persistence\Doctrine;
 use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
 use App\Tests\Integration\IntegrationTestCase;
 
 final class DoctrineProjectRepositoryTest extends IntegrationTestCase

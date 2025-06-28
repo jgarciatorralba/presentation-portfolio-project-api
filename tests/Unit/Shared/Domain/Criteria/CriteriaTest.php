@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\Criteria;
-use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use PHPUnit\Framework\TestCase;
 
 class CriteriaTest extends TestCase

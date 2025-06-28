@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\ValueObject\Http;
 
 use App\Shared\Domain\Http\HttpHeader;
-use App\Tests\Builder\Shared\Domain\Http\HttpHeaderBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeaderBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class HttpHeaderTest extends TestCase

@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Projects\Domain;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Aggregate\AggregateRoot;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectTest extends TestCase

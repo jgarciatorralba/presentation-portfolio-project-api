@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Shared\Domain\Criteria\Order;
 
 use PHPUnit\Framework\TestCase;
 use App\Shared\Domain\Criteria\Order\Order;
-use App\Tests\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
 
 class OrderTest extends TestCase
 {

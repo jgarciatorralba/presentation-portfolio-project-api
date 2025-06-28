@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine;
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
-use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\Common\Collections\Expr\Comparison;

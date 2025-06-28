@@ -10,8 +10,8 @@ use App\Shared\Domain\Http\HttpProtocolVersion;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
-use App\Tests\Builder\Shared\Domain\Http\HttpHeaderBuilder;
-use App\Tests\Builder\Shared\Infrastructure\Http\HttpResponseBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeaderBuilder;
+use App\Tests\Support\Builder\Shared\Infrastructure\Http\HttpResponseBuilder;
 use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 

@@ -19,7 +19,7 @@ final class GitHubProjectRetrieverTest extends TestCase
 {
     private const string API_TOKEN = 'valid-api-token';
     private const string BASE_URI = 'https://example.com';
-    private const string FILE_PATH = '/Simulations/GitHub/user-projects.json';
+    private const string FILE_PATH = '/Support/Simulations/GitHub/user-projects.json';
 
     private ?HttpClientMock $httpClientMock;
     private ?LoggerMock $loggerMock;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Functional;
 
-use App\Tests\Trait\CanAccessLogs;
-use App\Tests\Trait\CanConnectToDatabase;
+use App\Tests\Support\Trait\CanAccessLogs;
+use App\Tests\Support\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;

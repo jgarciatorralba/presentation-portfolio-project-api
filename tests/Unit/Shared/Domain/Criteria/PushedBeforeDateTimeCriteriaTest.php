@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
-use App\Tests\Builder\Shared\Domain\Criteria\PushedBeforeDateTimeCriteriaBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\PushedBeforeDateTimeCriteriaBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

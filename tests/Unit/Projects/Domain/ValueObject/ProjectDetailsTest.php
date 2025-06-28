@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectDetails;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

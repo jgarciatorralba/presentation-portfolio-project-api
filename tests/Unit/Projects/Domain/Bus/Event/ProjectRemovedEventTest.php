@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Projects\Domain\Bus\Event;
 
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\Project;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectRemovedEventTest extends TestCase

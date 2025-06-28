@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
-use App\Tests\Builder\Projects\Domain\ValueObject\ProjectRepositoryUrlBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectRepositoryUrlBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectRepositoryUrlTest extends TestCase

@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Projects\Domain\Service;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\UpdateProject;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
 use PHPUnit\Framework\TestCase;
 

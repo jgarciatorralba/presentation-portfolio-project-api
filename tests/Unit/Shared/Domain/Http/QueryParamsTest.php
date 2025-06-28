@@ -6,7 +6,7 @@ namespace App\Tests\Unit\Shared\Domain\Http;
 
 use App\Shared\Domain\Http\QueryParam;
 use App\Shared\Domain\Http\QueryParams;
-use App\Tests\Builder\Shared\Domain\Http\QueryParamsBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Http\QueryParamsBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class QueryParamsTest extends TestCase

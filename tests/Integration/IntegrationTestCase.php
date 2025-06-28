@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Integration;
 
-use App\Tests\Trait\CanConnectToDatabase;
+use App\Tests\Support\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;

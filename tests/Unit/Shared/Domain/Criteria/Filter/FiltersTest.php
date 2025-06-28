@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\Filters;
-use App\Tests\Builder\Shared\Domain\Criteria\Filter\FiltersBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\Filter\FiltersBuilder;
 use PHPUnit\Framework\TestCase;
 
 class FiltersTest extends TestCase

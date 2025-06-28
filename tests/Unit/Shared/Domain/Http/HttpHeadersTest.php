@@ -6,8 +6,8 @@ namespace App\Tests\Unit\Shared\Domain\Http;
 
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
-use App\Tests\Builder\Shared\Domain\Http\HttpHeaderBuilder;
-use App\Tests\Builder\Shared\Domain\Http\HttpHeadersBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeaderBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeadersBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class HttpHeadersTest extends TestCase

@@ -7,7 +7,7 @@ namespace App\Tests\Unit\Projects\Application\EventSubscriber;
 use App\Projects\Application\EventSubscriber\ProjectAddedSubscriber;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
-use App\Tests\Builder\Projects\Domain\ProjectBuilder;
+use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Unit\Projects\TestCase\CreateProjectMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
 use PHPUnit\Framework\TestCase;

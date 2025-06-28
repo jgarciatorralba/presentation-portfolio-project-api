@@ -8,7 +8,7 @@ use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
-use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
+use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Functional\FunctionalTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 

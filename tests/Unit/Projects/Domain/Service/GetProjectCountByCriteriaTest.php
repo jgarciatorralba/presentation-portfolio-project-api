@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\Service\GetProjectCountByCriteria;
-use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Builder\Shared\Domain\Criteria\CriteriaBuilder;
+use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use App\Tests\Support\Builder\Shared\Domain\Criteria\CriteriaBuilder;
 use App\Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
 use PHPUnit\Framework\TestCase;
 

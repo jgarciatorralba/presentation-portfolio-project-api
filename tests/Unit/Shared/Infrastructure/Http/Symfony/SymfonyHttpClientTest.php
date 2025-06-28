@@ -21,7 +21,7 @@ use Symfony\Component\HttpClient\Response\MockResponse;
 final class SymfonyHttpClientTest extends TestCase
 {
     private const string BASE_URI = 'https://jsonplaceholder.typicode.com';
-    private const string FILE_PATH = '/Simulations/JSONPlaceholder/user-posts.json';
+    private const string FILE_PATH = '/Support/Simulations/JSONPlaceholder/user-posts.json';
 
     private HttpClient $httpClient;
 
