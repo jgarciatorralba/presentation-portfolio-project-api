@@ -76,13 +76,13 @@ final class ValidatorTest extends TestCase
                 new Assert\Collection([
                     'repository' => new Assert\Required([
                         new Assert\NotBlank(),
-                        new Assert\Url([
-                            'protocols' => ['https'],
-                            'requireTld' => true
-                        ]),
-                        new Assert\Regex([
-                            'pattern' => '/github\.com/'
-                        ])
+                        new Assert\Url(
+                            protocols: ['https'],
+                            requireTld: true
+                        ),
+                        new Assert\Regex(
+                            pattern: '/github\.com/'
+                        )
                     ]),
                 ]),
                 [
