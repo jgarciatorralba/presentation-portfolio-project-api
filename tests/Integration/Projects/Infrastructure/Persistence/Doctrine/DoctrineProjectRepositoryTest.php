@@ -131,8 +131,6 @@ final class DoctrineProjectRepositoryTest extends IntegrationTestCase
                 ->withLastPushedAt(new \DateTimeImmutable('now -2day'))
                 ->build();
 
-        $this->persist($projectMatchingCriteria);
-
         $randomCount = random_int(self::MIN_PROJECTS, self::MAX_PROJECTS);
         $projects = [];
         for ($i = 0; $i < $randomCount; $i++) {
@@ -141,7 +139,7 @@ final class DoctrineProjectRepositoryTest extends IntegrationTestCase
                 ->build();
         }
 
-        $this->persist(...$projects);
+        $this->persist($projectMatchingCriteria, ...$projects);
 
         $foundProjects = $this->sut->matching($criteria);
 
