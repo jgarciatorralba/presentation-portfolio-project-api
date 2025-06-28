@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\Trait;
+namespace App\Tests\Trait;
 
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -13,7 +13,7 @@ trait CanAccessLogs
     protected function clearLogs(): void
     {
         file_put_contents(
-            dirname(__DIR__, 3) . self::LOGS_PATH,
+            dirname(__DIR__, 2) . self::LOGS_PATH,
             ''
         );
     }
@@ -25,7 +25,7 @@ trait CanAccessLogs
     protected function assertLogContains(string $message): void
     {
         $logs = file_get_contents(
-            dirname(__DIR__, 3) . self::LOGS_PATH
+            dirname(__DIR__, 2) . self::LOGS_PATH
         );
 
         if (false === $logs) {

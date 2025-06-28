@@ -52,6 +52,17 @@ final class ProjectBuilder implements BuilderInterface
         return $this;
     }
 
+    public function withName(string $name): self
+    {
+        $details = ProjectDetailsBuilder::any()
+            ->withName($name)
+            ->build();
+
+        $this->details = $details;
+
+        return $this;
+    }
+
     public function withCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -62,6 +73,13 @@ final class ProjectBuilder implements BuilderInterface
     public function withUpdatedAt(\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function withLastPushedAt(\DateTimeImmutable $lastPushedAt): self
+    {
+        $this->lastPushedAt = $lastPushedAt;
 
         return $this;
     }

@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\Trait;
+namespace App\Tests\Trait;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
@@ -13,6 +14,11 @@ use Doctrine\ORM\EntityRepository;
 trait CanConnectToDatabase
 {
     private ?EntityManagerInterface $entityManager = null;
+
+    protected function connection(): Connection
+    {
+        return $this->entityManager->getConnection();
+    }
 
     /**
      * @template T of object

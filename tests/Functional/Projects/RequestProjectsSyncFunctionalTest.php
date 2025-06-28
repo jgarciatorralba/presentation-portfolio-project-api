@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\Projects;
+namespace App\Tests\Functional\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Bus\Event\EventBus;
@@ -10,7 +10,7 @@ use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
 use App\Tests\Builder\Projects\Domain\ProjectBuilder;
 use App\Tests\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
-use App\Tests\Feature\FeatureTestCase;
+use App\Tests\Functional\FunctionalTestCase;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Lock\LockFactory;
 
-final class RequestProjectsSyncFeatureTest extends FeatureTestCase
+final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
 {
     private const string BASE_URI = 'https://api.github.com';
     private const string FILE_PATH = '/Simulations/GitHub/user-projects.json';

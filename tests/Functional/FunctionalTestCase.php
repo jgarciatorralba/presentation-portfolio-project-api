@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature;
+namespace App\Tests\Functional;
 
-use App\Tests\Feature\Trait\CanAccessLogs;
-use App\Tests\Feature\Trait\CanConnectToDatabase;
+use App\Tests\Trait\CanAccessLogs;
+use App\Tests\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\HttpKernelBrowser;
 
-abstract class FeatureTestCase extends WebTestCase
+abstract class FunctionalTestCase extends WebTestCase
 {
     use CanAccessLogs;
     use CanConnectToDatabase;

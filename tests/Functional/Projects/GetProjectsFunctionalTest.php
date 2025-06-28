@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Feature\Projects;
+namespace App\Tests\Functional\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
 use App\Tests\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Feature\FeatureTestCase;
+use App\Tests\Functional\FunctionalTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class GetProjectsFeatureTest extends FeatureTestCase
+final class GetProjectsFunctionalTest extends FunctionalTestCase
 {
     /** @var Project[] */
     private ?array $projects;
