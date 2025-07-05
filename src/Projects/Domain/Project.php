@@ -26,7 +26,7 @@ class Project extends AggregateRoot implements Comparable
         private bool $archived,
         private \DateTimeImmutable $lastPushedAt
     ) {
-        $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+        $now = new \DateTimeImmutable();
 
         $this->updateCreatedAt($now);
         $this->updateUpdatedAt($now);

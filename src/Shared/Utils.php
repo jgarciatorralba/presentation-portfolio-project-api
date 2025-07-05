@@ -18,9 +18,9 @@ final class Utils
     public static function stringToDate(string $date): \DateTimeImmutable
     {
         try {
-            return new \DateTimeImmutable($date, new \DateTimeZone('UTC'));
+            return new \DateTimeImmutable($date);
         } catch (\Exception) {
-            return new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
+            return new \DateTimeImmutable();
         }
     }
 

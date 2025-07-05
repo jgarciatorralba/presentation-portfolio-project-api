@@ -19,7 +19,7 @@ abstract readonly class Event implements Mappable
         ?string $occurredOn = null
     ) {
         $this->eventId = $eventId ?: Uuid::random()->value();
-        $this->occurredOn = $occurredOn ?: Utils::dateToUTCString(new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
+        $this->occurredOn = $occurredOn ?: Utils::dateToUTCString(new \DateTimeImmutable());
     }
 
     public function eventId(): string
