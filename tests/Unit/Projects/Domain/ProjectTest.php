@@ -52,6 +52,9 @@ final class ProjectTest extends TestCase
 
     public function testItIsMappable(): void
     {
+		$reflection = new \ReflectionClass(Utils::class);
+		$format = $reflection->getConstant('UTC_DATETIME_STRING_FORMAT');
+
         $projectArray = $this->expected->toArray();
 
         $this->assertIsArray($projectArray);
@@ -64,7 +67,7 @@ final class ProjectTest extends TestCase
         $this->assertEquals($this->expected->urls()->homepage()?->value() ?? null, $projectArray['homepage']);
         $this->assertEquals($this->expected->archived(), $projectArray['archived']);
         $this->assertEquals(
-            $this->expected->lastPushedAt()->format(Utils::UTC_DATETIME_STRING_FORMAT),
+            $this->expected->lastPushedAt()->setTimezone(new \DateTimeZone('UTC'))->format($format),
             $projectArray['lastPushedAt']
         );
     }

@@ -6,9 +6,9 @@ namespace App\Shared;
 
 final class Utils
 {
-    public const string UTC_DATETIME_STRING_FORMAT = 'Y-m-d\TH:i:s.v\Z';
+    private const string UTC_DATETIME_STRING_FORMAT = 'Y-m-d\TH:i:s.v\Z';
 
-    public static function dateToString(\DateTimeInterface $date): string
+    public static function dateToUTCString(\DateTimeImmutable $date): string
     {
         return $date
 			->setTimezone(new \DateTimeZone('UTC'))

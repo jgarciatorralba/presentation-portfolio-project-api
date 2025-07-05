@@ -117,7 +117,7 @@ final class GetProjectsFunctionalTest extends FunctionalTestCase
             ],
             'defined maxPushedAt and no pageSize' => [
                 'params' => [
-                    'maxPushedAt' => Utils::dateToString(
+                    'maxPushedAt' => Utils::dateToUTCString(
                         \DateTimeImmutable::createFromFormat('Y-m-d H:i:s', '1980-01-01 00:00:00')
                     )
                 ],
