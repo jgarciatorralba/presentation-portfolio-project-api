@@ -28,10 +28,10 @@ final class Version20241026141641 extends AbstractMigration
 				repository project_repository_url NOT NULL,
 				homepage url DEFAULT NULL,
 				archived BOOLEAN DEFAULT false NOT NULL,
-				last_pushed_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-				created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-				updated_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL,
-				deleted_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL,
+				last_pushed_at TIMESTAMP(0) WITH TIME ZONE NOT NULL,
+				created_at TIMESTAMP(0) WITH TIME ZONE NOT NULL,
+				updated_at TIMESTAMP(0) WITH TIME ZONE NOT NULL,
+				deleted_at TIMESTAMP(0) WITH TIME ZONE DEFAULT NULL,
 				created_at_timestamp BIGINT NOT NULL,
 				PRIMARY KEY(id, created_at_timestamp)
 			)'
@@ -44,10 +44,10 @@ final class Version20241026141641 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN projects.repository IS \'(DC2Type:project_repository_url)\'');
         $this->addSql('COMMENT ON COLUMN projects.homepage IS \'(DC2Type:url)\'');
         $this->addSql('COMMENT ON COLUMN projects.topics IS \'(DC2Type:simple_array)\'');
-        $this->addSql('COMMENT ON COLUMN projects.last_pushed_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN projects.created_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN projects.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN projects.deleted_at IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN projects.last_pushed_at IS \'(DC2Type:datetimetz_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN projects.created_at IS \'(DC2Type:datetimetz_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN projects.updated_at IS \'(DC2Type:datetimetz_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN projects.deleted_at IS \'(DC2Type:datetimetz_immutable)\'');
     }
 
     public function down(Schema $schema): void

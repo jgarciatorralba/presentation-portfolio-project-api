@@ -15,7 +15,6 @@ use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Contract\Log\Logger;
-use App\Shared\Domain\Service\LocalDateTimeZoneConverter;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
 use App\Shared\Domain\Http\QueryParam;
@@ -28,7 +27,6 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
     private const DEFAULT_RESULTS_PER_PAGE = 30;
 
     public function __construct(
-        private readonly LocalDateTimeZoneConverter $dateTimeConverter,
         string $apiToken,
         string $baseUri,
         HttpClient $httpClient,
@@ -137,9 +135,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
             details: $details,
             urls: $projectUrls,
             archived: $projectData['archived'],
-            lastPushedAt: $this->dateTimeConverter->convert(
-                new \DateTimeImmutable($projectData['pushed_at'])
-            ),
+            lastPushedAt: new \DateTimeImmutable($projectData['pushed_at'], new \DateTimeZone('UTC')),
         );
     }
 }

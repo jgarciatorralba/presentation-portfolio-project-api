@@ -6,6 +6,7 @@ namespace App\Tests\Unit\Projects\Domain;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Aggregate\AggregateRoot;
+use App\Shared\Utils;
 use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +64,7 @@ final class ProjectTest extends TestCase
         $this->assertEquals($this->expected->urls()->homepage()?->value() ?? null, $projectArray['homepage']);
         $this->assertEquals($this->expected->archived(), $projectArray['archived']);
         $this->assertEquals(
-            $this->expected->lastPushedAt()->format(\DateTimeInterface::ATOM),
+            $this->expected->lastPushedAt()->format(Utils::UTC_DATETIME_STRING_FORMAT),
             $projectArray['lastPushedAt']
         );
     }

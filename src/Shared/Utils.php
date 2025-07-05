@@ -6,9 +6,11 @@ namespace App\Shared;
 
 final class Utils
 {
+    public const string UTC_DATETIME_STRING_FORMAT = 'Y-m-d\TH:i:s.v\Z';
+
     public static function dateToString(\DateTimeInterface $date): string
     {
-        return $date->format(\DateTimeInterface::ATOM);
+        return $date->format(self::UTC_DATETIME_STRING_FORMAT);
     }
 
     public static function stringToDate(string $date): \DateTimeImmutable

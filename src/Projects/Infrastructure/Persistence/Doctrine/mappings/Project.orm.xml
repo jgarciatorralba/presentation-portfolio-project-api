@@ -14,10 +14,10 @@
                 <option name="default">false</option>
             </options>
         </field>
-        <field name="lastPushedAt" type="datetime_immutable" column="last_pushed_at" />
-        <field name="createdAt" type="datetime_immutable" column="created_at" />
-        <field name="updatedAt" type="datetime_immutable" column="updated_at" />
-        <field name="deletedAt" type="datetime_immutable" column="deleted_at" nullable="true" />
+        <field name="lastPushedAt" type="datetimetz_immutable" column="last_pushed_at" />
+        <field name="createdAt" type="datetimetz_immutable" column="created_at" />
+        <field name="updatedAt" type="datetimetz_immutable" column="updated_at" />
+        <field name="deletedAt" type="datetimetz_immutable" column="deleted_at" nullable="true" />
 
 		<!-- This column is a hack to be able to define a composite primary key using datetime: https://github.com/symfony/symfony/discussions/46333 -->
 		<id name="createdAtTimestamp" type="integer" column="created_at_timestamp" />

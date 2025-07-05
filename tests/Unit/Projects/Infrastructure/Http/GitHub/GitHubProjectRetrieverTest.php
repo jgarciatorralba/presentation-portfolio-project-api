@@ -11,7 +11,6 @@ use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Tests\Unit\Shared\TestCase\HttpClientMock;
 use App\Tests\Unit\Shared\TestCase\LoggerMock;
-use App\Tests\Unit\Shared\TestCase\LocalDateTimeZoneConverterMock;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -23,17 +22,14 @@ final class GitHubProjectRetrieverTest extends TestCase
 
     private ?HttpClientMock $httpClientMock;
     private ?LoggerMock $loggerMock;
-    private ?LocalDateTimeZoneConverterMock $dateTimeConverterMock;
     private ?GitHubProjectRetriever $sut;
 
     protected function setUp(): void
     {
         $this->httpClientMock = new HttpClientMock($this);
         $this->loggerMock = new LoggerMock($this);
-        $this->dateTimeConverterMock = new LocalDateTimeZoneConverterMock($this);
 
         $this->sut = new GitHubProjectRetriever(
-            dateTimeConverter: $this->dateTimeConverterMock->getMock(),
             apiToken: self::API_TOKEN,
             baseUri: self::BASE_URI,
             httpClient: $this->httpClientMock->getMock(),
@@ -45,7 +41,6 @@ final class GitHubProjectRetrieverTest extends TestCase
     {
         $this->httpClientMock = null;
         $this->loggerMock = null;
-        $this->dateTimeConverterMock = null;
         $this->sut = null;
     }
 
