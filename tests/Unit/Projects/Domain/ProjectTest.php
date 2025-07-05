@@ -52,8 +52,8 @@ final class ProjectTest extends TestCase
 
     public function testItIsMappable(): void
     {
-		$reflection = new \ReflectionClass(Utils::class);
-		$format = $reflection->getConstant('UTC_DATETIME_STRING_FORMAT');
+        $reflection = new \ReflectionClass(Utils::class);
+        $format = $reflection->getConstant('UTC_DATETIME_STRING_FORMAT');
 
         $projectArray = $this->expected->toArray();
 

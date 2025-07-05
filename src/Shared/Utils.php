@@ -11,8 +11,8 @@ final class Utils
     public static function dateToUTCString(\DateTimeImmutable $date): string
     {
         return $date
-			->setTimezone(new \DateTimeZone('UTC'))
-			->format(self::UTC_DATETIME_STRING_FORMAT);
+            ->setTimezone(new \DateTimeZone('UTC'))
+            ->format(self::UTC_DATETIME_STRING_FORMAT);
     }
 
     public static function stringToDate(string $date): \DateTimeImmutable
