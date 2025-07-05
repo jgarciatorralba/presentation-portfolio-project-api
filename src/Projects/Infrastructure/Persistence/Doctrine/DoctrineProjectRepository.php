@@ -28,14 +28,14 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
 
     public function update(Project $project): void
     {
-        $project->updateUpdatedAt(new \DateTimeImmutable());
+        $project->updateUpdatedAt(new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
 
         $this->updateEntity();
     }
 
     public function delete(Project $project): void
     {
-        $project->updateDeletedAt(new \DateTimeImmutable());
+        $project->updateDeletedAt(new \DateTimeImmutable('now', new \DateTimeZone('UTC')));
 
         $this->updateEntity();
     }

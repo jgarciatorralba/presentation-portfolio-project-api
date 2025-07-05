@@ -10,15 +10,17 @@ final class Utils
 
     public static function dateToString(\DateTimeInterface $date): string
     {
-        return $date->format(self::UTC_DATETIME_STRING_FORMAT);
+        return $date
+			->setTimezone(new \DateTimeZone('UTC'))
+			->format(self::UTC_DATETIME_STRING_FORMAT);
     }
 
     public static function stringToDate(string $date): \DateTimeImmutable
     {
         try {
-            return new \DateTimeImmutable($date);
+            return new \DateTimeImmutable($date, new \DateTimeZone('UTC'));
         } catch (\Exception) {
-            return new \DateTimeImmutable();
+            return new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
         }
     }
 

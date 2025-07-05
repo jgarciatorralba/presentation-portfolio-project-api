@@ -20,7 +20,7 @@ final readonly class GetProjectsQueryHandler implements QueryHandler
     public function __invoke(GetProjectsQuery $query): GetProjectsResponse
     {
         $limit = $query->pageSize();
-        $maxPushedAt = $query->maxPushedAt() ?? new \DateTimeImmutable();
+        $maxPushedAt = $query->maxPushedAt() ?? new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
 
         $projects = $this->getProjectsByCriteria->__invoke(
             new PushedBeforeDateTimeCriteria($maxPushedAt, $limit)
