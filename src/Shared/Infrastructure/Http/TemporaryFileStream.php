@@ -138,13 +138,11 @@ final class TemporaryFileStream implements DataStream
     /** @throws \RuntimeException */
     public function getContents(): string
     {
-        $contents = stream_get_contents($this->resource);
-
-        if ($contents === false) {
-            throw new \RuntimeException('Unable to read stream contents');
+        if ($contents = stream_get_contents($this->resource)) {
+            return $contents;
         }
 
-        return $contents;
+        throw new \RuntimeException('Unable to read stream contents');
     }
 
     /**
