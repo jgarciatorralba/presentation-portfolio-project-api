@@ -61,12 +61,12 @@ readonly class HttpResponse implements HttpResponseInterface
             $statusCode = HttpStatusCode::from($code);
 
             return new static(
+                headers: $this->headers,
                 body: $this->body,
                 statusCode: $statusCode,
                 reasonPhrase: empty($reasonPhrase)
                     ? $statusCode->getReasonPhraseFromCode()
                     : $reasonPhrase,
-                headers: $this->headers,
                 protocolVersion: $this->protocolVersion,
             );
         } catch (\ValueError | \TypeError) {
@@ -91,10 +91,10 @@ readonly class HttpResponse implements HttpResponseInterface
             $protocolVersion = HttpProtocolVersion::from($version);
 
             return new static(
+                headers: $this->headers,
                 body: $this->body,
                 statusCode: $this->statusCode,
                 reasonPhrase: $this->reasonPhrase,
-                headers: $this->headers,
                 protocolVersion: $protocolVersion,
             );
         } catch (\ValueError | \TypeError) {
@@ -143,10 +143,10 @@ readonly class HttpResponse implements HttpResponseInterface
         }
 
         return new static(
+            headers: new HttpHeaders(...$newHeaders),
             body: $this->body,
             statusCode: $this->statusCode,
             reasonPhrase: $this->reasonPhrase,
-            headers: new HttpHeaders(...$newHeaders),
             protocolVersion: $this->protocolVersion,
         );
     }
@@ -165,10 +165,10 @@ readonly class HttpResponse implements HttpResponseInterface
             ];
 
             return new static(
+                headers: new HttpHeaders(...$headers),
                 body: $this->body,
                 statusCode: $this->statusCode,
                 reasonPhrase: $this->reasonPhrase,
-                headers: new HttpHeaders(...$headers),
                 protocolVersion: $this->protocolVersion,
             );
         }
@@ -191,10 +191,10 @@ readonly class HttpResponse implements HttpResponseInterface
         }
 
         return new static(
+            headers: new HttpHeaders(...$newHeaders),
             body: $this->body,
             statusCode: $this->statusCode,
             reasonPhrase: $this->reasonPhrase,
-            headers: new HttpHeaders(...$newHeaders),
             protocolVersion: $this->protocolVersion,
         );
     }
@@ -210,10 +210,10 @@ readonly class HttpResponse implements HttpResponseInterface
         $temp = new TemporaryFileStream((string) $body);
 
         return new static(
+            headers: $this->headers,
             body: $temp,
             statusCode: $this->statusCode,
             reasonPhrase: $this->reasonPhrase,
-            headers: $this->headers,
             protocolVersion: $this->protocolVersion,
         );
     }
