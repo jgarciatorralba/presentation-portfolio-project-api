@@ -12,7 +12,9 @@ final class HttpProtocolVersionTest extends TestCase
 {
     protected function tearDown(): void
     {
-        unset($_SERVER['SERVER_PROTOCOL']);
+        if (isset($_SERVER['SERVER_PROTOCOL'])) {
+            unset($_SERVER['SERVER_PROTOCOL']);
+        }
 
         parent::tearDown();
     }
@@ -36,12 +38,12 @@ final class HttpProtocolVersionTest extends TestCase
     public static function protocolProvider(): array
     {
         return [
-            ['HTTP/0.9', HttpProtocolVersion::HTTP_0_9],
-            ['HTTP/1.0', HttpProtocolVersion::HTTP_1_0],
-            ['HTTP/1.1', HttpProtocolVersion::HTTP_1_1],
-            ['HTTP/2.0', HttpProtocolVersion::HTTP_2_0],
-            ['HTTP/3.0', HttpProtocolVersion::HTTP_3_0],
-            ['Invalid Protocol', HttpProtocolVersion::HTTP_1_1],
+            'HTTP version 0.9' => ['HTTP/0.9', HttpProtocolVersion::HTTP_0_9],
+            'HTTP version 1.0' => ['HTTP/1.0', HttpProtocolVersion::HTTP_1_0],
+            'HTTP version 1.1' => ['HTTP/1.1', HttpProtocolVersion::HTTP_1_1],
+            'HTTP version 2.0' => ['HTTP/2.0', HttpProtocolVersion::HTTP_2_0],
+            'HTTP version 3.0' => ['HTTP/3.0', HttpProtocolVersion::HTTP_3_0],
+            'Invalid version falling back to default' => ['Invalid Protocol', HttpProtocolVersion::HTTP_1_1],
         ];
     }
 
