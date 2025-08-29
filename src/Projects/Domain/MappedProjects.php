@@ -22,12 +22,6 @@ final class MappedProjects implements Collection
         }
     }
 
-    /** @return Project[] */
-    public function all(): array
-    {
-        return array_values($this->projects);
-    }
-
     public function has(string $key): bool
     {
         return isset($this->projects[$key]);
@@ -37,5 +31,13 @@ final class MappedProjects implements Collection
     public function get(string $key): ?Project
     {
         return $this->projects[$key] ?? null;
+    }
+
+    /**
+     * @return \Traversable<string, Project>
+     */
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->projects);
     }
 }
