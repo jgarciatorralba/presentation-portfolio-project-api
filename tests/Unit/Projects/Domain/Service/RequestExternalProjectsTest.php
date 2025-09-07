@@ -35,7 +35,7 @@ final class RequestExternalProjectsTest extends TestCase
     public function testItRequestsExternalProjects(): void
     {
         $this->externalProjectRetrieverMock
-            ->shouldRetrieveProjects(...$this->projects->all());
+            ->shouldRetrieveProjects(...$this->projects->getIterator());
 
         $result = $this->sut->__invoke();
 

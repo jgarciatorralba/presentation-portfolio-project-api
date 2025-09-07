@@ -94,7 +94,7 @@ final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
 
     public function testItSyncsByDeletingOldProjects(): void
     {
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = MappedProjectsBuilder::any()->build()->getIterator();
         $this->persist(...$projects);
 
         $this->commandTester->execute(input: []);

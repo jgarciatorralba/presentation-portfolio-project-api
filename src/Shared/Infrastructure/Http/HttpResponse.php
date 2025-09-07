@@ -136,9 +136,9 @@ readonly class HttpResponse implements HttpResponseInterface
     public function withHeader(string $name, mixed $value): static
     {
         $newHeaders = [];
-        foreach ($this->headers->all() as $header) {
-            $newHeaders[] = strcasecmp($header->name(), $name) === 0
-                ? new HttpHeader($header->name(), ...(array) $value)
+        foreach ($this->headers as $headerName => $header) {
+            $newHeaders[] = strcasecmp($headerName, $name) === 0
+                ? new HttpHeader($headerName, ...(array) $value)
                 : $header;
         }
 
@@ -160,7 +160,7 @@ readonly class HttpResponse implements HttpResponseInterface
     {
         if (!$this->hasHeader($name)) {
             $headers = [
-                ...$this->headers->all(),
+                ...iterator_to_array($this->headers->getIterator(), false),
                 new HttpHeader($name, ...(array) $value),
             ];
 
@@ -184,8 +184,8 @@ readonly class HttpResponse implements HttpResponseInterface
     public function withoutHeader(string $name): static
     {
         $newHeaders = [];
-        foreach ($this->headers->all() as $header) {
-            if (strcasecmp($header->name(), $name) !== 0) {
+        foreach ($this->headers as $headerName => $header) {
+            if (strcasecmp($headerName, $name) !== 0) {
                 $newHeaders[] = $header;
             }
         }

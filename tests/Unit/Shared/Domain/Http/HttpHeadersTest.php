@@ -17,7 +17,7 @@ final class HttpHeadersTest extends TestCase
         $headers = HttpHeadersBuilder::any()->build();
 
         $this->assertInstanceOf(HttpHeaders::class, $headers);
-        $this->assertNotEmpty($headers->all());
+        $this->assertNotEmpty($headers->getIterator());
     }
 
     public function testTheyAreMergedWhenNameIsTheSame(): void
@@ -27,12 +27,12 @@ final class HttpHeadersTest extends TestCase
             ->build();
 
         $secondHeader = HttpHeaderBuilder::any()
-        ->withName('A-Valid-Header')
-        ->build();
+            ->withName('A-Valid-Header')
+            ->build();
 
         $headers = new HttpHeaders($firstHeader, $secondHeader);
 
-        $this->assertCount(1, $headers->all());
+        $this->assertCount(1, $headers->getIterator());
         $this->assertEquals(
             count($firstHeader->values()) + count($secondHeader->values()),
             count($headers->get($firstHeader->name())->values())
@@ -43,9 +43,8 @@ final class HttpHeadersTest extends TestCase
     {
         $headers = HttpHeadersBuilder::any()->build();
 
-        $this->assertNotEmpty($headers->all());
-        $this->assertContainsOnlyInstancesOf(HttpHeader::class, $headers->all());
-        $this->assertCount(count($headers->all()), $headers->all());
+        $this->assertNotEmpty($headers->getIterator());
+        $this->assertContainsOnlyInstancesOf(HttpHeader::class, $headers->getIterator());
     }
 
     public function testHeadersHaveKey(): void
@@ -76,12 +75,12 @@ final class HttpHeadersTest extends TestCase
         $this->assertNotEmpty($mappedHeaders);
         $this->assertEquals(
             array_keys($mappedHeaders),
-            array_map(fn (HttpHeader $header): string => $header->name(), $headers->all())
+            array_map(fn (HttpHeader $header): string => $header->name(), iterator_to_array($headers->getIterator(), false))
         );
         $this->assertEquals(
             array_values($mappedHeaders),
             /** @return string[] */
-            array_map(fn (HttpHeader $header): array => $header->values(), $headers->all())
+            array_map(fn (HttpHeader $header): array => $header->values(), iterator_to_array($headers->getIterator(), false))
         );
     }
 }

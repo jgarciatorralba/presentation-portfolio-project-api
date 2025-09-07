@@ -13,7 +13,7 @@ use App\Shared\Domain\Contract\Mappable;
  */
 final readonly class HttpHeaders implements Collection, Mappable
 {
-    /** @var list<HttpHeader> */
+    /** @var array<string, HttpHeader> */
     private array $headers;
 
     /** @throws \InvalidArgumentException */
@@ -27,7 +27,8 @@ final readonly class HttpHeaders implements Collection, Mappable
                 if (strcasecmp($existingHeader->name(), $header->name()) === 0) {
                     $mergedHeader = new HttpHeader(
                         $existingHeader->name(),
-                        ...array_merge($existingHeader->values(), $header->values())
+                        ...$existingHeader->values(),
+                        ...$header->values()
                     );
 
                     break;
@@ -37,13 +38,7 @@ final readonly class HttpHeaders implements Collection, Mappable
             $mergedHeaders[$mergedHeader->name()] = $mergedHeader;
         }
 
-        $this->headers = array_values($mergedHeaders);
-    }
-
-    /** @return HttpHeader[] */
-    public function all(): array
-    {
-        return $this->headers;
+        $this->headers = $mergedHeaders;
     }
 
     public function has(string $key): bool
@@ -67,6 +62,14 @@ final readonly class HttpHeaders implements Collection, Mappable
         }
 
         return null;
+    }
+
+    /**
+     * @return \Traversable<string, HttpHeader>
+     */
+    public function getIterator(): \Traversable
+    {
+        return new \ArrayIterator($this->headers);
     }
 
     /** @return array<string, string[]> */

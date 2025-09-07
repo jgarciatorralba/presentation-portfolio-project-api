@@ -6,12 +6,10 @@ namespace App\Shared\Domain\Contract;
 
 /**
  * @template T
+ * @extends \IteratorAggregate<string, T>
  */
-interface Collection
+interface Collection extends \IteratorAggregate
 {
-    /** @return list<T> */
-    public function all(): array;
-
     public function has(string $key): bool;
 
     /** @return T|null */

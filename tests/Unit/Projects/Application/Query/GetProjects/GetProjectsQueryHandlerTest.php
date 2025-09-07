@@ -40,7 +40,7 @@ final class GetProjectsQueryHandlerTest extends TestCase
 
     public function testItGetsProjects(): void
     {
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = iterator_to_array(MappedProjectsBuilder::any()->build()->getIterator(), false);
         $totalProjects = FakeValueGenerator::integer(min: count($projects));
 
         $this->getProjectsByCriteria->shouldGetProjects(

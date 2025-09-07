@@ -51,7 +51,6 @@ final class HttpProtocolVersionTest extends TestCase
     {
         $reflection = new \ReflectionClass(HttpProtocolVersion::class);
         $method = $reflection->getMethod('default');
-        $method->setAccessible(true);
 
         $default = $method->invoke(null);
 

@@ -21,7 +21,7 @@ final class GetProjectsFunctionalTest extends FunctionalTestCase
     {
         parent::setUp();
 
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = iterator_to_array(MappedProjectsBuilder::any()->build()->getIterator(), false);
         if ($projects !== []) {
             $this->persist(...$projects);
         }

@@ -35,7 +35,7 @@ final class GetAllProjectsTest extends TestCase
     public function testItGetsAllProjectsMapped(): void
     {
         $this->projectRepositoryMock
-            ->shouldFindAllProjects(...$this->projects->all());
+            ->shouldFindAllProjects(...$this->projects->getIterator());
 
         $result = $this->sut->__invoke();
 

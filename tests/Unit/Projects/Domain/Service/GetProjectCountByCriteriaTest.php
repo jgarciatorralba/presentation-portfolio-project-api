@@ -29,7 +29,7 @@ final class GetProjectCountByCriteriaTest extends TestCase
         $mappedProjects = MappedProjectsBuilder::any()->build();
 
         $criteria = CriteriaBuilder::any()->build();
-        $expectedCount = count($mappedProjects->all());
+        $expectedCount = count($mappedProjects->getIterator());
 
         $this->projectRepositoryMock
             ->shouldCountProjectsMatchingCriteria(

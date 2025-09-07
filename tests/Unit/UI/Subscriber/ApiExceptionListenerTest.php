@@ -75,7 +75,6 @@ final class ApiExceptionListenerTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('buildResponse');
-        $method->setAccessible(true);
 
         $response = $method->invoke($this->sut, $exception);
         $this->assertInstanceOf(JsonResponse::class, $response);
@@ -125,7 +124,6 @@ final class ApiExceptionListenerTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('getErrorCode');
-        $method->setAccessible(true);
 
         $errorCode = $method->invoke($this->sut, $exception);
         $this->assertEquals($errorCode, $errorCode);
@@ -156,7 +154,6 @@ final class ApiExceptionListenerTest extends TestCase
 
         $reflection = new \ReflectionClass($this->sut);
         $method = $reflection->getMethod('getStatusCode');
-        $method->setAccessible(true);
 
         $statusCode = $method->invoke($this->sut, $exception);
         $this->assertEquals(
