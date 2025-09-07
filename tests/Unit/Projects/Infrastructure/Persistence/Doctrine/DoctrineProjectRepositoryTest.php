@@ -36,7 +36,6 @@ final class DoctrineProjectRepositoryTest extends TestCase
 
         $reflection = new \ReflectionClass(DoctrineRepository::class);
         $property = $reflection->getProperty('repository');
-        $property->setAccessible(true);
         $property->setValue($this->sut, $this->entityRepositoryMock->getMock());
     }
 
