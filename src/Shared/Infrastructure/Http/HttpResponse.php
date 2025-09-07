@@ -160,7 +160,7 @@ readonly class HttpResponse implements HttpResponseInterface
     {
         if (!$this->hasHeader($name)) {
             $headers = [
-                ...iterator_to_array($this->headers->getIterator()),
+                ...iterator_to_array($this->headers->getIterator(), false),
                 new HttpHeader($name, ...(array) $value),
             ];
 

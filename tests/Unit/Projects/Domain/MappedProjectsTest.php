@@ -37,7 +37,7 @@ final class MappedProjectsTest extends TestCase
 
     public function testItHasAllProjects(): void
     {
-        $this->assertCount(count($this->projects), $this->mappedProjects->all());
+        $this->assertCount(count($this->projects), $this->mappedProjects->getIterator());
     }
 
     public function testItCanCheckIfProjectExists(): void
@@ -58,4 +58,17 @@ final class MappedProjectsTest extends TestCase
         $this->assertEquals($existingProject, $foundProject);
         $this->assertNull($notFoundProject);
     }
+
+	public function testItGetsIterator(): void
+	{
+		$iterator = $this->mappedProjects->getIterator();
+
+		$this->assertInstanceOf(\Traversable::class, $iterator);
+		$this->assertCount(count($this->projects), $iterator);
+
+		foreach ($iterator as $key => $project) {
+			$this->assertIsString($key);
+			$this->assertInstanceOf(Project::class, $project);
+		}
+	}
 }

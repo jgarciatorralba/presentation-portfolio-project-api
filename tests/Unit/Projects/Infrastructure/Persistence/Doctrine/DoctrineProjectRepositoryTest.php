@@ -103,7 +103,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
     {
         $criteria = CriteriaBuilder::any()->build();
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = iterator_to_array(MappedProjectsBuilder::any()->build()->getIterator(), false);
 
         $this->entityRepositoryMock
             ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, ...$projects);
@@ -116,7 +116,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
     {
         $criteria = CriteriaBuilder::any()->build();
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = MappedProjectsBuilder::any()->build()->getIterator();
 
         $this->entityRepositoryMock
             ->shouldFindEntitiesMatchingCriteria($doctrineCriteria, ...$projects);
@@ -127,7 +127,7 @@ final class DoctrineProjectRepositoryTest extends TestCase
 
     public function testItFindsAllProjects(): void
     {
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = iterator_to_array(MappedProjectsBuilder::any()->build()->getIterator(), false);
 
         $this->entityRepositoryMock
             ->shouldFindAllEntities(...$projects);

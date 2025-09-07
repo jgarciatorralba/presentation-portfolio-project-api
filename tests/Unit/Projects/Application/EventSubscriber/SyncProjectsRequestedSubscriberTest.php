@@ -50,7 +50,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
 
     public function testItPublishesProjectAddedEventWhenProjectIsNotStored(): void
     {
-        $externalProjects = MappedProjectsBuilder::any()->build()->all();
+        $externalProjects = iterator_to_array(MappedProjectsBuilder::any()->build(), false);
         $storedProjects = array_filter(
             $externalProjects,
             fn (int $key): bool => $key !== 0,
@@ -70,7 +70,7 @@ final class SyncProjectsRequestedSubscriberTest extends TestCase
 
     public function testItPublishesProjectRemovedEventWhenProjectIsNotFetched(): void
     {
-        $storedProjects = MappedProjectsBuilder::any()->build()->all();
+        $storedProjects = iterator_to_array(MappedProjectsBuilder::any()->build(), false);
         $externalProjects = array_filter(
             $storedProjects,
             fn (int $key): bool => $key !== 0,

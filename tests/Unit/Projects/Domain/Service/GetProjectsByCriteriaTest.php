@@ -26,7 +26,7 @@ class GetProjectsByCriteriaTest extends TestCase
 
     public function testItReturnsProjectsMatchingCriteria(): void
     {
-        $projects = MappedProjectsBuilder::any()->build()->all();
+        $projects = iterator_to_array(MappedProjectsBuilder::any()->build()->getIterator(), false);
         $criteria = CriteriaBuilder::any()->build();
 
         $this->projectRepositoryMock
