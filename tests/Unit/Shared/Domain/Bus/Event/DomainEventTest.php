@@ -9,7 +9,7 @@ use App\Shared\Domain\Bus\Event\DomainEvent;
 
 final class DomainEventTest extends TestCase
 {
-    public function testItIsMappable(): void
+    public function testItIsSerializable(): void
     {
         $testAggregateId = 'abc123';
 

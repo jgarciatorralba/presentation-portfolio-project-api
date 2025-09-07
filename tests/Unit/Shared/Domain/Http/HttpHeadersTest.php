@@ -65,7 +65,7 @@ final class HttpHeadersTest extends TestCase
         $this->assertEquals($expected, $headers->get($expected->name()));
     }
 
-    public function testTheyAreMappable(): void
+    public function testTheyAreSerializable(): void
     {
         $headers = HttpHeadersBuilder::any()->build();
 
@@ -75,12 +75,18 @@ final class HttpHeadersTest extends TestCase
         $this->assertNotEmpty($mappedHeaders);
         $this->assertEquals(
             array_keys($mappedHeaders),
-            array_map(fn (HttpHeader $header): string => $header->name(), iterator_to_array($headers->getIterator(), false))
+            array_map(
+                fn (HttpHeader $header): string => $header->name(),
+                iterator_to_array($headers->getIterator(), false)
+            )
         );
         $this->assertEquals(
             array_values($mappedHeaders),
             /** @return string[] */
-            array_map(fn (HttpHeader $header): array => $header->values(), iterator_to_array($headers->getIterator(), false))
+            array_map(
+                fn (HttpHeader $header): array => $header->values(),
+                iterator_to_array($headers->getIterator(), false)
+            )
         );
     }
 }

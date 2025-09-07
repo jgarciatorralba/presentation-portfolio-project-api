@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Bus\Event;
 
-use App\Shared\Domain\Contract\Mappable;
+use App\Shared\Domain\Contract\Serializable;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
 
-abstract readonly class Event implements Mappable
+abstract readonly class Event implements Serializable
 {
     protected string $eventId;
     protected string $occurredOn;
