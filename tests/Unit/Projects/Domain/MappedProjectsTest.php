@@ -59,16 +59,16 @@ final class MappedProjectsTest extends TestCase
         $this->assertNull($notFoundProject);
     }
 
-	public function testItGetsIterator(): void
-	{
-		$iterator = $this->mappedProjects->getIterator();
+    public function testItGetsIterator(): void
+    {
+        $iterator = $this->mappedProjects->getIterator();
 
-		$this->assertInstanceOf(\Traversable::class, $iterator);
-		$this->assertCount(count($this->projects), $iterator);
+        $this->assertInstanceOf(\Traversable::class, $iterator);
+        $this->assertCount(count($this->projects), $iterator);
 
-		foreach ($iterator as $key => $project) {
-			$this->assertIsString($key);
-			$this->assertInstanceOf(Project::class, $project);
-		}
-	}
+        foreach ($iterator as $key => $project) {
+            $this->assertIsString($key);
+            $this->assertInstanceOf(Project::class, $project);
+        }
+    }
 }

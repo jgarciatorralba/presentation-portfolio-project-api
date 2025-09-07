@@ -27,8 +27,8 @@ final class HttpHeadersTest extends TestCase
             ->build();
 
         $secondHeader = HttpHeaderBuilder::any()
-        	->withName('A-Valid-Header')
-        	->build();
+            ->withName('A-Valid-Header')
+            ->build();
 
         $headers = new HttpHeaders($firstHeader, $secondHeader);
 

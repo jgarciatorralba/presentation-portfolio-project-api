@@ -18,20 +18,20 @@ final class MappedProjects implements Collection
     public function __construct(Project ...$projects)
     {
         foreach ($projects as $project) {
-			/*
-			 * Numeric string keys in arrays are converted to integers,
-			 * see https://www.php.net/manual/en/language.types.array.php
-			 */
-			$key = '+' . (string) $project->id();
+            /*
+             * Numeric string keys in arrays are converted to integers,
+             * see https://www.php.net/manual/en/language.types.array.php
+             */
+            $key = '+' . (string) $project->id();
             $this->projects[$key] = $project;
         }
     }
 
     public function has(string $key): bool
     {
-		if (!str_starts_with($key, '+')) {
-			$key = '+' . $key;
-		}
+        if (!str_starts_with($key, '+')) {
+            $key = '+' . $key;
+        }
 
         return isset($this->projects[$key]);
     }
@@ -39,9 +39,9 @@ final class MappedProjects implements Collection
     /** @return Project|null */
     public function get(string $key): ?Project
     {
-		if (!str_starts_with($key, '+')) {
-			$key = '+' . $key;
-		}
+        if (!str_starts_with($key, '+')) {
+            $key = '+' . $key;
+        }
 
         return $this->projects[$key] ?? null;
     }
