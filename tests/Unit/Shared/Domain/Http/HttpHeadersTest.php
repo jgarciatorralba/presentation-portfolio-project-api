@@ -89,4 +89,19 @@ final class HttpHeadersTest extends TestCase
             )
         );
     }
+
+	public function testItGetsIterator(): void
+	{
+		$headers = HttpHeadersBuilder::any()->build();
+
+		$iterator = $headers->getIterator();
+
+		$this->assertInstanceOf(\Traversable::class, $iterator);
+		$this->assertNotEmpty($iterator);
+
+		foreach ($iterator as $key => $header) {
+			$this->assertIsString($key);
+			$this->assertInstanceOf(HttpHeader::class, $header);
+		}
+	}
 }
