@@ -13,55 +13,60 @@ final class MappedProjectsTest extends TestCase
 {
     /** @var list<Project> */
     private ?array $projects;
-    private ?MappedProjects $mappedProjects;
 
     protected function setUp(): void
     {
         $this->projects = [
             ProjectBuilder::any()->build(),
         ];
-
-        $this->mappedProjects = new MappedProjects(...$this->projects);
     }
 
     protected function tearDown(): void
     {
         $this->projects = null;
-        $this->mappedProjects = null;
     }
 
-    public function testItCanBeCreatedFromProjects(): void
+    public function testTheyCanBeCreatedFromProjects(): void
     {
-        $this->assertInstanceOf(MappedProjects::class, $this->mappedProjects);
+        $this->assertInstanceOf(
+            MappedProjects::class,
+            new MappedProjects(...$this->projects)
+        );
     }
 
-    public function testItHasAllProjects(): void
+    public function testTheyContainAllProjects(): void
     {
-        $this->assertCount(count($this->projects), $this->mappedProjects->getIterator());
+        $mappedProjects = new MappedProjects(...$this->projects);
+
+        $this->assertCount(
+            count($this->projects),
+            $mappedProjects->getIterator()
+        );
     }
 
-    public function testItCanCheckIfProjectExists(): void
+    public function testTheyCanTellWhetherTheyHaveProject(): void
     {
-        $existingProject = $this->projects[0];
+        $mappedProjects = new MappedProjects(...$this->projects);
 
-        $this->assertTrue($this->mappedProjects->has((string) $existingProject->id()));
-        $this->assertFalse($this->mappedProjects->has('non-existing-id'));
+        $this->assertTrue($mappedProjects->has((string) $this->projects[0]->id()));
+        $this->assertFalse($mappedProjects->has('non-existing-id'));
     }
 
-    public function testItGetsProjectById(): void
+    public function testTheyCanRetrieveProjectById(): void
     {
-        $existingProject = $this->projects[0];
+        $mappedProjects = new MappedProjects(...$this->projects);
 
-        $foundProject = $this->mappedProjects->get((string) $existingProject->id());
-        $notFoundProject = $this->mappedProjects->get('non-existing-id');
+        $foundProject = $mappedProjects->get((string) $this->projects[0]->id());
+        $notFoundProject = $mappedProjects->get('non-existing-id');
 
-        $this->assertEquals($existingProject, $foundProject);
+        $this->assertEquals($this->projects[0], $foundProject);
         $this->assertNull($notFoundProject);
     }
 
-    public function testItGetsIterator(): void
+    public function testTheyAreACollection(): void
     {
-        $iterator = $this->mappedProjects->getIterator();
+        $mappedProjects = new MappedProjects(...$this->projects);
+        $iterator = $mappedProjects->getIterator();
 
         $this->assertInstanceOf(\Traversable::class, $iterator);
         $this->assertCount(count($this->projects), $iterator);

@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HttpHeadersTest extends TestCase
 {
-    public function testTheyAreCreated(): void
+    public function testHeadersAreCreated(): void
     {
         $headers = HttpHeadersBuilder::any()->build();
 
@@ -39,7 +39,7 @@ final class HttpHeadersTest extends TestCase
         );
     }
 
-    public function testHeadersCanBeRetrieved(): void
+    public function testTheyCanBeRetrieved(): void
     {
         $headers = HttpHeadersBuilder::any()->build();
 
@@ -47,7 +47,7 @@ final class HttpHeadersTest extends TestCase
         $this->assertContainsOnlyInstancesOf(HttpHeader::class, $headers->getIterator());
     }
 
-    public function testHeadersHaveKey(): void
+    public function testTheyCanTellWhetherTheyHaveKey(): void
     {
         $expected = HttpHeaderBuilder::any()->build();
 
@@ -90,18 +90,18 @@ final class HttpHeadersTest extends TestCase
         );
     }
 
-	public function testItGetsIterator(): void
-	{
-		$headers = HttpHeadersBuilder::any()->build();
+    public function testTheyAreACollection(): void
+    {
+        $headers = HttpHeadersBuilder::any()->build();
 
-		$iterator = $headers->getIterator();
+        $iterator = $headers->getIterator();
 
-		$this->assertInstanceOf(\Traversable::class, $iterator);
-		$this->assertNotEmpty($iterator);
+        $this->assertInstanceOf(\Traversable::class, $iterator);
+        $this->assertNotEmpty($iterator);
 
-		foreach ($iterator as $key => $header) {
-			$this->assertIsString($key);
-			$this->assertInstanceOf(HttpHeader::class, $header);
-		}
-	}
+        foreach ($iterator as $key => $header) {
+            $this->assertIsString($key);
+            $this->assertInstanceOf(HttpHeader::class, $header);
+        }
+    }
 }
