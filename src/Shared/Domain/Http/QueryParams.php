@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Http;
 
-use App\Shared\Domain\Contract\Serializable;
+use App\Shared\Domain\Contract\ArraySerializable;
 use Stringable;
 
-final readonly class QueryParams implements Serializable, Stringable
+final readonly class QueryParams implements ArraySerializable, Stringable
 {
     /** @var QueryParam[] */
     private array $params;

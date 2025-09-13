@@ -9,7 +9,7 @@ use App\Shared\Domain\Bus\Event\DomainEvent;
 
 final class DomainEventTest extends TestCase
 {
-    public function testItIsSerializable(): void
+    public function testItIsArraySerializable(): void
     {
         $testAggregateId = 'abc123';
 

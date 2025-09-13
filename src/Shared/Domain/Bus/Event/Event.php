@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\Bus\Event;
 
-use App\Shared\Domain\Contract\Serializable;
+use App\Shared\Domain\Contract\ArraySerializable;
 use App\Shared\Domain\ValueObject\Uuid;
 use App\Shared\Utils;
 
-abstract readonly class Event implements Serializable
+abstract readonly class Event implements ArraySerializable
 {
     protected string $eventId;
     protected string $occurredOn;

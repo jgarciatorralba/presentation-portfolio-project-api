@@ -56,7 +56,7 @@ final class QueryParamsTest extends TestCase
         }
     }
 
-    public function testTheyAreSerializable(): void
+    public function testTheyAreArraySerializable(): void
     {
         $actual = new QueryParams(...$this->params);
 

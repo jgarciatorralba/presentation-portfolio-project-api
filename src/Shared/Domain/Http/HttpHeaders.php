@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Shared\Domain\Http;
 
 use App\Shared\Domain\Contract\Collection;
-use App\Shared\Domain\Contract\Serializable;
+use App\Shared\Domain\Contract\ArraySerializable;
 
 /**
  * @template T of HttpHeader
  * @implements Collection<T>
  */
-final readonly class HttpHeaders implements Collection, Serializable
+final readonly class HttpHeaders implements Collection, ArraySerializable
 {
     /** @var array<string, HttpHeader> */
     private array $headers;

@@ -65,7 +65,7 @@ final class HttpHeadersTest extends TestCase
         $this->assertEquals($expected, $headers->get($expected->name()));
     }
 
-    public function testTheyAreSerializable(): void
+    public function testTheyAreArraySerializable(): void
     {
         $headers = HttpHeadersBuilder::any()->build();
 
