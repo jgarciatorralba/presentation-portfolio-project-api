@@ -6,9 +6,8 @@ namespace App\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Shared\Domain\ValueObject\Url;
-use Stringable;
 
-final readonly class ProjectRepositoryUrl extends Url implements Stringable
+final readonly class ProjectRepositoryUrl extends Url
 {
     private const string GITHUB_DOMAIN = 'github.com';
 
@@ -31,10 +30,5 @@ final readonly class ProjectRepositoryUrl extends Url implements Stringable
         }
 
         return new self($url->value());
-    }
-
-    public function __toString(): string
-    {
-        return $this->value();
     }
 }
