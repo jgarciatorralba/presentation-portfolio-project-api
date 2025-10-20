@@ -12,3 +12,4 @@ doctrine:
         charset: "%env(resolve:DATABASE_CHARSET)%"
         driver: "%env(resolve:DATABASE_DRIVER)%"
         profiling_collect_backtrace: "%kernel.debug%"
+        use_savepoints: true
