@@ -1,4 +1,4 @@
-FROM php:8.4.8-fpm-bullseye
+FROM php:8.3.6-fpm-bullseye
 ARG TIMEZONE
 
 COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
