@@ -1,3 +1,2 @@
 projects:
   resource: routes/projects.yaml
-  prefix: /api/

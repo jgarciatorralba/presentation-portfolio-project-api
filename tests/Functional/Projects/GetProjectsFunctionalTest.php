@@ -51,7 +51,7 @@ final class GetProjectsFunctionalTest extends FunctionalTestCase
     {
         $this->client->request(
             method: 'GET',
-            uri: 'api/projects',
+            uri: 'projects',
             parameters: $params
         );
 
