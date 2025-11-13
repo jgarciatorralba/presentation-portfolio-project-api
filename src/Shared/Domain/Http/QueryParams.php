@@ -25,7 +25,7 @@ final readonly class QueryParams implements ArraySerializable, Stringable
 
     public function __toString(): string
     {
-        return implode('&', array_map('strval', $this->params));
+        return implode('&', array_map(strval(...), $this->params));
     }
 
     /**

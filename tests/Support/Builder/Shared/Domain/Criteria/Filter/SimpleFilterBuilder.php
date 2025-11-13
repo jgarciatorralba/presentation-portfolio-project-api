@@ -47,8 +47,8 @@ final class SimpleFilterBuilder implements BuilderInterface
     {
         return new SimpleFilter(
             field: $this->field,
-            operator: $this->operator,
-            value: $this->value
+            value: $this->value,
+            operator: $this->operator
         );
     }
 

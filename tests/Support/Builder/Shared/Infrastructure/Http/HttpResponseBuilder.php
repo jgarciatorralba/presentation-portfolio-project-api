@@ -54,8 +54,8 @@ final class HttpResponseBuilder implements BuilderInterface
     public function build(): HttpResponse
     {
         return HttpResponse::create(
-            headers: $this->headers,
             body: $this->body,
+            headers: $this->headers,
             statusCode: $this->statusCode,
             reasonPhrase: $this->reasonPhrase,
             protocolVersion: $this->protocolVersion,
