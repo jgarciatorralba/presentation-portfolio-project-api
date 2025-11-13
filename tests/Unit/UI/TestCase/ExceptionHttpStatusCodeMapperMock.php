@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\TestCase;
+namespace Tests\Unit\UI\TestCase;
 
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use App\UI\Subscriber\ExceptionHttpStatusCodeMapper;
 
 final class ExceptionHttpStatusCodeMapperMock extends AbstractMock

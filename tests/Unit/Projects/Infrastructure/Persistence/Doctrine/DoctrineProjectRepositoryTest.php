@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Infrastructure\Persistence\Doctrine;
+namespace Tests\Unit\Projects\Infrastructure\Persistence\Doctrine;
 
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Infrastructure\Persistence\Doctrine\DoctrineProjectRepository;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineCriteriaConverter;
 use App\Shared\Infrastructure\Persistence\Doctrine\DoctrineRepository;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\CriteriaBuilder;
-use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
-use App\Tests\Unit\Shared\TestCase\EntityRepositoryMock;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\CriteriaBuilder;
+use Tests\Unit\Shared\TestCase\EntityManagerMock;
+use Tests\Unit\Shared\TestCase\EntityRepositoryMock;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

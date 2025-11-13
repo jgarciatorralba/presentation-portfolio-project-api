@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Infrastructure\Http;
+namespace Tests\Support\Builder\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Contract\Http\DataStream;
 use App\Shared\Domain\Http\HttpHeader;
@@ -11,9 +11,9 @@ use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Domain\Http\HttpProtocolVersion;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeadersBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Support\Builder\Shared\Domain\Http\HttpHeadersBuilder;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class HttpResponseBuilder implements BuilderInterface
 {

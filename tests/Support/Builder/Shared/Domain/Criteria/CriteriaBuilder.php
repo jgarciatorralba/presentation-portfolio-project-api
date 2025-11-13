@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Domain\Criteria;
+namespace Tests\Support\Builder\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\Filter\Filters;
 use App\Shared\Domain\Criteria\Order\OrderBy;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\Filter\FiltersBuilder;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderByBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Support\Builder\Shared\Domain\Criteria\Filter\FiltersBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderByBuilder;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CriteriaBuilder implements BuilderInterface
 {

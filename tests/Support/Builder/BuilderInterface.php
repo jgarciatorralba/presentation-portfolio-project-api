@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder;
+namespace Tests\Support\Builder;
 
 interface BuilderInterface
 {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Controller\Projects;
+namespace Tests\Unit\UI\Controller\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Domain\Http\HttpStatusCode;
-use App\Tests\Unit\UI\TestCase\QueryBusMock;
+use Tests\Unit\UI\TestCase\QueryBusMock;
 use App\UI\Controller\Projects\GetProjectsController;
 use App\UI\Request\Projects\GetProjectsRequest;
 use App\UI\Validation\Validator;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Integration;
+namespace Tests\Integration;
 
-use App\Tests\Support\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
+use Tests\Support\Trait\CanConnectToDatabase;
 
 abstract class IntegrationTestCase extends KernelTestCase
 {

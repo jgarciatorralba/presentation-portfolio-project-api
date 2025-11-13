@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Domain\Http;
+namespace Tests\Unit\Shared\Domain\Http;
 
 use App\Shared\Domain\Http\QueryParam;
 use App\Shared\Domain\Http\QueryParams;
-use App\Tests\Support\Builder\Shared\Domain\Http\QueryParamsBuilder;
+use Tests\Support\Builder\Shared\Domain\Http\QueryParamsBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class QueryParamsTest extends TestCase

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\TestCase;
+namespace Tests\Unit\UI\TestCase;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Command\CommandBus;
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
 final class CommandBusMock extends AbstractMock
 {

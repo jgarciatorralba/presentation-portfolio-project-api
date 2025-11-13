@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Projects\Application\Query\GetProjects;
+namespace Tests\Support\Builder\Projects\Application\Query\GetProjects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class GetProjectsQueryBuilder implements BuilderInterface
 {

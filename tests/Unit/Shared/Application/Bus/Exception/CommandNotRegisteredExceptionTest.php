@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Application\Bus\Exception;
+namespace Tests\Unit\Shared\Application\Bus\Exception;
 
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;

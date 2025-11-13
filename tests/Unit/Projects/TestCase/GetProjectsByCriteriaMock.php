@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\TestCase;
+namespace Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\Project;
 use App\Projects\Domain\Service\GetProjectsByCriteria;
 use App\Shared\Domain\Criteria\Criteria;
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\InvalidArgumentException;
 
 final class GetProjectsByCriteriaMock extends AbstractMock

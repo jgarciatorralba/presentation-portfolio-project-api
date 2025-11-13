@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Domain\Criteria;
+namespace Tests\Support\Builder\Shared\Domain\Criteria;
 
 use App\Shared\Domain\Criteria\PushedBeforeDateTimeCriteria;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class PushedBeforeDateTimeCriteriaBuilder implements BuilderInterface
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Http;
+namespace Tests\Unit\Shared\Infrastructure\Http;
 
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Domain\Criteria\Filter;
+namespace Tests\Unit\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\Filter\SimpleFilterBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\Filter\SimpleFilterBuilder;
 use PHPUnit\Framework\TestCase;
 
 class SimpleFilterTest extends TestCase

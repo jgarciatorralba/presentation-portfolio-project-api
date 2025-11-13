@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Domain\Criteria\Filter;
+namespace Tests\Support\Builder\Shared\Domain\Criteria\Filter;
 
 use App\Shared\Domain\Criteria\Filter\CompositeFilter;
 use App\Shared\Domain\Criteria\Filter\FilterCondition;
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class CompositeFilterBuilder implements BuilderInterface
 {

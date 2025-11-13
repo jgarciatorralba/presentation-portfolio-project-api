@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Testing;
+namespace Tests\Unit\Shared\Infrastructure\Testing;
 
 use PHPUnit\Framework\Constraint\IsAnything;
 use PHPUnit\Framework\InvalidArgumentException;

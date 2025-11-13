@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Domain\Criteria\Order;
+namespace Tests\Unit\Shared\Domain\Criteria\Order;
 
 use PHPUnit\Framework\TestCase;
 use App\Shared\Domain\Criteria\Order\Order;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderBuilder;
 
 class OrderTest extends TestCase
 {

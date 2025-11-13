@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Infrastructure\Http\GitHub;
+namespace Tests\Unit\Projects\Infrastructure\Http\GitHub;
 
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
 use App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpStatusCode;
-use App\Tests\Unit\Shared\TestCase\HttpClientMock;
-use App\Tests\Unit\Shared\TestCase\LoggerMock;
+use Tests\Unit\Shared\TestCase\HttpClientMock;
+use Tests\Unit\Shared\TestCase\LoggerMock;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

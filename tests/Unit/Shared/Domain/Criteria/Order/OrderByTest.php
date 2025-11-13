@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Domain\Criteria\Order;
+namespace Tests\Unit\Shared\Domain\Criteria\Order;
 
 use App\Shared\Domain\Criteria\Order\OrderBy;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderByBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\Order\OrderByBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class OrderByTest extends TestCase

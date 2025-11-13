@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Domain\Http;
+namespace Tests\Unit\Shared\Domain\Http;
 
 use App\Shared\Domain\Http\HttpProtocolVersion;
 use PHPUnit\Framework\Attributes\DataProvider;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Validation;
+namespace Tests\Unit\UI\Validation;
 
 use App\UI\Validation\Validator;
 use PHPUnit\Framework\Attributes\DataProvider;

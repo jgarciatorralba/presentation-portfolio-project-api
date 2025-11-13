@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Subscriber;
+namespace Tests\Unit\UI\Subscriber;
 
 use App\UI\Subscriber\ExceptionHttpStatusCodeMapper;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;

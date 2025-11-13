@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Bus\Query\InMemory;
+namespace Tests\Unit\Shared\Infrastructure\Bus\Query\InMemory;
 
 use App\Shared\Application\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
-use App\Tests\Unit\Shared\Application\Testing\TestResponse;
-use App\Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as QueryBusMock;
+use Tests\Unit\Shared\Application\Testing\TestResponse;
+use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as QueryBusMock;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;

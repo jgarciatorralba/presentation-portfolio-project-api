@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain\ValueObject;
+namespace Tests\Unit\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

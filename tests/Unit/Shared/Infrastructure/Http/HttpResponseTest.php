@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Http;
+namespace Tests\Unit\Shared\Infrastructure\Http;
 
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
@@ -10,9 +10,9 @@ use App\Shared\Domain\Http\HttpProtocolVersion;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
-use App\Tests\Support\Builder\Shared\Domain\Http\HttpHeaderBuilder;
-use App\Tests\Support\Builder\Shared\Infrastructure\Http\HttpResponseBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\Shared\Domain\Http\HttpHeaderBuilder;
+use Tests\Support\Builder\Shared\Infrastructure\Http\HttpResponseBuilder;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class HttpResponseTest extends TestCase

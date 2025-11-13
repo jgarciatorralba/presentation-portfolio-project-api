@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Application\EventSubscriber;
+namespace Tests\Unit\Projects\Application\EventSubscriber;
 
 use App\Projects\Application\EventSubscriber\ProjectRemovedSubscriber;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Unit\Projects\TestCase\DeleteProjectMock;
-use App\Tests\Unit\Shared\TestCase\LoggerMock;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Unit\Projects\TestCase\DeleteProjectMock;
+use Tests\Unit\Shared\TestCase\LoggerMock;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectRemovedSubscriberTest extends TestCase

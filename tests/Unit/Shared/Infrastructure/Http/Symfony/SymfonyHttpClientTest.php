@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Http\Symfony;
+namespace Tests\Unit\Shared\Infrastructure\Http\Symfony;
 
 use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Contract\Http\HttpResponse;

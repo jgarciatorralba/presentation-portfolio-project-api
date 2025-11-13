@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Subscriber;
+namespace Tests\Unit\UI\Subscriber;
 
 use App\Shared\Domain\Http\HttpStatusCode;
-use App\Tests\Unit\Shared\Domain\Testing\TestDomainException;
-use App\Tests\Unit\UI\TestCase\ExceptionEventMock;
-use App\Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
+use Tests\Unit\Shared\Domain\Testing\TestDomainException;
+use Tests\Unit\UI\TestCase\ExceptionEventMock;
+use Tests\Unit\UI\TestCase\ExceptionHttpStatusCodeMapperMock;
 use App\UI\Exception\ValidationException;
 use App\UI\Subscriber\ApiExceptionListener;
 use PHPUnit\Framework\Attributes\DataProvider;

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Testing;
+namespace Tests\Unit\Shared\Infrastructure\Testing;
 
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Domain\Bus\Query\Query;
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\MessageBusInterface;

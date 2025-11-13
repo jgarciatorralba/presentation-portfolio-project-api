@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Projects\Domain\ValueObject;
+namespace Tests\Support\Builder\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\ValueObject\Url;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Support\Builder\Shared\Domain\ValueObject\UrlBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Support\Builder\Shared\Domain\ValueObject\UrlBuilder;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectUrlsBuilder implements BuilderInterface
 {

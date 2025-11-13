@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Domain\Http;
+namespace Tests\Support\Builder\Shared\Domain\Http;
 
 use App\Shared\Domain\Http\QueryParam;
 use App\Shared\Domain\Http\QueryParams;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class QueryParamsBuilder implements BuilderInterface
 {

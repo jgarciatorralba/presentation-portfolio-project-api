@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Persistence\Doctrine\Filter;
+namespace Tests\Unit\Shared\Infrastructure\Persistence\Doctrine\Filter;
 
 use App\Shared\Infrastructure\Persistence\Doctrine\Filter\SoftDeleteableFilter;
-use App\Tests\Unit\Shared\TestCase\EntityManagerMock;
+use Tests\Unit\Shared\TestCase\EntityManagerMock;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use PHPUnit\Framework\TestCase;
 

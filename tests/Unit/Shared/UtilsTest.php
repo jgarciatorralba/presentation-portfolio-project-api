@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared;
+namespace Tests\Unit\Shared;
 
 use App\Shared\Utils;
 use PHPUnit\Framework\Attributes\DataProvider;

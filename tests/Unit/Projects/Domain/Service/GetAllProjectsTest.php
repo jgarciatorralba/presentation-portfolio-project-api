@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain\Service;
+namespace Tests\Unit\Projects\Domain\Service;
 
 use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Service\GetAllProjects;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Unit\Projects\TestCase\ProjectRepositoryMock;
 use PHPUnit\Framework\TestCase;
 
 final class GetAllProjectsTest extends TestCase

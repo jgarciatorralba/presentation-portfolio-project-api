@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Application\EventSubscriber;
+namespace Tests\Unit\Projects\Application\EventSubscriber;
 
 use App\Projects\Application\EventSubscriber\ProjectAddedSubscriber;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Unit\Projects\TestCase\CreateProjectMock;
-use App\Tests\Unit\Shared\TestCase\LoggerMock;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Unit\Projects\TestCase\CreateProjectMock;
+use Tests\Unit\Shared\TestCase\LoggerMock;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectAddedSubscriberTest extends TestCase

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Command\Projects;
+namespace Tests\Unit\UI\Command\Projects;
 
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
-use App\Tests\Unit\UI\TestCase\EventBusMock;
-use App\Tests\Unit\UI\TestCase\LockFactoryMock;
-use App\Tests\Unit\UI\TestCase\LockMock;
+use Tests\Unit\UI\TestCase\EventBusMock;
+use Tests\Unit\UI\TestCase\LockFactoryMock;
+use Tests\Unit\UI\TestCase\LockMock;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;

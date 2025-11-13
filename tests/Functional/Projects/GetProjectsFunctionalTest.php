@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Projects;
+namespace Tests\Functional\Projects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQuery;
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Utils;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Functional\FunctionalTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Functional\FunctionalTestCase;
 
 final class GetProjectsFunctionalTest extends FunctionalTestCase
 {

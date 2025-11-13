@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\Infrastructure\Bus\Command\InMemory;
+namespace Tests\Unit\Shared\Infrastructure\Bus\Command\InMemory;
 
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Infrastructure\Bus\Command\InMemory\InMemorySymfonyCommandBus;
-use App\Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as CommandBusMock;
+use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as CommandBusMock;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;

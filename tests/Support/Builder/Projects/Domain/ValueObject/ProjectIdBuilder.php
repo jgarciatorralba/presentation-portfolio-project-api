@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Projects\Domain\ValueObject;
+namespace Tests\Support\Builder\Projects\Domain\ValueObject;
 
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectIdBuilder implements BuilderInterface
 {

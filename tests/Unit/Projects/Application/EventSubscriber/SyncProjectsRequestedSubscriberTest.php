@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Application\EventSubscriber;
+namespace Tests\Unit\Projects\Application\EventSubscriber;
 
 use App\Projects\Application\EventSubscriber\SyncProjectsRequestedSubscriber;
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Unit\Projects\TestCase\GetAllProjectsMock;
-use App\Tests\Unit\Projects\TestCase\RequestExternalProjectsMock;
-use App\Tests\Unit\Shared\TestCase\EventBusMock;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Unit\Projects\TestCase\GetAllProjectsMock;
+use Tests\Unit\Projects\TestCase\RequestExternalProjectsMock;
+use Tests\Unit\Shared\TestCase\EventBusMock;
 use PHPUnit\Framework\TestCase;
 
 final class SyncProjectsRequestedSubscriberTest extends TestCase

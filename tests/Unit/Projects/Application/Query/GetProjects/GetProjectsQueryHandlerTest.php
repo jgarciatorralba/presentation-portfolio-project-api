@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Application\Query\GetProjects;
+namespace Tests\Unit\Projects\Application\Query\GetProjects;
 
 use App\Projects\Application\Query\GetProjects\GetProjectsQueryHandler;
 use App\Projects\Application\Query\GetProjects\GetProjectsResponse;
 use App\Projects\Domain\Project;
-use App\Tests\Support\Builder\Projects\Application\Query\GetProjects\GetProjectsQueryBuilder;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Support\Builder\Shared\Domain\Criteria\PushedBeforeDateTimeCriteriaBuilder;
-use App\Tests\Unit\Projects\TestCase\GetProjectCountByCriteriaMock;
-use App\Tests\Unit\Projects\TestCase\GetProjectsByCriteriaMock;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\Projects\Application\Query\GetProjects\GetProjectsQueryBuilder;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Support\Builder\Shared\Domain\Criteria\PushedBeforeDateTimeCriteriaBuilder;
+use Tests\Unit\Projects\TestCase\GetProjectCountByCriteriaMock;
+use Tests\Unit\Projects\TestCase\GetProjectsByCriteriaMock;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use PHPUnit\Framework\TestCase;
 
 final class GetProjectsQueryHandlerTest extends TestCase

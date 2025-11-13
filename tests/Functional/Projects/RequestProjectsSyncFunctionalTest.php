@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional\Projects;
+namespace Tests\Functional\Projects;
 
 use App\Projects\Domain\Project;
 use App\Shared\Domain\Bus\Event\EventBus;
 use App\Shared\Domain\Http\HttpStatusCode;
-use App\Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
-use App\Tests\Functional\FunctionalTestCase;
 use App\UI\Command\Projects\SyncProjectsCommand;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\Lock\LockFactory;
+use Tests\Support\Builder\Projects\Domain\MappedProjectsBuilder;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use Tests\Functional\FunctionalTestCase;
 
 final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
 {

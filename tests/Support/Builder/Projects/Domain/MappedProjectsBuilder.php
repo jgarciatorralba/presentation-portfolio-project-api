@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Projects\Domain;
+namespace Tests\Support\Builder\Projects\Domain;
 
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\MappedProjects;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class MappedProjectsBuilder implements BuilderInterface
 {

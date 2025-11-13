@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Shared\Domain\Criteria\Order;
+namespace Tests\Support\Builder\Shared\Domain\Criteria\Order;
 
 use App\Shared\Domain\Criteria\Order\Order;
 use App\Shared\Domain\Criteria\Order\OrderType;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class OrderBuilder implements BuilderInterface
 {

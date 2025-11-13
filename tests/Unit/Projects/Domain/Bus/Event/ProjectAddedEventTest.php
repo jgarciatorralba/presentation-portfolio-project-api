@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Domain\Bus\Event;
+namespace Tests\Unit\Projects\Domain\Bus\Event;
 
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Project;
-use App\Tests\Support\Builder\Projects\Domain\ProjectBuilder;
+use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ProjectAddedEventTest extends TestCase

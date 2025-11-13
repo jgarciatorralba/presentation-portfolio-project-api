@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\TestCase;
+namespace Tests\Unit\Shared\TestCase;
 
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class EntityManagerMock extends AbstractMock

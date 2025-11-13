@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Shared\TestCase;
+namespace Tests\Unit\Shared\TestCase;
 
 use App\Shared\Domain\Contract\Http\HttpClient;
 use App\Shared\Domain\Http\HttpHeader;
@@ -10,7 +10,7 @@ use App\Shared\Domain\Http\HttpHeaders;
 use App\Shared\Domain\Http\HttpStatusCode;
 use App\Shared\Infrastructure\Http\HttpResponse;
 use App\Shared\Infrastructure\Http\TemporaryFileStream;
-use App\Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
+use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 
 final class HttpClientMock extends AbstractMock
 {

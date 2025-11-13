@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\Application\Bus\Event;
+namespace Tests\Unit\Projects\Application\Bus\Event;
 
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
 use App\Shared\Application\Bus\Event\ApplicationEvent;

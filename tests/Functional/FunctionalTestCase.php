@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Functional;
+namespace Tests\Functional;
 
-use App\Tests\Support\Trait\CanAccessLogs;
-use App\Tests\Support\Trait\CanConnectToDatabase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\Exception\ServiceCircularReferenceException;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\HttpKernel\HttpKernelBrowser;
+use Tests\Support\Trait\CanAccessLogs;
+use Tests\Support\Trait\CanConnectToDatabase;
 
 abstract class FunctionalTestCase extends WebTestCase
 {

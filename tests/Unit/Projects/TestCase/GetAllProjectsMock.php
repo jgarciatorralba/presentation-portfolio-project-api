@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\Projects\TestCase;
+namespace Tests\Unit\Projects\TestCase;
 
 use App\Projects\Domain\MappedProjects;
 use App\Projects\Domain\Project;

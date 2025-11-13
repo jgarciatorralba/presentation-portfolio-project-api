@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Unit\UI\Request\Projects;
+namespace Tests\Unit\UI\Request\Projects;
 
-use App\Tests\Unit\UI\TestCase\ValidatorMock;
+use Tests\Unit\UI\TestCase\ValidatorMock;
 use App\UI\Exception\ValidationException;
 use App\UI\Request\Projects\GetProjectsRequest;
 use PHPUnit\Framework\Attributes\DataProvider;

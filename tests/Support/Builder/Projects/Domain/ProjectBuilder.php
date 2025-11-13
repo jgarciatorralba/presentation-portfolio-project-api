@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Support\Builder\Projects\Domain;
+namespace Tests\Support\Builder\Projects\Domain;
 
 use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectUrls;
-use App\Tests\Support\Builder\BuilderInterface;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
-use App\Tests\Support\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
-use App\Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
+use Tests\Support\Builder\BuilderInterface;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectUrlsBuilder;
+use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
 final class ProjectBuilder implements BuilderInterface
 {
