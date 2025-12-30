@@ -14,12 +14,6 @@ final class DomainEventTest extends TestCase
         $testAggregateId = 'abc123';
 
         $event = new class ($testAggregateId) extends DomainEvent {
-            public function __construct(
-                string $aggregateId,
-            ) {
-                parent::__construct($aggregateId);
-            }
-
             public static function eventType(): string
             {
                 return 'test.event';
