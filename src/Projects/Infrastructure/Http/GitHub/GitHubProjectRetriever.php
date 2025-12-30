@@ -13,8 +13,6 @@ use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
 use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
-use App\Shared\Domain\Contract\Http\HttpClient;
-use App\Shared\Domain\Contract\Log\Logger;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
 use App\Shared\Domain\Http\QueryParam;
@@ -25,15 +23,6 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
 {
     private static int $page = 1;
     private const DEFAULT_RESULTS_PER_PAGE = 30;
-
-    public function __construct(
-        string $apiToken,
-        string $baseUri,
-        HttpClient $httpClient,
-        Logger $logger,
-    ) {
-        parent::__construct($apiToken, $baseUri, $httpClient, $logger);
-    }
 
     /**
      * @throws \RuntimeException
@@ -85,7 +74,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
 
         return new MappedProjects(
             ...array_map(
-                [$this, 'recreateProjectFromData'],
+                $this->recreateProjectFromData(...),
                 $projectData
             )
         );
