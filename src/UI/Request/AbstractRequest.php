@@ -31,13 +31,13 @@ abstract readonly class AbstractRequest
 
     public function getQueryParam(string $key): mixed
     {
-		$query = $this->request->getCurrentRequest()->query;
+        $query = $this->request->getCurrentRequest()->query;
 
-		try {
-			return $query->get($key);
-		} catch (BadRequestException) {
-			return null;
-		}
+        try {
+            return $query->get($key);
+        } catch (BadRequestException) {
+            return null;
+        }
     }
 
     /** @return array<mixed> */

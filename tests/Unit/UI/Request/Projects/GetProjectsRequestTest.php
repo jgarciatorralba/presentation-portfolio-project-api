@@ -29,7 +29,7 @@ final class GetProjectsRequestTest extends TestCase
     #[DataProvider('dataGetProjectsRequest')]
     public function testItIsCreated(array $data, array $errors): void
     {
-		$validatorMock = new ValidatorMock($this);
+        $validatorMock = new ValidatorMock($this);
         $validatorMock->shouldValidate(
             data: $data,
             errors: $errors
@@ -76,17 +76,17 @@ final class GetProjectsRequestTest extends TestCase
         ];
     }
 
-	public function testGetQueryParamReturnsNullWithNonScalarInputValue(): void
-	{
-		$this->requestStack->push(new Request(
-			query: ['pageSize' => ['invalid', 'array']]
-		));
+    public function testGetQueryParamReturnsNullWithNonScalarInputValue(): void
+    {
+        $this->requestStack->push(new Request(
+            query: ['pageSize' => ['invalid', 'array']]
+        ));
 
-		$getProjectsRequest = new GetProjectsRequest(
-			validator: $this->createStub(Validator::class),
-			request: $this->requestStack
-		);
+        $getProjectsRequest = new GetProjectsRequest(
+            validator: $this->createStub(Validator::class),
+            request: $this->requestStack
+        );
 
-		$this->assertNull($getProjectsRequest->getQueryParam('pageSize'));
-	}
+        $this->assertNull($getProjectsRequest->getQueryParam('pageSize'));
+    }
 }
