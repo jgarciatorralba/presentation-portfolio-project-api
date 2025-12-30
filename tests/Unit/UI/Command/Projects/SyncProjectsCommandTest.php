@@ -38,16 +38,16 @@ class SyncProjectsCommandTest extends TestCase
         $this->lockFactoryMock
             ->shouldCreateLock($this->lockMock->getMock());
 
-		$eventBusMock = new EventBusMock($this);
+        $eventBusMock = new EventBusMock($this);
         $eventBusMock
             ->shouldPublishEvents(SyncProjectsRequestedEvent::eventType());
 
-		$sut = new SyncProjectsCommand(
+        $sut = new SyncProjectsCommand(
             eventBus: $eventBusMock->getMock(),
             lockFactory: $this->lockFactoryMock->getMock(),
         );
 
-		$commandTester = new CommandTester($sut);
+        $commandTester = new CommandTester($sut);
         $commandTester->execute(input: []);
 
         $output = $commandTester->getDisplay();
@@ -66,12 +66,12 @@ class SyncProjectsCommandTest extends TestCase
         $this->lockFactoryMock
             ->shouldCreateLock($this->lockMock->getMock());
 
-		$sut = new SyncProjectsCommand(
+        $sut = new SyncProjectsCommand(
             eventBus: $this->createStub(EventBus::class),
             lockFactory: $this->lockFactoryMock->getMock(),
         );
 
-		$commandTester = new CommandTester($sut);
+        $commandTester = new CommandTester($sut);
         $commandTester->execute(input: []);
 
         $output = $commandTester->getDisplay();

@@ -29,13 +29,13 @@ final class SymfonyMessageBusMock extends AbstractMock
         return MessageBusInterface::class;
     }
 
-	public function getMock(): MockObject&MessageBusInterface
-	{
-		/** @var MockObject&MessageBusInterface $mock */
-		$mock = parent::getMock();
+    public function getMock(): MockObject&MessageBusInterface
+    {
+        /** @var MockObject&MessageBusInterface $mock */
+        $mock = parent::getMock();
 
-		return $mock;
-	}
+        return $mock;
+    }
 
     /**
      * @param list<array{

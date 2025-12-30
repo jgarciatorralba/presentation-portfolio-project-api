@@ -20,7 +20,7 @@ final class ApiExceptionListenerTest extends TestCase
     #[DataProvider('dataIsMainRequest')]
     public function testItHandlesKernelException(bool $isMainRequest): void
     {
-		$exceptionEventMock = new ExceptionEventMock($this);
+        $exceptionEventMock = new ExceptionEventMock($this);
 
         $exceptionEventMock
             ->shouldGetThrowable(new \Exception('Exception message'));
@@ -31,7 +31,7 @@ final class ApiExceptionListenerTest extends TestCase
         $exceptionEventMock
             ->shouldCallSetResponse((int) $isMainRequest);
 
-		$sut = new ApiExceptionListener(
+        $sut = new ApiExceptionListener(
             exceptionHttpStatusCodeMapper: $this->createStub(ExceptionHttpStatusCodeMapper::class)
         );
 
@@ -60,7 +60,7 @@ final class ApiExceptionListenerTest extends TestCase
     #[DataProvider('dataBuildResponse')]
     public function testItBuildsResponse(\Throwable $exception, array $exceptionContent): void
     {
-		$sut = new ApiExceptionListener(
+        $sut = new ApiExceptionListener(
             exceptionHttpStatusCodeMapper: $this->createStub(ExceptionHttpStatusCodeMapper::class)
         );
 
@@ -113,7 +113,7 @@ final class ApiExceptionListenerTest extends TestCase
     #[DataProvider('dataGetErrorCode')]
     public function testItGetsErrorCode(\Throwable $exception, string $errorCode): void
     {
-		$sut = new ApiExceptionListener(
+        $sut = new ApiExceptionListener(
             exceptionHttpStatusCodeMapper: $this->createStub(ExceptionHttpStatusCodeMapper::class)
         );
 
@@ -144,12 +144,12 @@ final class ApiExceptionListenerTest extends TestCase
     #[DataProvider('dataStatusCodes')]
     public function testItGetsStatusCode(\Throwable $exception, ?int $exceptionStatusCode): void
     {
-		$exceptionHttpStatusCodeMapperMock = new ExceptionHttpStatusCodeMapperMock($this);
+        $exceptionHttpStatusCodeMapperMock = new ExceptionHttpStatusCodeMapperMock($this);
 
         $exceptionHttpStatusCodeMapperMock
             ->shouldGetStatusCodeFor($exception::class, $exceptionStatusCode);
 
-		$sut = new ApiExceptionListener(
+        $sut = new ApiExceptionListener(
             exceptionHttpStatusCodeMapper: $exceptionHttpStatusCodeMapperMock->getMock()
         );
 
