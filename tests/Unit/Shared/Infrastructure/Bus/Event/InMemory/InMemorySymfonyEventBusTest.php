@@ -31,10 +31,10 @@ final class InMemorySymfonyEventBusTest extends TestCase
 
     public function testItPublishesEventsOrCatchesExceptions(): void
     {
-        $firstMockedEvent = $this->createMock(Event::class);
+        $firstMockedEvent = $this->createStub(Event::class);
         $firstMockedEvent->method('eventId')->willReturn('first-event-id');
 
-        $secondMockedEvent = $this->createMock(Event::class);
+        $secondMockedEvent = $this->createStub(Event::class);
         $secondMockedEvent->method('eventId')->willReturn('second-event-id');
 
         $events = [

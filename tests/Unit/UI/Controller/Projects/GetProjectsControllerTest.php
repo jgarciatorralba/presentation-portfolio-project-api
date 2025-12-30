@@ -30,7 +30,7 @@ final class GetProjectsControllerTest extends TestCase
         $this->requestStack->push(new Request());
 
         $this->getProjectsRequest = new GetProjectsRequest(
-            validator: $this->createMock(Validator::class),
+            validator: $this->createStub(Validator::class),
             request: $this->requestStack
         );
     }
@@ -61,7 +61,7 @@ final class GetProjectsControllerTest extends TestCase
                         ? new \DateTimeImmutable($requestContent['maxPushedAt'])
                         : null
                 ),
-                $this->createMock(Response::class)
+                $this->createStub(Response::class)
             );
 
         $result = $sut->__invoke($this->getProjectsRequest);
@@ -93,7 +93,7 @@ final class GetProjectsControllerTest extends TestCase
                         ? new \DateTimeImmutable($requestContent['maxPushedAt'])
                         : null
                 ),
-                $this->createMock(\Exception::class)
+                $this->createStub(\Exception::class)
             );
 
         $this->expectException(\Exception::class);

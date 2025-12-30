@@ -10,7 +10,7 @@ use App\Shared\Domain\Bus\Query\Response;
 use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
 use Tests\Unit\Shared\Application\Testing\TestResponse;
 use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as QueryBusMock;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -21,7 +21,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
 {
     private ?QueryBusMock $queryBusMock;
     private ?InMemorySymfonyQueryBus $sut;
-    private ?MockObject $query;
+    private Stub&Query $query;
     private ?Response $response;
 
     protected function setUp(): void
@@ -30,7 +30,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
         $this->sut = new InMemorySymfonyQueryBus(
             queryBus: $this->queryBusMock->getMock()
         );
-        $this->query = $this->createMock(Query::class);
+        $this->query = $this->createStub(Query::class);
         $this->response = new TestResponse(['foo' => 'bar']);
     }
 
@@ -38,7 +38,6 @@ final class InMemorySymfonyQueryBusTest extends TestCase
     {
         $this->queryBusMock = null;
         $this->sut = null;
-        $this->query = null;
         $this->response = null;
     }
 
@@ -55,7 +54,7 @@ final class InMemorySymfonyQueryBusTest extends TestCase
 
     public function testItThrowsQueryNotRegisteredException(): void
     {
-        $queryClass = $this->query instanceof MockObject
+        $queryClass = $this->query instanceof Stub
             ? $this->query::class
             : self::class;
 

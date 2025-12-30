@@ -35,7 +35,7 @@ final class UpdateProjectTest extends TestCase
 
     public function testItUpdatesProject(): void
     {
-        $existingProject = $this->createMock(Project::class);
+        $existingProject = $this->createStub(Project::class);
         $existingProject
             ->method('id')
             ->willReturn($this->project->id());

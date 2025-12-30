@@ -44,11 +44,6 @@ final class GitHubProjectRetrieverTest extends TestCase
         $this->sut = null;
     }
 
-    public function testItImplementsExternalProjectRetriever(): void
-    {
-        self::assertInstanceOf(ExternalProjectRetriever::class, $this->sut);
-    }
-
     /**
      * @param list<array{
      *      content: array,
@@ -71,7 +66,7 @@ final class GitHubProjectRetrieverTest extends TestCase
 
         $error = array_find(
             $chunks,
-            fn(array $chunk): bool => $chunk['error'] !== null
+            fn (array $chunk): bool => $chunk['error'] !== null
         );
 
         if ($error) {

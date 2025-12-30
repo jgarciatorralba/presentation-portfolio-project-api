@@ -6,27 +6,22 @@ namespace Tests\Unit\Shared\Application\Bus\Exception;
 
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class CommandNotRegisteredExceptionTest extends TestCase
 {
-    private ?MockObject $command;
+    private Stub&Command $command;
 
     protected function setUp(): void
     {
-        $this->command = $this->createMock(Command::class);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->command = null;
+        $this->command = $this->createStub(Command::class);
     }
 
     public function testItIsCreated(): void
     {
         $exception = new CommandNotRegisteredException($this->command);
-        $commandClass = $this->command instanceof MockObject
+        $commandClass = $this->command instanceof Stub
             ? $this->command::class
             : self::class;
 

@@ -6,27 +6,22 @@ namespace Tests\Unit\Shared\Application\Bus\Exception;
 
 use App\Shared\Application\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Domain\Bus\Query\Query;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 
 final class QueryNotRegisteredExceptionTest extends TestCase
 {
-    private ?MockObject $query;
+    private Stub&Query $query;
 
     protected function setUp(): void
     {
-        $this->query = $this->createMock(Query::class);
-    }
-
-    protected function tearDown(): void
-    {
-        $this->query = null;
+        $this->query = $this->createStub(Query::class);
     }
 
     public function testItIsCreated(): void
     {
         $exception = new QueryNotRegisteredException($this->query);
-        $queryClass = $this->query instanceof MockObject
+        $queryClass = $this->query instanceof Stub
             ? $this->query::class
             : self::class;
 

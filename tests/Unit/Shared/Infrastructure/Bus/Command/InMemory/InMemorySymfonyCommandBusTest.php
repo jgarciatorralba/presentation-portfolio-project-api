@@ -8,7 +8,7 @@ use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Infrastructure\Bus\Command\InMemory\InMemorySymfonyCommandBus;
 use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as CommandBusMock;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -18,7 +18,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
 {
     private ?CommandBusMock $commandBusMock;
     private ?InMemorySymfonyCommandBus $sut;
-    private ?MockObject $command;
+    private Stub&Command $command;
 
     protected function setUp(): void
     {
@@ -26,14 +26,13 @@ final class InMemorySymfonyCommandBusTest extends TestCase
         $this->sut = new InMemorySymfonyCommandBus(
             commandBus: $this->commandBusMock->getMock()
         );
-        $this->command = $this->createMock(Command::class);
+        $this->command = $this->createStub(Command::class);
     }
 
     protected function tearDown(): void
     {
         $this->commandBusMock = null;
         $this->sut = null;
-        $this->command = null;
     }
 
     public function testItDispatchesCommandSuccessfully(): void
@@ -47,7 +46,7 @@ final class InMemorySymfonyCommandBusTest extends TestCase
 
     public function testItThrowsCommandNotRegisteredException(): void
     {
-        $commandClass = $this->command instanceof MockObject
+        $commandClass = $this->command instanceof Stub
             ? $this->command::class
             : self::class;
 

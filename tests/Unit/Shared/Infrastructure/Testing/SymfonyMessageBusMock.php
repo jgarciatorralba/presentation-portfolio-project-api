@@ -7,6 +7,7 @@ namespace Tests\Unit\Shared\Infrastructure\Testing;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Event\Event;
 use App\Shared\Domain\Bus\Query\Query;
+use PHPUnit\Framework\MockObject\MockObject;
 use Tests\Unit\Shared\Infrastructure\Testing\AbstractMock;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Envelope;
@@ -27,6 +28,14 @@ final class SymfonyMessageBusMock extends AbstractMock
     {
         return MessageBusInterface::class;
     }
+
+	public function getMock(): MockObject&MessageBusInterface
+	{
+		/** @var MockObject&MessageBusInterface $mock */
+		$mock = parent::getMock();
+
+		return $mock;
+	}
 
     /**
      * @param list<array{
