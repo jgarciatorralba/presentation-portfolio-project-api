@@ -7,6 +7,7 @@ namespace Tests\Unit\UI\Request\Projects;
 use Tests\Unit\UI\TestCase\ValidatorMock;
 use App\UI\Exception\ValidationException;
 use App\UI\Request\Projects\GetProjectsRequest;
+use App\UI\Validation\Validator;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,19 +15,11 @@ use Symfony\Component\HttpFoundation\RequestStack;
 
 final class GetProjectsRequestTest extends TestCase
 {
-    private ?ValidatorMock $validatorMock;
     private ?RequestStack $requestStack;
 
     protected function setUp(): void
     {
-        $this->validatorMock = new ValidatorMock($this);
         $this->requestStack = new RequestStack();
-    }
-
-    protected function tearDown(): void
-    {
-        $this->validatorMock = null;
-        $this->requestStack = null;
     }
 
     /**
@@ -36,7 +29,8 @@ final class GetProjectsRequestTest extends TestCase
     #[DataProvider('dataGetProjectsRequest')]
     public function testItIsCreated(array $data, array $errors): void
     {
-        $this->validatorMock->shouldValidate(
+		$validatorMock = new ValidatorMock($this);
+        $validatorMock->shouldValidate(
             data: $data,
             errors: $errors
         );
@@ -51,7 +45,7 @@ final class GetProjectsRequestTest extends TestCase
         ));
 
         $getProjectsRequest = new GetProjectsRequest(
-            validator: $this->validatorMock->getMock(),
+            validator: $validatorMock->getMock(),
             request: $this->requestStack
         );
 
@@ -81,4 +75,18 @@ final class GetProjectsRequestTest extends TestCase
             ]
         ];
     }
+
+	public function testGetQueryParamReturnsNullWithNonScalarInputValue(): void
+	{
+		$this->requestStack->push(new Request(
+			query: ['pageSize' => ['invalid', 'array']]
+		));
+
+		$getProjectsRequest = new GetProjectsRequest(
+			validator: $this->createStub(Validator::class),
+			request: $this->requestStack
+		);
+
+		$this->assertNull($getProjectsRequest->getQueryParam('pageSize'));
+	}
 }

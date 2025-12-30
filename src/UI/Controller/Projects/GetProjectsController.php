@@ -17,11 +17,11 @@ final readonly class GetProjectsController extends BaseController
     /** @throws \InvalidArgumentException */
     public function __invoke(GetProjectsRequest $request): JsonResponse
     {
-        $pageSize = $request->get('pageSize')
-            ? intval($request->get('pageSize'))
+        $pageSize = $request->getQueryParam('pageSize')
+            ? intval($request->getQueryParam('pageSize'))
             : null;
-        $maxPushedAt = $request->get('maxPushedAt')
-            ? Utils::stringToDate($request->get('maxPushedAt'))
+        $maxPushedAt = $request->getQueryParam('maxPushedAt')
+            ? Utils::stringToDate($request->getQueryParam('maxPushedAt'))
             : null;
 
         $response = $this->ask(

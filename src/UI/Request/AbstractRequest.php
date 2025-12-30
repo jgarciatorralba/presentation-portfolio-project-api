@@ -6,6 +6,7 @@ namespace App\UI\Request;
 
 use App\UI\Exception\ValidationException;
 use App\UI\Validation\Validator;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -28,9 +29,15 @@ abstract readonly class AbstractRequest
         }
     }
 
-    public function get(string $key): mixed
+    public function getQueryParam(string $key): mixed
     {
-        return $this->request->getCurrentRequest()->get($key);
+		$query = $this->request->getCurrentRequest()->query;
+
+		try {
+			return $query->get($key);
+		} catch (BadRequestException) {
+			return null;
+		}
     }
 
     /** @return array<mixed> */
