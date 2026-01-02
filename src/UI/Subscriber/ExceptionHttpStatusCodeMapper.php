@@ -11,7 +11,7 @@ use App\Shared\Domain\Http\HttpStatusCode;
 
 final readonly class ExceptionHttpStatusCodeMapper
 {
-    private const EXCEPTIONS = [
+    private const array EXCEPTIONS = [
         InvalidProjectRepositoryUrlException::class => HttpStatusCode::HTTP_BAD_REQUEST->value,
         ProjectNotFoundException::class => HttpStatusCode::HTTP_NOT_FOUND->value,
         ProjectAlreadyExistsException::class => HttpStatusCode::HTTP_CONFLICT->value,

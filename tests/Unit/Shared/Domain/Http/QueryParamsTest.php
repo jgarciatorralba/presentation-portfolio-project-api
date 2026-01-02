@@ -42,14 +42,7 @@ final class QueryParamsTest extends TestCase
         if (count($this->params) > 1) {
             $this->assertStringContainsString('&', (string) $actual);
         }
-
-        $hasArrayParam = false;
-        foreach ($this->params as $param) {
-            if (is_array($param->value())) {
-                $hasArrayParam = true;
-                break;
-            }
-        }
+        $hasArrayParam = array_any($this->params, fn(QueryParam $param): bool => is_array($param->value()));
 
         if ($hasArrayParam) {
             $this->assertStringContainsString('[]=', (string) $actual);

@@ -22,7 +22,7 @@ use App\Shared\Domain\ValueObject\Url;
 final class GitHubProjectRetriever extends BaseProjectRetriever implements ExternalProjectRetriever
 {
     private static int $page = 1;
-    private const DEFAULT_RESULTS_PER_PAGE = 30;
+    private const int DEFAULT_RESULTS_PER_PAGE = 30;
 
     /**
      * @throws \RuntimeException

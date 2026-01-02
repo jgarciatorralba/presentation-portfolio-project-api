@@ -43,13 +43,10 @@ final readonly class HttpHeaders implements Collection, ArraySerializable
 
     public function has(string $key): bool
     {
-        foreach ($this->headers as $header) {
-            if (strcasecmp($header->name(), $key) === 0) {
-                return true;
-            }
-        }
-
-        return false;
+        return array_any(
+            $this->headers,
+            fn(HttpHeader $header): bool => strcasecmp((string) $header->name(), $key) === 0
+        );
     }
 
     /** @return HttpHeader|null */
