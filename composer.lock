@@ -3224,16 +3224,16 @@
         },
         {
             "name": "symfony/lock",
-            "version": "v8.0.1",
+            "version": "v8.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/lock.git",
-                "reference": "ae0d489404cdd33c4651326103388fa1e7a47192"
+                "reference": "34eb1f4532f67ef00dd612e5fb38cb7f51e07bce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/lock/zipball/ae0d489404cdd33c4651326103388fa1e7a47192",
-                "reference": "ae0d489404cdd33c4651326103388fa1e7a47192",
+                "url": "https://api.github.com/repos/symfony/lock/zipball/34eb1f4532f67ef00dd612e5fb38cb7f51e07bce",
+                "reference": "34eb1f4532f67ef00dd612e5fb38cb7f51e07bce",
                 "shasum": ""
             },
             "require": {
@@ -3282,7 +3282,7 @@
                 "semaphore"
             ],
             "support": {
-                "source": "https://github.com/symfony/lock/tree/v8.0.1"
+                "source": "https://github.com/symfony/lock/tree/v8.0.3"
             },
             "funding": [
                 {
