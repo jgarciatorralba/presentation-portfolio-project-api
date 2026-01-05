@@ -45,7 +45,7 @@ final readonly class HttpHeaders implements Collection, ArraySerializable
     {
         return array_any(
             $this->headers,
-            fn(HttpHeader $header): bool => strcasecmp((string) $header->name(), $key) === 0
+            fn(HttpHeader $header): bool => strcasecmp($header->name(), $key) === 0
         );
     }
 
