@@ -32,6 +32,7 @@ abstract class IntegrationTestCase extends KernelTestCase
             : null;
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         $this->entityManager = null;

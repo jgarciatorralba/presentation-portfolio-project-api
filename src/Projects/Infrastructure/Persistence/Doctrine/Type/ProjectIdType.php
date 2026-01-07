@@ -21,6 +21,7 @@ class ProjectIdType extends Type
         return $this->getName();
     }
 
+    #[\Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectId) {
@@ -49,6 +50,7 @@ class ProjectIdType extends Type
         }
     }
 
+    #[\Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectId) {

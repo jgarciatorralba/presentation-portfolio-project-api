@@ -29,6 +29,7 @@ final class SymfonyMessageBusMock extends AbstractMock
         return MessageBusInterface::class;
     }
 
+    #[\Override]
     public function getMock(): MockObject&MessageBusInterface
     {
         /** @var MockObject&MessageBusInterface $mock */

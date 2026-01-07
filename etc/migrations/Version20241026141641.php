@@ -9,6 +9,7 @@ use Doctrine\Migrations\AbstractMigration;
 
 final class Version20241026141641 extends AbstractMigration
 {
+    #[\Override]
     public function getDescription(): string
     {
         return '';
@@ -50,6 +51,7 @@ final class Version20241026141641 extends AbstractMigration
         $this->addSql('COMMENT ON COLUMN projects.deleted_at IS \'(DC2Type:datetimetz_immutable)\'');
     }
 
+    #[\Override]
     public function down(Schema $schema): void
     {
         $this->addSql('CREATE SCHEMA IF NOT EXISTS public');

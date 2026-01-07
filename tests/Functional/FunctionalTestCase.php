@@ -39,6 +39,7 @@ abstract class FunctionalTestCase extends WebTestCase
             : null;
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         $this->client = null;

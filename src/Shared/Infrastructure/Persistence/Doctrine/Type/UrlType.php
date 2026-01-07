@@ -21,6 +21,7 @@ class UrlType extends Type
         return $this->getName();
     }
 
+    #[\Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof Url || $value === null) {
@@ -49,6 +50,7 @@ class UrlType extends Type
         }
     }
 
+    #[\Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof Url) {

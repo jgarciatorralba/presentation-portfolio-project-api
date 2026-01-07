@@ -22,6 +22,7 @@ class ProjectRepositoryUrlType extends Type
         return $this->getName();
     }
 
+    #[\Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectRepositoryUrl) {
@@ -50,6 +51,7 @@ class ProjectRepositoryUrlType extends Type
         }
     }
 
+    #[\Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectRepositoryUrl) {

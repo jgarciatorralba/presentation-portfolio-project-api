@@ -20,6 +20,7 @@ final readonly class ProjectRepositoryUrl extends Url
      * @throws \InvalidArgumentException
      * @throws InvalidProjectRepositoryUrlException
      */
+    #[\Override]
     public static function fromString(string $value): self
     {
         $url = Url::fromString($value);

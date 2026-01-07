@@ -27,6 +27,7 @@ final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
     private ?array $projectData;
     private ?CommandTester $commandTester;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -55,6 +56,7 @@ final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
         $this->commandTester = new CommandTester($cliCommand);
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         $this->projectData = null;
