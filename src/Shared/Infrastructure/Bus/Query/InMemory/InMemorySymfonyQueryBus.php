@@ -25,6 +25,7 @@ final readonly class InMemorySymfonyQueryBus implements QueryBus
      * @throws QueryNotRegisteredException
      * @throws ExceptionInterface
      */
+    #[\Override]
     public function ask(Query $query): ?Response
     {
         try {

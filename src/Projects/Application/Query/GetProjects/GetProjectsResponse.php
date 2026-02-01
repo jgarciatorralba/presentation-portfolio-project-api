@@ -30,6 +30,7 @@ final readonly class GetProjectsResponse implements Response
     }
 
     /** @return array<string, mixed> */
+    #[\Override]
     public function data(): array
     {
         return [

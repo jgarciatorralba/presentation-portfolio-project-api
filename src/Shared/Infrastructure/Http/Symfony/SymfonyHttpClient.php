@@ -42,6 +42,7 @@ final class SymfonyHttpClient implements HttpClientContract
      * @throws \ValueError
      * @throws \TypeError
      */
+    #[\Override]
     public function fetch(string $url, array $httpOptions): HttpResponseContract
     {
         try {

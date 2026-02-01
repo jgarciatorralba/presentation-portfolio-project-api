@@ -13,11 +13,13 @@ final class InvalidProjectRepositoryUrlException extends DomainException
         parent::__construct();
     }
 
+    #[\Override]
     public function errorCode(): string
     {
         return 'invalid_project_repository';
     }
 
+    #[\Override]
     public function errorMessage(): string
     {
         return sprintf(

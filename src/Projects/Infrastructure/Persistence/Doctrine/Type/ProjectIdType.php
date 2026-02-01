@@ -9,7 +9,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class ProjectIdType extends Type
+final class ProjectIdType extends Type
 {
     public function getName(): string
     {

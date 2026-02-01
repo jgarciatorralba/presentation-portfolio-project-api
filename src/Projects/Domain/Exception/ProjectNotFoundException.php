@@ -7,18 +7,20 @@ namespace App\Projects\Domain\Exception;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\DomainException;
 
-class ProjectNotFoundException extends DomainException
+final class ProjectNotFoundException extends DomainException
 {
     public function __construct(private readonly ProjectId $id)
     {
         parent::__construct();
     }
 
+    #[\Override]
     public function errorCode(): string
     {
         return 'project_not_found';
     }
 
+    #[\Override]
     public function errorMessage(): string
     {
         return sprintf(

@@ -26,6 +26,7 @@ final readonly class QueryParam implements Stringable
         return $this->value;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         if (is_array($this->value)) {

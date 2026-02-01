@@ -49,12 +49,14 @@ readonly class HttpResponse implements HttpResponseInterface
         );
     }
 
+    #[\Override]
     public function getStatusCode(): int
     {
         return $this->statusCode->value;
     }
 
     /** @throws \InvalidArgumentException */
+    #[\Override]
     public function withStatus(int $code, string $reasonPhrase = ''): static
     {
         try {
@@ -74,17 +76,20 @@ readonly class HttpResponse implements HttpResponseInterface
         }
     }
 
+    #[\Override]
     public function getReasonPhrase(): string
     {
         return $this->reasonPhrase;
     }
 
+    #[\Override]
     public function getProtocolVersion(): string
     {
         return $this->protocolVersion->value;
     }
 
     /** @throws \InvalidArgumentException */
+    #[\Override]
     public function withProtocolVersion(string $version): static
     {
         try {
@@ -103,17 +108,20 @@ readonly class HttpResponse implements HttpResponseInterface
     }
 
     /** @return array<string, string[]> */
+    #[\Override]
     public function getHeaders(): array
     {
         return $this->headers->toArray();
     }
 
+    #[\Override]
     public function hasHeader(string $name): bool
     {
         return $this->headers->has($name);
     }
 
     /** @return string[] */
+    #[\Override]
     public function getHeader(string $name): array
     {
         $foundHeader = $this->headers->get($name);
@@ -123,6 +131,7 @@ readonly class HttpResponse implements HttpResponseInterface
             : [];
     }
 
+    #[\Override]
     public function getHeaderLine(string $name): string
     {
         return implode(',', $this->getHeader($name));
@@ -133,6 +142,7 @@ readonly class HttpResponse implements HttpResponseInterface
      *
      * @throws \InvalidArgumentException
      */
+    #[\Override]
     public function withHeader(string $name, mixed $value): static
     {
         $newHeaders = [];
@@ -156,6 +166,7 @@ readonly class HttpResponse implements HttpResponseInterface
      *
      * @throws \InvalidArgumentException
      */
+    #[\Override]
     public function withAddedHeader(string $name, mixed $value): self
     {
         if (!$this->hasHeader($name)) {
@@ -181,6 +192,7 @@ readonly class HttpResponse implements HttpResponseInterface
     }
 
     /** @throws \InvalidArgumentException */
+    #[\Override]
     public function withoutHeader(string $name): static
     {
         $newHeaders = [];
@@ -199,12 +211,14 @@ readonly class HttpResponse implements HttpResponseInterface
         );
     }
 
+    #[\Override]
     public function getBody(): DataStream
     {
         return $this->body;
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function withBody(StreamInterface $body): static
     {
         $temp = new TemporaryFileStream((string) $body);

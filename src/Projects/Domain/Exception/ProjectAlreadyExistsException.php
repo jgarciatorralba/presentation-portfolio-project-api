@@ -7,18 +7,20 @@ namespace App\Projects\Domain\Exception;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\DomainException;
 
-class ProjectAlreadyExistsException extends DomainException
+final class ProjectAlreadyExistsException extends DomainException
 {
     public function __construct(private readonly ProjectId $id)
     {
         parent::__construct();
     }
 
+    #[\Override]
     public function errorCode(): string
     {
         return 'project_already_exists';
     }
 
+    #[\Override]
     public function errorMessage(): string
     {
         return sprintf(

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UI\Command\Projects;
 
 use App\Projects\Application\Bus\Event\SyncProjectsRequestedEvent;
@@ -18,7 +20,7 @@ use Symfony\Component\Lock\LockFactory;
     name: 'app:projects:sync',
     description: 'Publishes an event to synchronize the internal projects database with an external API',
 )]
-class SyncProjectsCommand extends Command
+final class SyncProjectsCommand extends Command
 {
     public function __construct(
         private readonly EventBus $eventBus,
@@ -33,6 +35,7 @@ class SyncProjectsCommand extends Command
      * @throws LockConflictedException
      * @throws LockReleasingException
      */
+    #[\Override]
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $commandStyle = new SymfonyStyle($input, $output);

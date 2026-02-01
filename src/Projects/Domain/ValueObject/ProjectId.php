@@ -34,11 +34,13 @@ final readonly class ProjectId implements Stringable, Comparable
         return $this->value;
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return (string) $this->value;
     }
 
+    #[\Override]
     public function equals(Comparable $projectId): bool
     {
         if (!$projectId instanceof self) {

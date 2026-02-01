@@ -13,6 +13,7 @@ abstract readonly class MonologLogger implements Logger
     {
     }
 
+    #[\Override]
     public function alert(
         string|\Stringable $message,
         array $context = []
@@ -21,6 +22,7 @@ abstract readonly class MonologLogger implements Logger
             ->alert($message, $context);
     }
 
+    #[\Override]
     public function critical(
         string|\Stringable $message,
         array $context = []
@@ -29,6 +31,7 @@ abstract readonly class MonologLogger implements Logger
             ->critical($message, $context);
     }
 
+    #[\Override]
     public function debug(
         string|\Stringable $message,
         array $context = []
@@ -37,6 +40,7 @@ abstract readonly class MonologLogger implements Logger
             ->debug($message, $context);
     }
 
+    #[\Override]
     public function emergency(
         string|\Stringable $message,
         array $context = []
@@ -45,6 +49,7 @@ abstract readonly class MonologLogger implements Logger
             ->emergency($message, $context);
     }
 
+    #[\Override]
     public function error(
         string|\Stringable $message,
         array $context = []
@@ -53,6 +58,7 @@ abstract readonly class MonologLogger implements Logger
             ->error($message, $context);
     }
 
+    #[\Override]
     public function info(
         string|\Stringable $message,
         array $context = []
@@ -61,6 +67,7 @@ abstract readonly class MonologLogger implements Logger
             ->info($message, $context);
     }
 
+    #[\Override]
     public function log(
         mixed $level,
         string|\Stringable $message,
@@ -70,6 +77,7 @@ abstract readonly class MonologLogger implements Logger
             ->log($level, $message, $context);
     }
 
+    #[\Override]
     public function notice(
         string|\Stringable $message,
         array $context = []
@@ -78,6 +86,7 @@ abstract readonly class MonologLogger implements Logger
             ->notice($message, $context);
     }
 
+    #[\Override]
     public function warning(
         string|\Stringable $message,
         array $context = []
