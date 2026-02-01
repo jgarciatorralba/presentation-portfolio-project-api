@@ -10,7 +10,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class ProjectRepositoryUrlType extends Type
+final class ProjectRepositoryUrlType extends Type
 {
     public function getName(): string
     {

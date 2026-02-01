@@ -27,6 +27,7 @@ final class MappedProjects implements Collection
         }
     }
 
+    #[\Override]
     public function has(string $key): bool
     {
         if (!str_starts_with($key, '+')) {
@@ -37,6 +38,7 @@ final class MappedProjects implements Collection
     }
 
     /** @return Project|null */
+    #[\Override]
     public function get(string $key): ?Project
     {
         if (!str_starts_with($key, '+')) {
@@ -49,6 +51,7 @@ final class MappedProjects implements Collection
     /**
      * @return \Traversable<string, Project>
      */
+    #[\Override]
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->projects);

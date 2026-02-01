@@ -14,18 +14,21 @@ use App\Projects\Domain\ValueObject\ProjectId;
 /**
  * @extends DoctrineRepository<Project>
  */
-readonly class DoctrineProjectRepository extends DoctrineRepository implements ProjectRepository
+final readonly class DoctrineProjectRepository extends DoctrineRepository implements ProjectRepository
 {
+    #[\Override]
     protected function entityClass(): string
     {
         return Project::class;
     }
 
+    #[\Override]
     public function create(Project $project): void
     {
         $this->persist($project);
     }
 
+    #[\Override]
     public function update(Project $project): void
     {
         $project->updateUpdatedAt(new \DateTimeImmutable());
@@ -33,6 +36,7 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
         $this->updateEntity();
     }
 
+    #[\Override]
     public function delete(Project $project): void
     {
         $project->updateDeletedAt(new \DateTimeImmutable());
@@ -40,6 +44,7 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
         $this->updateEntity();
     }
 
+    #[\Override]
     public function find(ProjectId $id): Project|null
     {
         return $this->repository()->findOneBy([
@@ -48,6 +53,7 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
     }
 
     /** @return Project[] */
+    #[\Override]
     public function findAll(): array
     {
         return $this->repository()->findAll();
@@ -60,6 +66,7 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
      * @throws \ValueError
      * @throws \RuntimeException
      */
+    #[\Override]
     public function matching(Criteria $criteria): array
     {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);
@@ -74,6 +81,7 @@ readonly class DoctrineProjectRepository extends DoctrineRepository implements P
      * @throws \ValueError
      * @throws \RuntimeException
      */
+    #[\Override]
     public function countMatching(Criteria $criteria): int
     {
         $doctrineCriteria = DoctrineCriteriaConverter::convert($criteria);

@@ -35,6 +35,7 @@ final readonly class ProjectUrls implements Comparable
         return $this->homepage;
     }
 
+    #[\Override]
     public function equals(Comparable $projectUrls): bool
     {
         if (!$projectUrls instanceof self) {

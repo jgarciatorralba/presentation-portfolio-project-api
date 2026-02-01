@@ -35,6 +35,7 @@ readonly class Url implements Stringable
         return new self($value);
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return $this->value();

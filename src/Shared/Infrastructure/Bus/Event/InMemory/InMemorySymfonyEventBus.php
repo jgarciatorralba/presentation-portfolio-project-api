@@ -18,6 +18,7 @@ final readonly class InMemorySymfonyEventBus implements EventBus
     }
 
     /** @throws ExceptionInterface */
+    #[\Override]
     public function publish(Event ...$events): void
     {
         foreach ($events as $event) {

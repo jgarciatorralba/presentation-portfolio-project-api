@@ -41,6 +41,7 @@ final readonly class HttpHeaders implements Collection, ArraySerializable
         $this->headers = $mergedHeaders;
     }
 
+    #[\Override]
     public function has(string $key): bool
     {
         return array_any(
@@ -50,6 +51,7 @@ final readonly class HttpHeaders implements Collection, ArraySerializable
     }
 
     /** @return HttpHeader|null */
+    #[\Override]
     public function get(string $key): ?HttpHeader
     {
         foreach ($this->headers as $header) {
@@ -64,12 +66,14 @@ final readonly class HttpHeaders implements Collection, ArraySerializable
     /**
      * @return \Traversable<string, HttpHeader>
      */
+    #[\Override]
     public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->headers);
     }
 
     /** @return array<string, string[]> */
+    #[\Override]
     public function toArray(): array
     {
         $headersArray = [];

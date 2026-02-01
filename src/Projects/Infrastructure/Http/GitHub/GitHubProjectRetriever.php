@@ -31,6 +31,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
      * @throws \DateMalformedStringException
      * @throws \DateInvalidTimeZoneException
      */
+    #[\Override]
     public function retrieve(): MappedProjects
     {
         $projectData = [];

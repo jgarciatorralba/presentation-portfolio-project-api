@@ -105,27 +105,29 @@ class Project extends AggregateRoot implements Comparable
      *    id: int,
      *    name: string,
      *    description: string|null,
+     *    topics: list<string>|null,
      *    repository: string,
      *    homepage: string|null,
-     *    topics: string[]|null,
      *    archived: bool,
      *    lastPushedAt: string
      * }
      */
+    #[\Override]
     public function toArray(): array
     {
         return [
             'id' => $this->id()->value(),
             'name' => $this->details()->name(),
             'description' => $this->details()->description(),
-            'topics' => $this->details()->topics() ?? null,
+            'topics' => $this->details()->topics(),
             'repository' => $this->urls()->repository()->value(),
-            'homepage' => $this->urls()->homepage()?->value() ?? null,
+            'homepage' => $this->urls()->homepage()?->value(),
             'archived' => $this->archived(),
             'lastPushedAt' => Utils::dateToUTCString($this->lastPushedAt()),
         ];
     }
 
+    #[\Override]
     public function equals(Comparable $project): bool
     {
         if (!$project instanceof self) {
