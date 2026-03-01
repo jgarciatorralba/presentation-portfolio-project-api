@@ -41,12 +41,10 @@ final class ProjectIdType extends Type
         try {
             return ProjectId::create($value);
         } catch (\InvalidArgumentException $e) {
-            throw new ConversionException(
-                sprintf(
-                    "Conversion failed: %s",
-                    $e->getMessage()
-                )
-            );
+            throw new ConversionException(sprintf(
+                "Conversion failed: %s",
+                $e->getMessage()
+            ), $e->getCode(), $e);
         }
     }
 

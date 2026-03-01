@@ -42,12 +42,10 @@ final class ProjectRepositoryUrlType extends Type
         try {
             return ProjectRepositoryUrl::fromString($value);
         } catch (\InvalidArgumentException | InvalidProjectRepositoryUrlException $e) {
-            throw new ConversionException(
-                sprintf(
-                    "Conversion failed: %s",
-                    $e->getMessage()
-                )
-            );
+            throw new ConversionException(sprintf(
+                "Conversion failed: %s",
+                $e->getMessage()
+            ), $e->getCode(), $e);
         }
     }
 

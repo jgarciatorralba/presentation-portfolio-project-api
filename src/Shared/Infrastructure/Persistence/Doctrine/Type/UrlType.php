@@ -41,12 +41,10 @@ final class UrlType extends Type
         try {
             return Url::fromString($value);
         } catch (\InvalidArgumentException $e) {
-            throw new ConversionException(
-                sprintf(
-                    "Conversion failed: %s",
-                    $e->getMessage()
-                )
-            );
+            throw new ConversionException(sprintf(
+                "Conversion failed: %s",
+                $e->getMessage()
+            ), $e->getCode(), $e);
         }
     }
 
