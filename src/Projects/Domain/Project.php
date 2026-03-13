@@ -7,12 +7,13 @@ namespace App\Projects\Domain;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
+use App\Projects\Domain\ValueObject\GitHubCodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Contract\Comparable;
 use App\Shared\Domain\Trait\Timestampable;
+use App\Shared\Domain\ValueObject\Url;
 use App\Shared\Utils;
 
 class Project extends AggregateRoot implements Comparable
@@ -22,7 +23,8 @@ class Project extends AggregateRoot implements Comparable
     private function __construct(
         private readonly ProjectId $id,
         private ProjectDetails $details,
-        private ProjectUrls $urls,
+        private GitHubCodeRepository $repository,
+        private ?Url $homepage,
         private bool $archived,
         private \DateTimeImmutable $lastPushedAt
     ) {
@@ -32,17 +34,19 @@ class Project extends AggregateRoot implements Comparable
         $this->updateUpdatedAt($now);
     }
 
-    public static function recreate(
+    public static function create(
         ProjectId $id,
         ProjectDetails $details,
-        ProjectUrls $urls,
+        GitHubCodeRepository $repository,
+        ?Url $homepage,
         bool $archived,
         \DateTimeImmutable $lastPushedAt
     ): self {
         return new self(
             id: $id,
             details: $details,
-            urls: $urls,
+            repository: $repository,
+            homepage: $homepage,
             archived: $archived,
             lastPushedAt: $lastPushedAt
         );
@@ -58,9 +62,14 @@ class Project extends AggregateRoot implements Comparable
         return $this->details;
     }
 
-    public function urls(): ProjectUrls
+    public function repository(): GitHubCodeRepository
     {
-        return $this->urls;
+        return $this->repository;
+    }
+
+    public function homepage(): ?Url
+    {
+        return $this->homepage;
     }
 
     public function archived(): bool
@@ -74,7 +83,7 @@ class Project extends AggregateRoot implements Comparable
     }
 
     /** @throws \InvalidArgumentException */
-    public function create(): void
+    public function record(): void
     {
         $this->recordEvent(new ProjectAddedEvent($this));
     }
@@ -87,7 +96,8 @@ class Project extends AggregateRoot implements Comparable
         }
 
         $this->details = $project->details;
-        $this->urls = $project->urls;
+        $this->repository = $project->repository;
+        $this->homepage = $project->homepage;
         $this->archived = $project->archived;
         $this->lastPushedAt = $project->lastPushedAt;
 
@@ -119,8 +129,8 @@ class Project extends AggregateRoot implements Comparable
             'name' => $this->details()->name(),
             'description' => $this->details()->description(),
             'topics' => $this->details()->topics() ?? null,
-            'repository' => $this->urls()->repository()->value(),
-            'homepage' => $this->urls()->homepage()?->value() ?? null,
+            'repository' => $this->repository()->urlValue(),
+            'homepage' => $this->homepage()?->value() ?? null,
             'archived' => $this->archived(),
             'lastPushedAt' => Utils::dateToUTCString($this->lastPushedAt()),
         ];
@@ -134,7 +144,8 @@ class Project extends AggregateRoot implements Comparable
 
         return $this->id()->equals($project->id())
             && $this->details()->equals($project->details())
-            && $this->urls()->equals($project->urls())
+            && $this->repository()->equals($project->repository())
+            && $this->homepage()?->value() === $project->homepage()?->value()
             && $this->archived() === $project->archived()
             && $this->lastPushedAt()->getTimestamp() === $project->lastPushedAt()->getTimestamp();
     }

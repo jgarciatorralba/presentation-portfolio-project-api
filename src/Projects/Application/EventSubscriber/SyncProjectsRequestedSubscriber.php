@@ -28,7 +28,7 @@ final readonly class SyncProjectsRequestedSubscriber implements EventSubscriber
 
         foreach ($externalProjects as $projectId => $project) {
             if (!$storedProjects->has($projectId)) {
-                $project->create();
+                $project->record();
             } elseif (!$project->equals($storedProjects->get($projectId))) {
                 $storedProjects->get($projectId)->synchronizeWith($project);
             }

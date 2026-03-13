@@ -6,12 +6,11 @@ namespace App\Projects\Infrastructure\Http\GitHub;
 
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
 use App\Projects\Domain\Project;
-use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
+use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\MappedProjects;
+use App\Projects\Domain\ValueObject\GitHubCodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
-use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
-use App\Projects\Domain\ValueObject\ProjectUrls;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
@@ -26,7 +25,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
 
     /**
      * @throws \RuntimeException
-     * @throws InvalidProjectRepositoryUrlException
+     * @throws InvalidCodeRepositoryUrlException
      * @throws \InvalidArgumentException
      * @throws \DateMalformedStringException
      * @throws \DateInvalidTimeZoneException
@@ -92,7 +91,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
      *      pushed_at: string
      * } $projectData
      *
-     * @throws InvalidProjectRepositoryUrlException
+     * @throws InvalidCodeRepositoryUrlException
      * @throws \InvalidArgumentException
      * @throws \DateMalformedStringException
      * @throws \DateInvalidTimeZoneException
@@ -109,20 +108,16 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 : $projectData['topics'],
         );
 
-        $repository = ProjectRepositoryUrl::fromString($projectData['html_url']);
+        $repository = GitHubCodeRepository::fromUrlValue($projectData['html_url']);
         $homepage = empty($projectData['homepage'])
             ? null
             : Url::fromString($projectData['homepage']);
 
-        $projectUrls = ProjectUrls::create(
-            repository: $repository,
-            homepage: $homepage,
-        );
-
-        return Project::recreate(
+        return Project::create(
             id: ProjectId::create($projectData['id']),
             details: $details,
-            urls: $projectUrls,
+            repository: $repository,
+            homepage: $homepage,
             archived: $projectData['archived'],
             lastPushedAt: new \DateTimeImmutable($projectData['pushed_at'], new \DateTimeZone('UTC')),
         );

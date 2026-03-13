@@ -58,10 +58,11 @@ final class DoctrineProjectRepositoryTest extends IntegrationTestCase
             ->withTopics($project->details()->topics())
             ->build();
 
-        $updatedProject = Project::recreate(
+        $updatedProject = Project::create(
             id: $project->id(),
             details: $updatedDetails,
-            urls: $project->urls(),
+            repository: $project->repository(),
+            homepage: $project->homepage(),
             archived: $project->archived(),
             lastPushedAt: $project->lastPushedAt()
         );

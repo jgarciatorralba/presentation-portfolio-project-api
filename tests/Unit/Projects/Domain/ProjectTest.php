@@ -29,12 +29,13 @@ final class ProjectTest extends TestCase
         $this->expected = null;
     }
 
-    public function testItIsRecreated(): void
+    public function testItIsCreated(): void
     {
-        $actual = Project::recreate(
+        $actual = Project::create(
             id: $this->expected->id(),
             details: $this->expected->details(),
-            urls: $this->expected->urls(),
+            repository: $this->expected->repository(),
+            homepage: $this->expected->homepage(),
             archived: $this->expected->archived(),
             lastPushedAt: $this->expected->lastPushedAt()
         );
@@ -63,8 +64,8 @@ final class ProjectTest extends TestCase
         $this->assertEquals($this->expected->details()->name(), $projectArray['name']);
         $this->assertEquals($this->expected->details()->description(), $projectArray['description']);
         $this->assertEquals($this->expected->details()->topics(), $projectArray['topics']);
-        $this->assertEquals($this->expected->urls()->repository()->value(), $projectArray['repository']);
-        $this->assertEquals($this->expected->urls()->homepage()?->value() ?? null, $projectArray['homepage']);
+        $this->assertEquals($this->expected->repository()->urlValue(), $projectArray['repository']);
+        $this->assertEquals($this->expected->homepage()?->value() ?? null, $projectArray['homepage']);
         $this->assertEquals($this->expected->archived(), $projectArray['archived']);
         $this->assertEquals(
             $this->expected->lastPushedAt()->setTimezone(new \DateTimeZone('UTC'))->format($format),
@@ -74,10 +75,11 @@ final class ProjectTest extends TestCase
 
     public function testItIsComparable(): void
     {
-        $actual = Project::recreate(
+        $actual = Project::create(
             id: $this->expected->id(),
             details: $this->expected->details(),
-            urls: $this->expected->urls(),
+            repository: $this->expected->repository(),
+            homepage: $this->expected->homepage(),
             archived: $this->expected->archived(),
             lastPushedAt: $this->expected->lastPushedAt()
         );
@@ -125,8 +127,12 @@ final class ProjectTest extends TestCase
             $actual->details()
         );
         $this->assertEquals(
-            $expected->urls(),
-            $actual->urls()
+            $expected->repository(),
+            $actual->repository()
+        );
+        $this->assertEquals(
+            $expected->homepage(),
+            $actual->homepage()
         );
         $this->assertEquals(
             $expected->archived(),

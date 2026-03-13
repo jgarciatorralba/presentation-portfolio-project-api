@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Support\Builder\Projects\Domain;
 
-use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
+use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\MappedProjects;
 use Tests\Support\Builder\BuilderInterface;
@@ -25,7 +25,7 @@ final class MappedProjectsBuilder implements BuilderInterface
     }
 
     /**
-     * @throws InvalidProjectRepositoryUrlException
+     * @throws InvalidCodeRepositoryUrlException
      * @throws \InvalidArgumentException
      */
     public static function any(): self

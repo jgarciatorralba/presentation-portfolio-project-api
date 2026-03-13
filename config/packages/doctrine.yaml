@@ -14,7 +14,7 @@ doctrine:
         profiling_collect_backtrace: "%kernel.debug%"
     types:
       project_id: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectIdType
-      project_repository_url: App\Projects\Infrastructure\Persistence\Doctrine\Type\ProjectRepositoryUrlType
+      code_repository: App\Projects\Infrastructure\Persistence\Doctrine\Type\GitHubCodeRepositoryType
       url: App\Shared\Infrastructure\Persistence\Doctrine\Type\UrlType
 
   orm:
