@@ -42,12 +42,10 @@ class CodeRepositoryType extends Type
         try {
             return GitHubCodeRepository::fromUrlValue($value);
         } catch (\InvalidArgumentException | InvalidCodeRepositoryUrlException $e) {
-            throw new ConversionException(
-                sprintf(
-                    "Conversion failed: %s",
-                    $e->getMessage()
-                )
-            );
+            throw new ConversionException(sprintf(
+                "Conversion failed: %s",
+                $e->getMessage()
+            ), $e->getCode(), $e);
         }
     }
 
