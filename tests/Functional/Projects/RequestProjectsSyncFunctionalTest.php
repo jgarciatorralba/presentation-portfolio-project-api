@@ -175,8 +175,8 @@ final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
             empty($projectData['topics']) ? null : $projectData['topics'],
             $project->details()->topics()
         );
-        $this->assertEquals($projectData['html_url'], $project->urls()->repository());
-        $this->assertEquals($projectData['homepage'] ?? null, $project->urls()->homepage());
+        $this->assertEquals($projectData['html_url'], $project->repository()->urlValue());
+        $this->assertEquals($projectData['homepage'] ?? null, $project->homepage()?->value());
         $this->assertEquals($projectData['archived'], $project->archived());
         $this->assertEquals(
             \DateTimeImmutable::createFromFormat(

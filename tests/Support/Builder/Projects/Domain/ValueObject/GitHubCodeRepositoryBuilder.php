@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Support\Builder\Projects\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidProjectRepositoryUrlException;
-use App\Projects\Domain\ValueObject\ProjectRepositoryUrl;
+use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Projects\Domain\ValueObject\GitHubCodeRepository;
 use Tests\Support\Builder\BuilderInterface;
 use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
-final class ProjectRepositoryUrlBuilder implements BuilderInterface
+final class GitHubCodeRepositoryBuilder implements BuilderInterface
 {
     private const string GITHUB_DOMAIN = 'https://github.com/';
 
@@ -31,11 +31,11 @@ final class ProjectRepositoryUrlBuilder implements BuilderInterface
     }
 
     /**
-     * @throws InvalidProjectRepositoryUrlException
+     * @throws InvalidCodeRepositoryUrlException
      * @throws \InvalidArgumentException
      */
-    public function build(): ProjectRepositoryUrl
+    public function build(): GitHubCodeRepository
     {
-        return ProjectRepositoryUrl::fromString($this->value);
+        return GitHubCodeRepository::fromUrlValue($this->value);
     }
 }

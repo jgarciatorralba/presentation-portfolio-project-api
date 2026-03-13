@@ -23,9 +23,13 @@ abstract class ProjectRepositoryServiceMock extends AbstractMock
             $expected->details(),
             $actual->details()
         );
+         $this->testCase->assertEquals(
+             $expected->repository(),
+             $actual->repository()
+         );
         $this->testCase->assertEquals(
-            $expected->urls(),
-            $actual->urls()
+            $expected->homepage(),
+            $actual->homepage()
         );
         $this->testCase->assertEquals(
             $expected->archived(),

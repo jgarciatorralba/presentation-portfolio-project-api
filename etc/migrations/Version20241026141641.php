@@ -18,7 +18,7 @@ final class Version20241026141641 extends AbstractMigration
     public function up(Schema $schema): void
     {
         $this->addSql('CREATE DOMAIN project_id AS BIGINT');
-        $this->addSql('CREATE DOMAIN project_repository_url AS TEXT');
+        $this->addSql('CREATE DOMAIN code_repository AS TEXT');
         $this->addSql('CREATE DOMAIN url AS TEXT');
         $this->addSql(
             'CREATE TABLE projects (
@@ -26,7 +26,7 @@ final class Version20241026141641 extends AbstractMigration
 				name VARCHAR(255) NOT NULL,
 				description TEXT DEFAULT NULL,
 				topics TEXT DEFAULT NULL,
-				repository project_repository_url NOT NULL,
+				repository code_repository NOT NULL,
 				homepage url DEFAULT NULL,
 				archived BOOLEAN DEFAULT false NOT NULL,
 				last_pushed_at TIMESTAMP(0) WITH TIME ZONE NOT NULL,
@@ -42,7 +42,7 @@ final class Version20241026141641 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX unique_id_deleted_at_idx ON projects (id, deleted_at)');
 
         $this->addSql('COMMENT ON COLUMN projects.id IS \'(DC2Type:project_id)\'');
-        $this->addSql('COMMENT ON COLUMN projects.repository IS \'(DC2Type:project_repository_url)\'');
+        $this->addSql('COMMENT ON COLUMN projects.repository IS \'(DC2Type:code_repository)\'');
         $this->addSql('COMMENT ON COLUMN projects.homepage IS \'(DC2Type:url)\'');
         $this->addSql('COMMENT ON COLUMN projects.topics IS \'(DC2Type:simple_array)\'');
         $this->addSql('COMMENT ON COLUMN projects.last_pushed_at IS \'(DC2Type:datetimetz_immutable)\'');
