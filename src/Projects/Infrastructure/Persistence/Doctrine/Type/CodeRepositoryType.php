@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace App\Projects\Infrastructure\Persistence\Doctrine\Type;
 
 use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Projects\Domain\ValueObject\CodeRepository;
 use App\Projects\Domain\ValueObject\GitHubCodeRepository;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class GitHubCodeRepositoryType extends Type
+class CodeRepositoryType extends Type
 {
     public function getName(): string
     {
-        return 'github_code_repository';
+        return 'code_repository';
     }
 
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
@@ -24,7 +25,7 @@ class GitHubCodeRepositoryType extends Type
 
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
-        if ($value instanceof GitHubCodeRepository) {
+        if ($value instanceof CodeRepository) {
             return $value;
         }
 
@@ -52,7 +53,7 @@ class GitHubCodeRepositoryType extends Type
 
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
-        if ($value instanceof GitHubCodeRepository) {
+        if ($value instanceof CodeRepository) {
             return $value->urlValue();
         }
 
@@ -62,7 +63,7 @@ class GitHubCodeRepositoryType extends Type
                     "Invalid %s value: %s. Must be string or an instance of %s class.",
                     $this->getName(),
                     get_debug_type($value),
-                    GitHubCodeRepository::class
+                    CodeRepository::class
                 )
             );
         }
