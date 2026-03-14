@@ -7,7 +7,7 @@ namespace App\Projects\Domain;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Projects\Domain\ValueObject\CodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Aggregate\AggregateRoot;
@@ -23,7 +23,7 @@ class Project extends AggregateRoot implements Comparable
     private function __construct(
         private readonly ProjectId $id,
         private ProjectDetails $details,
-        private GitHubCodeRepository $repository,
+        private CodeRepository $repository,
         private ?Url $homepage,
         private bool $archived,
         private \DateTimeImmutable $lastPushedAt
@@ -37,7 +37,7 @@ class Project extends AggregateRoot implements Comparable
     public static function create(
         ProjectId $id,
         ProjectDetails $details,
-        GitHubCodeRepository $repository,
+        CodeRepository $repository,
         ?Url $homepage,
         bool $archived,
         \DateTimeImmutable $lastPushedAt
@@ -62,7 +62,7 @@ class Project extends AggregateRoot implements Comparable
         return $this->details;
     }
 
-    public function repository(): GitHubCodeRepository
+    public function repository(): CodeRepository
     {
         return $this->repository;
     }
