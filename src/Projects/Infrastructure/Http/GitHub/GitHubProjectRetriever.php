@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Projects\Infrastructure\Http\GitHub;
 
 use App\Projects\Domain\Contract\ExternalProjectRetriever;
-use App\Projects\Domain\Project;
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\MappedProjects;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Projects\Domain\Project;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Projects\Infrastructure\Http\BaseProjectRetriever;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Shared\Domain\Http\HttpHeader;
 use App\Shared\Domain\Http\HttpHeaders;
 use App\Shared\Domain\Http\QueryParam;
 use App\Shared\Domain\Http\QueryParams;
+use App\Shared\Domain\ValueObject\GitHubCodeRepository;
 use App\Shared\Domain\ValueObject\Url;
 
 final class GitHubProjectRetriever extends BaseProjectRetriever implements ExternalProjectRetriever

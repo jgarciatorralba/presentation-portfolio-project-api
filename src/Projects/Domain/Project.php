@@ -7,12 +7,12 @@ namespace App\Projects\Domain;
 use App\Projects\Domain\Bus\Event\ProjectAddedEvent;
 use App\Projects\Domain\Bus\Event\ProjectModifiedEvent;
 use App\Projects\Domain\Bus\Event\ProjectRemovedEvent;
-use App\Projects\Domain\ValueObject\CodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\Aggregate\AggregateRoot;
 use App\Shared\Domain\Contract\Comparable;
 use App\Shared\Domain\Trait\Timestampable;
+use App\Shared\Domain\ValueObject\CodeRepository;
 use App\Shared\Domain\ValueObject\Url;
 use App\Shared\Utils;
 

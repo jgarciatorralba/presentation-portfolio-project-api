@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Projects\Domain\Exception;
+namespace Tests\Unit\Shared\Domain\Exception;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
-use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 use PHPUnit\Framework\TestCase;
 
 final class InvalidCodeRepositoryUrlExceptionTest extends TestCase

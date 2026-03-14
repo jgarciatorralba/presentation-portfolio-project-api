@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Tests\Support\Builder\Projects\Domain;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\Project;
-use App\Projects\Domain\ValueObject\CodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Shared\Domain\ValueObject\CodeRepository;
 use App\Shared\Domain\ValueObject\Url;
 use Tests\Support\Builder\BuilderInterface;
-use Tests\Support\Builder\Projects\Domain\ValueObject\GitHubCodeRepositoryBuilder;
 use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectDetailsBuilder;
 use Tests\Support\Builder\Projects\Domain\ValueObject\ProjectIdBuilder;
+use Tests\Support\Builder\Shared\Domain\ValueObject\GitHubCodeRepositoryBuilder;
 use Tests\Support\Builder\Shared\Domain\ValueObject\UrlBuilder;
 use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 
