@@ -6,7 +6,7 @@ namespace Tests\Support\Builder\Projects\Domain;
 
 use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\Project;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Projects\Domain\ValueObject\CodeRepository;
 use App\Projects\Domain\ValueObject\ProjectDetails;
 use App\Projects\Domain\ValueObject\ProjectId;
 use App\Shared\Domain\ValueObject\Url;
@@ -22,7 +22,7 @@ final class ProjectBuilder implements BuilderInterface
     private function __construct(
         private ProjectId $id,
         private ProjectDetails $details,
-        private GitHubCodeRepository $repository,
+        private CodeRepository $repository,
         private ?Url $homepage,
         private bool $archived,
         private \DateTimeImmutable $lastPushedAt,
