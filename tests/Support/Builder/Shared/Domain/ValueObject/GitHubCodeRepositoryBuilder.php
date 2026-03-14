@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support\Builder\Projects\Domain\ValueObject;
+namespace Tests\Support\Builder\Shared\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Shared\Domain\ValueObject\GitHubCodeRepository;
 use Tests\Support\Builder\BuilderInterface;
 use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 

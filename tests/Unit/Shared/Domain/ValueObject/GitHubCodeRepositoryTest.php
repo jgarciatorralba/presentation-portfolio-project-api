@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Projects\Domain\ValueObject;
+namespace Tests\Unit\Shared\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Shared\Domain\ValueObject\GitHubCodeRepository;
 use Tests\Support\Builder\Projects\Domain\ProjectBuilder;
-use Tests\Support\Builder\Projects\Domain\ValueObject\GitHubCodeRepositoryBuilder;
+use Tests\Support\Builder\Shared\Domain\ValueObject\GitHubCodeRepositoryBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class GitHubCodeRepositoryTest extends TestCase

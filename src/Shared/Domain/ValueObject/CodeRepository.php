@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Domain\ValueObject;
+namespace App\Shared\Domain\ValueObject;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Shared\Domain\Contract\Comparable;
-use App\Shared\Domain\ValueObject\Url;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 
 abstract readonly class CodeRepository implements Comparable
 {

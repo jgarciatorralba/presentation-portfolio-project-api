@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Projects\Infrastructure\Persistence\Doctrine\Type;
+namespace App\Shared\Infrastructure\Persistence\Doctrine\Type;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
-use App\Projects\Domain\ValueObject\CodeRepository;
-use App\Projects\Domain\ValueObject\GitHubCodeRepository;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
+use App\Shared\Domain\ValueObject\CodeRepository;
+use App\Shared\Domain\ValueObject\GitHubCodeRepository;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;

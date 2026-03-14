@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Support\Builder\Projects\Domain;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\Project;
 use App\Projects\Domain\MappedProjects;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 use Tests\Support\Builder\BuilderInterface;
 use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 

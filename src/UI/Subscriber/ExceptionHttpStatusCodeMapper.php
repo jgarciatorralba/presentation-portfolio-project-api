@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\UI\Subscriber;
 
-use App\Projects\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Projects\Domain\Exception\ProjectAlreadyExistsException;
 use App\Projects\Domain\Exception\ProjectNotFoundException;
+use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 use App\Shared\Domain\Http\HttpStatusCode;
 
 final readonly class ExceptionHttpStatusCodeMapper
