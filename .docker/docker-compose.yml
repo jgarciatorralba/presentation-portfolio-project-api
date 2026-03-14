@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:alpine
     volumes:
-      - "pgdata:/var/lib/postgresql/data"
+      - "pgdata:/var/lib/postgresql"
     environment:
       POSTGRES_DB: ${DATABASE_NAME}
       POSTGRES_USER: ${DATABASE_USER}
