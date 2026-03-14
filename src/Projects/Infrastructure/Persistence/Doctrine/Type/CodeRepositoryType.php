@@ -11,7 +11,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-final class GitHubCodeRepositoryType extends Type
+final class CodeRepositoryType extends Type
 {
     public function getName(): string
     {
@@ -63,7 +63,7 @@ final class GitHubCodeRepositoryType extends Type
                     "Invalid %s value: %s. Must be string or an instance of %s class.",
                     $this->getName(),
                     get_debug_type($value),
-                    GitHubCodeRepository::class
+                    CodeRepository::class
                 )
             );
         }
