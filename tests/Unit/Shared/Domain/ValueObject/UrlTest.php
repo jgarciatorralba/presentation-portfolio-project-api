@@ -42,13 +42,13 @@ class UrlTest extends TestCase
         ];
     }
 
-	public function testItThrowsExceptionWhenCreatedFromEmptyString(): void
-	{
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('URL cannot be empty.');
+    public function testItThrowsExceptionWhenCreatedFromEmptyString(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('URL cannot be empty.');
 
-		Url::fromString('');
-	}
+        Url::fromString('');
+    }
 
     public function testItIsStringable(): void
     {

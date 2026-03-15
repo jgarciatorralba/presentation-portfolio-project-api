@@ -12,18 +12,18 @@ use Tests\Unit\Shared\Domain\Testing\InvalidDomainCodeRepository;
 final class CodeRepositoryTest extends TestCase
 {
     public function testItThrowsExceptionWhenDomainIsEmpty(): void
-	{
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Domain cannot be empty.');
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Domain cannot be empty.');
 
-		EmptyDomainCodeRepository::fromUrlValue(url: 'https://github.com');
-	}
+        EmptyDomainCodeRepository::fromUrlValue(url: 'https://github.com');
+    }
 
-	public function testItThrowsExceptionWhenDomainIsInvalid(): void
-	{
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage('Invalid domain: invalid-#-domain');
+    public function testItThrowsExceptionWhenDomainIsInvalid(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid domain: invalid-#-domain');
 
-		InvalidDomainCodeRepository::fromUrlValue(url: 'https://github.com');
-	}
+        InvalidDomainCodeRepository::fromUrlValue(url: 'https://github.com');
+    }
 }
