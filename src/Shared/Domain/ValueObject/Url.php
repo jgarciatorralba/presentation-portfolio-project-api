@@ -41,7 +41,14 @@ readonly class Url implements Stringable
      */
     private function validate(): void
     {
-        if (filter_var($this->value, FILTER_VALIDATE_URL) === false) {
+		if ('' === $this->value) {
+			throw new \InvalidArgumentException('URL cannot be empty.');
+		}
+
+        if (false === filter_var(
+			value: $this->value,
+			filter: FILTER_VALIDATE_URL
+		)) {
             throw new \InvalidArgumentException(
                 sprintf(
                     "'%s' does not allow the value '%s'.",

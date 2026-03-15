@@ -9,9 +9,8 @@ use App\Shared\Domain\Exception\InvalidCodeRepositoryUrlException;
 
 abstract readonly class CodeRepository implements Comparable
 {
-    protected const string DOMAIN = '';
-
     /**
+	 * @throws \InvalidArgumentException
      * @throws InvalidCodeRepositoryUrlException
      */
     final private function __construct(protected Url $url)
@@ -30,6 +29,8 @@ abstract readonly class CodeRepository implements Comparable
         return new static($url);
     }
 
+	abstract public function domain(): string;
+
     public function urlValue(): string
     {
         return $this->url->value();
@@ -45,17 +46,37 @@ abstract readonly class CodeRepository implements Comparable
     }
 
     /**
+	 * @throws \InvalidArgumentException
      * @throws InvalidCodeRepositoryUrlException
      */
     private function validate(): void
     {
-        $host = parse_url($this->url->value(), PHP_URL_HOST);
+        $this->validateDomain();
 
-        if (!is_string($host) || !str_contains($host, static::DOMAIN)) {
+        $host = parse_url($this->url->value(), PHP_URL_HOST);
+        if (!is_string($host) || !str_contains($host, $this->domain())) {
             throw new InvalidCodeRepositoryUrlException(
                 $this->url->value(),
-                static::DOMAIN,
+                $this->domain(),
             );
         }
     }
+
+	/**
+	 * @throws \InvalidArgumentException
+	 */
+	private function validateDomain(): void
+	{
+		if ('' === $this->domain()) {
+			throw new \InvalidArgumentException('Domain cannot be empty.');
+		}
+
+		if (false === filter_var(
+			value: $this->domain(),
+			filter: FILTER_VALIDATE_DOMAIN,
+			options: FILTER_FLAG_HOSTNAME
+		)) {
+			throw new \InvalidArgumentException(sprintf('Invalid domain: %s', $this->domain()));
+		}
+	}
 }

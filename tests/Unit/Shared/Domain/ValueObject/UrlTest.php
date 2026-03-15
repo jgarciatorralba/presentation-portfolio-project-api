@@ -42,6 +42,14 @@ class UrlTest extends TestCase
         ];
     }
 
+	public function testItThrowsExceptionWhenCreatedFromEmptyString(): void
+	{
+		$this->expectException(\InvalidArgumentException::class);
+		$this->expectExceptionMessage('URL cannot be empty.');
+
+		Url::fromString('');
+	}
+
     public function testItIsStringable(): void
     {
         $url = Url::fromString('https://example.com');

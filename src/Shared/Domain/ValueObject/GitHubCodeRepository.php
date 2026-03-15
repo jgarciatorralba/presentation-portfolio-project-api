@@ -6,5 +6,8 @@ namespace App\Shared\Domain\ValueObject;
 
 final readonly class GitHubCodeRepository extends CodeRepository
 {
-    protected const string DOMAIN = 'github.com';
+    public function domain(): string
+	{
+		return 'github.com';
+	}
 }
