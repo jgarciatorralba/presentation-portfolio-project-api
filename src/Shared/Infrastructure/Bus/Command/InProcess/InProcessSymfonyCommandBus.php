@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infrastructure\Bus\Command\InMemory;
+namespace App\Shared\Infrastructure\Bus\Command\InProcess;
 
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
@@ -12,7 +12,7 @@ use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
-final readonly class InMemorySymfonyCommandBus implements CommandBus
+final readonly class InProcessSymfonyCommandBus implements CommandBus
 {
     public function __construct(
         private MessageBusInterface $commandBus

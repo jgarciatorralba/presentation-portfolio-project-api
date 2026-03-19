@@ -27,7 +27,7 @@ services:
       tags: [messenger.message_handler]
 
   App\Shared\Domain\Bus\Event\EventBus:
-    class: App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus
+    class: App\Shared\Infrastructure\Bus\Event\InProcess\InProcessSymfonyEventBus
 
   App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever:
     arguments:

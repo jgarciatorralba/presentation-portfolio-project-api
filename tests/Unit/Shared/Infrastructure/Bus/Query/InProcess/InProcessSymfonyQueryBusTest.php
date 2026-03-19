@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Shared\Infrastructure\Bus\Query\InMemory;
+namespace Tests\Unit\Shared\Infrastructure\Bus\Query\InProcess;
 
 use App\Shared\Application\Bus\Exception\QueryNotRegisteredException;
 use App\Shared\Domain\Bus\Query\Query;
 use App\Shared\Domain\Bus\Query\Response;
-use App\Shared\Infrastructure\Bus\Query\InMemory\InMemorySymfonyQueryBus;
+use App\Shared\Infrastructure\Bus\Query\InProcess\InProcessSymfonyQueryBus;
 use Tests\Unit\Shared\Application\Testing\TestResponse;
 use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as QueryBusMock;
 use PHPUnit\Framework\MockObject\Stub;
@@ -17,17 +17,17 @@ use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 use Symfony\Component\Messenger\Stamp\HandledStamp;
 
-final class InMemorySymfonyQueryBusTest extends TestCase
+final class InProcessSymfonyQueryBusTest extends TestCase
 {
     private ?QueryBusMock $queryBusMock;
-    private ?InMemorySymfonyQueryBus $sut;
+    private ?InProcessSymfonyQueryBus $sut;
     private Stub&Query $query;
     private ?Response $response;
 
     protected function setUp(): void
     {
         $this->queryBusMock = new QueryBusMock($this);
-        $this->sut = new InMemorySymfonyQueryBus(
+        $this->sut = new InProcessSymfonyQueryBus(
             queryBus: $this->queryBusMock->getMock()
         );
         $this->query = $this->createStub(Query::class);
