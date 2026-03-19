@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Shared\Infrastructure\Bus\Event\InMemory;
+namespace Tests\Unit\Shared\Infrastructure\Bus\Event\InProcess;
 
 use App\Shared\Domain\Bus\Event\Event;
-use App\Shared\Infrastructure\Bus\Event\InMemory\InMemorySymfonyEventBus;
+use App\Shared\Infrastructure\Bus\Event\InProcess\InProcessSymfonyEventBus;
 use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as EventBusMock;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
-final class InMemorySymfonyEventBusTest extends TestCase
+final class InProcessSymfonyEventBusTest extends TestCase
 {
     private ?EventBusMock $eventBusMock;
-    private ?InMemorySymfonyEventBus $sut;
+    private ?InProcessSymfonyEventBus $sut;
 
     protected function setUp(): void
     {
         $this->eventBusMock = new EventBusMock($this);
-        $this->sut = new InMemorySymfonyEventBus(
+        $this->sut = new InProcessSymfonyEventBus(
             eventBus: $this->eventBusMock->getMock()
         );
     }

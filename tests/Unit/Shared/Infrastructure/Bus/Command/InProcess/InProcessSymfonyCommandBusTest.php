@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Shared\Infrastructure\Bus\Command\InMemory;
+namespace Tests\Unit\Shared\Infrastructure\Bus\Command\InProcess;
 
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
-use App\Shared\Infrastructure\Bus\Command\InMemory\InMemorySymfonyCommandBus;
+use App\Shared\Infrastructure\Bus\Command\InProcess\InProcessSymfonyCommandBus;
 use Tests\Unit\Shared\Infrastructure\Testing\SymfonyMessageBusMock as CommandBusMock;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
@@ -14,16 +14,16 @@ use Symfony\Component\Messenger\Envelope;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 
-final class InMemorySymfonyCommandBusTest extends TestCase
+final class InProcessSymfonyCommandBusTest extends TestCase
 {
     private ?CommandBusMock $commandBusMock;
-    private ?InMemorySymfonyCommandBus $sut;
+    private ?InProcessSymfonyCommandBus $sut;
     private Stub&Command $command;
 
     protected function setUp(): void
     {
         $this->commandBusMock = new CommandBusMock($this);
-        $this->sut = new InMemorySymfonyCommandBus(
+        $this->sut = new InProcessSymfonyCommandBus(
             commandBus: $this->commandBusMock->getMock()
         );
         $this->command = $this->createStub(Command::class);
