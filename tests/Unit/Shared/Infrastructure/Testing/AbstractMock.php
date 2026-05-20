@@ -26,12 +26,12 @@ abstract class AbstractMock
     protected MockObject $mock;
 
     /**
-	 * @throws ClassIsAnonymousException
+     * @throws ClassIsAnonymousException
      * @throws ClassIsEnumerationException
      * @throws ClassIsFinalException
      * @throws DuplicateMethodException
      * @throws InvalidArgumentException
-	 * @throws InvalidClassNameException
+     * @throws InvalidClassNameException
      * @throws InvalidMethodNameException
      * @throws NameAlreadyInUseException
      * @throws ReflectionException
