@@ -6,9 +6,11 @@ namespace Tests\Unit\Shared\Infrastructure\Testing;
 
 use PHPUnit\Framework\Constraint\IsAnything;
 use PHPUnit\Framework\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\Generator\ClassIsAnonymousException;
 use PHPUnit\Framework\MockObject\Generator\ClassIsEnumerationException;
 use PHPUnit\Framework\MockObject\Generator\ClassIsFinalException;
 use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
+use PHPUnit\Framework\MockObject\Generator\InvalidClassNameException;
 use PHPUnit\Framework\MockObject\Generator\InvalidMethodNameException;
 use PHPUnit\Framework\MockObject\Generator\NameAlreadyInUseException;
 use PHPUnit\Framework\MockObject\Generator\ReflectionException;
@@ -24,10 +26,12 @@ abstract class AbstractMock
     protected MockObject $mock;
 
     /**
+     * @throws ClassIsAnonymousException
      * @throws ClassIsEnumerationException
      * @throws ClassIsFinalException
      * @throws DuplicateMethodException
      * @throws InvalidArgumentException
+     * @throws InvalidClassNameException
      * @throws InvalidMethodNameException
      * @throws NameAlreadyInUseException
      * @throws ReflectionException
