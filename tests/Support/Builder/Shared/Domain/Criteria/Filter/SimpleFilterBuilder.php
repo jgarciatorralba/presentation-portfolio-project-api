@@ -60,12 +60,10 @@ final class SimpleFilterBuilder implements BuilderInterface
      */
     public static function buildMany(?int $numFilters = null): array
     {
-        if ($numFilters === null) {
-            $numFilters = FakeValueGenerator::integer(
-                self::MIN_FILTERS,
-                self::MAX_FILTERS
-            );
-        }
+        $numFilters ??= FakeValueGenerator::integer(
+            self::MIN_FILTERS,
+            self::MAX_FILTERS
+        );
 
         $filters = [];
         for ($i = 0; $i < $numFilters; $i++) {

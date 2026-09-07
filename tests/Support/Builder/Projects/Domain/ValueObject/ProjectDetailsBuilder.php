@@ -71,12 +71,10 @@ final class ProjectDetailsBuilder implements BuilderInterface
     /** @return list<string> */
     private static function generateRandomTopics(?int $numTopics = null): array
     {
-        if ($numTopics === null) {
-            $numTopics = FakeValueGenerator::integer(
-                self::MIN_TOPICS,
-                self::MAX_TOPICS
-            );
-        }
+        $numTopics ??= FakeValueGenerator::integer(
+            self::MIN_TOPICS,
+            self::MAX_TOPICS
+        );
 
         $topics = [];
         for ($i = 0; $i < $numTopics; $i++) {
