@@ -12,9 +12,9 @@ use Tests\Unit\Shared\Domain\Testing\FakeValueGenerator;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
-use Doctrine\Common\Collections\Order;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use SortDirection;
 
 final class DoctrineCriteriaConverterTest extends TestCase
 {
@@ -63,7 +63,7 @@ final class DoctrineCriteriaConverterTest extends TestCase
         /** @var Comparison[] $comparisons */
         $comparisons = $expression->getExpressionList();
         $type = $expression->getType();
-        $orderings = $doctrineCriteria->orderings();
+        $orderings = $doctrineCriteria->getOrderings();
 
         $this->assertCount(1, $comparisons);
         $this->assertEquals(
@@ -83,7 +83,10 @@ final class DoctrineCriteriaConverterTest extends TestCase
 
         $this->assertCount(1, $orderings);
         $this->assertEquals('lastPushedAt', array_key_first($orderings));
-        $this->assertEquals(Order::Descending, $orderings[array_key_first($orderings)]);
+        $this->assertEquals(
+            SortDirection::Descending,
+            $orderings[array_key_first($orderings)]
+        );
     }
 
     /**
