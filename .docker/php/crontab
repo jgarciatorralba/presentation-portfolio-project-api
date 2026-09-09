@@ -1,5 +1,5 @@
 SHELL=/bin/sh
-PATH=/usr/local/bin
+PATH=/usr/local/bin:/usr/bin:/bin
 
 # Synchronize internal projects with external API
-0 0 1,16 * * php /var/www/portfolio-api/bin/console app:projects:sync >> /var/log/cron.log 2>> /var/log/cron.error.log
+0 0 1,16 * * /usr/local/bin/run-project-sync.sh >> /var/log/cron.log 2>> /var/log/cron.error.log

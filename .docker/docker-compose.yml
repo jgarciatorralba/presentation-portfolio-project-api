@@ -15,6 +15,7 @@ services:
   php:
     build:
       context: ./php
+      target: runtime
       args:
         TIMEZONE: ${TIMEZONE}
     volumes:
@@ -33,6 +34,32 @@ services:
     networks:
       - app
 
+  scheduler:
+    build:
+      context: ./php
+      target: scheduler
+      args:
+        TIMEZONE: ${TIMEZONE}
+    command: ["cron", "-f"]
+    entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
+    restart: unless-stopped
+    volumes:
+      - ../:/var/www/portfolio-api:cached
+      - app_var:/var/www/portfolio-api/var
+      - app_vendor:/var/www/portfolio-api/vendor
+    environment:
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_PORT: ${DATABASE_PORT}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - postgres
+    networks:
+      - app
+
   nginx:
     build:
       context: ./nginx
@@ -42,6 +69,8 @@ services:
       - app_vendor:/var/www/portfolio-api/vendor
     ports:
       - ${SERVER_MAPPED_PORT}:${SERVER_PORT}
+    depends_on:
+      - php
     networks:
       - app
 

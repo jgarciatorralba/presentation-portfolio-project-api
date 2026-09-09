@@ -1,0 +1,5 @@
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+
+# Synchronize internal projects with the external API twice per month.
+0 0 1,16 * * www-data /usr/local/bin/run-project-sync.sh >> /proc/1/fd/1 2>> /proc/1/fd/2
