@@ -31,7 +31,7 @@ RUN apt-get update \
     && echo "${TIMEZONE}" > /etc/timezone \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /var/www/portfolio-api
+WORKDIR /var/www/presentation-portfolio-project-api
 
 COPY composer.json composer.lock ./
 RUN composer install \
@@ -69,7 +69,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends cron util-linux \
     && rm -rf /var/lib/apt/lists/*
 
-COPY .docker/php/crontab.prod /etc/cron.d/portfolio-api
-RUN chmod 0644 /etc/cron.d/portfolio-api
+COPY .docker/php/crontab.prod /etc/cron.d/presentation-portfolio-project-api
+RUN chmod 0644 /etc/cron.d/presentation-portfolio-project-api
 
 CMD ["cron", "-f"]

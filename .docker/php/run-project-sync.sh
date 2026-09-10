@@ -4,13 +4,13 @@ set -eu
 read_container_env() {
     key="$1"
 
-    if [ -r /run/portfolio-api.env ]; then
+    if [ -r /run/presentation-portfolio-project-api.env ]; then
         while IFS='=' read -r name value; do
             if [ "$name" = "$key" ]; then
                 printf '%s\n' "$value"
                 return
             fi
-        done < /run/portfolio-api.env
+        done < /run/presentation-portfolio-project-api.env
         return
     fi
 
@@ -24,5 +24,5 @@ export DATABASE_USER="$(read_container_env DATABASE_USER)"
 export DATABASE_PASSWORD="$(read_container_env DATABASE_PASSWORD)"
 export XDEBUG_MODE=off
 
-cd /var/www/portfolio-api
+cd /var/www/presentation-portfolio-project-api
 exec php bin/console app:projects:sync

@@ -19,9 +19,9 @@ services:
       args:
         TIMEZONE: ${TIMEZONE}
     volumes:
-      - ../:/var/www/portfolio-api:cached
-      - app_var:/var/www/portfolio-api/var
-      - app_vendor:/var/www/portfolio-api/vendor
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
@@ -44,9 +44,9 @@ services:
     entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
     restart: unless-stopped
     volumes:
-      - ../:/var/www/portfolio-api:cached
-      - app_var:/var/www/portfolio-api/var
-      - app_vendor:/var/www/portfolio-api/vendor
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
@@ -64,9 +64,9 @@ services:
     build:
       context: ./nginx
     volumes:
-      - ../:/var/www/portfolio-api:cached
-      - app_var:/var/www/portfolio-api/var
-      - app_vendor:/var/www/portfolio-api/vendor
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     ports:
       - ${SERVER_MAPPED_PORT}:${SERVER_PORT}
     depends_on:

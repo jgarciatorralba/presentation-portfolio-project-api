@@ -2,7 +2,7 @@
 set -eu
 
 umask 077
-env_file=/run/portfolio-api.env
+env_file=/run/presentation-portfolio-project-api.env
 
 for variable in DATABASE_HOST DATABASE_PORT DATABASE_NAME DATABASE_USER DATABASE_PASSWORD; do
     printf '%s=%s\n' "$variable" "$(printenv "$variable" || true)" >> "$env_file"

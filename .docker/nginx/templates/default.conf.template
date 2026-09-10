@@ -1,7 +1,7 @@
 server {
     listen 80;
     server_name localhost;
-    root /var/www/portfolio-api/public;
+    root /var/www/presentation-portfolio-project-api/public;
 
     location = /favicon.ico {
         try_files /dev/null =204;
