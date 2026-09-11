@@ -2,33 +2,28 @@ services:
   postgres:
     image: postgres:16-alpine
     volumes:
-      - "pgdata:/var/lib/postgresql"
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      - "pgdata:/var/lib/postgresql/data"
+    env_file:
+      - ../.env.dev
     ports:
-      - ${DATABASE_MAPPED_PORT}:${DATABASE_PORT}
+      - 6432:5432
     networks:
       - app
 
   php:
     build:
-      context: ./php
+      context: ..
+      dockerfile: .docker/php/Dockerfile
       target: runtime
       args:
-        TIMEZONE: ${TIMEZONE}
+        TIMEZONE: 'Europe/Madrid'
     volumes:
       - ../:/var/www/presentation-portfolio-project-api:cached
       - app_var:/var/www/presentation-portfolio-project-api/var
       - app_vendor:/var/www/presentation-portfolio-project-api/vendor
-    environment:
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      TEST_DATABASE_NAME: ${TEST_DATABASE_NAME}
+    env_file:
+      - ../.env.dev
+      - ../.env.dev.local
     extra_hosts:
       - host.docker.internal:host-gateway
     networks:
@@ -36,10 +31,11 @@ services:
 
   scheduler:
     build:
-      context: ./php
+      context: ..
+      dockerfile: .docker/php/Dockerfile
       target: scheduler
       args:
-        TIMEZONE: ${TIMEZONE}
+        TIMEZONE: 'Europe/Madrid'
     command: ["cron", "-f"]
     entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
     restart: unless-stopped
@@ -47,12 +43,9 @@ services:
       - ../:/var/www/presentation-portfolio-project-api:cached
       - app_var:/var/www/presentation-portfolio-project-api/var
       - app_vendor:/var/www/presentation-portfolio-project-api/vendor
-    environment:
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    env_file:
+      - ../.env.dev
+      - ../.env.dev.local
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:
@@ -62,13 +55,14 @@ services:
 
   nginx:
     build:
-      context: ./nginx
+      context: ..
+      dockerfile: .docker/nginx/Dockerfile
     volumes:
       - ../:/var/www/presentation-portfolio-project-api:cached
       - app_var:/var/www/presentation-portfolio-project-api/var
       - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     ports:
-      - ${SERVER_MAPPED_PORT}:${SERVER_PORT}
+      - 8000:80
     depends_on:
       - php
     networks:

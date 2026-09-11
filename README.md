@@ -35,7 +35,7 @@ This repository contains a **Symfony** application aimed to provide an **API** s
 - Run the test suites by executing the command: `php bin/phpunit`
   - Make sure to clear Symfony's test environment cache by running `sf cache:clear --env=test` before executing them.
   - **Important**: Create the **test** database by running the command `sf doctrine:database:create --env=test` and execute the corresponding migrations with `sf doctrine:migrations:migrate --env=test`.
-- Run the code coverage report with the command: `XDEBUG_MODE=coverage php bin/phpunit [--coverage-text]`
+- Run the code coverage report with the command: `APP_ENV=test XDEBUG_MODE=coverage php bin/phpunit [--coverage-text]` or simply run the Composer script `composer test`.
 
 ---
 
