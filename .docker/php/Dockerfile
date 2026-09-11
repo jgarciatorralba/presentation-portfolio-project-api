@@ -1,4 +1,5 @@
 FROM php:8.3.6-fpm-bookworm AS runtime
+
 ARG TIMEZONE
 
 COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
@@ -30,8 +31,8 @@ RUN docker-php-ext-install \
 RUN pecl install -o -f xdebug \
     && docker-php-ext-enable xdebug
 
-COPY run-project-sync.sh /usr/local/bin/run-project-sync.sh
-COPY scheduler-entrypoint.sh /usr/local/bin/scheduler-entrypoint.sh
+COPY scripts/run-project-sync.sh /usr/local/bin/run-project-sync.sh
+COPY scripts/scheduler-entrypoint.sh /usr/local/bin/scheduler-entrypoint.sh
 
 RUN chmod 755 /usr/local/bin/run-project-sync.sh \
     && chmod 755 /usr/local/bin/scheduler-entrypoint.sh
@@ -54,7 +55,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends cron \
     && rm -rf /var/lib/apt/lists/*
 
-COPY crontab /etc/cron.d/crontab
+COPY cron/crontab /etc/cron.d/crontab
 
 RUN chmod 0644 /etc/cron.d/crontab \
     && crontab /etc/cron.d/crontab \
