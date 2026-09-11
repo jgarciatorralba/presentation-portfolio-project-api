@@ -1,0 +1,89 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - backend
+
+  php:
+    build:
+      context: ..
+      dockerfile: .docker/php/Dockerfile.prod
+      target: runtime
+      args:
+        TIMEZONE: ${TIMEZONE}
+    restart: unless-stopped
+    environment:
+      APP_ENV: prod
+      APP_DEBUG: 0
+      APP_SECRET: ${APP_SECRET}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15}
+      DATABASE_CHARSET: UTF8
+      DATABASE_DRIVER: pdo_pgsql
+      GITHUB_API_TOKEN: ${GITHUB_API_TOKEN}
+      GITHUB_BASE_URI: ${GITHUB_BASE_URI:-https://api.github.com}
+      MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN:-doctrine://default?auto_setup=0}
+      LOCK_DSN: ${LOCK_DSN:-flock}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+      - edge
+
+  scheduler:
+    build:
+      context: ..
+      dockerfile: .docker/php/Dockerfile.prod
+      target: scheduler
+      args:
+        TIMEZONE: ${TIMEZONE:-UTC}
+    command: ["cron", "-f"]
+    restart: unless-stopped
+    entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
+    environment:
+      APP_ENV: prod
+      APP_DEBUG: 0
+      APP_SECRET: ${APP_SECRET}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_SERVER_VERSION: ${DATABASE_SERVER_VERSION:-15}
+      DATABASE_CHARSET: UTF8
+      DATABASE_DRIVER: pdo_pgsql
+      GITHUB_API_TOKEN: ${GITHUB_API_TOKEN}
+      GITHUB_BASE_URI: ${GITHUB_BASE_URI:-https://api.github.com}
+      MESSENGER_TRANSPORT_DSN: ${MESSENGER_TRANSPORT_DSN:-doctrine://default?auto_setup=0}
+      LOCK_DSN: ${LOCK_DSN:-flock}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - backend
+
+volumes:
+  pgdata:
+
+networks:
+  backend:
+  edge:
+    name: portfolio_edge
+    external: true
