@@ -1,14 +1,18 @@
 services:
   postgres:
     image: postgres:16-alpine
-    volumes:
-      - "pgdata:/var/lib/postgresql/data"
+    restart: unless-stopped
     env_file:
-      - ../.env.dev
-    ports:
-      - 6432:5432
+      - ../.env.prod
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER} -d ${DATABASE_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
-      - app
+      - backend
 
   php:
     build:
@@ -16,18 +20,16 @@ services:
       dockerfile: .docker/php/Dockerfile
       target: runtime
       args:
-        TIMEZONE: 'Europe/Madrid'
-    volumes:
-      - ../:/var/www/presentation-portfolio-project-api:cached
-      - app_var:/var/www/presentation-portfolio-project-api/var
-      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
+        TIMEZONE: ${TIMEZONE}
+    restart: unless-stopped
     env_file:
-      - ../.env.dev
-      - ../.env.dev.local
-    extra_hosts:
-      - host.docker.internal:host-gateway
+      - ../.env.prod
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
-      - app
+      - backend
+      - edge
 
   scheduler:
     build:
@@ -35,43 +37,23 @@ services:
       dockerfile: .docker/php/Dockerfile
       target: scheduler
       args:
-        TIMEZONE: 'Europe/Madrid'
+        TIMEZONE: ${TIMEZONE:-UTC}
     command: ["cron", "-f"]
-    entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
     restart: unless-stopped
-    volumes:
-      - ../:/var/www/presentation-portfolio-project-api:cached
-      - app_var:/var/www/presentation-portfolio-project-api/var
-      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
+    entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
     env_file:
-      - ../.env.dev
-      - ../.env.dev.local
-    extra_hosts:
-      - host.docker.internal:host-gateway
+      - ../.env.prod
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     networks:
-      - app
-
-  nginx:
-    build:
-      context: ..
-      dockerfile: .docker/nginx/Dockerfile
-    volumes:
-      - ../:/var/www/presentation-portfolio-project-api:cached
-      - app_var:/var/www/presentation-portfolio-project-api/var
-      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
-    ports:
-      - 8000:80
-    depends_on:
-      - php
-    networks:
-      - app
+      - backend
 
 volumes:
-  app_var:
-  app_vendor:
   pgdata:
 
 networks:
-  app:
+  backend:
+  edge:
+    name: portfolio_edge
+    external: true
