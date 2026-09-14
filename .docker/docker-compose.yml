@@ -5,7 +5,7 @@ services:
       dockerfile: .docker/php/Dockerfile
       target: runtime
       args:
-        TIMEZONE: ${TIMEZONE}
+        TIMEZONE: 'Europe/Madrid'
     restart: unless-stopped
     env_file:
       - ../.env.prod
@@ -19,7 +19,7 @@ services:
       dockerfile: .docker/php/Dockerfile
       target: scheduler
       args:
-        TIMEZONE: ${TIMEZONE:-UTC}
+        TIMEZONE: 'Europe/Madrid'
     command: ["cron", "-f"]
     restart: unless-stopped
     entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
