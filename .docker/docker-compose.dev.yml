@@ -1,0 +1,77 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    volumes:
+      - "pgdata:/var/lib/postgresql/data"
+    env_file:
+      - ../.env.dev
+    ports:
+      - 6432:5432
+    networks:
+      - app
+
+  php:
+    build:
+      context: ..
+      dockerfile: .docker/php/Dockerfile.dev
+      target: runtime
+      args:
+        TIMEZONE: 'Europe/Madrid'
+    volumes:
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
+    env_file:
+      - ../.env.dev
+      - ../.env.dev.local
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    networks:
+      - app
+
+  scheduler:
+    build:
+      context: ..
+      dockerfile: .docker/php/Dockerfile.dev
+      target: scheduler
+      args:
+        TIMEZONE: 'Europe/Madrid'
+    command: ["cron", "-f"]
+    entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
+    restart: unless-stopped
+    volumes:
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
+    env_file:
+      - ../.env.dev
+      - ../.env.dev.local
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    depends_on:
+      - postgres
+    networks:
+      - app
+
+  nginx:
+    build:
+      context: ..
+      dockerfile: .docker/nginx/Dockerfile
+    volumes:
+      - ../:/var/www/presentation-portfolio-project-api:cached
+      - app_var:/var/www/presentation-portfolio-project-api/var
+      - app_vendor:/var/www/presentation-portfolio-project-api/vendor
+    ports:
+      - 8000:80
+    depends_on:
+      - php
+    networks:
+      - app
+
+volumes:
+  app_var:
+  app_vendor:
+  pgdata:
+
+networks:
+  app:

@@ -1,54 +1,20 @@
 services:
-  postgres:
-    image: postgres:alpine
-    volumes:
-      - "pgdata:/var/lib/postgresql"
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME}
-      POSTGRES_USER: ${DATABASE_USER}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-    ports:
-      - ${DATABASE_MAPPED_PORT}:${DATABASE_PORT}
-    networks:
-      - app
-
   php:
     build:
-      context: ./php
+      context: ..
+      dockerfile: .docker/php/Dockerfile
       args:
-        TIMEZONE: ${TIMEZONE}
-    volumes:
-      - ../:/var/www/portfolio-api:cached
-      - app_var:/var/www/portfolio-api/var
-      - app_vendor:/var/www/portfolio-api/vendor
-    environment:
-      DATABASE_HOST: ${DATABASE_HOST}
-      DATABASE_PORT: ${DATABASE_PORT}
-      DATABASE_NAME: ${DATABASE_NAME}
-      DATABASE_USER: ${DATABASE_USER}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      TEST_DATABASE_NAME: ${TEST_DATABASE_NAME}
-    extra_hosts:
-      - host.docker.internal:host-gateway
+        TIMEZONE: 'Europe/Madrid'
+    restart: unless-stopped
+    env_file:
+      - ../.env.prod
+      - ../.env.prod.local
     networks:
-      - app
-
-  nginx:
-    build:
-      context: ./nginx
-    volumes:
-      - ../:/var/www/portfolio-api:cached
-      - app_var:/var/www/portfolio-api/var
-      - app_vendor:/var/www/portfolio-api/vendor
-    ports:
-      - ${SERVER_MAPPED_PORT}:${SERVER_PORT}
-    networks:
-      - app
-
-volumes:
-  app_var:
-  app_vendor:
-  pgdata:
+      - backend
+      - edge
 
 networks:
-  app:
+  backend:
+  edge:
+    name: portfolio_edge
+    external: true

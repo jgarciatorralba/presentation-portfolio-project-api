@@ -1,0 +1,11 @@
+.git
+.docker/.env*
+.env*
+var
+vendor
+html-coverage
+tests
+phpunit.xml
+phpstan.neon
+phpcs.xml
+rector.php
