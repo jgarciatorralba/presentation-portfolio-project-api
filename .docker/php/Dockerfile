@@ -1,4 +1,4 @@
-FROM php:8.3.6-fpm-bookworm AS runtime
+FROM php:8.3.6-fpm-bookworm
 
 ARG TIMEZONE
 
@@ -57,20 +57,6 @@ RUN touch .env \
     && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
 
-USER www-data
-
 ENTRYPOINT ["/usr/local/bin/entrypoint.prod.sh"]
+
 CMD ["php-fpm", "-F"]
-
-FROM runtime AS scheduler
-
-USER root
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends cron util-linux \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY .docker/php/cron/crontab.prod /etc/cron.d/presentation-portfolio-project-api
-RUN chmod 0644 /etc/cron.d/presentation-portfolio-project-api
-
-CMD ["cron", "-f"]
