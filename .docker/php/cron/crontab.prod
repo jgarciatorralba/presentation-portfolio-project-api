@@ -1,5 +1,6 @@
 SHELL=/bin/sh
 PATH=/usr/local/bin:/usr/bin:/bin
 
-# Synchronize internal projects with the external API twice per month.
-0 0 1,16 * * www-data /usr/local/bin/run-project-sync.sh >> /proc/1/fd/1 2>> /proc/1/fd/2
+# This cron job must be added manually to the production host.
+0 0 1,16 * * root cd /var/www/presentation-portfolio-project-infra && docker compose exec -T backend \
+    php bin/console app:projects:sync >> /var/log/projects-sync.log 2>> /var/log/projects-sync-error.log
