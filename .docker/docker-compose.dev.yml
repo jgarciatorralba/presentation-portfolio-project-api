@@ -16,7 +16,7 @@ services:
       dockerfile: .docker/php/Dockerfile.dev
       target: runtime
       args:
-        TIMEZONE: 'Europe/Madrid'
+        TIMEZONE: ${TIMEZONE}
     volumes:
       - ../:/var/www/presentation-portfolio-project-api:cached
       - app_var:/var/www/presentation-portfolio-project-api/var
@@ -35,7 +35,7 @@ services:
       dockerfile: .docker/php/Dockerfile.dev
       target: scheduler
       args:
-        TIMEZONE: 'Europe/Madrid'
+        TIMEZONE: ${TIMEZONE}
     command: ["cron", "-f"]
     entrypoint: ["/usr/local/bin/scheduler-entrypoint.sh"]
     restart: unless-stopped

@@ -10,7 +10,9 @@ else
 $(error ENV must be either 'dev' or 'prod')
 endif
 
-COMPOSE := cd .docker && docker compose -f $(COMPOSE_FILE)
+COMPOSE_ENV_FILE := --env-file ../.env.build
+
+COMPOSE := cd .docker && docker compose $(COMPOSE_ENV_FILE) -f $(COMPOSE_FILE)
 
 build:
 	$(COMPOSE) build
