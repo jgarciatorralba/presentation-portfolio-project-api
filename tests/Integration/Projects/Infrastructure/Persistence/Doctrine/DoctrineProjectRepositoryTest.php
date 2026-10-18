@@ -18,6 +18,7 @@ final class DoctrineProjectRepositoryTest extends IntegrationTestCase
 
     private DoctrineProjectRepository $sut;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -26,6 +27,7 @@ final class DoctrineProjectRepositoryTest extends IntegrationTestCase
             ->get(DoctrineProjectRepository::class);
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         $this->clearDatabase();

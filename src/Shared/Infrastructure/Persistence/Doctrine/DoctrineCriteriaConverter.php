@@ -8,11 +8,11 @@ use App\Shared\Domain\Criteria\Criteria;
 use App\Shared\Domain\Criteria\Filter\CompositeFilter;
 use App\Shared\Domain\Criteria\Filter\SimpleFilter;
 use App\Shared\Domain\Criteria\Order\Order;
+use App\Shared\Domain\Criteria\Order\OrderType;
 use Doctrine\Common\Collections\Criteria as DoctrineCriteria;
 use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Doctrine\Common\Collections\Expr\Expression;
-use Doctrine\Common\Collections\Order as DoctrineCriteriaOrder;
 
 final readonly class DoctrineCriteriaConverter
 {
@@ -45,7 +45,6 @@ final readonly class DoctrineCriteriaConverter
             $this->formatOrder($this->criteria),
             $this->criteria->offset() ?? 0,
             $this->criteria->limit(),
-            true
         );
     }
 
@@ -87,7 +86,7 @@ final readonly class DoctrineCriteriaConverter
     }
 
     /**
-     * @return array<string, DoctrineCriteriaOrder>|null
+     * @return array<string, \SortDirection>|null
      *
      * @throws \TypeError
      * @throws \ValueError
@@ -102,9 +101,10 @@ final readonly class DoctrineCriteriaConverter
 
         /** @var Order $order */
         foreach ($criteria->orderBy()->orderings() as $order) {
-            $orderArray[$order->field()] = DoctrineCriteriaOrder::from(
-                $order->type()->value
-            );
+            $orderArray[$order->field()] = match ($order->type()) {
+                OrderType::ASCENDING => \SortDirection::Ascending,
+                OrderType::DESCENDING => \SortDirection::Descending,
+            };
         }
 
         return $orderArray;

@@ -45,6 +45,7 @@ final readonly class ProjectDetails implements Comparable
         return $this->topics;
     }
 
+    #[\Override]
     public function equals(Comparable $details): bool
     {
         if (!$details instanceof self) {
@@ -60,7 +61,7 @@ final readonly class ProjectDetails implements Comparable
                 return false;
             }
             foreach ($this->topics as $topic) {
-                if (!in_array($topic, $details->topics)) {
+                if (!in_array($topic, $details->topics, true)) {
                     return false;
                 }
             }

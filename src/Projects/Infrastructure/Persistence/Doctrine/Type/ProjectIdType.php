@@ -9,7 +9,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class ProjectIdType extends Type
+final class ProjectIdType extends Type
 {
     public function getName(): string
     {
@@ -21,6 +21,7 @@ class ProjectIdType extends Type
         return $this->getName();
     }
 
+    #[\Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectId) {
@@ -47,6 +48,7 @@ class ProjectIdType extends Type
         }
     }
 
+    #[\Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof ProjectId) {

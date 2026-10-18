@@ -17,6 +17,7 @@ final class GetProjectsFunctionalTest extends FunctionalTestCase
     /** @var Project[] */
     private ?array $projects;
 
+    #[\Override]
     protected function setUp(): void
     {
         parent::setUp();
@@ -35,6 +36,7 @@ final class GetProjectsFunctionalTest extends FunctionalTestCase
         $this->projects = $projects;
     }
 
+    #[\Override]
     protected function tearDown(): void
     {
         $this->projects = null;

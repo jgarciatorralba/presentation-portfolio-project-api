@@ -26,6 +26,7 @@ final class TemporaryFileStream implements DataStream
         $this->rewind();
     }
 
+    #[\Override]
     public function __toString(): string
     {
         try {
@@ -37,6 +38,7 @@ final class TemporaryFileStream implements DataStream
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function close(): void
     {
         $result = fclose($this->resource);
@@ -47,6 +49,7 @@ final class TemporaryFileStream implements DataStream
     }
 
     /** @return resource */
+    #[\Override]
     public function detach()
     {
         $oldResource = $this->resource;
@@ -54,6 +57,7 @@ final class TemporaryFileStream implements DataStream
         return $oldResource;
     }
 
+    #[\Override]
     public function getSize(): ?int
     {
         $stat = fstat($this->resource);
@@ -61,6 +65,7 @@ final class TemporaryFileStream implements DataStream
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function tell(): int
     {
         $position = ftell($this->resource);
@@ -71,17 +76,20 @@ final class TemporaryFileStream implements DataStream
         return $position;
     }
 
+    #[\Override]
     public function eof(): bool
     {
         return feof($this->resource);
     }
 
+    #[\Override]
     public function isSeekable(): bool
     {
         return true;
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function seek(int $offset, int $whence = SEEK_SET): void
     {
         $result = fseek($this->resource, $offset, $whence);
@@ -92,6 +100,7 @@ final class TemporaryFileStream implements DataStream
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function rewind(): void
     {
         $result = rewind($this->resource);
@@ -101,12 +110,14 @@ final class TemporaryFileStream implements DataStream
         }
     }
 
+    #[\Override]
     public function isWritable(): bool
     {
         return true;
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function write(string $string): int
     {
         $bytes = fwrite($this->resource, $string);
@@ -118,12 +129,14 @@ final class TemporaryFileStream implements DataStream
         return $bytes;
     }
 
+    #[\Override]
     public function isReadable(): bool
     {
         return true;
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function read(int $length): string
     {
         $string = $length > 0 ? fread($this->resource, $length) : '';
@@ -136,6 +149,7 @@ final class TemporaryFileStream implements DataStream
     }
 
     /** @throws \RuntimeException */
+    #[\Override]
     public function getContents(): string
     {
         if ($contents = stream_get_contents($this->resource)) {
@@ -161,6 +175,7 @@ final class TemporaryFileStream implements DataStream
      *      mediatype: string
      * }|mixed|null
      */
+    #[\Override]
     public function getMetadata(?string $key = null): mixed
     {
         $metadata = stream_get_meta_data($this->resource);

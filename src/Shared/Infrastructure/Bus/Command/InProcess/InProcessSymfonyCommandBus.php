@@ -23,6 +23,7 @@ final readonly class InProcessSymfonyCommandBus implements CommandBus
      * @throws CommandNotRegisteredException
      * @throws ExceptionInterface
      */
+    #[\Override]
     public function dispatch(Command $command): void
     {
         try {

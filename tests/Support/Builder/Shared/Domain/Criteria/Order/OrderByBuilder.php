@@ -49,12 +49,10 @@ final class OrderByBuilder implements BuilderInterface
      */
     public static function randomOrderings(?int $numOrders = null): array
     {
-        if ($numOrders === null) {
-            $numOrders = FakeValueGenerator::integer(
-                self::MIN_ORDERINGS,
-                self::MAX_ORDERINGS
-            );
-        }
+        $numOrders ??= FakeValueGenerator::integer(
+            self::MIN_ORDERINGS,
+            self::MAX_ORDERINGS
+        );
 
         $orderings = [];
         for ($i = 0; $i < $numOrders; $i++) {

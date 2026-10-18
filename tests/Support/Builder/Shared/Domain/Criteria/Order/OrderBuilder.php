@@ -50,12 +50,10 @@ final class OrderBuilder implements BuilderInterface
      */
     public static function buildMany(?int $numOrders = null): array
     {
-        if ($numOrders === null) {
-            $numOrders = FakeValueGenerator::integer(
-                self::MIN_ORDERS,
-                self::MAX_ORDERS
-            );
-        }
+        $numOrders ??= FakeValueGenerator::integer(
+            self::MIN_ORDERS,
+            self::MAX_ORDERS
+        );
 
         $orders = [];
         for ($i = 0; $i < $numOrders; $i++) {
