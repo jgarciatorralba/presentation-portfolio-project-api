@@ -35,6 +35,7 @@ abstract readonly class Event implements ArraySerializable
     /**
      * @return array<string, string|array<string, string>>
      */
+    #[\Override]
     public function toArray(): array
     {
         return [

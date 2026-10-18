@@ -50,12 +50,10 @@ final class HttpHeadersBuilder implements BuilderInterface
      */
     private static function randomHeaders(?int $numHeaders = null): array
     {
-        if ($numHeaders === null) {
-            $numHeaders = FakeValueGenerator::integer(
-                min: self::MIN_HEADERS,
-                max: self::MAX_HEADERS
-            );
-        }
+        $numHeaders ??= FakeValueGenerator::integer(
+            min: self::MIN_HEADERS,
+            max: self::MAX_HEADERS
+        );
 
         $headers = [];
         for ($i = 0; $i < $numHeaders; $i++) {

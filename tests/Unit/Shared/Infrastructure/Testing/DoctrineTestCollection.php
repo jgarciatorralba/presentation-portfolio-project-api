@@ -34,6 +34,7 @@ class DoctrineTestCollection extends AbstractLazyCollection implements Selectabl
     /**
      * @return Collection<int, object>
      */
+    #[\Override]
     public function matching(Criteria $criteria): Collection
     {
         return $this->collection;

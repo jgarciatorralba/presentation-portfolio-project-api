@@ -42,6 +42,7 @@ final class SymfonyHttpClient implements HttpClientContract
      * @throws \ValueError
      * @throws \TypeError
      */
+    #[\Override]
     public function fetch(string $url, array $httpOptions): HttpResponseContract
     {
         try {
@@ -49,7 +50,7 @@ final class SymfonyHttpClient implements HttpClientContract
                 ->request(
                     method: 'GET',
                     url: $url,
-                    options: (new HttpOptions())
+                    options: new HttpOptions()
                         ->setBaseUri($httpOptions['baseUri'])
                         ->setQuery(
                             empty($httpOptions['query'])

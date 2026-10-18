@@ -39,12 +39,10 @@ final class QueryParamBuilder implements BuilderInterface
     /** @return string|string[] */
     private static function randomValues(?int $numValues = null): string|array
     {
-        if ($numValues === null) {
-            $numValues = FakeValueGenerator::integer(
-                min: self::MIN_VALUES,
-                max: self::MAX_VALUES
-            );
-        }
+        $numValues ??= FakeValueGenerator::integer(
+            min: self::MIN_VALUES,
+            max: self::MAX_VALUES
+        );
 
         $values = [];
         for ($i = 0; $i < $numValues; $i++) {

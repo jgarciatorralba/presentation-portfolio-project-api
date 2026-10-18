@@ -11,7 +11,7 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 
-class CodeRepositoryType extends Type
+final class CodeRepositoryType extends Type
 {
     public function getName(): string
     {
@@ -23,6 +23,7 @@ class CodeRepositoryType extends Type
         return $this->getName();
     }
 
+    #[\Override]
     public function convertToPHPValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof CodeRepository) {
@@ -49,6 +50,7 @@ class CodeRepositoryType extends Type
         }
     }
 
+    #[\Override]
     public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): mixed
     {
         if ($value instanceof CodeRepository) {

@@ -1,5 +1,4 @@
-FROM php:8.3.6-fpm-bookworm
-
+FROM php:8.5.4-fpm-bookworm
 ARG TIMEZONE
 
 ENV APP_ENV=prod \
@@ -23,7 +22,7 @@ RUN apt-get update \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
 RUN docker-php-ext-install -j"$(nproc)" \
-    pdo_pgsql zip xsl gd intl opcache
+    pdo_pgsql zip xsl gd intl
 
 RUN rm -rf /var/lib/apt/lists/*
 

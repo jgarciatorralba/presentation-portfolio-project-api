@@ -39,12 +39,10 @@ final class QueryParamsBuilder implements BuilderInterface
     /** @return QueryParam[] */
     private static function randomParams(?int $numParams = null): array
     {
-        if ($numParams === null) {
-            $numParams = FakeValueGenerator::integer(
-                min: self::MIN_PARAMS,
-                max: self::MAX_PARAMS
-            );
-        }
+        $numParams ??= FakeValueGenerator::integer(
+            min: self::MIN_PARAMS,
+            max: self::MAX_PARAMS
+        );
 
         $params = [];
 

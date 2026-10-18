@@ -18,8 +18,6 @@ doctrine:
       url: App\Shared\Infrastructure\Persistence\Doctrine\Type\UrlType
 
   orm:
-    auto_generate_proxy_classes: true
-    enable_lazy_ghost_objects: true
     validate_xml_mapping: true
     naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
     identity_generation_preferences:
@@ -42,14 +40,9 @@ doctrine:
       softdeleteable:
         class: App\Shared\Infrastructure\Persistence\Doctrine\Filter\SoftDeleteableFilter
         enabled: true
-    controller_resolver:
-      auto_mapping: false
-
 when@prod:
   doctrine:
     orm:
-      auto_generate_proxy_classes: false
-      proxy_dir: "%kernel.build_dir%/doctrine/orm/Proxies"
       query_cache_driver:
         type: pool
         pool: doctrine.system_cache_pool

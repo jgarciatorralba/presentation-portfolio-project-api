@@ -23,6 +23,7 @@ final readonly class QueryParams implements ArraySerializable, Stringable
         $this->params = array_values($mappedParams);
     }
 
+    #[\Override]
     public function __toString(): string
     {
         return implode('&', array_map(strval(...), $this->params));
@@ -31,6 +32,7 @@ final readonly class QueryParams implements ArraySerializable, Stringable
     /**
      * @return array<string, string|string[]>
      */
+    #[\Override]
     public function toArray(): array
     {
         $paramsArray = [];

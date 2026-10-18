@@ -22,6 +22,7 @@ abstract readonly class DomainEvent extends Event
     /**
      * @return array<string, string|array<string, string>>
      */
+    #[\Override]
     public function toArray(): array
     {
         return array_merge(
