@@ -16,7 +16,7 @@ final class MappedProjectsBuilder implements BuilderInterface
     private const int MAX_PROJECTS = 100;
 
     /** @var list<Project> */
-    private array $projects = [];
+    private array $projects;
 
     private function __construct(
         Project ...$projects
