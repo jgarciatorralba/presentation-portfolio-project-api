@@ -40,9 +40,6 @@ doctrine:
       softdeleteable:
         class: App\Shared\Infrastructure\Persistence\Doctrine\Filter\SoftDeleteableFilter
         enabled: true
-    controller_resolver:
-      auto_mapping: false
-
 when@prod:
   doctrine:
     orm:
