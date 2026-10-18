@@ -1,4 +1,4 @@
-FROM php:8.4.11-fpm-bookworm
+FROM php:8.5.4-fpm-bookworm
 ARG TIMEZONE
 
 COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
@@ -6,6 +6,7 @@ COPY php.ini /usr/local/etc/php/conf.d/docker-php-config.ini
 RUN apt-get update && apt-get install -y \
     acl \
     cron \
+    curl \
     git \
     gnupg \
     g++ \
@@ -27,7 +28,7 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-jpeg --with-freetype
 
 RUN docker-php-ext-install \
-    pdo pdo_pgsql zip xsl gd intl opcache exif mbstring
+    pdo pdo_pgsql zip xsl gd intl exif mbstring
 
 RUN pecl install -o -f xdebug \
     && docker-php-ext-enable xdebug
