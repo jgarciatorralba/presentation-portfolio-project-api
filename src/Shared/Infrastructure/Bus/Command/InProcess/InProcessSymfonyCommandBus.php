@@ -7,6 +7,7 @@ namespace App\Shared\Infrastructure\Bus\Command\InProcess;
 use App\Shared\Application\Bus\Exception\CommandNotRegisteredException;
 use App\Shared\Domain\Bus\Command\Command;
 use App\Shared\Domain\Bus\Command\CommandBus;
+use Symfony\Component\DependencyInjection\Attribute\Target;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Messenger\Exception\ExceptionInterface;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
@@ -15,7 +16,8 @@ use Symfony\Component\Messenger\Exception\NoHandlerForMessageException;
 final readonly class InProcessSymfonyCommandBus implements CommandBus
 {
     public function __construct(
-        private MessageBusInterface $commandBus
+		#[Target('command.bus')]
+        private MessageBusInterface $bus
     ) {
     }
 
@@ -27,7 +29,7 @@ final readonly class InProcessSymfonyCommandBus implements CommandBus
     public function dispatch(Command $command): void
     {
         try {
-            $this->commandBus->dispatch($command);
+            $this->bus->dispatch($command);
         } catch (NoHandlerForMessageException) {
             throw new CommandNotRegisteredException($command);
         } catch (HandlerFailedException $exception) {
