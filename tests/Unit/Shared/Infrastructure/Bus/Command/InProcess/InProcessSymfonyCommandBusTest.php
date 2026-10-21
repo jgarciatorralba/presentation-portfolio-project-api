@@ -24,7 +24,7 @@ final class InProcessSymfonyCommandBusTest extends TestCase
     {
         $this->commandBusMock = new CommandBusMock($this);
         $this->sut = new InProcessSymfonyCommandBus(
-            commandBus: $this->commandBusMock->getMock()
+            bus: $this->commandBusMock->getMock()
         );
         $this->command = $this->createStub(Command::class);
     }

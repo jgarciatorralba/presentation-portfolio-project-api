@@ -19,7 +19,7 @@ final class InProcessSymfonyEventBusTest extends TestCase
     {
         $this->eventBusMock = new EventBusMock($this);
         $this->sut = new InProcessSymfonyEventBus(
-            eventBus: $this->eventBusMock->getMock()
+            bus: $this->eventBusMock->getMock()
         );
     }
 
