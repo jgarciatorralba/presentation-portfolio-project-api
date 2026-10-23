@@ -1,4 +1,4 @@
-FROM php:8.3.6-fpm-bookworm AS runtime
+FROM php:8.5.4-fpm-bookworm AS runtime
 
 ARG TIMEZONE
 
