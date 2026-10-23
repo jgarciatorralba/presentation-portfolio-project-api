@@ -1,6 +1,6 @@
 {
   "name": "Portfolio Project - API",
-  "dockerComposeFile": ["../.docker/docker-compose.yml"],
+  "dockerComposeFile": ["../.docker/docker-compose.dev.yml"],
   "service": "php",
   "workspaceFolder": "/var/www/presentation-portfolio-project-api",
   "shutdownAction": "none",
