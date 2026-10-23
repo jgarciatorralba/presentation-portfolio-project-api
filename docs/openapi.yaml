@@ -26,8 +26,6 @@ paths:
           description: Maximum number of projects returned in a single page. The server caps the value at 50.
           schema:
             type: integer
-            minimum: 1
-            maximum: 50
             default: 50
             example: 10
         - in: query
@@ -85,18 +83,6 @@ paths:
                   value:
                     count: 0
                     projects: []
-        '400':
-          description: Invalid client input (for example, malformed repository URL in downstream flow).
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-              examples:
-                invalidCodeRepositoryUrl:
-                  summary: Bad request domain validation
-                  value:
-                    code: invalid_code_repository_url
-                    errorMessage: Invalid code repository URL.
         '500':
           description: Unexpected server-side error.
           content:
