@@ -6,10 +6,10 @@ info:
     API that exposes the GitHub projects used by the portfolio.
     The project data is retrieved from the internal application database and can be queried with pagination and a `maxPushedAt` cutoff.
 servers:
-  - url: http://localhost:8000
+  - url: http://localhost:8000/api
     description: Local Docker development environment
 paths:
-  /api/projects:
+  /projects:
     get:
       operationId: listProjects
       tags:
