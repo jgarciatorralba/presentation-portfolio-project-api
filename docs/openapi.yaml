@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: Portfolio Projects API
+  version: 1.0.0
+  description: |
+    API that exposes the GitHub projects used by the portfolio.
+    The project data is retrieved from the internal application database and can be queried with pagination and a `maxPushedAt` cutoff.
+servers:
+  - url: http://localhost:8000
+    description: Local Docker development environment
+paths:
+  /api/projects:
+    get:
+      operationId: listProjects
+      tags:
+        - Projects
+      summary: List portfolio projects
+      description: |
+        Returns the projects ordered by most recent `lastPushedAt` first. The result can be
+        paginated with `pageSize` and filtered with `maxPushedAt` so only projects pushed before
+        a certain timestamp are returned.
+      parameters:
+        - in: query
+          name: pageSize
+          required: false
+          description: Maximum number of projects returned in a single page. The server caps the value at 50.
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 50
+            default: 50
+            example: 10
+        - in: query
+          name: maxPushedAt
+          required: false
+          description: UTC timestamp (ISO-8601) used as an upper bound. Only projects with `lastPushedAt` before this value are returned.
+          schema:
+            type: string
+            format: date-time
+            pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'
+            example: "2024-10-23T20:41:41.000Z"
+      responses:
+        '200':
+          description: Successful project listing.
+          headers:
+            Next:
+              description: "'1' when more results are available; empty string otherwise."
+              schema:
+                type: string
+                enum: ["", "1"]
+                example: "1"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectListResponse'
+              examples:
+                withResults:
+                  summary: First page with available next page
+                  value:
+                    count: 2
+                    projects:
+                      - id: 1001
+                        name: presentation-portfolio-project-api
+                        description: Symfony API for a portfolio of GitHub projects
+                        topics:
+                          - symfony
+                          - php
+                          - api
+                        repository: https://github.com/jgarciatorralba/presentation-portfolio-project-api
+                        homepage: https://jorge-garcia.dev
+                        archived: false
+                        lastPushedAt: "2026-10-20T14:35:01.123Z"
+                      - id: 1002
+                        name: presentation-portfolio-project-web
+                        description: Frontend for the portfolio site
+                        topics:
+                          - react
+                          - typescript
+                        repository: https://github.com/jgarciatorralba/presentation-portfolio-project-web
+                        homepage: null
+                        archived: false
+                        lastPushedAt: "2026-10-18T09:10:22.450Z"
+                emptyResult:
+                  summary: No projects for the provided maxPushedAt
+                  value:
+                    count: 0
+                    projects: []
+        '400':
+          description: Invalid client input (for example, malformed repository URL in downstream flow).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalidCodeRepositoryUrl:
+                  summary: Bad request domain validation
+                  value:
+                    code: invalid_code_repository_url
+                    errorMessage: Invalid code repository URL.
+        '500':
+          description: Unexpected server-side error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unexpectedError:
+                  summary: Unhandled runtime exception
+                  value:
+                    code: runtime_exception
+                    errorMessage: An unexpected error has occurred.
+components:
+  schemas:
+    Project:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - description
+        - topics
+        - repository
+        - homepage
+        - archived
+        - lastPushedAt
+      properties:
+        id:
+          type: integer
+          description: Internal project identifier.
+          example: 12345
+        name:
+          type: string
+          description: Project name as stored in the source repository metadata.
+          example: "presentation-portfolio-project-api"
+        description:
+          type: string
+          nullable: true
+          description: Short project description from the repository metadata.
+          example: "Symfony API for a portfolio of GitHub projects"
+        topics:
+          type: array
+          nullable: true
+          description: List of topic tags associated to the project.
+          items:
+            type: string
+          example:
+            - symfony
+            - php
+            - api
+        repository:
+          type: string
+          format: uri
+          description: Repository URL.
+          example: "https://github.com/jgarciatorralba/presentation-portfolio-project-api"
+        homepage:
+          type: string
+          format: uri
+          nullable: true
+          description: Project homepage URL when available; otherwise null.
+          example: null
+        archived:
+          type: boolean
+          description: Whether the project has been archived upstream.
+          example: false
+        lastPushedAt:
+          type: string
+          format: date-time
+          pattern: '^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$'
+          description: UTC timestamp of the most recent push to the repository, including milliseconds.
+          example: "2024-10-23T20:41:41.000Z"
+    ProjectListResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - count
+        - projects
+      properties:
+        count:
+          type: integer
+          description: Number of projects returned in this page.
+          example: 10
+        projects:
+          type: array
+          description: List of projects for the current page.
+          items:
+            $ref: '#/components/schemas/Project'
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - code
+        - errorMessage
+      properties:
+        code:
+          type: string
+          description: Machine-readable error code.
+          example: internal_server_error
+        errorMessage:
+          type: string
+          description: Human-readable error message.
+          example: An unexpected error has occurred.
+        errors:
+          type: object
+          nullable: true
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Validation details, when the exception originated from request validation.
+          example:
+            field:
+              - This value is invalid.

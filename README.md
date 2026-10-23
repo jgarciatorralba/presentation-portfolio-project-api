@@ -15,6 +15,7 @@ This repository contains a **Symfony** application aimed to provide an **API** s
 - Dockerized Environment: Simplified setup and consistent development environment using Docker.
 - Domain-Driven Design: Implementing DDD principles for a clear and maintainable codebase.
 - Layered Architecture: Structured into Application, Domain, and Infrastructure layers for better separation of concerns and scalability.
+- OpenAPI specification: Available at `docs/openapi.yaml`.
 
 ---
 
