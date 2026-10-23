@@ -26,7 +26,8 @@
         "swordev.phpstan",
         "obliviousharmony.vscode-php-codesniffer",
         "ecodes.vscode-phpmd",
-        "ritwickdey.liveserver"
+        "ritwickdey.liveserver",
+        "42Crunch.vscode-openapi"
       ]
     }
   }
