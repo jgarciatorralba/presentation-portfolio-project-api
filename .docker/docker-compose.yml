@@ -36,6 +36,8 @@ services:
   nginx:
     build:
       context: ./nginx
+    depends_on:
+      - php
     volumes:
       - ../:/var/www/portfolio-api:cached
       - app_var:/var/www/portfolio-api/var
