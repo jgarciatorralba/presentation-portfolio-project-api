@@ -1,0 +1,22 @@
+// Project portfolio database schema
+
+// PostgreSQL domains are represented by their underlying DBML types.
+Table projects {
+  id bigint [pk, not null, note: 'PostgreSQL domain: project_id']
+  name varchar(255) [not null]
+  description text
+  topics text [note: 'PostgreSQL simple_array; stores a comma-separated list']
+  repository text [not null, note: 'PostgreSQL domain: code_repository']
+  homepage text [note: 'PostgreSQL domain: url']
+  archived boolean [not null, default: false]
+  last_pushed_at timestamptz [not null]
+  created_at timestamptz [not null]
+  updated_at timestamptz [not null]
+  deleted_at timestamptz
+  created_at_timestamp bigint [pk, not null, note: 'Technical column used to complete the composite primary key']
+
+  indexes {
+    id [name: 'id_idx']
+    (id, deleted_at) [unique, name: 'unique_id_deleted_at_idx']
+  }
+}
