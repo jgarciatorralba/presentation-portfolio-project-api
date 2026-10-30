@@ -7,7 +7,7 @@
       "request": "launch",
       "port": 9003,
       "pathMappings": {
-        "/var/www/portfolio-api": "${workspaceFolder}"
+        "/var/www/presentation-portfolio-project-api": "${workspaceFolder}"
       }
     }
   ]
