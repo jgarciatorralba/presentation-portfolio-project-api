@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class GitHubProjectRetrieverTest extends TestCase
 {
-    private const string API_TOKEN = 'valid-api-token';
+    private const string USERNAME = 'valid-username';
     private const string BASE_URI = 'https://example.com';
     private const string FILE_PATH = '/Support/Simulations/GitHub/user-projects.json';
 
@@ -30,8 +30,8 @@ final class GitHubProjectRetrieverTest extends TestCase
         $this->loggerMock = new LoggerMock($this);
 
         $this->sut = new GitHubProjectRetriever(
-            apiToken: self::API_TOKEN,
-            baseUri: self::BASE_URI,
+			baseUri: self::BASE_URI,
+            username: self::USERNAME,
             httpClient: $this->httpClientMock->getMock(),
             logger: $this->loggerMock->getMock(),
         );
@@ -120,7 +120,7 @@ final class GitHubProjectRetrieverTest extends TestCase
                     'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json'),
-                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=2>;')
+                        new HttpHeader('Link', '<https://api.github.com/users/valid-username/repos?page=2>; rel="next", <https://api.github.com/users/valid-username/repos?page=2>;')
                     ]
                 ],
                 [
@@ -128,7 +128,7 @@ final class GitHubProjectRetrieverTest extends TestCase
                     'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json'),
-                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=3>; rel="last"')
+                        new HttpHeader('Link', '<https://api.github.com/users/valid-username/repos?page=2>; rel="next", <https://api.github.com/users/valid-username/repos?page=3>; rel="last"')
                     ]
                 ],
                 [
@@ -145,7 +145,7 @@ final class GitHubProjectRetrieverTest extends TestCase
                     'error' => null,
                     'headers' => [
                         new HttpHeader('Content-Type', 'application/json'),
-                        new HttpHeader('Link', '<https://api.github.com/user/repos?page=2>; rel="next", <https://api.github.com/user/repos?page=2>;')
+                        new HttpHeader('Link', '<https://api.github.com/users/valid-username/repos?page=2>; rel="next", <https://api.github.com/users/valid-username/repos?page=2>;')
                     ]
                 ],
                 [
