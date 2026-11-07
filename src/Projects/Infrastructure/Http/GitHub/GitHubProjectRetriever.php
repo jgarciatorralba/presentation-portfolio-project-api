@@ -38,7 +38,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
         do {
             $this->logger->info('Retrieving projects from GitHub');
 
-			$endpoint = sprintf('/users/%s/repos', $this->username);
+            $endpoint = sprintf('/users/%s/repos', $this->username);
 
             $headers = new HttpHeaders(
                 new HttpHeader('Accept', 'application/vnd.github+json'),

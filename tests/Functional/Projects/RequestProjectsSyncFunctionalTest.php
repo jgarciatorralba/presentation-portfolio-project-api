@@ -32,7 +32,7 @@ final class RequestProjectsSyncFunctionalTest extends FunctionalTestCase
     {
         parent::setUp();
 
-		$this->clearLogs();
+        $this->clearLogs();
 
         $this->projectData = json_decode(
             file_get_contents(dirname(__DIR__, 2) . self::FILE_PATH),

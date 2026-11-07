@@ -30,7 +30,7 @@ final class GitHubProjectRetrieverTest extends TestCase
         $this->loggerMock = new LoggerMock($this);
 
         $this->sut = new GitHubProjectRetriever(
-			baseUri: self::BASE_URI,
+            baseUri: self::BASE_URI,
             username: self::USERNAME,
             httpClient: $this->httpClientMock->getMock(),
             logger: $this->loggerMock->getMock(),

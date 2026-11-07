@@ -14,7 +14,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 final readonly class InProcessSymfonyEventBus implements EventBus
 {
     public function __construct(
-		#[Target('event.bus')]
+        #[Target('event.bus')]
         private MessageBusInterface $bus
     ) {
     }

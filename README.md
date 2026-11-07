@@ -19,10 +19,18 @@ This repository contains a **Symfony** application aimed to provide an **API** s
 
 ---
 
+## Requirements
+
+- **Docker**: Ensure Docker is installed and running on your machine.
+- **Docker Compose**: Required for managing multi-container Docker applications.
+- **Make**: Required for executing the provided Makefile commands to streamline setup and management tasks.
+
+---
+
 ## Installation
 
 - Clone this repo: `git clone git@github.com:jgarciatorralba/presentation-portfolio-project-api.git`
-- Navigate to the `/.docker` folder, then run `docker compose up -d` to download images and set up containers.
+- Run `make up` to download images and set up containers.
   - **Important**: the configuration is prepared to expose the server container's port on host's port 8000 and the database container's port on host's 6432, so make sure they are available before running the above command.
 - Once completed, open with VisualStudio and in the command palette (*"View > Command Palette"*) select the option *"Dev Containers: Reopen in Container"*.
 - Inside the development container, install packages with `composer install`.
