@@ -38,8 +38,9 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
         do {
             $this->logger->info('Retrieving projects from GitHub');
 
+            $endpoint = sprintf('/users/%s/repos', $this->username);
+
             $headers = new HttpHeaders(
-                new HttpHeader('Authorization', "Bearer {$this->apiToken}"),
                 new HttpHeader('Accept', 'application/vnd.github+json'),
             );
 
@@ -48,7 +49,7 @@ final class GitHubProjectRetriever extends BaseProjectRetriever implements Exter
                 new QueryParam('page', (string) self::$page++),
             );
 
-            $response = $this->httpClient->fetch('/user/repos', [
+            $response = $this->httpClient->fetch($endpoint, [
                 'baseUri' => $this->baseUri->value(),
                 'headers' => $headers,
                 'query' => $queryParams

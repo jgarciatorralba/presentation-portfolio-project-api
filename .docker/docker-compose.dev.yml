@@ -23,7 +23,6 @@ services:
       - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     env_file:
       - ../.env.dev
-      - ../.env.dev.local
     extra_hosts:
       - host.docker.internal:host-gateway
     networks:
@@ -45,7 +44,6 @@ services:
       - app_vendor:/var/www/presentation-portfolio-project-api/vendor
     env_file:
       - ../.env.dev
-      - ../.env.dev.local
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:

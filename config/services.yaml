@@ -31,5 +31,5 @@ services:
 
   App\Projects\Infrastructure\Http\GitHub\GitHubProjectRetriever:
     arguments:
-      $apiToken: "%env(resolve:GITHUB_API_TOKEN)%"
       $baseUri: "%env(resolve:GITHUB_BASE_URI)%"
+      $username: "%env(resolve:GITHUB_USERNAME)%"

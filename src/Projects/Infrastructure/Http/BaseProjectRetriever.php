@@ -15,8 +15,8 @@ abstract class BaseProjectRetriever
 
     /** @throws \InvalidArgumentException */
     public function __construct(
-        protected readonly string $apiToken,
         string $baseUri,
+        protected readonly string $username,
         protected readonly HttpClient $httpClient,
         protected readonly Logger $logger
     ) {
