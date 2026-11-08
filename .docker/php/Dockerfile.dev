@@ -43,11 +43,9 @@ RUN curl -fsSL "https://github.com/xdebug/xdebug/archive/refs/tags/${XDEBUG_VERS
     && docker-php-ext-enable xdebug \
     && rm -rf /tmp/xdebug /tmp/xdebug.tar.gz
 
-COPY .docker/php/scripts/run-project-sync.sh /usr/local/bin/run-project-sync.sh
 COPY .docker/php/scripts/scheduler-entrypoint.sh /usr/local/bin/scheduler-entrypoint.sh
 
-RUN chmod 755 /usr/local/bin/run-project-sync.sh \
-    && chmod 755 /usr/local/bin/scheduler-entrypoint.sh
+RUN chmod 755 /usr/local/bin/scheduler-entrypoint.sh
 
 # Set timezone
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone \

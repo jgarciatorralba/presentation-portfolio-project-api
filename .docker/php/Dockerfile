@@ -44,15 +44,15 @@ RUN composer install \
 
 COPY . .
 COPY .docker/php/php.prod.ini /usr/local/etc/php/conf.d/zz-production.ini
-COPY .docker/php/scripts/entrypoint.prod.sh /usr/local/bin/entrypoint.prod.sh
+COPY .docker/php/scripts/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
+COPY .docker/php/scripts/run-migrations.sh /usr/local/bin/run-migrations.sh
 COPY .docker/php/scripts/run-project-sync.sh /usr/local/bin/run-project-sync.sh
-COPY .docker/php/scripts/scheduler-entrypoint.sh /usr/local/bin/scheduler-entrypoint.sh
 
 RUN touch .env \
     && composer dump-autoload --no-dev --classmap-authoritative \
-    && chmod 755 /usr/local/bin/entrypoint.prod.sh \
+    && chmod 755 /usr/local/bin/entrypoint.sh \
+    && chmod 755 /usr/local/bin/run-migrations.sh \
     && chmod 755 /usr/local/bin/run-project-sync.sh \
-    && chmod 755 /usr/local/bin/scheduler-entrypoint.sh \
     && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
 
