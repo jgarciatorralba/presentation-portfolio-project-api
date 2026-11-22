@@ -14,27 +14,34 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PHP_VERSION: "8.4"
+  COMPOSER_CACHE_DIR: /tmp/composer-cache
 
 jobs:
   quality:
     name: Quality
     runs-on: ubuntu-latest
+    container:
+      image: php:8.4-cli
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Cache Composer packages
+        uses: actions/cache@v4
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          tools: composer
-          extensions: ctype, iconv, pdo_pgsql
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: composer-${{ runner.os }}-php-8.4-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-php-8.4-
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - name: Install Composer dependencies
+        run: |
+          apt-get update
+          apt-get install -y git unzip curl libpq-dev
+          docker-php-ext-install pdo_pgsql
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install --no-interaction --prefer-dist --no-progress
 
       - name: Run PHP_CodeSniffer
         run: vendor/bin/phpcs
@@ -46,21 +53,28 @@ jobs:
     name: Unit Tests
     needs: quality
     runs-on: ubuntu-latest
+    container:
+      image: php:8.4-cli
 
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Cache Composer packages
+        uses: actions/cache@v4
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          tools: composer
-          extensions: ctype, iconv, pdo_pgsql
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: composer-${{ runner.os }}-php-8.4-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-php-8.4-
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - name: Install Composer dependencies
+        run: |
+          apt-get update
+          apt-get install -y git unzip curl libpq-dev
+          docker-php-ext-install pdo_pgsql
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install --no-interaction --prefer-dist --no-progress
 
       - name: Run unit tests
         run: APP_ENV=test php bin/phpunit --testsuite unit --no-coverage
@@ -69,6 +83,8 @@ jobs:
     name: Integration Tests
     needs: unit-tests
     runs-on: ubuntu-latest
+    container:
+      image: php:8.4-cli
 
     services:
       postgres:
@@ -90,7 +106,7 @@ jobs:
       APP_SECRET: test-secret
       DATABASE_NAME: app_db_test
       TEST_DATABASE_NAME: app_db_test
-      DATABASE_HOST: 127.0.0.1
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE_USER: test
       DATABASE_PASSWORD: test
@@ -106,16 +122,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Cache Composer packages
+        uses: actions/cache@v4
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          tools: composer
-          extensions: ctype, iconv, pdo_pgsql
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: composer-${{ runner.os }}-php-8.4-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-php-8.4-
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - name: Install Composer dependencies
+        run: |
+          apt-get update
+          apt-get install -y git unzip curl libpq-dev
+          docker-php-ext-install pdo_pgsql
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install --no-interaction --prefer-dist --no-progress
 
       - name: Clear test cache
         run: php bin/console cache:clear --env=test
@@ -136,6 +157,8 @@ jobs:
     name: Functional Tests
     needs: integration-tests
     runs-on: ubuntu-latest
+    container:
+      image: php:8.4-cli
 
     services:
       postgres:
@@ -157,7 +180,7 @@ jobs:
       APP_SECRET: test-secret
       DATABASE_NAME: app_db_test
       TEST_DATABASE_NAME: app_db_test
-      DATABASE_HOST: 127.0.0.1
+      DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       DATABASE_USER: test
       DATABASE_PASSWORD: test
@@ -173,16 +196,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Cache Composer packages
+        uses: actions/cache@v4
         with:
-          php-version: ${{ env.PHP_VERSION }}
-          coverage: none
-          tools: composer
-          extensions: ctype, iconv, pdo_pgsql
+          path: ${{ env.COMPOSER_CACHE_DIR }}
+          key: composer-${{ runner.os }}-php-8.4-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-${{ runner.os }}-php-8.4-
 
-      - name: Install dependencies
-        uses: ramsey/composer-install@v3
+      - name: Install Composer dependencies
+        run: |
+          apt-get update
+          apt-get install -y git unzip curl libpq-dev
+          docker-php-ext-install pdo_pgsql
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer install --no-interaction --prefer-dist --no-progress
 
       - name: Clear test cache
         run: php bin/console cache:clear --env=test
