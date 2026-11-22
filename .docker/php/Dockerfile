@@ -44,7 +44,7 @@ RUN composer install \
 
 COPY . .
 COPY .docker/php/php.prod.ini /usr/local/etc/php/conf.d/zz-production.ini
-COPY .docker/php/scripts/entrypoint.prod.sh /usr/local/bin/entrypoint.sh
+COPY .docker/php/scripts/entrypoint.sh /usr/local/bin/entrypoint.sh
 COPY .docker/php/scripts/run-migrations.sh /usr/local/bin/run-migrations.sh
 COPY .docker/php/scripts/run-project-sync.sh /usr/local/bin/run-project-sync.sh
 

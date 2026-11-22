@@ -155,7 +155,7 @@ jobs:
 
   functional-tests:
     name: Functional Tests
-    needs: integration-tests
+    needs: unit-tests
     runs-on: ubuntu-latest
     container:
       image: php:8.4-cli
@@ -230,7 +230,9 @@ jobs:
   publish:
     name: Publish latest image to GHCR
     runs-on: ubuntu-latest
-    needs: functional-tests
+    needs:
+      - integration-tests
+      - functional-tests
     permissions:
       contents: read
       packages: write
