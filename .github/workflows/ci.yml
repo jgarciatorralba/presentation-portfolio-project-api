@@ -97,7 +97,10 @@ jobs:
       DATABASE_SERVER_VERSION: "18"
       DATABASE_CHARSET: UTF8
       DATABASE_DRIVER: pdo_pgsql
+      GITHUB_BASE_URI: https://api.github.com
       GITHUB_USERNAME: test-username
+      LOCK_DSN: flock
+      MESSENGER_TRANSPORT_DSN: doctrine://default?auto_setup=0
 
     steps:
       - name: Checkout
@@ -117,6 +120,9 @@ jobs:
       - name: Clear test cache
         run: php bin/console cache:clear --env=test
 
+      - name: Create test runtime directories
+        run: mkdir -p var/log/test var/cache/test
+
       - name: Create test database
         run: php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
 
@@ -128,7 +134,7 @@ jobs:
 
   functional-tests:
     name: Functional Tests
-    needs: unit-tests
+    needs: integration-tests
     runs-on: ubuntu-latest
 
     services:
@@ -158,7 +164,10 @@ jobs:
       DATABASE_SERVER_VERSION: "18"
       DATABASE_CHARSET: UTF8
       DATABASE_DRIVER: pdo_pgsql
+      GITHUB_BASE_URI: https://api.github.com
       GITHUB_USERNAME: test-username
+      LOCK_DSN: flock
+      MESSENGER_TRANSPORT_DSN: doctrine://default?auto_setup=0
 
     steps:
       - name: Checkout
@@ -177,6 +186,9 @@ jobs:
 
       - name: Clear test cache
         run: php bin/console cache:clear --env=test
+
+      - name: Create test runtime directories
+        run: mkdir -p var/log/test var/cache/test
 
       - name: Create test database
         run: php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
