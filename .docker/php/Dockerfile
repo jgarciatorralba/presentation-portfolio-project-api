@@ -56,6 +56,6 @@ RUN touch .env \
     && mkdir -p var/cache var/log \
     && chown -R www-data:www-data var
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.prod.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 CMD ["php-fpm", "-F"]
