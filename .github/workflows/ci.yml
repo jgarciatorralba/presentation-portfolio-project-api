@@ -1,0 +1,188 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PHP_VERSION: "8.4"
+
+jobs:
+  quality:
+    name: Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer
+          extensions: ctype, iconv, pdo_pgsql
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Run PHP_CodeSniffer
+        run: vendor/bin/phpcs
+
+      - name: Run PHPStan
+        run: vendor/bin/phpstan analyse --no-progress
+
+  unit-tests:
+    name: Unit Tests
+    needs: quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer
+          extensions: ctype, iconv, pdo_pgsql
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Run unit tests
+        run: APP_ENV=test php bin/phpunit --testsuite unit --no-coverage
+
+  integration-tests:
+    name: Integration Tests
+    needs: unit-tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: app_db_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d app_db_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      APP_ENV: test
+      APP_SECRET: test-secret
+      DATABASE_NAME: app_db_test
+      TEST_DATABASE_NAME: app_db_test
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 5432
+      DATABASE_USER: test
+      DATABASE_PASSWORD: test
+      DATABASE_SERVER_VERSION: "18"
+      DATABASE_CHARSET: UTF8
+      DATABASE_DRIVER: pdo_pgsql
+      GITHUB_USERNAME: test-username
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer
+          extensions: ctype, iconv, pdo_pgsql
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Clear test cache
+        run: php bin/console cache:clear --env=test
+
+      - name: Create test database
+        run: php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
+
+      - name: Run Doctrine migrations
+        run: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+
+      - name: Run integration tests
+        run: php bin/phpunit --testsuite integration --no-coverage
+
+  functional-tests:
+    name: Functional Tests
+    needs: unit-tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: app_db_test
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test -d app_db_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      APP_ENV: test
+      APP_SECRET: test-secret
+      DATABASE_NAME: app_db_test
+      TEST_DATABASE_NAME: app_db_test
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_PORT: 5432
+      DATABASE_USER: test
+      DATABASE_PASSWORD: test
+      DATABASE_SERVER_VERSION: "18"
+      DATABASE_CHARSET: UTF8
+      DATABASE_DRIVER: pdo_pgsql
+      GITHUB_USERNAME: test-username
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer
+          extensions: ctype, iconv, pdo_pgsql
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      - name: Clear test cache
+        run: php bin/console cache:clear --env=test
+
+      - name: Create test database
+        run: php bin/console doctrine:database:create --env=test --if-not-exists --no-interaction
+
+      - name: Run Doctrine migrations
+        run: php bin/console doctrine:migrations:migrate --env=test --no-interaction
+
+      - name: Run functional tests
+        run: php bin/phpunit --testsuite functional --no-coverage
